@@ -22,5 +22,7 @@ Description: Multidimensional nonparametric spatio-temporal (geo)statistics.
     local polynomial kernel regression, density and variogram estimation.
     Nonparametric methods for trend and variogram inference.
 License: GPL (>= 2)
+URL: http://github.com/rubenfcasal/npsp
+BugReports: http://github.com/rubenfcasal/npsp/issues
 LazyData: yes
 RoxygenNote: 5.0.1
