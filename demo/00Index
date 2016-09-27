@@ -1,0 +1,5 @@
+datagrid   "grid.par" and "data.grid" classes and methods. 
+binning    binning() and "bin.data" class and methods.
+locpol     locpol() and "locpol.bin" class and methods.
+variogram  svariso(), np.svariso(), "svar.bin" and "np.svar" classes and methods.
+aquifer    np geostatistical analysis of Wolfcamp aquifer data.
