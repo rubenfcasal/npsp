@@ -103,7 +103,7 @@ simage <- function(x, ...) UseMethod("simage")
 #--------------------------------------------------------------------
 simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1, 
     len = ncol(s)), s, slim = range(s, finite = TRUE), col = jet.colors(128), 
-    breaks = NULL, legend = TRUE, horizontal = FALSE, legend.shrink = 0.9,
+    breaks = NULL, legend = TRUE, horizontal = FALSE, legend.shrink = 1.0,
     legend.width = 1.2, legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
     bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL, 
     legend.args = NULL, graphics.reset = FALSE, xlab = NULL, ylab = NULL,
