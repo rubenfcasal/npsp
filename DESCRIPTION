@@ -2,7 +2,7 @@ Package: npsp
 Type: Package
 Title: Nonparametric Spatial Statistics
 Version: 0.5-3
-Date: 2016-09-09
+Date: 2016-09-28
 Author: Ruben Fernandez-Casal
 Maintainer: Ruben Fernandez-Casal <rubenfcasal@gmail.com>
 Depends:

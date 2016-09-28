@@ -1,11 +1,12 @@
-Last version released to CRAN: 0.3-6
+Version 0.5-3 (2016-09-28)
 
-Version 0.5-3 (2016-09-09)
+    * Added 'README.md'
+    
+    * Changes in FORTRAN code to avoid warnings compiling with -Wall -pedantic
 
-    * Changes in FORTRAN code to avoid warnings when compiled with
-      options -Wall -pedantic
-
-    * Changed the default value of 'legend.shrink' to 0.9 in "simage.default()".
+    * Changed the default value of 'legend.shrink' to 1.0 in "simage.default()" and "spoints.default".
+    
+    * Fixed bug in "spoints.default" (when 'add = TRUE').
       
 
 Version 0.5-2 (2016-07-01)
