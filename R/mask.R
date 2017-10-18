@@ -112,9 +112,9 @@ mask.bin.den <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)),
 #' in local polynomial estimation.
 #' @export
 mask.bin.data <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)),
-                          set.NA = TRUE, warn = TRUE, filter.lp = TRUE, ...) {
+                          set.NA = TRUE, warn = TRUE, filter.lp = set.NA, ...) {
 #--------------------------------------------------------------------
-    if (filter.lp) warn <- TRUE
+    # if (filter.lp) warn <- TRUE
     res <- mask.bin.den(x, mask = mask, warn = warn)
     if (set.NA) is.na(res$biny) <- !res$mask
     if (filter.lp) res$binw[!mask] <- -1
