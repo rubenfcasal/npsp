@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image plot with a color scale — simage • npsp</title>
+<title>Image plot with a color scale � simage • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -306,7 +306,7 @@ will reset plot parameters to the values before entering the function).</p></dd>
 <span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(-<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='no'>nx</span>[<span class='fl'>1</span>])
 <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(-<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='no'>nx</span>[<span class='fl'>2</span>])
 <span class='no'>trend</span> <span class='kw'>&lt;-</span> <span class='fu'>outer</span>(<span class='no'>x1</span>, <span class='no'>x2</span>, <span class='kw'>function</span>(<span class='no'>x</span>,<span class='no'>y</span>) <span class='no'>x</span>^<span class='fl'>2</span> - <span class='no'>y</span>^<span class='fl'>2</span>)
-<span class='fu'>simage</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>trend</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>)</div><div class='img'><img src='simage-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>simage</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>trend</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>)</div><div class='img'><img src='simage-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>#</span>
 <span class='co'># Multiple plots </span>
 <span class='fu'>set.seed</span>(<span class='fl'>1</span>)
@@ -317,7 +317,7 @@ will reset plot parameters to the values before entering the function).</p></dd>
 <span class='co'># 1x2 plot</span>
 <span class='no'>old.par</span> <span class='kw'>&lt;-</span> <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>2</span>))
 <span class='fu'>simage</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>y</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Data'</span>)
-<span class='fu'>simage</span>(<span class='no'>lp</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Estimated trend'</span>)</div><div class='img'><img src='simage-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>par</span>(<span class='no'>old.par</span>)</div></pre>
+<span class='fu'>simage</span>(<span class='no'>lp</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Estimated trend'</span>)</div><div class='img'><img src='simage-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>par</span>(<span class='no'>old.par</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

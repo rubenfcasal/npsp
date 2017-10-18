@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Utilities for plotting with a color scale — splot • npsp</title>
+<title>Utilities for plotting with a color scale � splot • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -269,7 +269,7 @@ The default value <code>rev = TRUE</code> may be adecuate to grayscale convertio
 <span class='no'>scale.range</span> <span class='kw'>&lt;-</span> <span class='fu'>range</span>(<span class='no'>aquifer</span>$<span class='no'>head</span>)
 <span class='fu'>splot</span>(<span class='kw'>slim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>)
 <span class='fu'>with</span>( <span class='no'>aquifer</span>, <span class='fu'>plot</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>scolor</span>(<span class='no'>head</span>, <span class='kw'>slim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>),
-       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Wolfcamp aquifer data"</span>))</div><div class='img'><img src='splot-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># equivalent to:</span>
+       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Wolfcamp aquifer data"</span>))</div><div class='img'><img src='splot-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># equivalent to:</span>
 <span class='co'># with( aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))</span>
 
 <span class='co'>#</span>
@@ -289,7 +289,7 @@ The default value <code>rev = TRUE</code> may be adecuate to grayscale convertio
 <span class='fu'>image</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>trend</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>)
 <span class='fu'>image</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>y</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Data'</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>)</div><div class='input'><span class='fu'>par</span>(<span class='no'>old.par</span>)
 <span class='co'># the legend can be added to any plot...</span>
-<span class='fu'>splot</span>(<span class='kw'>slim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='splot-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>## note that argument 'zlim' in 'image' corresponds with 'slim' in 'sxxxx' functions. 
+<span class='fu'>splot</span>(<span class='kw'>slim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='splot-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>## note that argument 'zlim' in 'image' corresponds with 'slim' in 'sxxxx' functions. 
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

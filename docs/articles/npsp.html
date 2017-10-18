@@ -142,7 +142,7 @@
 ##  Mean   :  16.89   Mean   : 79.356   Mean   :2002  
 ##  3rd Qu.:  70.90   3rd Qu.:131.825   3rd Qu.:2540  
 ##  Max.   : 112.80   Max.   :184.766   Max.   :3571</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/scattersplot.html">scattersplot</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], aquifer$head/<span class="dv">100</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/scattersplot.html">scattersplot</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head<span class="op">/</span><span class="dv">100</span>, 
              <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>, <span class="dt">xlab =</span> <span class="st">'lon'</span>, 
              <span class="dt">ylab=</span><span class="st">'lat'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head  (hundreds)'</span>,
              <span class="dt">col =</span> <span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">128</span>))</code></pre></div>
@@ -187,21 +187,21 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   fig.height=5, fig.width=5}</span>
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## CPU time has been initialized.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], aquifer$head, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">41</span>,<span class="dv">41</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">41</span>,<span class="dv">41</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>) 
 <span class="kw"><a href="../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages'</span>)
-<span class="kw">points</span>(bin$data$x, <span class="dt">col =</span> <span class="st">'darkgray'</span>)</code></pre></div>
+<span class="kw">points</span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">col =</span> <span class="st">'darkgray'</span>)</code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.012   0.000   0.015</code></pre>
+##    0.02    0.00    0.01</code></pre>
 </div>
 <div id="npsp-functions-interp-s3-generic-and-methods-predict-methods-locpol-bin-y-np-den-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#npsp-functions-interp-s3-generic-and-methods-predict-methods-locpol-bin-y-np-den-" class="anchor"></a><code>npsp</code> functions: <code>interp</code> (S3 generic and methods), <code>predict</code> (methods <code>locpol.bin</code> y <code>np.den</code>).</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nbin.hd &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">128</span>, <span class="dv">128</span>)
-bin.nna &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], aquifer$head, <span class="dt">nbin =</span> nbin.hd)
-<span class="kw">with</span>(bin.nna$data, <span class="kw">summary</span>((y -<span class="st"> </span><span class="kw"><a href="../reference/interp.html">interp</a></span>(bin.nna, <span class="dt">newx =</span> x)$y)/y ))</code></pre></div>
+bin.nna &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">nbin =</span> nbin.hd)
+<span class="kw">with</span>(bin.nna<span class="op">$</span>data, <span class="kw">summary</span>((y <span class="op">-</span><span class="st"> </span><span class="kw"><a href="../reference/interp.html">interp</a></span>(bin.nna, <span class="dt">newx =</span> x)<span class="op">$</span>y)<span class="op">/</span>y ))</code></pre></div>
 <pre><code>##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
 ## -0.0267747  0.0000000  0.0000000 -0.0001124  0.0000000  0.0249106</code></pre>
 </div>
@@ -223,12 +223,12 @@ den &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.den.
 <span class="kw">plot</span>(den, <span class="dt">main =</span> <span class="st">'Estimated log(density)'</span>)</code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   Index with grid nodes far from data</span>
-mask &lt;-<span class="st"> </span><span class="kw">log</span>(den$est) &gt;<span class="st"> </span>-<span class="dv">15</span>
+mask &lt;-<span class="st"> </span><span class="kw">log</span>(den<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">15</span>
 bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(bin, <span class="dt">mask =</span> mask)
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.300   0.008   0.502</code></pre>
+##    0.17    0.04    0.22</code></pre>
 </div>
 </div>
 <div id="trend-estimation" class="section level1">
@@ -297,7 +297,7 @@ K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),\]</span> <span class="math inline">\(
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.420   0.124   0.818</code></pre>
+##    0.31    0.03    0.34</code></pre>
 </div>
 </div>
 <div id="variogram-estimation" class="section level1">
@@ -355,16 +355,16 @@ K_{\mathbf{G}}(\mathbf{x}_{i}-\mathbf{x}_{j}-\mathbf{u})  &amp;
 <div id="example-wolfcamp-aquifer-3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-wolfcamp-aquifer-3" class="anchor"></a>Example: Wolfcamp aquifer</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span>lp$data$y -<span class="st"> </span><span class="kw">predict</span>(lp)
-  maxlag &lt;-<span class="st"> </span><span class="fl">0.55</span>*<span class="kw">sqrt</span>(<span class="kw">sum</span>(<span class="kw">diff</span>(<span class="kw">apply</span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], <span class="dv">2</span>, range))^<span class="dv">2</span>))
-esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span>lp<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">predict</span>(lp)
+  maxlag &lt;-<span class="st"> </span><span class="fl">0.55</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">sum</span>(<span class="kw">diff</span>(<span class="kw">apply</span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dv">2</span>, range))<span class="op">^</span><span class="dv">2</span>))
+esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
 svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co">#   dk = 2</span>
 <span class="kw">plot</span>(svm, <span class="dt">main =</span> <span class="st">"Nonparametric semivariogram and fitted model"</span>)</code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.236   0.036   0.305</code></pre>
+##    0.13    0.03    0.16</code></pre>
 </div>
 <div id="bias-corrected-variogram-estimation" class="section level2">
 <h2 class="hasAnchor">
@@ -380,12 +380,12 @@ svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar2)  <span class="co">#   dk = 2</span>
 <span class="kw">plot</span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, 
      <span class="dt">lwd =</span> <span class="dv">2</span>) 
-<span class="kw">with</span>(svm$fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</code></pre></div>
+<span class="kw">with</span>(svm<span class="op">$</span>fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.488   0.004   0.515</code></pre>
+##    0.34    0.04    0.37</code></pre>
 </div>
 </div>
 <div id="bandwidth-selection" class="section level1">
@@ -407,7 +407,7 @@ svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar
 <h2 class="hasAnchor">
 <a href="#example-wolfcamp-aquifer-4" class="anchor"></a>Example: Wolfcamp aquifer</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   Example (speeding computations...):</span>
-bin2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], aquifer$head, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">21</span>,<span class="dv">21</span>))
+bin2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">21</span>,<span class="dv">21</span>))
 <span class="co"># Warning: There is not enough data in some neighborhoods ('NRL &lt; NINDRL'):</span>
 <span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">25</span>), <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">ncv =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## $h
@@ -436,7 +436,7 @@ lp.h</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   1.196   0.136   1.732</code></pre>
+##    0.94    0.25    1.19</code></pre>
 </div>
 </div>
 <div id="final-estimation" class="section level1">
@@ -445,20 +445,20 @@ lp.h</code></pre></div>
 <div id="trend-re-estimation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#trend-re-estimation" class="anchor"></a>trend re-estimation</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(lp, <span class="dt">h =</span> lp.h$h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)   <span class="co"># np.svariso.corr</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(lp, <span class="dt">h =</span> lp.h<span class="op">$</span>h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)   <span class="co"># np.svariso.corr</span>
 <span class="co"># Perspective plot with a color scale</span>
 <span class="kw"><a href="../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head levels'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)   </code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.204   0.016   0.237</code></pre>
+##    0.12    0.06    0.19</code></pre>
 </div>
 <div id="variogram-re-estimation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variogram-re-estimation" class="anchor"></a>Variogram re-estimation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span><span class="kw">residuals</span>(lp)
-esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
+esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
 svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co"># dk = 2</span>
 esvar3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
 svm3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar3, <span class="dt">dk =</span> <span class="dv">0</span>)
@@ -466,27 +466,27 @@ svm3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsva
 <span class="kw">plot</span>(svm3, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, 
      <span class="dt">lwd =</span> <span class="dv">2</span>) 
 <span class="co"># with(svm$fit, lines(u, fitted.sv, lty = 2))</span>
-<span class="kw">with</span>(svm2$fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>))</code></pre></div>
+<span class="kw">with</span>(svm2<span class="op">$</span>fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>))</code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.360   0.016   0.404</code></pre>
+##    0.21    0.04    0.25</code></pre>
 </div>
 <div id="trend-and-variogram-re-re-estimation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#trend-and-variogram-re-re-estimation" class="anchor"></a>trend and variogram re-re-estimation?</h2>
 <p>Do you think it is necessary?…</p>
 <p>Compute the final trend estimates:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], aquifer$head, <span class="dt">nbin =</span> nbin.hd, 
-             <span class="dt">h =</span> lp$locpol$h, <span class="dt">hat.bin =</span> <span class="ot">FALSE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">nbin =</span> nbin.hd, 
+             <span class="dt">h =</span> lp<span class="op">$</span>locpol<span class="op">$</span>h, <span class="dt">hat.bin =</span> <span class="ot">FALSE</span>)
 <span class="co"># Perspective plot with a color scale</span>
 <span class="kw"><a href="../reference/simage.html">simage</a></span>(lp, <span class="dt">main =</span> <span class="st">'Final trend estimates</span><span class="ch">\n</span><span class="st">(piezometric-head levels)'</span>)   </code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   2.480   0.124   2.892</code></pre>
+##    1.98    0.02    1.99</code></pre>
 </div>
 </div>
 <div id="kriging-predictions" class="section level1">
@@ -508,7 +508,7 @@ svm3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsva
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.452   0.008   0.490</code></pre>
+##    0.39    0.06    0.46</code></pre>
 </div>
 <div id="kriging-maps" class="section level3">
 <h3 class="hasAnchor">
@@ -522,10 +522,10 @@ svm3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsva
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.100   0.008   0.113 
+##    0.09    0.05    0.14 
 ## Total time:
 ##    user  system elapsed 
-##   6.248   0.480   8.023</code></pre>
+##    4.70    0.62    5.32</code></pre>
 </div>
 </div>
 </div>

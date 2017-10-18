@@ -1,5 +1,6 @@
 npsp: Nonparametric spatial (geo)statistics
 ============================================
+### `r paste("Version", packageVersion("npsp"))`
 
 This package implements nonparametric methods 
 for inference on multidimensional spatial (or spatio-temporal) processes,
@@ -40,6 +41,15 @@ Nonparametric residual kriging (sometimes called external drift kriging):
    Users are encouraged to use `krige` (or `krige.cv`) utilities in gstat package
    together with `as.vgm` for local kriging.
 
+Installation
+------------
+
+`npsp` is available from CRAN, but you can install the development version from github with:
+
+```{r install, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("rubenfcasal/npsp")
+```
 
 Other functions
 ---------------

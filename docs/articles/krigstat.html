@@ -118,12 +118,12 @@
 <div id="trend-estimation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trend-estimation" class="anchor"></a>Trend estimation</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], aquifer$head, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="dv">75</span>, <span class="dv">2</span>), 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="dv">75</span>, <span class="dv">2</span>), 
              <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  
             <span class="co"># np.svariso.corr: 'lp' must have a '$locpol$hat' component</span>
 
 <span class="co"># Mask grid nodes far from data</span>
-mask &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="kw"><a href="../reference/np.den.html">np.den</a></span>(lp, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="kw">c</span>(<span class="dv">55</span>,<span class="dv">55</span>)), <span class="dt">degree =</span> <span class="dv">0</span>)$est) &gt;<span class="st"> </span>-<span class="dv">15</span>
+mask &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="kw"><a href="../reference/np.den.html">np.den</a></span>(lp, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="kw">c</span>(<span class="dv">55</span>,<span class="dv">55</span>)), <span class="dt">degree =</span> <span class="dv">0</span>)<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">15</span>
 lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(lp, <span class="dt">mask =</span> mask)
 
 <span class="kw"><a href="../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, 
@@ -132,24 +132,24 @@ lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.htm
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   1.768   0.084   1.931</code></pre>
+##    1.45    0.12    1.99</code></pre>
 </div>
 <div id="variogram-estimation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#variogram-estimation" class="anchor"></a>Variogram estimation</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span><span class="kw">residuals</span>(lp)
-esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
+esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
 svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co"># dk = 2</span>
 esvar2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
 svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar2, <span class="dt">dk =</span> <span class="dv">0</span>)  <span class="co"># dk = Inf</span>
 <span class="kw">plot</span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, 
      <span class="dt">lwd =</span> <span class="dv">2</span>) 
-<span class="kw">with</span>(svm$fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</code></pre></div>
+<span class="kw">with</span>(svm<span class="op">$</span>fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.632   0.020   0.707</code></pre>
+##    0.45    0.06    0.52</code></pre>
 </div>
 </div>
 <div id="residual-kriging" class="section level2">
@@ -157,21 +157,21 @@ svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsva
 <a href="#residual-kriging" class="anchor"></a>Residual Kriging</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)
 <span class="kw">library</span>(gstat)
-spdf &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPointsDataFrame</a></span>(aquifer[,<span class="dv">1</span>:<span class="dv">2</span>], 
-            <span class="kw">data.frame</span>(<span class="dt">y =</span> aquifer$head, <span class="dt">r =</span> lp.resid))
-newdata &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPoints</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lp))
-krig &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/gstat/topics/krige">krige</a></span>(r ~<span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, 
+spdf &lt;-<span class="st"> </span><span class="kw">SpatialPointsDataFrame</span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], 
+            <span class="kw">data.frame</span>(<span class="dt">y =</span> aquifer<span class="op">$</span>head, <span class="dt">r =</span> lp.resid))
+newdata &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lp))
+krig &lt;-<span class="st"> </span><span class="kw">krige</span>(r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, 
               <span class="dt">model =</span> <span class="kw"><a href="../reference/npsp-gstat.html">as.vgm</a></span>(svm))</code></pre></div>
 <pre><code>## [using ordinary kriging]</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp$est +<span class="st"> </span>krig@data$var1.pred, 
-                       <span class="dt">ksd =</span> <span class="kw">sqrt</span>(krig@data$var1.var), 
-        <span class="dt">grid =</span> lp$grid)
-krig2 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/gstat/topics/krige">krige</a></span>(r ~<span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp<span class="op">$</span>est <span class="op">+</span><span class="st"> </span>krig<span class="op">@</span>data<span class="op">$</span>var1.pred, 
+                       <span class="dt">ksd =</span> <span class="kw">sqrt</span>(krig<span class="op">@</span>data<span class="op">$</span>var1.var), 
+        <span class="dt">grid =</span> lp<span class="op">$</span>grid)
+krig2 &lt;-<span class="st"> </span><span class="kw">krige</span>(r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, 
                <span class="dt">model =</span> <span class="kw"><a href="../reference/npsp-gstat.html">as.vgm</a></span>(svm2))</code></pre></div>
 <pre><code>## [using ordinary kriging]</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig2.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp$est +<span class="st"> </span>krig2@data$var1.pred, 
-                        <span class="dt">ksd =</span> <span class="kw">sqrt</span>(krig2@data$var1.var), 
-        <span class="dt">grid =</span> lp$grid)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig2.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp<span class="op">$</span>est <span class="op">+</span><span class="st"> </span>krig2<span class="op">@</span>data<span class="op">$</span>var1.pred, 
+                        <span class="dt">ksd =</span> <span class="kw">sqrt</span>(krig2<span class="op">@</span>data<span class="op">$</span>var1.var), 
+        <span class="dt">grid =</span> lp<span class="op">$</span>grid)
 
 scale.color &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">64</span>)
 scale.range &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1100</span>, <span class="dv">4100</span>)
@@ -187,11 +187,11 @@ old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="d
 <p><img src="krigstat_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
 scale.range &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">125</span>, <span class="dv">200</span>)
-scale.range &lt;-<span class="st"> </span><span class="kw">range</span>(krig.grid$ksd, krig2.grid$ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/gstat/topics/image">image</a></span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, 
+scale.range &lt;-<span class="st"> </span><span class="kw">range</span>(krig.grid<span class="op">$</span>ksd, krig2.grid<span class="op">$</span>ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
+<span class="kw">image</span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, 
        <span class="dt">main =</span> <span class="st">'Kriging sd'</span>, <span class="dt">col =</span> scale.color)
 <span class="kw">with</span>(aquifer, <span class="kw">points</span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
-<span class="kw"><a href="http://www.rdocumentation.org/packages/gstat/topics/image">image</a></span>( krig2.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, 
+<span class="kw">image</span>( krig2.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, 
        <span class="dt">main =</span> <span class="st">'Kriging sd (bias-corrected)'</span>, <span class="dt">col =</span> scale.color)
 <span class="kw">with</span>(aquifer, <span class="kw">points</span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
 <span class="kw">par</span>(old.par)
@@ -200,10 +200,10 @@ scale.range &lt;-<span class="st"> </span><span class="kw">range</span>(krig.gri
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   1.184   0.144   1.707 
+##    0.87    0.08    0.95 
 ## Total time:
 ##    user  system elapsed 
-##   3.584   0.248   4.345</code></pre>
+##    2.77    0.26    3.46</code></pre>
 <div id="notes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#notes" class="anchor"></a>Notes:</h3>

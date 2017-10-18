@@ -106,13 +106,13 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Total Monthly Precipitation</span>
 <span class="kw"><a href="../reference/spoints.html">spoints</a></span>(precipitation)</code></pre></div>
 <p><img src="precipitation_files/figure-html/Datos-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">length</span>(precipitation$y)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">length</span>(precipitation<span class="op">$</span>y)
 coord &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/coordinates">coordinates</a></span>(precipitation)
 attributes &lt;-<span class="st"> </span><span class="kw">attributes</span>(precipitation)
-labels &lt;-<span class="st"> </span>attributes$labels 
-border &lt;-<span class="st"> </span>attributes$border 
-interior &lt;-<span class="st"> </span>attributes$interior 
-slim &lt;-<span class="st"> </span><span class="kw">range</span>(precipitation$y)
+labels &lt;-<span class="st"> </span>attributes<span class="op">$</span>labels 
+border &lt;-<span class="st"> </span>attributes<span class="op">$</span>border 
+interior &lt;-<span class="st"> </span>attributes<span class="op">$</span>interior 
+slim &lt;-<span class="st"> </span><span class="kw">range</span>(precipitation<span class="op">$</span>y)
 col &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>)
 col2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>)
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
@@ -120,7 +120,7 @@ col2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.
 <div id="exploratory-data-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exploratory-data-analysis" class="anchor"></a>Exploratory data analysis</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.summary &lt;-<span class="st"> </span><span class="kw">summary</span>(precipitation$y) <span class="co"># Resumen de datos</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.summary &lt;-<span class="st"> </span><span class="kw">summary</span>(precipitation<span class="op">$</span>y) <span class="co"># Resumen de datos</span>
 y.summary</code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.000   1.100   1.539   1.551   1.954   4.105</code></pre>
@@ -129,24 +129,24 @@ y.summary</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.320   0.060   0.404</code></pre>
+##    0.20    0.08    0.28</code></pre>
 </div>
 <div id="linear-binning" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-binning" class="anchor"></a>Linear binning</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nbin &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">30</span>)
-bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, <span class="dt">nbin =</span> nbin, precipitation$y, <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)
+bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, <span class="dt">nbin =</span> nbin, precipitation<span class="op">$</span>y, <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.300   0.016   0.350</code></pre>
+##    0.17    0.03    0.21</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages and data points'</span>, <span class="dt">slim =</span> slim,
-       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>],
+       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],
        <span class="dt">sub =</span> <span class="kw">paste0</span>(<span class="st">"("</span>, <span class="kw">paste</span>(<span class="kw">dim</span>(bin), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>))
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 
-<span class="kw">points</span>(bin$data$x, <span class="dt">pch =</span><span class="st">'+'</span>)
+<span class="kw">points</span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">pch =</span><span class="st">'+'</span>)
 coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coordvalues.html">coordvalues</a></span>(bin)
 <span class="kw">abline</span>(<span class="dt">v =</span> coordvs[[<span class="dv">1</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)
 <span class="kw">abline</span>(<span class="dt">h =</span> coordvs[[<span class="dv">2</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</code></pre></div>
@@ -159,7 +159,7 @@ coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coo
 <div id="initial-trend-estimates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#initial-trend-estimates" class="anchor"></a>Initial trend estimates</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp0.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin)$h
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp0.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin)<span class="op">$</span>h
 lp0.h    <span class="co"># &lt;- diag(c(6.85061, 2.946348))   </span></code></pre></div>
 <pre><code>##         [,1]     [,2]
 ## [1,] 6.85061 0.000000
@@ -170,17 +170,17 @@ lp0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.628   0.148   1.018</code></pre>
+##    0.47    0.11    0.57</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp0, <span class="dt">main =</span> <span class="st">"Initial trend estimates"</span>, <span class="dt">slim =</span> slim,
-       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>])
+       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">points</span>(coord[,<span class="dv">1</span>], coord[,<span class="dv">2</span>], <span class="dt">col=</span><span class="st">"darkgray"</span>)</code></pre></div>
 <p><img src="precipitation_files/figure-html/lp0-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Residuals</span>
 lp0.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(lp0)
-lp0.resid &lt;-<span class="st"> </span>lp0$data$y -<span class="st"> </span>lp0.pred
-lp0.r2 &lt;-<span class="st"> </span><span class="kw">cor</span>(lp0.pred, lp0$data$y)^<span class="dv">2</span> <span class="co"># assuming independence...</span>
+lp0.resid &lt;-<span class="st"> </span>lp0<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>lp0.pred
+lp0.r2 &lt;-<span class="st"> </span><span class="kw">cor</span>(lp0.pred, lp0<span class="op">$</span>data<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span> <span class="co"># assuming independence...</span>
 
 old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
 <span class="kw">hist</span>(lp0.resid)
@@ -200,7 +200,7 @@ maxlag &lt;-<span class="st"> </span><span class="dv">10</span>
 <span class="co"># Empirical variogram with linear binning:</span>
 svar.bin &lt;-<span class="st"> </span><span class="kw">svariso</span>(coord, lp0.resid,  <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag)  
 sv.lags &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.bin)
-svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)$h
+svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)<span class="op">$</span>h
 <span class="co"># Local linear variogram estimation</span>
 svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)  <span class="co"># biased</span>
 <span class="co"># Fitted Shapiro-Botha variogram model</span>
@@ -218,13 +218,13 @@ svm02 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsv
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   8.900   0.500  10.234</code></pre>
+##    5.75    0.23    5.99</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svm02, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, 
      <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.np2))), 
-     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(svar.np2$biny, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
+     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(svar.np2<span class="op">$</span>biny, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
 <span class="kw">plot</span>(svm0, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(svar.np, <span class="dt">type =</span> <span class="st">"p"</span>, <span class="dt">pch =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">c</span>(svm02$nugget, svm02$sill), <span class="dt">lty =</span> <span class="dv">3</span>)
+<span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">c</span>(svm02<span class="op">$</span>nugget, svm02<span class="op">$</span>sill), <span class="dt">lty =</span> <span class="dv">3</span>)
 <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">3</span>)
 <span class="kw">legend</span>(<span class="st">"bottomright"</span>, <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">"corrected"</span>, <span class="st">'biased'</span>),
             <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">pch =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>), <span class="dt">lwd =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</code></pre></div>
@@ -235,7 +235,7 @@ svm02 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsv
 <h1 class="hasAnchor">
 <a href="#bandwidth-selection" class="anchor"></a>Bandwidth selection</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># GCV criterion (Francisco-Fernandez and Opsomer, 2005)</span>
-lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin, <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">cov =</span> svm02, <span class="dt">DEalgorithm =</span> <span class="ot">FALSE</span>)$h
+lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin, <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">cov =</span> svm02, <span class="dt">DEalgorithm =</span> <span class="ot">FALSE</span>)<span class="op">$</span>h
 lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre></div>
 <pre><code>##          [,1]     [,2]
 ## [1,] 11.11463  0.00000
@@ -243,7 +243,7 @@ lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   2.068   0.300   2.680</code></pre>
+##    1.47    0.41    1.88</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lp.h &lt;- hcv.data(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h</span>
 <span class="co"># lp.h    # &lt;- diag(c(10.0871, 18.3956))</span>
 ## Time of last operation: hcv.data
@@ -261,17 +261,17 @@ lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre>
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.032   0.004   0.040</code></pre>
+##    0.05    0.03    0.07</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp, <span class="dt">main =</span> <span class="st">"Trend Estimation"</span>, <span class="dt">slim =</span> slim, 
-       <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
+       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="precipitation_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># spoints(coord[,1], coord[,2], precipitation$y, add = TRUE)</span>
 <span class="co"># New Residuals</span>
 lp.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(lp)
-lp.resid &lt;-<span class="st"> </span>lp$data$y -<span class="st"> </span>lp.pred
-lp.r2 &lt;-<span class="st"> </span><span class="kw">cor</span>(lp.pred, lp$data$y)^<span class="dv">2</span> <span class="co"># assuming independence...</span>
+lp.resid &lt;-<span class="st"> </span>lp<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>lp.pred
+lp.r2 &lt;-<span class="st"> </span><span class="kw">cor</span>(lp.pred, lp<span class="op">$</span>data<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span> <span class="co"># assuming independence...</span>
 old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
 <span class="kw">hist</span>(lp.resid)
 <span class="kw">plot</span>(lp.pred, lp.resid, <span class="dt">main =</span> <span class="st">"Residuals vs Fitted"</span>, 
@@ -285,7 +285,7 @@ old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="d
 <h2 class="hasAnchor">
 <a href="#fitted-variogram-model" class="anchor"></a>Fitted variogram model</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svar.bin &lt;-<span class="st"> </span><span class="kw">svariso</span>(coord, lp.resid,  <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag)  
-svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)$h  <span class="co"># svar.np.h &lt;- 2.257358</span>
+svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)<span class="op">$</span>h  <span class="co"># svar.np.h &lt;- 2.257358</span>
 svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)
 svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np, <span class="dt">dk =</span> <span class="dv">0</span>)
 svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag, 
@@ -299,12 +299,12 @@ svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   4.708   0.160   5.219</code></pre>
+##    3.05    0.19    3.25</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, 
      <span class="dt">legend =</span> <span class="ot">FALSE</span>)
 <span class="kw">plot</span>(svm, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(svar.np, <span class="dt">type =</span> <span class="st">"p"</span>, <span class="dt">pch =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">c</span>(svm2$nugget, svm2$sill), <span class="dt">lty =</span> <span class="dv">3</span>)
+<span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">c</span>(svm2<span class="op">$</span>nugget, svm2<span class="op">$</span>sill), <span class="dt">lty =</span> <span class="dv">3</span>)
 <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">3</span>)
 <span class="kw">plot</span>(svm0, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(svm02, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
@@ -315,27 +315,27 @@ svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.020   0.000   0.018</code></pre>
+##    0.00    0.01    0.01</code></pre>
 </div>
 </div>
 <div id="final-trend-estimates" class="section level1">
 <h1 class="hasAnchor">
 <a href="#final-trend-estimates" class="anchor"></a>Final trend estimates</h1>
 <p>High resolution binning (120x120):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, precipitation$y,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, precipitation<span class="op">$</span>y,
                <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">120</span>,<span class="dv">120</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)
 <span class="kw"><a href="../reference/simage.html">simage</a></span>(bin.hd, <span class="dt">main =</span> <span class="st">'Binning averages'</span>,
-       <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>],
+       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],
        <span class="dt">sub =</span> <span class="kw">paste0</span>(<span class="st">"("</span>, <span class="kw">paste</span>(<span class="kw">dim</span>(bin.hd), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>),
        <span class="dt">slim =</span> slim)
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="precipitation_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Density estimation (used for mask in binning HD)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h.den &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(<span class="kw"><a href="../reference/bin.den.html">as.bin.den</a></span>(bin), <span class="dt">ncv =</span> <span class="dv">2</span>)$h         <span class="co"># diag(0.4061458, 0.6349045)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h.den &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(<span class="kw"><a href="../reference/bin.den.html">as.bin.den</a></span>(bin), <span class="dt">ncv =</span> <span class="dv">2</span>)<span class="op">$</span>h         <span class="co"># diag(0.4061458, 0.6349045)</span>
 den &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.den.html">np.den</a></span>(bin.hd, <span class="dt">h =</span> h.den, <span class="dt">degree =</span> <span class="dv">0</span>)
 <span class="kw">plot</span>(den, <span class="dt">main =</span> <span class="st">'Estimated log(density)'</span>,
-          <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>],
+          <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],
           <span class="dt">sub =</span> <span class="kw">paste0</span>(<span class="st">"("</span>, <span class="kw">paste</span>(<span class="kw">dim</span>(bin.hd), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>) )
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
@@ -343,28 +343,28 @@ den &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.den.
 <p>Data mask (filtering):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spp.grid &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPoints</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(bin.hd))
 <span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(spp.grid) &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(border) <span class="co"># CRS("+init=epsg:28992 +units=km")</span>
-mask.sp &lt;-<span class="st"> </span>!<span class="kw">is.na</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/over">over</a></span>(spp.grid, <span class="kw">as</span>(border, <span class="st">'SpatialPolygons'</span>)))
-mask &lt;-<span class="st"> </span>mask.sp |<span class="st"> </span>(bin.hd$binw &gt;<span class="st"> </span><span class="dv">0</span>)  <span class="co">#indice</span>
+mask.sp &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sp/topics/over">over</a></span>(spp.grid, <span class="kw">as</span>(border, <span class="st">'SpatialPolygons'</span>)))
+mask &lt;-<span class="st"> </span>mask.sp <span class="op">|</span><span class="st"> </span>(bin.hd<span class="op">$</span>binw <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co">#indice</span>
 bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(bin.hd, <span class="dt">mask =</span> mask)</code></pre></div>
 <p>Final trend (high resolution):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin.hd, <span class="dt">h =</span> lp.h)
 
 <span class="kw"><a href="../reference/simage.html">simage</a></span>(lp.hd, <span class="dt">main =</span> <span class="st">"Final trend estimates"</span>, <span class="dt">slim =</span> slim, 
-       <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
+       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="precipitation_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Grid mask (some data will be filtered…):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span>lp.hd
 trend.est &lt;-<span class="st"> </span><span class="kw">predict</span>(lp)
-lp.resid &lt;-<span class="st"> </span>lp$data$y -<span class="st"> </span>trend.est
-lp$mask &lt;-<span class="st"> </span><span class="ot">NULL</span>
+lp.resid &lt;-<span class="st"> </span>lp<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>trend.est
+lp<span class="op">$</span>mask &lt;-<span class="st"> </span><span class="ot">NULL</span>
 lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(lp, <span class="dt">mask =</span> mask.sp, <span class="dt">warn =</span> <span class="ot">FALSE</span>)  <span class="co"># warning=FALSE</span>
 
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   3.004   0.384   4.156</code></pre>
+##    2.27    0.38    2.64</code></pre>
 </div>
 <div id="kriging-predictions" class="section level1">
 <h1 class="hasAnchor">
@@ -376,28 +376,28 @@ lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.htm
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   8.556   0.468   9.419</code></pre>
+##    7.63    0.25    7.89</code></pre>
 </div>
 <div id="kriging-maps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#kriging-maps" class="anchor"></a>Kriging maps</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'kpred'</span>, <span class="dt">main =</span> <span class="st">'Kriging predictions'</span>, <span class="dt">slim =</span> slim,
-                  <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>])
+                  <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="precipitation_files/figure-html/kriging.maps-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'ksd'</span>, <span class="dt">main =</span> <span class="st">'Kriging sd'</span>,
-                  <span class="dt">xlab =</span> labels$x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels$x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
+                  <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="precipitation_files/figure-html/kriging.maps-2.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   0.248   0.004   0.277 
+##    0.12    0.15    0.28 
 ## Total time:
 ##    user  system elapsed 
-##  28.784   2.044  33.815</code></pre>
+##   21.18    1.87   23.07</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save.image(".RData")</span></code></pre></div>
 </div>
 </div>

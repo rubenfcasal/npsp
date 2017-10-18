@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>R Graphics for gridded data — rgraphics • npsp</title>
+<title>R Graphics for gridded data � rgraphics • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -178,9 +178,9 @@ is called, otherwise <code>filled.contour</code>.</p></td>
 <span class='no'>gdata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='data.grid.html'>data.grid</a></span>(<span class='kw'>trend</span> <span class='kw'>=</span> <span class='no'>trend</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>grid</span> <span class='kw'>=</span> <span class='no'>grid</span>)
 
 <span class='co'># perspective plot</span>
-<span class='fu'>persp</span>(<span class='no'>gdata</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>phi</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>ticktype</span> <span class='kw'>=</span> <span class='st'>"detailed"</span>)</div><div class='img'><img src='rgraphics-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>persp</span>(<span class='no'>gdata</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>, <span class='kw'>theta</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>phi</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>ticktype</span> <span class='kw'>=</span> <span class='st'>"detailed"</span>)</div><div class='img'><img src='rgraphics-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># filled contour plot</span>
-<span class='fu'>contour</span>(<span class='no'>gdata</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>, <span class='kw'>filled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color.palette</span> <span class='kw'>=</span> <span class='no'>jet.colors</span>)</div><div class='img'><img src='rgraphics-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>contour</span>(<span class='no'>gdata</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>, <span class='kw'>filled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color.palette</span> <span class='kw'>=</span> <span class='no'>jet.colors</span>)</div><div class='img'><img src='rgraphics-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># Multiple plots with a common legend:</span>
 <span class='no'>scale.range</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(-<span class='fl'>1.2</span>, <span class='fl'>1.2</span>)
 <span class='no'>scale.color</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='splot.html'>jet.colors</a></span>(<span class='fl'>64</span>)
@@ -190,7 +190,7 @@ is called, otherwise <code>filled.contour</code>.</p></td>
 <span class='fu'>contour</span>(<span class='no'>gdata</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'>image</span>(<span class='no'>gdata</span>, <span class='st'>'y'</span>, <span class='kw'>zlim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Data'</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>)</div><div class='input'><span class='fu'>contour</span>(<span class='no'>gdata</span>, <span class='st'>'y'</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='input'><span class='fu'>par</span>(<span class='no'>old.par</span>)
 <span class='co'># the legend can be added to any plot...</span>
-<span class='fu'><a href='splot.html'>splot</a></span>(<span class='kw'>slim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='rgraphics-3.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'><a href='splot.html'>splot</a></span>(<span class='kw'>slim</span> <span class='kw'>=</span> <span class='no'>scale.range</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>scale.color</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='rgraphics-9.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
