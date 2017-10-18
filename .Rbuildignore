@@ -1,2 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^index\.Rmd$
+^src/*\.o$
+^src/*\.so$
+^src/*\.dll$
+^src/*\.mod$

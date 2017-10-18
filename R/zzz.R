@@ -14,8 +14,9 @@
     pkg.info <- drop( read.dcf( file = system.file("DESCRIPTION", package = "npsp"),
                       fields = c("Title", "Version", "Date") ))
     packageStartupMessage( 
-      paste(" Package npsp:", pkg.info["Title"], "\n"),
-      paste(" version ", pkg.info["Version"], " (built on ", pkg.info["Date"], ").\n", sep=""),
-      " Copyright R. Fernandez-Casal 2012-2016.\n",
-      " Type demo(package = 'npsp') to obtain the list of available demos.\n")
+      paste0(" Package npsp: ", pkg.info["Title"], ",\n"),
+      paste0(" version ", pkg.info["Version"], " (built on ", pkg.info["Date"], ").\n"),
+      " Copyright (C) R. Fernandez-Casal 2012-2017.\n",
+      " Type `help(npsp)` for an overview of the package and\n",
+      ' `demo(package = "npsp")` for the list of available demos.\n')
 }
