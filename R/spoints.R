@@ -4,6 +4,7 @@
 #   spoints  S3 generic
 #       spoints.default
 #       spoints.data.grid
+#       spoints.SpatialPointsDataFrame
 #
 #   Based on image.plot and drape.plot functions from package fields:
 #   fields, Tools for spatial data
@@ -11,7 +12,7 @@
 #   University Corporation for Atmospheric Research
 #   Licensed under the GPL -- www.gpl.org/licenses/gpl.html
 #
-#   (c) R. Fernandez-Casal         Last revision: Mar 2014
+#   (c) R. Fernandez-Casal         Last revision: Jul 2017
 #--------------------------------------------------------------------
 
 
@@ -21,7 +22,7 @@
 #--------------------------------------------------------------------
 #' Scatter plot with a color scale
 #'
-#' \code{spoints} (generic function) draws an scatterplot with points filled with different colors
+#' \code{spoints} (generic function) draws a scatter plot with points filled with different colors
 #' and (optionally) adds a legend strip with the color scale
 #' (calls \code{\link{splot}} and \code{\link{plot.default}}).
 #'
@@ -54,8 +55,10 @@ spoints <- function(x, ...) UseMethod("spoints")
 
 #' @rdname spoints  
 #' @method spoints default
-#' @param x x coordinates. Any reasonable way of defining the coordinates is acceptable. 
-#' See the function \code{\link{xy.coords}} for details.
+#' @param x object used to select a method. In the default method, it provides the \code{x} 
+#' coordinates for the plot (and optionally the \code{y} coordinates; 
+#' any reasonable way of defining the coordinates is acceptable, 
+#' see the function \code{\link{xy.coords}} for details).
 #' @param y y coordinates. Alternatively, a single argument \code{x} can be provided.
 #' @param s numerical vector containing the values used for coloring the points. 
 #' @param legend logical; if \code{TRUE} (default), the plotting region is splitted into two parts,
@@ -148,3 +151,40 @@ spoints.data.grid <- function(x, s = x[[1]], xlab = NULL, ylab = NULL, ...) {
     return(invisible(res))
 #--------------------------------------------------------------------
 } # spoints.grid.par
+
+
+#' @rdname spoints  
+#' @method spoints SpatialPointsDataFrame
+#' @param data.ind integer (or character) with the index (or name) of the data component.
+#' @details \code{spoints.SpatialPointsDataFrame} sets default values for some of the arguments 
+# from attributes of the object \code{x} (if present; see e.g. \code{\link{precipitation}}). 
+#' from attributes of the object \code{x} (if present; see e.g. \code{precipitation}). 
+#' @param main an overall title for the plot.
+#' @export
+#--------------------------------------------------------------------
+spoints.SpatialPointsDataFrame <- function(x, data.ind = 1, main, xlab, ylab, legend.lab, ...) {
+  #--------------------------------------------------------------------
+  # if (!requireNamespace("sp")) stop("'sp' package required")
+  if(dimensions(x) != 2) 
+    stop("function only works for two-dimensional 'SpatialPointsDataFrame'")
+  if(!is.null(labels <- attr(x, "labels"))) {
+    if(missing(main)) main <- labels$y
+    if(missing(xlab)) xlab <- labels$x[1]
+    if(missing(ylab)) ylab <- labels$x[2]
+    if(missing(legend.lab)) legend.lab <- labels$scale
+  }
+  # Coordenadas de los datos
+  coord <- coordinates(x)
+  y <- x[[data.ind]]
+  spoints(coord, s = y, main = main, xlab = xlab, ylab = ylab, legend.lab = legend.lab, ...)
+  if(!is.null(border <- attr(x, "border")) && is(border, "SpatialPolygons"))
+    plot(border, border = "darkgray", lwd = 2, add = TRUE)
+  if(!is.null(interior <- attr(x, "interior")) && is(interior, "SpatialPolygons"))
+    plot(interior, border = "lightgray", lwd = 2, add = TRUE)
+  if(!is.null(interior) || !is.null(border))
+    spoints(coord[,1], coord[,2], y, add = TRUE)
+}
+
+
+
+
