@@ -1,0 +1,118 @@
+---
+title: ' Introducción a la Geoestadística con R'
+author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
+date: '`r paste("npsp", packageVersion("npsp"))`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.height=5, fig.width=7, fig.align = 'center')
+```
+
+
+Proceso espacial
+-----------------------------
+
+-   Si $Y(\mathbf{x})$ es un valor aleatorio en la posición espacial
+    $\mathbf{x}\in\mathbb{R}^{d}$,
+    entonces:$$\left\{  Y(\mathbf{x}):\mathbf{x}\in D\subset\mathbb{R}^{d}\right\}  ,$$
+    se denomina **proceso espacial** (univariante).
+
+-   Normalmente sólo se observa un conjunto de
+    valores:$$\left\{  y(\mathbf{x}_{1}),\ldots,y(\mathbf{x}_{n})\right\}$$
+    (**realización parcial**).
+
+### Tipos de procesos espaciales
+
+Dependiendo de las suposiciones sobre el conjunto $D$, se distingue
+entre:
+
+-   **Procesos geoestadísticos**: índice espacial continuo.
+
+    -   $D$ es un subconjunto fijo que contiene un rectángulo
+        $d$-dimensional de volumen positivo.
+
+    -   El proceso puede ser observado en cualquier posición.
+
+-   **Procesos reticulares/regionales:** índice espacial discreto.
+
+    -   $D$ es un conjunto numerable de posiciones/regiones.
+
+    -   El proceso solo puede ser observado en determinadas posiciones.
+
+-   **Procesos/patrones puntuales**: índice espacial aleatorio.
+
+    -   $D$ es un proceso puntual en $\mathbb{R}^{d}.$
+
+    -   Las posiciones en las que se observa el proceso son aleatorias.
+
+    -   Caso general: proceso puntual marcado.
+
+
+Ejemplo (proceso geostadístico)
+-----------------------------
+
+### Wolfcamp aquifer data:
+
+```{r fig.height=5, fig.width=5}
+library(npsp)
+# ?aquifer
+str(aquifer)
+summary(aquifer)
+# Scatter plot with a color scale
+with(aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))
+```
+
+
+Paquetes de R
+-----------------------------
+
+-   En R hay disponibles una gran cantidad de paquetes para el análisis
+    estadístico de datos espaciales:
+
+    -   CRAN Task View: Analysis of Spatial
+        Data (http://cran.r-project.org/web/views/Spatial.html)
+
+-   **Procesos geoestadísticos**: `gstat`, `geoR`, `geoRglm`, `fields`,
+    `spBayes`, `RandomFields`, `VR:spatial`, `sgeostat`, `vardiag`,
+    `npsp`
+
+-   **Procesos reticulares/regionales**: `spdep`, `DCluster`, `spgwr`,
+    `ade4`
+
+-   **Procesos puntuales**: `spatstat`, `VR:spatial`, `splancs`
+
+-   Otros paquetes:
+
+    -   `sp`, `sf`, `spacetime`, `maptools`, `rgdal`, `raster`, ...
+
+    -   `spgrass6`, `GeoXp`, `PBSmapping`, ...
+
+    -   `googleVis`, `plotGoogleMaps`, ...
+
+
+El paquete `sp`
+-----------------------------
+
+-   Se decidió crear un paquete de `R` con el objetivo de unificar la manipulación de datos espaciales:
+
+    -   El paquete `sp`: Classes and methods for spatial data.
+
+-   Bivand, R.S., Pebesma, E.J. y Gómez-Rubio, V. (2008). *Applied Spatial Data Analysis with R*. Use R! Series. Springer.*http://www.asdar-book.org*
+
+-   Sirve de soporte a muchos otros paquetes.
+
+    -   Facilita la interacción entre paquetes de R y también con
+        software externo (ej. GIS).
+
+
+El paquete `sf`
+-----------------------------
+
+-   Recientemente se comenzó a desarrollar una alternativa, el paquete [sf](http://r-spatial.github.io/sf/) 
+    ***Simple Features for R***, con un sistema de clases S3 más simple.
+    
+

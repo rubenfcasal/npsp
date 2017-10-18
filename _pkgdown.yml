@@ -1,0 +1,112 @@
+url: http://rubenfcasal.github.io/npsp
+
+template:
+  params:
+    bootswatch: cerulean
+
+reference:
+  - title: "Local polinomial estimation"
+    desc: >
+      Nonparametric estimation of a multidimensional regression function (e.g. a spatial trend), 
+      a probability density function or a semivariogram.
+      To speed up computations, linear binning is used to discretize the corresponding data. 
+      A full bandwidth matrix and a multiplicative triweight kernel is used to compute the weights. 
+      Main calculations are performed in FORTRAN using the LAPACK library.
+    contents: 
+      - npsp-package 
+      - locpol 
+      - np.den 
+      - np.svar 
+      - np.svariso 
+      - np.svariso.corr 
+      - locpolhcv 
+      - np.svariso.hcv
+      - predict.locpol.bin
+      - predict.np.den
+  - title: "Bandwidth selection"
+    desc: "Cross-validation methods for bandwidth selection in local polynomial kernel smoothing."
+    contents:
+      - h.cv
+      - hcv.data
+  - title: "Linear binning"
+    desc: "Methods for multidimensional linear binning."
+    contents:
+      - binning 
+      - bin.den
+      - svar.bin 
+      - svariso 
+      - as.bin.den 
+      - as.bin.data 
+  - title: "Variogram fitting"
+    desc: "Flexible (isotropic) Shapiro-Botha variogram model fitting by WLS."
+    contents:
+      - fitsvar.sb.iso 
+      - disc.sb 
+  - title: "Variogram and covariogram utilities"
+    desc: "Variogram models and methods."
+    contents:
+      - sv 
+      - covar 
+      - varcov 
+      - svarmod 
+      - svarmod.sb.iso 
+      - kappasb 
+      - svarmodels 
+      - svar.grid 
+  - title: "Kriging"
+    desc: "Nonparametric residual kriging (sometimes called external drift kriging) and simple kriging."
+    contents:
+      - kriging.np 
+      - kriging.simple 
+      - kriging.simple.solve 
+  - title: "Gridded data"
+    desc: "S3 class `data.grid` and methods."
+    contents:
+      - data.grid  
+      - grid.par 
+      - coords 
+      - coordvalues 
+      - as.data.frame.data.grid
+      - interp 
+  - title: "Plot"
+    desc: "Utilities for plotting data with a continuous color scale and other plot methods."
+    contents:
+      - scattersplot 
+      - splot 
+      - spoints
+      - simage
+      - spersp 
+      - scolor 
+      - jet.colors 
+      - hot.colors 
+      - plot.np.den
+      - plot.fitsvar
+      - plot.svar.bin
+      - plot.np.svar
+      - image.data.grid 
+      - persp.data.grid 
+      - contour.data.grid 
+  - title: "Data sets"
+    desc: "Data sets included in the package."
+    contents:
+      - aquifer 
+      - earthquakes 
+      - precipitation 
+  - title: "Other packages"
+    desc: "Utilities to interact with other packages."
+    contents:
+      - as.sp 
+      - as.variogram 
+      - as.variomodel
+      - as.vgm 
+      - vgm.tab.svarmod 
+  - title: "Utilities"
+    desc: "Other utilities..."
+    contents:
+      - mask 
+      - npsp.tolerance
+      - rule
+      - rule.binning 
+      - rule.svar 
+      - cpu.time 
+
