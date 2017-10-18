@@ -5,7 +5,7 @@
 #       svarmod(model, type, par, nugget, sill, range)
 #       svarmod.sb.iso(dk, x, z, nu, range, sill)
 #   svarmodels(type)
-#   svm  S3 generic
+#   sv  S3 generic
 #       sv.default(x, h, ...)
 #       sv.svarmod(x, h, ...)
 #       sv.sb.iso(x, h, ...)
@@ -171,17 +171,32 @@ sv.svarmod <- function(x, h, ...) as.vgm.svarmod(x, h)$covtable
 
 
 #--------------------------------------------------------------------
-#' @rdname sv  
-#' @method sv sb.iso
+#' @rdname sv
+#' @method sv svar.grid
 #' @export
-sv.sb.iso <- function(x, h, ...) {
-# CUIDADO SI DIMENSIONES DE h GRANDE outer(h, x)
-#--------------------------------------------------------------------
-    result <- with(x$par,
-        drop(nu - kappasb(outer(h, x), dk) %*% z) )
-    result[h < 10 * .Machine$double.eps] <- 0
-    return(result)
+sv.svar.grid <- function(x, h, ...) {
+  #------------------------------------------------------------------
+  if(missing(h)) 
+    stop("argument 'h' (spatial lags) must be provided")
+  xx <- drop(coords(x))
+  # if (x$log) xx <- 2^xx
+  if (x$log) h <- log2(h)
+  return(stats::approx(xx, drop(x$sv), h, yleft = 0, yright = x$sill)$y)
 }
 
-
+#--------------------------------------------------------------------
+#' @rdname sv  
+#' @method sv sb.iso
+#' @param  discretize logical. If \code{TRUE} the variogram is previously discretized. 
+#' @export
+sv.sb.iso <- function(x, h, discretize = FALSE, ...) {
+  # CUIDADO SI DIMENSIONES DE h GRANDE y discretize = FALSE: outer(h, x)
+  #--------------------------------------------------------------------
+  if (discretize) return(sv.svar.grid(svar.grid(x), h))
+  result <- with(x$par,
+                 drop(nu - kappasb(outer(h, x), dk) %*% z) )
+  # result[h < 10 * .Machine$double.eps] <- 0
+  result[h < .Machine$double.eps] <- 0
+  return(result)
+}
 

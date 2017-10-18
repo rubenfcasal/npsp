@@ -6,7 +6,7 @@
 #   fitsvar.sb.iso(esv, dk, nx, rmax, min.contrib, method, iter, tol)
 #
 #   (c) R. Fernandez-Casal
-#   Created: Apr 2013                          Last changed: Mar 2015
+#   Created: Apr 2013                          Last changed: May 2017
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - documentacion
@@ -143,6 +143,8 @@ disc.sb <- function(nx, dk = 0, rmax = 1) {
 #' quadratic programming.
 #' Following Gorsich and Genton (2004), the nodes are selected as the scaled 
 #' roots of Bessel functions (see \code{\link{disc.sb}}).
+#' @aliases fitsvar
+#' @aliases fitsvar-class
 #' @param  esv pilot semivariogram estimate, a \code{\link{np.svar}}-\code{\link{class}} 
 #'   (or \code{\link{svar.bin}}) object. Typically an output of the function
 #'   \code{\link{np.svariso}}. 
@@ -187,10 +189,11 @@ disc.sb <- function(nx, dk = 0, rmax = 1) {
 #' Returns the fitted variogram model, an object of \code{\link{class}} \code{fitsvar}.
 #' A \code{\link{svarmod}} object
 # (extending \code{\link{sb.iso}}: a \code{\link{svarmod}}) object
-#' with an additional component \code{fit} containing:
+#' with additional components \code{esv} (pilot semivariogram estimate) and \code{fit} containing:
 #' \item{u}{vector of lags/distances.}
 #' \item{sv}{vector of pilot semivariogram estimates.}
 #' \item{fitted.sv}{vector of fitted semivariances.}
+#' \item{w}{vector of (least squares) weights.}
 #' \item{wls}{value of the objective function.}
 #' \item{method}{string indicating the WLS fitting method used.}
 #' \item{iter}{number of WLS iterations (if \code{method == "cressie"}).}   
@@ -238,16 +241,16 @@ disc.sb <- function(nx, dk = 0, rmax = 1) {
 #'             lty = c(NA, 1, 1, 3), pch = c(1, NA, NA, NA), lwd = c(1, 2, 1, 1))
 #' @export
 #--------------------------------------------------------------------
-fitsvar.sb.iso <- function(esv, dk = ncol(esv$data$x), nx = NULL, rmax = esv$grid$max, 
-        min.contrib = 10, method = c("cressie", "equal", "npairs", "linear"), 
-        iter = 10, tol = sqrt(.Machine$double.eps)) {
-#   PENDENTE:
-#     - Rounding errors?  w <- w/sum(w)
-#     - rematar documentacion: details, examples, ...
-#     - Version preliminar, final 'fit.svar.sb' valida para modelos anisotropicos
-#     - verificar missing values
-#     - nodes un vector de ptos de discretizacion
-#--------------------------------------------------------------------
+fitsvar.sb.iso <- function(esv, dk = 4*ncol(esv$data$x), nx = NULL, rmax = esv$grid$max, 
+                            min.contrib = 10, method = c("cressie", "equal", "npairs", "linear"), 
+                            iter = 10, tol = sqrt(.Machine$double.eps)) {
+  #   PENDENTE:
+  #     - Rounding errors?  w <- w/sum(w)
+  #     - rematar documentacion: details, examples, ...
+  #     - Version preliminar, final 'fit.svar.sb' valida para modelos anisotropicos
+  #     - verificar missing values
+  #     - nodes un vector de ptos de discretizacion
+  #--------------------------------------------------------------------
   if (!inherits(esv, "svar.bin"))
     stop("function only works for objects of class (or extending) 'svar.bin'.")
   # if (esv$svar$type != "isotropic")
@@ -324,7 +327,7 @@ fitsvar.sb.iso <- function(esv, dk = ncol(esv$data$x), nx = NULL, rmax = esv$gri
     # d = t(M) %*% diag(w) %*% v
     dvec <- drop((w * v) %*% M[, pivot]) # crossprod?
     # solve min(-d^T b + 1/2 b^T D b) with the constraints A^T b >= b_0
-    res <- solve.QP(Dmat, dvec, Amat[pivot, pivot], factorized = TRUE) # bvec <- rep(0, n.par2)
+    res <- quadprog::solve.QP(Dmat, dvec, Amat[pivot, pivot], factorized = TRUE) # bvec <- rep(0, n.par2)
     fit <- drop(M[, pivot] %*% res$solution)
     if (i > 1) {
       # fitted values absolute difference convergence criteria
@@ -338,9 +341,9 @@ fitsvar.sb.iso <- function(esv, dk = ncol(esv$data$x), nx = NULL, rmax = esv$gri
   if (method == "cressie") {
     iter <- i
     if (!conver) warning("the wls algorithm did not converge. \n",
-                      "   Maximum number of iterations exceeded; \n",
-                      "   the current values may be an approximate solution, \n",
-                      "   or 'tol' is too big or 'iter' is too small.")
+                         "   Maximum number of iterations exceeded; \n",
+                         "   the current values may be an approximate solution, \n",
+                         "   or 'tol' is too big or 'iter' is too small.")
   }
   # Return the fitted Shapiro-Botha model
   nu <- res$solution[inu]
@@ -359,8 +362,9 @@ fitsvar.sb.iso <- function(esv, dk = ncol(esv$data$x), nx = NULL, rmax = esv$gri
   nu <- max(nu, sum(z))
   result <- svarmod.sb.iso( dk = dk, x = x, z = z, nu = nu, range = rmax)
   # Add fitting details
-  result$fit <- list(u = u, sv = v, fitted.sv = fit, wls = wls,
+  result$fit <- list(u = u, sv = v, fitted.sv = fit, w = w, wls = wls,
                      method = method, iter = iter)
+  result$esv <- esv
   oldClass(result) <- c("fitsvar", oldClass(result))
   return(result)
   #--------------------------------------------------------------------

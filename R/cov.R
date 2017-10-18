@@ -1,15 +1,15 @@
 #--------------------------------------------------------------------
 #   cov.R (npsp package)
 #--------------------------------------------------------------------
-#   covar()  S3 generic
-#       covar.svarmod(x, h, sill = x$sill)
-#       covar.np.svar(x, h, sill = NULL)
-#   varcov()  S3 generic
-#       varcov.isotropic(x, coords, sill = x$sill, range.taper)
-#       varcov.np.svar(x, coords, sill = max(x$est), range.taper) 
+#   covar(x, h, ...)  S3 generic
+#       covar.svarmod(x, h, sill = x$sill, ...)
+#       covar.np.svar(x, h, sill = NULL, ...)
+#   varcov(x, coords, ...)  S3 generic
+#       varcov.isotropic(x, coords, sill = x$sill, range.taper, discretize, ...)
+#       varcov.np.svar(x, coords, sill = max(x$est), range.taper, ...) 
 #
 #   (c) R. Fernandez-Casal
-#   Created: Apr 2013                          Last changed: Jan 2014
+#   Created: Apr 2013                          Last changed: May 2017
 #--------------------------------------------------------------------
 
 
@@ -38,12 +38,13 @@ covar  <- function(x, h, ...) UseMethod("covar")
 #--------------------------------------------------------------------
 #' @rdname covar  
 #' @method covar svarmod
+#' @param  discretize logical. If \code{TRUE} the variogram is previously discretized. 
 #' @export
 #--------------------------------------------------------------------
-covar.svarmod  <- function(x, h, sill = x$sill, ...) {
+covar.svarmod  <- function(x, h, sill = x$sill, discretize = FALSE, ...) {
     if (!inherits(x, "svarmod"))
         stop("argument 'x' must be of class (or extending) 'svarmod'.")
-    result <- sv(x, h)
+    result <- sv(x, h, discretize = discretize, ...)
     if (is.na(sill)) {
         warning("semivariogram model 'x' is not bounded (computing pseudo-covariances).")
         sill = max(result)
@@ -97,21 +98,26 @@ varcov <- function(x, coords, ...)  UseMethod("varcov")
 #' @param  sill  (theoretical or estimated) variance \eqn{C(0) = \sigma^2} or pseudo-sill (unbounded variograms).
 #' @param  range.taper (optional) if provided, covariances corresponding to 
 #' distances larger than this value are set to 0.
+#' @param  discretize logical. If \code{TRUE} (default), the variogram is (previously) discretized. 
 #' @export
-varcov.isotropic <- function(x, coords, sill = x$sill, range.taper, ...) {
-#--------------------------------------------------------------------
-    n <- nrow(coords)
-    dists <- as.vector(dist(coords))   # lower triangle of the distance matrix
-    if(!missing(range.taper)) {
-        index <- dists <= range.taper
-        covs  <- numeric(length(dists))
-        covs[index] <- covar(x, dists[index], sill = sill)        
-    } else covs <- covar(x, dists, sill = sill)    
-    res <- matrix(0, n, n)
-    res[row(res) > col(res)] <- covs 
-    res <- res + t(res)
-    diag(res) <- sill
-    return(res)    
+varcov.isotropic <- function(x, coords, sill = x$sill, range.taper, 
+                             discretize = TRUE, ...) {
+  #--------------------------------------------------------------------
+  if(missing(coords)) 
+    stop("argument 'coords' (spatial coordinates) must be provided")
+  n <- nrow(coords)
+  dists <- as.vector(dist(coords))   # lower triangle of the distance matrix
+  if (discretize) x <- svar.grid(x)
+  if(!missing(range.taper)) {
+    index <- dists <= range.taper
+    covs  <- numeric(length(dists))
+    covs[index] <- covar(x, dists[index], sill = sill, discretize = discretize)        
+  } else covs <- covar(x, dists, sill = sill, discretize = discretize)    
+  res <- matrix(0, n, n)
+  res[row(res) > col(res)] <- covs 
+  res <- res + t(res)
+  diag(res) <- sill
+  return(res)    
 }  
 
 
