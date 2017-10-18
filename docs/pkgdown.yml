@@ -1,0 +1,10 @@
+urls:
+  reference: http://rubenfcasal.github.io/npsp/reference
+  article: http://rubenfcasal.github.io/npsp/articles
+articles:
+  aquifer: docs/aquifer.html
+  Introduccion: docs/Introduccion.html
+  krigstat: krigstat.html
+  npsp: npsp.html
+  precipitation: precipitation.html
+

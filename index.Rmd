@@ -17,10 +17,7 @@ and variogram functions:
    a probability density function or a semivariogram (or their first derivatives), respectively. 
    Estimates of these functions can be constructed for any dimension 
    (the amount of available memory is the only limitation). 
-   To speed up computations, linear binning is used to discretize the data. 
-   A full bandwidth matrix and a multiplicative triweight kernel is used to compute the weights. 
-   Main calculations are performed in FORTRAN using the LAPACK library.
-
+   
 * `np.svariso.corr` computes a bias-corrected nonparametric semivariogram estimate 
    using an iterative algorithm similar to that described in 
    Fernandez-Casal and Francisco-Fernandez (2014). 
@@ -51,7 +48,6 @@ Among the other functions intended for direct access by the user, the following
 (methods for multidimensional linear binning, local polynomial kernel regression, 
 density or variogram estimation) could be emphasized: 
 `binning`, `bin.den`, `svar.bin`, `h.cv` and `interp`. 
-
 There are functions for plotting data joint with a legend representing a continuous color scale
 (based on `image.plot` of package `fields`):
 
@@ -59,57 +55,10 @@ There are functions for plotting data joint with a legend representing a continu
 
 *  `spoints`, `simage` and `spersp` draw the corresponding high-level plot 
    with a legend strip for the color scale.
-
+   
 There are also some functions which can be used to interact with other packages. For instance, `as.variogram` (geoR) or `as.vgm` (gstat).
 
-
-News
-----
-
- * Version 0.6-2 (2017-09-24)
- 
-    - Added a website for the package (with pkgdown).
-    
-    - Added 'NEWS.md' and 'index.Rmd'.
-
-    - Added some vignettes (pkgdown articles): 
-      "npsp.Rmd", "precipitation.Rmd", "krigstat.Rmd", 
-      "docs/aquifer.Rmd", "docs/Introduccion.Rmd".
-    
- 
- * Version 0.6-1 (2017-06-16)
- 
-    - Added `scattersplot()` S3 generic function (and methods).
-
-    - Added (some) support for `sp` classes.
- 
-    - Added `precipitation` data set.
- 
-    - Added `as.data.frame.data.grid` 
-    
- 
- * Version 0.6-0 (2017-05-29)
-
-    - Added `kriging.np()` and `kriging.simple()` functions.
- 
-    - Minor changes in `plot.fitsvar()`
-
-    - Added the registration of 'native routines' (`.Fortran` calls). 
- 
-    - Updated 'README.md'.
-
-
- * Version 0.5-5 (2017-05-21)
-
-     - Added `svar.grid()` S3 class (discretized semivariogram) and methods. 
-   
-     - Major changes in `varcov.isotropic()` and `sv.sb.iso()`: 
-       added `discretize` parameter (if `TRUE`the variogram is previously discretized).  
-   
-     - Added `plot()` S3 method for `svarmod` class.
-
-
- * Older versions (or more info): [npsp ChangeLog](./ChangeLog)
+See the [Reference](reference/index.html) for the complete list of functions.
 
 
 Author
