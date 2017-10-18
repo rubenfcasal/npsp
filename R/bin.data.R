@@ -95,8 +95,8 @@ binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE) {
 
     nt <- prod(nbin)
     # Let's go FORTRAN!
-    #   subroutine binning( nd, nbin, x, ny, y, bin_min, bin_max, bin_med, bin_y, bin_w)
-    ret <-.Fortran( "binning", nd = as.integer(nd), nbin = as.integer(nbin),
+    #   subroutine binning_r( nd, nbin, x, ny, y, bin_min, bin_max, bin_med, bin_y, bin_w)
+    ret <-.Fortran( "binning_r", nd = as.integer(nd), nbin = as.integer(nbin),
                   xt = as.double(t(x)), ny = as.integer(ny), y = as.double(y),
                   min = double(nd), max = double(nd), med = double(1),
                   biny = double(nt), binw = double(nt), PACKAGE = "npsp")
@@ -129,9 +129,9 @@ as.bin.data <- function(object, ...) UseMethod("as.bin.data")
 #--------------------------------------------------------------------
 #' @rdname binning
 #' @method as.bin.data data.grid
-#' @param data.ind integer or character with the index or name of the component 
+#' @param data.ind integer (or character) with the index (or name) of the component 
 #'  containing the bin averages. 
-#' @param weights.ind integer or character with the index or name of the component 
+#' @param weights.ind integer (or character) with the index (or name) of the component 
 #'  containing the bin counts/weights (if not specified, they are set to 
 #'  \code{as.numeric( is.finite( object[[data.ind]] ))}).
 #' @export

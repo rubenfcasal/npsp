@@ -8,34 +8,34 @@
 !-----------------------------------------------------------------------
 !   Modulo clases rejilla (grid) y rejilla binning (grid_bin)
 !       type(grid) :: g
-!           g%ndim          = Nº de dimensiones
-!           g%n(1:g%ndim)   = Nº de nodos en cada dimensión
-!           g%ngrid         = Nº total de nodos (= PRODUCT(n) rejilla estándar)
-!           g%min(1:g%ndim) = Mínimo de la rejilla binning en cada dimensión
-!           g%max(1:g%ndim) = Máximo      ""
+!           g%ndim          = NÂº de dimensiones
+!           g%n(1:g%ndim)   = NÂº de nodos en cada dimensiÃ³n
+!           g%ngrid         = NÂº total de nodos (= PRODUCT(n) rejilla estÃ¡ndar)
+!           g%min(1:g%ndim) = MÃ­nimo de la rejilla binning en cada dimensiÃ³n
+!           g%max(1:g%ndim) = MÃ¡ximo      ""
 !           g%lag(1:g%ndim) = Espaciado   ""
 !           g%i             = indice unidimensional
 !           g%ii(1:g%ndim)  = indice multidimensional
 !           procedure :: set => set_grid, end => end_grid, ind, set_ind, incii
 !       type(grid_den) :: bin
 !           bin%w(1:bin%ngrid)  = Peso/frecuencia nodo binning (unidim.)
-!           bin%ny              = Nº de datos (suma de los pesos binning)
+!           bin%ny              = NÂº de datos (suma de los pesos binning)
 !           procedure :: set_bin_den, end_bin_den
 !       type(grid_bin) :: bin
 !           bin%y(1:bin%ngrid)  = Valor nodo binning (indice unidimensional)
 !           bin%med             = Media ponderada de bin%y
-!                                 (media de los datos & binning; para estimación aditiva)
+!                                 (media de los datos & binning; para estimaciÃ³n aditiva)
 !           procedure :: set_bin => set_grid_bin, end_bin => end_grid_bin
 !       set_grid1d
 !
 !   Interfaces con R:
-!       binning             Rejilla binning ("binning" en "bin.data.R")
+!       binning_r           Rejilla binning ("binning" en "bin.data.R")
 !       interp_data_grid    Interpolacion lineal de una rejilla ("interp.grid.par" en "interp.R")
 !
 !   PENDENTE:
 !       - Crear clase grid_den intermedia entre grid y grid_bin
 !         (renombrar %ny %nw? %nx?)  
-!       - Implementar ndim como parámetro LEN de type grid
+!       - Implementar ndim como parÃ¡metro LEN de type grid
 !       - Crear clase grid_data (intermedia entre grid y grid_bin?)
 !       - procedure :: end type-bound / final
 !
@@ -52,7 +52,7 @@
 !       type grid
             integer ndim, ngrid, igrid
             integer, allocatable :: n(:), ii(:)
-!           n(g%ndim) = NBM(1..NDimBM)= Nº nodos de la rejilla binning
+!           n(g%ndim) = NBM(1..NDimBM)= NÂº nodos de la rejilla binning
             real(8), allocatable :: min(:), max(:), lag(:)
 !       type, extends(grid) :: grid_den
             integer ny    !NBMc
@@ -212,7 +212,7 @@
             allocate(g%w(g%ngrid))
             g%ny = ny
             g%w = 0.0d0
-!           Indice rejilla actualización
+!           Indice rejilla actualizaciÃ³n
             niinc = 2**nd
             ii = 0
             do i = 1, niinc
@@ -302,7 +302,7 @@
             g%ny = ny
             g%y = 0.0d0
             g%w = 0.0d0
-!           Indice rejilla actualización
+!           Indice rejilla actualizaciÃ³n
             niinc = 2**nd
             ii = 0
             do i = 1, niinc
@@ -370,7 +370,7 @@
 
 
 !   --------------------------------------------------------------------
-    subroutine binning(nd, nbin, x, ny, y, bin_min, bin_max, bin_med, bin_y, bin_w)
+    subroutine binning_r(nd, nbin, x, ny, y, bin_min, bin_max, bin_med, bin_y, bin_w)
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "binning"
 !       Devuelve la rejilla binning type(grid_bin)%set_bin(nd, nbin, x, ny, y)
@@ -393,7 +393,7 @@
 !       call bin%end_bin
         call end_grid_bin(bin)
     return
-    end subroutine binning
+    end subroutine binning_r
 
 
 !   --------------------------------------------------------------------
@@ -426,7 +426,7 @@
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "interp.grid.par"
 !       Interpolacion lineal de una rejilla
-!       Establece type(grid) :: g a partir de parámetros
+!       Establece type(grid) :: g a partir de parÃ¡metros
 !   --------------------------------------------------------------------
 !       PENDENTE: FALLA CON DATOS MISSING
 !   ----------------------------------------------------------------
@@ -440,7 +440,7 @@
 !       Establecer la rejilla
 !       call g%set(nd, nbin, bin_min, bin_max)
         call set_grid(g, nd, nbin, bin_min, bin_max)
-!       Interpolación
+!       InterpolaciÃ³n
         call interp_grid(g, gy, x, ny, y)
 !       call g%end
         call end_grid(g)
@@ -467,7 +467,7 @@
 !       ------------------------------------------------------------
         nd = g%ndim
         niinc = 2**nd
-!       Indice rejilla actualización
+!       Indice rejilla actualizaciÃ³n
         ii = 0
         do i = 1, niinc
             do j = 1, nd-1
@@ -486,7 +486,7 @@
         do i = 1, ny
             do j = 1, nd
                 iib(j) = 1 + int((x(j, i) - g%min(j)) / g%lag(j))
-!               Extrapolación:
+!               ExtrapolaciÃ³n:
                 if (iib(j) < 1) iib(j) = 1
                 if (iib(j) >= g%n(j)) iib(j) = g%n(j) - 1
 !               Calculo de los pesos
@@ -512,11 +512,11 @@
 
 
 !   --------------------------------------------------------------------
-!   NOTAS SOBRE VARIABLES PARA CONVERSIÓN DE CÓDIGO SKUET
+!   NOTAS SOBRE VARIABLES PARA CONVERSIÃ“N DE CÃ“DIGO SKUET
 !       type(grid_bin) :: bin
-!           bin%min             !   MinBM(1..NDimBM)= Mínimo de la rejilla binning
-!                                                       en cada dimensión
-!           bin%max             !   MaxBM(1..NDimBM)= Máximo ""
+!           bin%min             !   MinBM(1..NDimBM)= MÃ­nimo de la rejilla binning
+!                                                       en cada dimensiÃ³n
+!           bin%max             !   MaxBM(1..NDimBM)= MÃ¡ximo ""
 !           bin%lag             !   LBM(1..NDimBM)= Espaciado ""
 !           bin%y(1:bin%ngrid)  !   BMy(1..NTotBM)= Valor nodo binning
 !                                                       (indice unidimensional)

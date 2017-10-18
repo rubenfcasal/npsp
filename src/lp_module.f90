@@ -4,13 +4,13 @@
 !   compilers used at CRAN (specially in the case of Mac OS X) support the 
 !   required Fortran 2003 features (mainly type-bound procedures).
 !-----------------------------------------------------------------------
-!   [lp_module.f90]   Modulo para la estimaci?n lineal/polin?mica local
+!   [lp_module.f90]   Modulo para la estimacion lineal/polinomica local
 !                       multidimensional
 !   Interfaces con R (en "locpol.bin.R"):
 !       lp_raw        Estimador y rejilla binning ("locpol.default")
 !       lp_bin        Estimador a partir de una rejilla binning ("locpol.bin.data")
 !       lp_data_grid  Estimador a partir de datos en una rejilla ("locpol.data.grid", "np.den.bin.den")  
-!       predict_locpol    Estimaci?n y matriz hat en observaciones ("predict.locpol.bin")
+!       predict_locpol    Estimacion y matriz hat en observaciones ("predict.locpol.bin")
 !
 !   Autor: (c) Ruben Fernandez-Casal    
 !   Fecha revision: Abr 2007, Oct 2012, Jun 2013, Oct 2013, Mar 2014, Dic 2015
@@ -42,7 +42,7 @@
 !   --------------------------------------------------------------------
 !       call bin%set_bin(nd, nbin, x, ny, y) ! Establece la rejilla binning (lineal)
         call set_grid_bin(bin, nd, nbin, x, ny, y)
-!       Estimaci?n y obtenci?n matriz Hat
+!       Estimacion y obtencion matriz Hat
         NDelCV = ncv
 !       SUBROUTINE lp(bin, h, FNucMD, GetE, lpe, degree, GetDERIV, deriv, ldderiv,  &
 !   &                GetHAT, hatlp, ldhatlp, NDelCV, RMNP, RSSNP, nrl0)  
@@ -68,7 +68,7 @@
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "locpol.bin.data"
 !       Devuelve estimador a partir de una rejilla binning
-!       Establece type(grid_bin)::bin a partir de par?metros
+!       Establece type(grid_bin)::bin a partir de parametros
 !       (calculos manteniendo datos)
 !
 !   IMPORTANTE:
@@ -94,7 +94,7 @@
         bin%y = bin_y(1:bin%ngrid)
         bin%w = bin_w(1:bin%ngrid)
         bin%ny = INT(SUM(bin%w))
-!       Estimaci?n y obtenci?n matriz Hat
+!       Estimacion y obtencion matriz Hat
         NDelCV = ncv
         call lp(bin, h, KTWMD, .true., lpe, degree,                             &
                     ideriv == 1, deriv, ntbin, ihat == 1, hatlp, ntbin,         &
@@ -113,14 +113,14 @@
 !       Interfaz para la rutina de R "locpol.data.grid" 
 !       Interfaz para la rutina de R "np.den.bin.den"    
 !       Devuelve estimador a partir de datos en una rejilla regular (bin_w = 1)
-!       Establece type(grid_bin)::bin a partir de par?metros
+!       Establece type(grid_bin)::bin a partir de parametros
 !       (calculos manteniendo datos)
 !
 !   IMPORTANTE:
 !       - Se supone que lpe contiene NA's en la entrada (locpol.data.grid)
-!         o 0's para estimaci?n densidad (np.den.bin.den)
-!       - bin_med se utiliza para el c?lculo de las medidas de error 
-!         cuando NRL <  NINDRL. Debe ser 0 para estimaci?n densidad 
+!         o 0's para estimacion densidad (np.den.bin.den)
+!       - bin_med se utiliza para el calculo de las medidas de error 
+!         cuando NRL <  NINDRL. Debe ser 0 para estimacion densidad 
 !       - Se supone que deriv contiene NA's en la entrada
 !   --------------------------------------------------------------------
     use grid_module
@@ -143,7 +143,7 @@
         bin%y = bin_y(1:bin%ngrid)
         bin%w = 1.0d0
         bin%ny = bin%ngrid
-!       Estimaci?n y obtenci?n matriz Hat
+!       Estimacion y obtencion matriz Hat
         NDelCV = ncv
 !       SUBROUTINE lp(bin, h, FNucMD, GetE, lpe, degree, GetDERIV, deriv, ldderiv,  &
 !   &                GetHAT, hatlp, ldhatlp, NDelCV, RMNP, RSSNP, nrl0)
@@ -214,6 +214,8 @@
 !   --------------------------------------------------------------------
 !   [KTW] Nucleo Triweight
 !   --------------------------------------------------------------------
+!     \int u^2K(u)du = \frac {1}{9}
+!     \int K(u)^2 du = \frac {350}{429}
       real(8) FUNCTION KTW(u)
       IMPLICIT NONE
       real(8) u, tmp
@@ -222,7 +224,7 @@
       IF (tmp <= 0.0d0) THEN
           KTW = 0.0d0
       ELSE
-          KTW = (35.0d0/36.0d0)*tmp**3
+          KTW = (35.0d0/32.0d0)*tmp**3
       ENDIF
       RETURN
       END FUNCTION KTW
@@ -234,28 +236,28 @@
     SUBROUTINE lp(bin, h, FNucMD, GetE, lpe, degree, GetDERIV, deriv, ldderiv,  &
    &                GetHAT, hatlp, ldhatlp, NDelCV, RMNP, RSSNP, nrl0)
 !   --------------------------------------------------------------------
-!       Obtiene la estimaci?n no param?trica lineal local multidimensional
+!       Obtiene la estimacion no parametrica lineal local multidimensional
 !       a partir de la rejilla binning (lineal)
 !
-!   Par?metros:
+!   Parametros:
 !       type(grid_bin) :: bin
 !       GetE =.true. para obtener estimaciones
 !           (en caso contrario no se accede a lpe)
 !       lpe(NBx) = estimaciones polinomico locales en nodos binning
 !       degree = grado del polinomio local
-!               (0 =Nadaraya-Watson, 1 = lineal local, 2 = cuadr?tico local)
+!               (0 =Nadaraya-Watson, 1 = lineal local, 2 = cuadratico local)
 !       GetHAT  =.true. para construir matriz hat (de datos binning)
 !           (en caso contrario no se accede a hatlp)
 !       hatlp(NBx,NBx) = matriz hat de datos binning lpe = hatlp %*% bin%y
 !       GetDERIV  =.true. para construir matriz de derivadas parciales
 !           (en caso contrario no se accede a deriv)
 !       deriv(NBx,NDimBM) = matriz de derivadas parciales
-!       NDelCV(NDimBM)= N? de ptos a eliminar del vecindario en cada dimensi?n
-!               (para validaci?n cruzada)
+!       NDelCV(NDimBM)= Num de ptos a eliminar del vecindario en cada dimension
+!               (para validacion cruzada)
 !           NDelCV(j)=0 para no eliminar ningun pto
-!           NDelCV(j)=1 para eliminar el pto en la posici?n de estimaci?n
-!               (validaci?n cruzada tradicional)
-!           NDelCV(j)=k+1 para eliminar el rango [-k,k] en dimensi?n j
+!           NDelCV(j)=1 para eliminar el pto en la posicion de estimacion
+!               (validacion cruzada tradicional)
+!           NDelCV(j)=k+1 para eliminar el rango [-k,k] en dimension j
 !               (p.e. CV con dependencia)
 !       nrl0 = numero de nodos binning (con peso no nulo) sin datos suficientes
 !
@@ -271,7 +273,7 @@
 !
 !   IMPORTANTE:
 !       - Se supone que lpe contiene NA's en la entrada
-!         (o 0's para estimaci?n densidad)
+!         (o 0's para estimacion densidad)
 !       - Se supone que deriv contiene NA's en la entrada
 !       - Los nodos con peso negativo bin%w(i) < 0.0d0 son ignorados
 !
@@ -310,12 +312,12 @@
         RMNP = 0.0D0
         RSSNP = 0.0D0
         WSNP = 0.0D0
-!       Calcular el determinante y la inversa de la matriz sim?trica
+!       Calcular el determinante y la inversa de la matriz simetrica
 !       Only the upper triangular part of h is referenced.
         CALL DSYTRFI(nd, h, IH, deth)
         IF (DABS(deth) < Epsilon) &
    &                    CALL error(1, 'lp: the bandwith matrix is singular.')
-!       Recorrer rejilla y evaluar n?cleo
+!       Recorrer rejilla y evaluar nucleo
         indb = 1
         bin%ii = 1
 !       CALL bin%set_ind(bin%ii)
@@ -331,7 +333,7 @@
 !           tmp = FNucMD(t, nd)/deth  ! problems with large values
             tmp = FNucMD(t, nd)
             Bk(i) = tmp
-!           Calcular rango datos estimaci?n
+!           Calcular rango datos estimacion
             IF (tmp > Epsilon) THEN
                 DO j = 1, nd
                     IF (bin%ii(j) > indb(j)) indb(j) = bin%ii(j)
@@ -347,7 +349,7 @@
         END DO
         NINDRL = 1 + nd * degree
 !       Verificar problemas vecindarios 
-!           PENDENTE: NON DATOS EN DIMENSI?N I
+!           PENDENTE: NON DATOS EN DIMENSION I
 !           PENDENTE: indb(J)-NDelCV(J) < 0 --> WARNING
 !           PENDENTE: opcion salir sin hacer nada / warning / stop ?
         IF ( MAXVAL(indb - NDelCV) < 0 )   & 
@@ -386,7 +388,7 @@
             END IF
 !           Indice multidimensional correspondiente al indice unidimensional i0
             ii0 = bin%ii
-!           Seleccionar puntos estimaci?n
+!           Seleccionar puntos estimacion
             NRL = 0
             DO i1 = 1, nindb
                 LOUT = .FALSE.
@@ -424,7 +426,7 @@
                 YRL(NRL) = bin%y(i) * tmp
                 IF (GetHAT) indy(NRL) = i
             END DO  ! DO i1 = 1, nindb
-!           Estimaci?n
+!           Estimacion
             IF (NRL <  NINDRL) THEN
                 IF (bin%w(i0) > 0.0d0) THEN
                     BRL(1) = bin%med    ! Media global para medidas de error                    
@@ -439,7 +441,7 @@
                     IF (GetE) lpe(i0) = BRL(1)
                     IF (GetHAT) VHAT(1:NRL) = XRL(1:NRL,1)/WSum 
                 ELSE 
-!                   Calcular estimaci?n lineal
+!                   Calcular estimacion lineal
                     CALL ModRegLinRL       ! OJO: ModRegLinRL FALLA SI NRL < NINDRL
 !                   IF (GetE.AND.(RANKRL = NINDRL)) lpe(i0) = BRL(1)
                     IF (GetE) lpe(i0) = BRL(1)
@@ -490,9 +492,9 @@
     subroutine predict_locpol_bin(g, lpe, gethat, hatlp, x, lpy, hatlpy)
 !   --------------------------------------------------------------------
 !       Devuelve las estimaciones y matriz hat correspondiente a las observaciones
-!       NOTA: x deber?a ser el empleado para construir la rejilla binning type(grid_bin) :: g
+!       NOTA: x deberia ser el empleado para construir la rejilla binning type(grid_bin) :: g
 !
-!   Par?metros:
+!   Parametros:
 !       type(grid_bin) :: g
 !       lpe(NBx) = estimaciones polinomico locales en nodos binning
 !       gethat  =.true. para construir matriz hat (de datos originales)
@@ -503,7 +505,7 @@
 !       hatlpy(ny,ny) = matriz hat de datos originales lpy = hatlpy %*% y
 !
 !   PENDIENTE:
-!         - Warning si extrapolaci?n
+!         - Warning si extrapolacion
 !         - ALTERNATIVA PARA SPARSE MATRIX PBIN
 !   ----------------------------------------------------------------
     use grid_module
@@ -535,7 +537,7 @@
 !           warning: ... may be used uninitialized in this function [-Wmaybe-uninitialized]
             allocate(ibin(1, 1), ibinw(1, 1), phat(1, 1))
         end if    
-!       Indice rejilla actualizaci?n
+!       Indice rejilla actualizacion
         ii = 0
         do i = 1, niinc
             do j = 1, nd-1
@@ -555,7 +557,7 @@
         do i = 1, ny
             do j = 1, nd
                 iib(j) = 1 + int((x(j, i) - g%min(j)) / g%lag(j))
-!               Extrapolaci?n:
+!               Extrapolacion:
                 if (iib(j) < 1) iib(j) = 1
                 if (iib(j) >= g%n(j)) iib(j) = g%n(j) - 1
 !               calculo de los pesos
@@ -589,8 +591,8 @@
 !       Opcional si matriz hat:               
         if (.not.gethat) return        
 !       Obtencion de hatlpy = phat * py2bin
-!       Matriz de proyecci?n binning: py2bin(ibin(j, k), j) = ibinw(j, k) / g%w(ibin(j, k))
-!       NOTA: g%w(ib) se podr?a calcular en el c?digo anterior...
+!       Matriz de proyeccion binning: py2bin(ibin(j, k), j) = ibinw(j, k) / g%w(ibin(j, k))
+!       NOTA: g%w(ib) se podria calcular en el codigo anterior...
         hatlpy = 0.0d0
         do j = 1, ny
             do k = 1, niinc
@@ -617,7 +619,7 @@
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "predict.locpol.bin"
 !       Devuelve las estimaciones y matriz hat correspondientes a las observaciones
-!       Establece type(grid_bin):: bin a partir de par?metros
+!       Establece type(grid_bin):: bin a partir de parametros
 !   --------------------------------------------------------------------
     use grid_module
     implicit none
@@ -636,7 +638,7 @@
         bin%y = bin_y(1:bin%ngrid)
         bin%w = bin_w(1:bin%ngrid)
         bin%ny = ny
-!       Estimaci?n y obtenci?n matriz Hat
+!       Estimacion y obtencion matriz Hat
         call predict_locpol_bin(bin, lpe, ihat == 1, hatlp, x, lpy, hatlpy)
 !       call bin%end_bin
         call end_grid_bin(bin)
