@@ -2,9 +2,9 @@
 % Please edit documentation in R/mask.R
 \name{mask}
 \alias{mask}
-\alias{mask.bin.data}
-\alias{mask.bin.den}
 \alias{mask.default}
+\alias{mask.bin.den}
+\alias{mask.bin.data}
 \alias{mask.locpol.bin}
 \title{Mask methods}
 \usage{
@@ -16,7 +16,7 @@ mask(x, ...)
   warn = TRUE, ...)
 
 \method{mask}{bin.data}(x, mask = mask.default(x$binw, npsp.tolerance(2)),
-  set.NA = TRUE, warn = TRUE, filter.lp = TRUE, ...)
+  set.NA = TRUE, warn = TRUE, filter.lp = set.NA, ...)
 
 \method{mask}{locpol.bin}(x, mask = mask.default(x$binw, npsp.tolerance(2)),
   set.NA = TRUE, warn = TRUE, filter.lp = set.NA, ...)
@@ -57,4 +57,3 @@ str(mask(bin, mask(bin$binw, 1)))
 \code{\link{locpol}}, \code{\link{locpolhcv}}, \code{\link{binning}},
 \code{\link{np.svar}}, \code{\link{npsp.tolerance}}.
 }
-

@@ -2,12 +2,12 @@
 % Please edit documentation in R/locpol.bin.R
 \name{locpol}
 \alias{locpol}
-\alias{locpol.bin}
 \alias{locpol.bin-class}
-\alias{locpol.bin.data}
-\alias{locpol.bin.den}
+\alias{locpol.bin}
 \alias{locpol.default}
+\alias{locpol.bin.data}
 \alias{locpol.svar.bin}
+\alias{locpol.bin.den}
 \alias{locpolhcv}
 \title{Local polynomial estimation}
 \usage{
@@ -141,4 +141,3 @@ Rupert D. and Wand M.P. (1994) Multivariate locally weighted least squares regre
 \code{\link{np.den}}, \code{\link{bin.den}}, \code{\link{hcv.data}},
 \code{\link{rule.binning}}.
 }
-

@@ -23,6 +23,9 @@
 #' @param  d  (spatial) dimension.
 #' @param  rule character; rule to be used.
 #' @param  ... further arguments passed to or from other methods.
+#' @details
+#' The Rice Rule, \eqn{m = \lceil 2 n^{1/3} \rceil,}
+#' is a simple alternative to Sturges's rule (\code{\link{nclass.Sturges}}).
 #' @seealso
 #' \code{\link{hist}}, \code{\link{nclass.Sturges}}, \code{\link{nclass.scott}},
 #' \code{\link{nclass.FD}}, 
@@ -32,8 +35,9 @@
 #' The rule values (vector or scalar).
 #' @importFrom grDevices nclass.FD nclass.Sturges nclass.scott
 #' @export
+#--------------------------------------------------------------------
 rule <- function(x, d = 1, rule = c("Rice", "Sturges", "scott", "FD"), ...){
-    rule <- match.arg(rule)
+  rule <- match.arg(rule)
     res <- switch(rule,
         Rice  = .rice.rule(x, ...),
         Sturges = nclass.Sturges(x),
@@ -43,14 +47,11 @@ rule <- function(x, d = 1, rule = c("Rice", "Sturges", "scott", "FD"), ...){
 }
 
 #--------------------------------------------------------------------
-#' @rdname rule
+#' @rdname npsp-internals
 #' @param  a  scale values.
 #' @param  b  exponent values.
-#' @description
-#' The Rice Rule, \eqn{m = \lceil 2 n^{1/3} \rceil,}
-#' is a simple alternative to Sturges's rule (\code{\link{nclass.Sturges}}).
-# @keywords internal
-#' @export
+#' @keywords internal
+# @export
 #--------------------------------------------------------------------
 .rice.rule <- function(x, a = 2, b = 3, ...) ceiling(a * x ^ (1 / b))
 # PENDENTE:
@@ -61,6 +62,7 @@ rule <- function(x, d = 1, rule = c("Rice", "Sturges", "scott", "FD"), ...){
 # Regla de Scott K=(2n)^(1/3)
 # (4*n)^(2/5)
 
+#--------------------------------------------------------------------
 #' @rdname rule
 # @param  x  object used to select a method.
 # @param  ... further arguments passed to or from other methods.
@@ -68,11 +70,14 @@ rule <- function(x, d = 1, rule = c("Rice", "Sturges", "scott", "FD"), ...){
 #' \code{rule.binning} returns a vector with the suggested number of bins
 #' on each dimension.
 #' @export
+#--------------------------------------------------------------------
 rule.binning <- function(x, ...) UseMethod("rule.binning")
 
 #--------------------------------------------------------------------
 #' @rdname rule
 #' @method rule.binning default
+#' @param  a  scale values.
+#' @param  b  exponent values.
 #' @export
 #' @return
 #' \code{rule.binning.default} returns \code{rep(ceiling(a * nrow(x) ^ (1 / b)), d)}.
@@ -86,8 +91,7 @@ rule.binning.default <- function(x, d = ncol(x), a = 2, b = d + 1, ...) {
 }
 
 
-
-
+#--------------------------------------------------------------------
 #' @rdname rule
 # @param  x  object used to select a method.
 # @param  ... further arguments passed to or from other methods.
@@ -95,6 +99,7 @@ rule.binning.default <- function(x, d = ncol(x), a = 2, b = d + 1, ...) {
 #' \code{rule.svar} returns the suggested number of bins
 #' for variogram estimation.
 #' @export
+#--------------------------------------------------------------------
 rule.svar <- function(x, ...) UseMethod("rule.svar")
 
 #--------------------------------------------------------------------
@@ -110,8 +115,6 @@ rule.svar.default <- function(x, d = ncol(x), a = 2, b = d + 1, ...) {
     if (!missing(d)) d <- as.integer(d)
     return( .rice.rule(ny^2/4, a = a, b = b))
 }
-
-
 
 #--------------------------------------------------------------------
 #' @rdname rule

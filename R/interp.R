@@ -88,7 +88,7 @@ interp.grid.par <- function(object, data, newx, ...) {
 #--------------------------------------------------------------------
 #' @rdname interp  
 #' @method interp data.grid
-#' @param data.ind integer or character with the index or name of the data component.
+#' @param data.ind integer (or character) with the index (or name) of the data component.
 #' @export
 interp.data.grid <- function(object, data.ind = 1, newx, ...) {
 #--------------------------------------------------------------------

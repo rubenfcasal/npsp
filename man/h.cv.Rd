@@ -111,11 +111,11 @@ estimates are computed by leaving out binning cells with indexes within
 the intervals \eqn{[x_i - ncv + 1, x_i + ncv - 1]}.
 }
 \examples{
-bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30))
+bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag)
 hcv <- h.cv(bin, ncv = 2)
 lp <- locpol(bin, h = hcv$h)
 ## Alternatively:
-## lp <- locpolhcv(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30), ncv = 2)
+## lp <- locpolhcv(earthquakes[, c("lon", "lat")], earthquakes$mag, ncv = 2)
 
 simage(lp, main = 'Smoothed magnitude')
 contour(lp, add = TRUE)
@@ -139,4 +139,3 @@ Francisco-Fernandez M. and Opsomer J.D. (2005) Smoothing parameter selection
 \code{\link{locpol}}, \code{\link{locpolhcv}}, \code{\link{binning}}, 
 \code{\link{np.svar}}.
 }
-

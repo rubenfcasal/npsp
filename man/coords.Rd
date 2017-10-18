@@ -2,8 +2,8 @@
 % Please edit documentation in R/coords.R
 \name{coords}
 \alias{coords}
-\alias{coords.data.grid}
 \alias{coords.grid.par}
+\alias{coords.data.grid}
 \title{(spatial) coordinates}
 \usage{
 coords(x, ...)
@@ -29,4 +29,3 @@ Retrieves the (spatial) coordinates of the object.
 \seealso{
 \code{\link{coordvalues}}.
 }
-

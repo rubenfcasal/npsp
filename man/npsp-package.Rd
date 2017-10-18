@@ -2,14 +2,18 @@
 % Please edit documentation in R/npsp-package.R
 \docType{package}
 \name{npsp-package}
-\alias{npsp}
 \alias{npsp-package}
+\alias{npsp}
 \title{npsp: Nonparametric spatial (geo)statistics}
 \description{
-This package implements nonparametric methods which may be useful
-in geostatistical practice.
+This package implements nonparametric methods 
+for inference on multidimensional spatial (or spatio-temporal) processes,
+which may be (especially) useful in (automatic) geostatistical modeling and interpolation.
 }
 \section{Main functions}{
+
+\strong{Nonparametric methods for inference on both spatial trend 
+and variogram functions}:
 
 \code{\link{locpol}}, \code{\link{np.den}} and \code{\link{np.svar}}
 use local polynomial kernel methods to compute
@@ -32,36 +36,54 @@ nonparametric estimation of the trend function, in semivariogram estimation.
 \code{\link{fitsvar.sb.iso}} fits a `nonparametric' isotropic Shapiro-Botha variogram
 model by WLS. Currently, only isotropic semivariogram estimation is supported.
 
-There are also functions for plotting data joint with a legend representing a
+\strong{Nonparametric residual kriging} (sometimes called external drift kriging):
+
+\code{kriging.np} computes residual kriging predictions  
+(and the corresponding simple kriging standard errors).
+
+\code{kriging.simple} computes simple kriging predictions, standard errors  
+
+Currently, only global simple kriging is implemented in this package.  
+Users are encouraged to use \code{\link[gstat]{krige}} (or \code{\link[gstat]{krige.cv}}) 
+utilities in \pkg{gstat} package together with \code{\link{as.vgm}} for local kriging.
+}
+
+\section{Other functions}{
+
+Among the other functions intended for direct access by the user, the following 
+(methods for multidimensional linear binning, local polynomial kernel regression, 
+density or variogram estimation) could be emphasized: \code{\link{binning}}, \code{\link{bin.den}},
+\code{\link{svar.bin}}, \code{\link{h.cv}} and \code{\link{interp}}.
+
+There are functions for plotting data joint with a legend representing a
 continuous color scale. \code{\link{splot}} allows to combine a standard R plot 
 with a legend. \code{\link{spoints}}, \code{\link{simage}} and \code{\link{spersp}} 
 draw the corresponding high-level plot with a legend strip for the color scale.
 These functions are based on \code{\link[fields]{image.plot}} of package \pkg{fields}.
 
-Among the other functions intended for direct access by the user,
-the following could be emphasized: \code{\link{binning}}, \code{\link{bin.den}},
-\code{\link{svar.bin}}, \code{\link{h.cv}} and \code{\link{interp}}.
 There are also some functions which can be used to interact with other packages.
 For instance, \code{\link{as.variogram}} (\pkg{geoR}) or \code{\link{as.vgm}} (\pkg{gstat}).
-
-Kriging is not yet implemented in this package. Users are encouraged to use 
-\code{\link[gstat]{krige}} (or \code{\link[gstat]{krige.cv}}) utilities in \pkg{gstat}
-package together with \code{\link{as.vgm}}.
 }
 
 \section{Acknowledgments}{
 
 Important suggestions and contributions to some techniques included here were
-made by Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
+made by Sergio Castillo-Paez (Universidad de las Fuerzas Armadas ESPE, Ecuador) 
+and Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
 }
-\author{
-Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
-Please send comments, error reports or suggestions to \url{rubenfcasal@gmail.com}.
-}
+
 \references{
+Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
+Nonparametric geostatistical risk mapping, \emph{Stoch. Environ. Res. Ris. Assess.}, 
+\url{https://doi.org/10.1007/s00477-017-1407-y}.
+
+Fernandez-Casal R., Castillo-Paez S. and Garcia-Soidan P. (2017)
+Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, 
+\emph{Spa. Sta.}, \url{https://doi.org/10.1016/j.spasta.2017.04.001}.
+
 Fernandez-Casal R. and Francisco-Fernandez M. (2014) 
 Nonparametric bias-corrected variogram estimation under non-constant trend, 
-\emph{Stoch. Environ. Res. Ris. Assess}, \bold{28}, 1247-1259.
+\emph{Stoch. Environ. Res. Ris. Assess.}, \bold{28}, 1247-1259.
 
 Fernandez-Casal R., Gonzalez-Manteiga W. and  Febrero-Bande M. (2003) 
 Flexible Spatio-Temporal Stationary Variogram Models, 
@@ -79,6 +101,9 @@ Wand M.P. (1994) Fast Computation of Multivariate Kernel Estimators.
 
 Wand M.P. and Jones M.C. (1995) \emph{Kernel Smoothing}. Chapman and Hall, London.
 }
+\author{
+Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
+Please send comments, error reports or suggestions to \url{rubenfcasal@gmail.com}.
+}
 \keyword{nonparametric}
 \keyword{smooth}
-

@@ -2,9 +2,9 @@
 % Please edit documentation in R/coords.R
 \name{coordvalues}
 \alias{coordvalues}
-\alias{coordvalues.data.grid}
 \alias{coordvalues.grid.par}
-\title{coordinate values}
+\alias{coordvalues.data.grid}
+\title{Coordinate values}
 \usage{
 coordvalues(x, ...)
 
@@ -26,4 +26,3 @@ Returns the coordinate values in each dimension.
 \seealso{
 \code{\link{coords}}.
 }
-

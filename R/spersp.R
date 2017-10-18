@@ -206,7 +206,7 @@ spersp.default <- function(x = seq(0, 1, len = nrow(z)), y = seq(0, 1,
 #--------------------------------------------------------------------
 #' @rdname spersp  
 #' @method spersp data.grid
-#' @param data.ind integer or character with the index or name of the component 
+#' @param data.ind integer (or character) with the index (or name) of the component 
 #' containing the \code{z} values to be plotted.
 #' @export
 spersp.data.grid <- function(x, data.ind = 1, s = x[[data.ind]], 

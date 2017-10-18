@@ -29,7 +29,7 @@ coords <- function(x, ...) UseMethod("coords")
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
-#' coordinate values
+#' Coordinate values
 #'
 #' Returns the coordinate values in each dimension.
 #' @param  x 	a (spatial) object used to select a method.

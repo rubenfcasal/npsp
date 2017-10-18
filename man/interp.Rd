@@ -2,8 +2,8 @@
 % Please edit documentation in R/interp.R
 \name{interp}
 \alias{interp}
-\alias{interp.data.grid}
 \alias{interp.grid.par}
+\alias{interp.data.grid}
 \alias{predict.locpol.bin}
 \alias{predict.np.den}
 \title{Fast linear interpolation of a regular grid}
@@ -28,7 +28,7 @@ interp(object, ...)
 \item{newx}{vector or matrix with the (irregular) locations to interpolate. 
 Columns correspond with dimensions and rows with data.}
 
-\item{data.ind}{integer or character with the index or name of the data component.}
+\item{data.ind}{integer (or character) with the index (or name) of the data component.}
 
 \item{hat.data}{logical; if \code{TRUE} (and possible), the hat matrix corresponding 
 to the (original) data is returned.}
@@ -60,4 +60,3 @@ WARNING: May fail with missing values (especially if \code{object$locpol$ncv > 0
 \seealso{
 \code{\link[fields]{interp.surface}}.
 }
-

@@ -52,4 +52,3 @@ Gorsich, D.J. and Genton, M.G. (2004) On the discretization of nonparametric
 \seealso{
 \code{\link{kappasb}}, \code{\link{fitsvar.sb.iso}}.
 }
-

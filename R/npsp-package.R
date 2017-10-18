@@ -5,15 +5,19 @@
 #   earthquakes
 #   aquifer
 #
-#   (c) R. Fernandez-Casal         Last revision: Aug 2014
+#   (c) R. Fernandez-Casal         Last revision: Aug 2017
 #--------------------------------------------------------------------
 
 
 #' npsp: Nonparametric spatial (geo)statistics
 #'
-#' This package implements nonparametric methods which may be useful
-#' in geostatistical practice.
+#' This package implements nonparametric methods 
+#' for inference on multidimensional spatial (or spatio-temporal) processes,
+#' which may be (especially) useful in (automatic) geostatistical modeling and interpolation.
 #' @section Main functions:
+#' \strong{Nonparametric methods for inference on both spatial trend 
+#' and variogram functions}:
+#' 
 #' \code{\link{locpol}}, \code{\link{np.den}} and \code{\link{np.svar}}
 #' use local polynomial kernel methods to compute
 #' nonparametric estimates of a multidimensional regression function,
@@ -34,42 +38,70 @@
 #'
 #' \code{\link{fitsvar.sb.iso}} fits a `nonparametric' isotropic Shapiro-Botha variogram
 #' model by WLS. Currently, only isotropic semivariogram estimation is supported.
-#'
-#' There are also functions for plotting data joint with a legend representing a
+#' 
+#' \strong{Nonparametric residual kriging} (sometimes called external drift kriging):
+#' 
+#' \code{kriging.np} computes residual kriging predictions  
+# \code{\link{kriging.np}} computes residual kriging predictions  
+#' (and the corresponding simple kriging standard errors).
+#' 
+#' \code{kriging.simple} computes simple kriging predictions, standard errors  
+# \code{\link{kriging.simple}} computes simple kriging predictions and standard errors.
+#' 
+#' Currently, only global simple kriging is implemented in this package.  
+#' Users are encouraged to use \code{\link[gstat]{krige}} (or \code{\link[gstat]{krige.cv}}) 
+#' utilities in \pkg{gstat} package together with \code{\link{as.vgm}} for local kriging.
+#' 
+#' @section Other functions:
+#' Among the other functions intended for direct access by the user, the following 
+#' (methods for multidimensional linear binning, local polynomial kernel regression, 
+#' density or variogram estimation) could be emphasized: \code{\link{binning}}, \code{\link{bin.den}},
+#' \code{\link{svar.bin}}, \code{\link{h.cv}} and \code{\link{interp}}.
+#' 
+#' There are functions for plotting data joint with a legend representing a
 #' continuous color scale. \code{\link{splot}} allows to combine a standard R plot 
 #' with a legend. \code{\link{spoints}}, \code{\link{simage}} and \code{\link{spersp}} 
 #' draw the corresponding high-level plot with a legend strip for the color scale.
 #' These functions are based on \code{\link[fields]{image.plot}} of package \pkg{fields}.
 #'
-#' Among the other functions intended for direct access by the user,
-#' the following could be emphasized: \code{\link{binning}}, \code{\link{bin.den}},
-#' \code{\link{svar.bin}}, \code{\link{h.cv}} and \code{\link{interp}}.
 #' There are also some functions which can be used to interact with other packages.
 #' For instance, \code{\link{as.variogram}} (\pkg{geoR}) or \code{\link{as.vgm}} (\pkg{gstat}).
 #'
-#' Kriging is not yet implemented in this package. Users are encouraged to use 
-#' \code{\link[gstat]{krige}} (or \code{\link[gstat]{krige.cv}}) utilities in \pkg{gstat}
-#' package together with \code{\link{as.vgm}}.
 #' @author Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
 #' Please send comments, error reports or suggestions to \url{rubenfcasal@@gmail.com}.
+#' 
 #' @section Acknowledgments:
 #' Important suggestions and contributions to some techniques included here were
-#' made by Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
+#' made by Sergio Castillo-Paez (Universidad de las Fuerzas Armadas ESPE, Ecuador) 
+#' and Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
 #' @name npsp-package
 #' @aliases npsp
 #' @docType package
-#' @useDynLib npsp
+# @useDynLib npsp
+#' @useDynLib npsp, .registration = TRUE
 #' @importFrom quadprog solve.QP
+#' @importFrom spam as.spam
+#' @importFrom spam chol.spam
+#' @importFrom spam solve.spam
 #' @import graphics
+#' @import sp
 #' @importFrom grDevices colorRamp colorRamp rainbow rgb
 #' @importFrom methods is
-#' @importFrom stats approx complete.cases cov2cor dist optim predict
+#' @importFrom stats approx complete.cases cov2cor dist optim predict residuals lowess density
 #' @importFrom utils flush.console
 #' @keywords nonparametric smooth
 #' @references
+#' Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
+#' Nonparametric geostatistical risk mapping, \emph{Stoch. Environ. Res. Ris. Assess.}, 
+#' \url{https://doi.org/10.1007/s00477-017-1407-y}.
+#' 
+#' Fernandez-Casal R., Castillo-Paez S. and Garcia-Soidan P. (2017)
+#' Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, 
+#' \emph{Spa. Sta.}, \url{https://doi.org/10.1016/j.spasta.2017.04.001}.
+#' 
 #' Fernandez-Casal R. and Francisco-Fernandez M. (2014) 
 #' Nonparametric bias-corrected variogram estimation under non-constant trend, 
-#' \emph{Stoch. Environ. Res. Ris. Assess}, \bold{28}, 1247-1259.
+#' \emph{Stoch. Environ. Res. Ris. Assess.}, \bold{28}, 1247-1259.
 #'
 #' Fernandez-Casal R., Gonzalez-Manteiga W. and  Febrero-Bande M. (2003) 
 #' Flexible Spatio-Temporal Stationary Variogram Models, 
@@ -159,4 +191,42 @@ NULL
 #' str(aquifer)
 #' summary(aquifer)
 #' with(aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer"))
+NULL
+
+
+#' Precipitation data
+#'
+#' The data set consists of total precipitations during March 2016
+#' recorded over 1053 locations on the continental part of USA.
+#' @name precipitation
+#' @docType data
+#' @format A \code{\link[sp]{SpatialPointsDataFrame}} with 1053 observations on the 
+#' following 6 variables:
+#' \describe{
+#'   \item{y}{total precipitations (square-root of rainfall inches),}
+#'   \item{WBAN}{five-digit Weather station identifier,}
+#'   \item{state}{factor containing the U.S. state,}
+#' }
+#' and the following \code{\link{attributes}}:
+#' \describe{
+#'   \item{labels}{list with data and variable labels,}
+#'   \item{border}{\code{\link[sp]{SpatialPolygons}} with the boundary
+#'   of the continental part of USA,}
+#'   \item{interior}{\code{\link[sp]{SpatialPolygons}} with the U.S. state boundaries.}
+#' }
+#' @source National Climatic Data Center: \cr
+#' \url{http://www.ncdc.noaa.gov}.
+#' @references
+#' Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
+#' Nonparametric geostatistical risk mapping, \emph{Stoch. Environ. Res. Ris. Assess.}, 
+#' \url{https://doi.org/10.1007/s00477-017-1407-y}.
+#' 
+#' Fernandez-Casal R., Castillo-Paez S. and Garcia-Soidan P. (2017)
+#' Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, 
+#' \emph{Spa. Sta.}, \url{https://doi.org/10.1016/j.spasta.2017.04.001}.
+#' @keywords datasets
+#' @examples
+#' str(precipitation)
+#' summary(precipitation)
+#' scattersplot(precipitation)
 NULL

@@ -40,4 +40,3 @@ grid.par(n = c(100, 100), min = c(-10, 42), lag = c(0.03, 0.02))
 \seealso{
 \code{\link{data.grid}}.
 }
-

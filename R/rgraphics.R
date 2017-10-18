@@ -55,7 +55,7 @@ NULL
 #' @rdname rgraphics
 #' @method image data.grid
 #' @param x a "\code{\link{data.grid}}"-class object.
-#' @param data.ind integer or character with the index or name of the component 
+#' @param data.ind integer (or character) with the index (or name) of the component 
 #' containing the values to be used for coloring the rectangles.
 #' @param xlab label for the x axis, defaults to \code{dimnames(x)[1]}.
 #' @param ylab label for the y axis, defaults to \code{dimnames(x)[2]}.

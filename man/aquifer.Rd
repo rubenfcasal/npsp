@@ -41,4 +41,3 @@ Cressie, N. (1989) Geostatistics.
 Cressie, N. (1993) \emph{Statistics for Spatial Data}. New York. Wiley.
 }
 \keyword{datasets}
-

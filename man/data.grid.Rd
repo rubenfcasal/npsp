@@ -3,14 +3,32 @@
 \name{data.grid}
 \alias{data.grid}
 \alias{data.grid-class}
+\alias{as.data.frame.data.grid}
 \title{Gridded data (S3 class "data.grid")}
 \usage{
 data.grid(..., grid = NULL)
+
+\method{as.data.frame}{data.grid}(x, data.ind = NULL, coords = FALSE,
+  sp = FALSE, row.names = NULL, check.names = coords, ...)
 }
 \arguments{
 \item{...}{vectors or arrays of data with length equal to \code{prod(grid$n)}.}
 
 \item{grid}{a \code{\link{grid.par}}-\code{\link{class}} object (optional).}
+
+\item{x}{a \code{data.grid} object.}
+
+\item{data.ind}{integer or character vector with the indexes or names of the components.}
+
+\item{coords}{logical; if \code{TRUE}, the (spatial) coordinates of the object are added.}
+
+\item{sp}{logical; if \code{TRUE}, the second dimension of the data is reversed 
+(as it is stored in \pkg{sp} package).}
+
+\item{row.names}{\code{NULL}, column to be used as row names, or vector giving the row names for the data frame.}
+
+\item{check.names}{logical; if \code{TRUE}, the names of the variables in the data 
+frame are checked and adjusted if necessary.}
 }
 \value{
 Returns an object of \code{\link{class}} \code{data.grid}, a list with 
@@ -29,4 +47,3 @@ of the \pkg{sp} package.
 \seealso{
 \code{\link{grid.par}}, \code{\link{binning}}, \code{\link{locpol}}.
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/spersp.R
 \name{spersp}
 \alias{spersp}
-\alias{spersp.data.grid}
 \alias{spersp.default}
+\alias{spersp.data.grid}
 \title{Perspective plot with a color scale}
 \usage{
 spersp(x, ...)
@@ -107,7 +107,7 @@ to indicate direction of increase; \code{"detailed"} draws normal ticks as per 2
 \item{cex.axis}{magnification to be used for axis annotation (relative to the 
 current setting of \code{\link{par}("cex")}).}
 
-\item{data.ind}{integer or character with the index or name of the component 
+\item{data.ind}{integer (or character) with the index (or name) of the component 
 containing the \code{z} values to be plotted.}
 }
 \value{
@@ -132,6 +132,7 @@ and (optionally) adds a legend strip with the color scale
 (\code{\link{par}("plt")}) to make it possible to add more features to the plot
 (set \code{graphics.reset = FALSE} to avoid this).
 }
+
 \examples{
 
 #
@@ -155,6 +156,11 @@ spersp( x1, x2, y, main = 'Data')
 spersp(lp, main = 'Estimated trend', zlab = 'y')
 par(old.par)
 }
+\seealso{
+\code{\link{splot}}, \code{\link{spoints}}, \code{\link{simage}}, 
+\code{\link{image}}, \code{\link[fields]{image.plot}}, \code{\link{data.grid}}, 
+\code{\link{persp}}.
+}
 \author{
 Based on \code{\link[fields]{image.plot}} function from package \pkg{fields}:
 fields, Tools for spatial data. 
@@ -163,10 +169,4 @@ University Corporation for Atmospheric Research.
 
 Modified by Ruben Fernandez-Casal <rubenfcasal@gmail.com>.
 }
-\seealso{
-\code{\link{splot}}, \code{\link{spoints}}, \code{\link{simage}}, 
-\code{\link{image}}, \code{\link[fields]{image.plot}}, \code{\link{data.grid}}, 
-\code{\link{persp}}.
-}
 \keyword{hplot}
-

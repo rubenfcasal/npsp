@@ -27,4 +27,3 @@ abline(h = npsp.tolerance(0, FALSE), lty = 2)
 \seealso{
 \code{\link{.Machine}}
 }
-

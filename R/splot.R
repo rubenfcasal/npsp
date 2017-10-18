@@ -215,9 +215,9 @@ splot <- function(slim = c(0,1), col = jet.colors(128), breaks = NULL,
     # using the mtext function. The arguments to mtext are
     # passed as a list like the drill for axis (see above)
     if (!is.null(legend.lab)) {
-        legend.args <- list(text = legend.lab, side = ifelse(horizontal,
-            1, 4), line = legend.mar - 2)
-        #                    just guessing at a good default for line argument!
+        legend.args <- list(text = legend.lab, side = ifelse(horizontal, 1, 4), 
+                            line = legend.mar - 3) # just guessing at a good default for line argument!
+    #                       line = par("mgp")[2] + 1)
     }
     #
     # add the label using mtext function

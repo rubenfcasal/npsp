@@ -41,4 +41,3 @@ Shapiro, A. and Botha, J.D. (1991) Variogram fitting with a general class of
 \seealso{
 \code{\link{svarmod.sb.iso}}, \code{\link{besselJ}}.
 }
-

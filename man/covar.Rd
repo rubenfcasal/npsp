@@ -2,13 +2,13 @@
 % Please edit documentation in R/cov.R
 \name{covar}
 \alias{covar}
-\alias{covar.np.svar}
 \alias{covar.svarmod}
+\alias{covar.np.svar}
 \title{Covariance values}
 \usage{
 covar(x, h, ...)
 
-\method{covar}{svarmod}(x, h, sill = x$sill, ...)
+\method{covar}{svarmod}(x, h, sill = x$sill, discretize = FALSE, ...)
 
 \method{covar}{np.svar}(x, h, sill = NULL, ...)
 }
@@ -20,6 +20,8 @@ covar(x, h, ...)
 \item{...}{further arguments passed to or from other methods.}
 
 \item{sill}{(theoretical or estimated) variance \eqn{C(0) = \sigma^2} or pseudo-sill (unbounded variograms).}
+
+\item{discretize}{logical. If \code{TRUE} the variogram is previously discretized.}
 }
 \value{
 A vector of (pseudo) covariance values \eqn{C(h_i) = \sigma^2 - \gamma(h_i)} or covariance estimates.
@@ -31,4 +33,3 @@ or covariance estimates given a semivariogram estimate.
 \seealso{
 \code{\link{sv}}, \code{\link{varcov}}.
 }
-

@@ -2,11 +2,12 @@
 % Please edit documentation in R/svarmod.sb.R
 \name{fitsvar.sb.iso}
 \alias{fitsvar.sb.iso}
+\alias{fitsvar}
 \title{Fit an isotropic Shapiro-Botha variogram model}
 \usage{
-fitsvar.sb.iso(esv, dk = ncol(esv$data$x), nx = NULL, rmax = esv$grid$max,
-  min.contrib = 10, method = c("cressie", "equal", "npairs", "linear"),
-  iter = 10, tol = sqrt(.Machine$double.eps))
+fitsvar.sb.iso(esv, dk = 4 * ncol(esv$data$x), nx = NULL,
+  rmax = esv$grid$max, min.contrib = 10, method = c("cressie", "equal",
+  "npairs", "linear"), iter = 10, tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{esv}{pilot semivariogram estimate, a \code{\link{np.svar}}-\code{\link{class}} 
@@ -38,10 +39,11 @@ if \code{method == "cressie"}).}
 \value{
 Returns the fitted variogram model, an object of \code{\link{class}} \code{fitsvar}.
 A \code{\link{svarmod}} object
-with an additional component \code{fit} containing:
+with additional components \code{esv} (pilot semivariogram estimate) and \code{fit} containing:
 \item{u}{vector of lags/distances.}
 \item{sv}{vector of pilot semivariogram estimates.}
 \item{fitted.sv}{vector of fitted semivariances.}
+\item{w}{vector of (least squares) weights.}
 \item{wls}{value of the objective function.}
 \item{method}{string indicating the WLS fitting method used.}
 \item{iter}{number of WLS iterations (if \code{method == "cressie"}).}
@@ -119,4 +121,3 @@ Shapiro, A. and Botha, J.D. (1991) Variogram fitting with a general class of
 \seealso{
 \code{\link{svarmod.sb.iso}}, \code{\link{disc.sb}}, \code{\link{plot.fitsvar}}.
 }
-

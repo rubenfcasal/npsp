@@ -123,7 +123,7 @@ as.bin.den.bin.den <- function(object, ...) {
 #--------------------------------------------------------------------
 # np.den(x, ...)
 #--------------------------------------------------------------------
-#' local polynomial density estimation 
+#' Local polynomial density estimation 
 #' 
 #' Estimates a multidimensional probability density function (and its first derivatives) 
 #' using local polynomial kernel smoothing of linearly binned data.

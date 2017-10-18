@@ -2,25 +2,31 @@
 % Please edit documentation in R/spoints.R
 \name{spoints}
 \alias{spoints}
-\alias{spoints.data.grid}
 \alias{spoints.default}
+\alias{spoints.data.grid}
+\alias{spoints.SpatialPointsDataFrame}
 \title{Scatter plot with a color scale}
 \usage{
 spoints(x, ...)
 
 \method{spoints}{default}(x, y = NULL, s, slim = range(s, finite = TRUE),
   col = jet.colors(128), breaks = NULL, legend = TRUE,
-  horizontal = FALSE, legend.shrink = 0.9, legend.width = 1.2,
+  horizontal = FALSE, legend.shrink = 1, legend.width = 1.2,
   legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
   bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL,
   legend.args = NULL, add = FALSE, graphics.reset = add, pch = 16,
   cex = 1.5, xlab = NULL, ylab = NULL, ...)
 
 \method{spoints}{data.grid}(x, s = x[[1]], xlab = NULL, ylab = NULL, ...)
+
+\method{spoints}{SpatialPointsDataFrame}(x, data.ind = 1, main, xlab, ylab,
+  legend.lab, ...)
 }
 \arguments{
-\item{x}{x coordinates. Any reasonable way of defining the coordinates is acceptable. 
-See the function \code{\link{xy.coords}} for details.}
+\item{x}{object used to select a method. In the default method, it provides the \code{x} 
+coordinates for the plot (and optionally the \code{y} coordinates; 
+any reasonable way of defining the coordinates is acceptable, 
+see the function \code{\link{xy.coords}} for details).}
 
 \item{...}{additional graphical parameters (to be passed to the main plot function
 or \code{sxxxx.default}; e.g. \code{xlim, ylim,} ...). NOTE:
@@ -95,6 +101,10 @@ of \code{\link{par}("cex")}.}
 \item{xlab}{label for the x axis, defaults to a description of \code{x}.}
 
 \item{ylab}{label for the y axis, defaults to a description of \code{y}.}
+
+\item{data.ind}{integer (or character) with the index (or name) of the data component.}
+
+\item{main}{an overall title for the plot.}
 }
 \value{
 Invisibly returns a list with the following 3 components:
@@ -105,20 +115,30 @@ drawing a plot without the legend that is the same size as the plots with legend
 will reset plot parameters to the values before entering the function).}
 }
 \description{
-\code{spoints} (generic function) draws an scatterplot with points filled with different colors
+\code{spoints} (generic function) draws a scatter plot with points filled with different colors
 and (optionally) adds a legend strip with the color scale
 (calls \code{\link{splot}} and \code{\link{plot.default}}).
+}
+\details{
+\code{spoints.SpatialPointsDataFrame} sets default values for some of the arguments 
+from attributes of the object \code{x} (if present; see e.g. \code{precipitation}).
 }
 \section{Side Effects}{
  After exiting, the plotting region may be changed 
 (\code{\link{par}("plt")}) to make it possible to add more features to the plot
 (set \code{graphics.reset = FALSE} to avoid this).
 }
+
 \examples{
 
 #
 with( aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))
 
+}
+\seealso{
+\code{\link{splot}}, \code{\link{simage}}, \code{\link{spersp}}, 
+\code{\link{image}}, \code{\link[fields]{image.plot}}, \code{\link{data.grid}}, 
+\code{\link{plot.default}}.
 }
 \author{
 Based on \code{\link[fields]{image.plot}} function from package \pkg{fields}:
@@ -128,10 +148,4 @@ University Corporation for Atmospheric Research.
 
 Modified by Ruben Fernandez-Casal <rubenfcasal@gmail.com>.
 }
-\seealso{
-\code{\link{splot}}, \code{\link{simage}}, \code{\link{spersp}}, 
-\code{\link{image}}, \code{\link[fields]{image.plot}}, \code{\link{data.grid}}, 
-\code{\link{plot.default}}.
-}
 \keyword{hplot}
-

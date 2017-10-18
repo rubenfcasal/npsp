@@ -8,7 +8,8 @@
 \usage{
 varcov(x, coords, ...)
 
-\method{varcov}{isotropic}(x, coords, sill = x$sill, range.taper, ...)
+\method{varcov}{isotropic}(x, coords, sill = x$sill, range.taper,
+  discretize = TRUE, ...)
 
 \method{varcov}{np.svar}(x, coords, sill = max(x$est),
   range.taper = x$grid$max, ...)
@@ -24,6 +25,8 @@ varcov(x, coords, ...)
 
 \item{range.taper}{(optional) if provided, covariances corresponding to 
 distances larger than this value are set to 0.}
+
+\item{discretize}{logical. If \code{TRUE} (default), the variogram is (previously) discretized.}
 }
 \value{
 The covariance matrix of the data.
@@ -35,4 +38,3 @@ given a variogram model or a semivariogram estimate.
 \seealso{
 \code{\link{sv}}, \code{\link{covar}}.
 }
-

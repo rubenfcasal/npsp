@@ -35,4 +35,3 @@ Francisco-Fernandez M., Quintela-del-Rio A. and Fernandez-Casal R. (2012)
    events, \emph{Environmetrics}, \bold{23}, 85-93.
 }
 \keyword{datasets}
-

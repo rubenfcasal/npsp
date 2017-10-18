@@ -3,11 +3,11 @@
 \name{np.den}
 \alias{np.den}
 \alias{np.den-class}
-\alias{np.den.bin.data}
-\alias{np.den.bin.den}
 \alias{np.den.default}
+\alias{np.den.bin.den}
+\alias{np.den.bin.data}
 \alias{np.den.svar.bin}
-\title{local polynomial density estimation}
+\title{Local polynomial density estimation}
 \usage{
 np.den(x, ...)
 
@@ -89,4 +89,3 @@ Wand, M.P. and Jones, M.C. (1995) \emph{Kernel Smoothing}. Chapman and Hall, Lon
 \seealso{
 \code{\link{bin.den}}, \code{\link{binning}}, \code{\link{data.grid}}.
 }
-

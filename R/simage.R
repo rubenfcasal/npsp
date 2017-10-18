@@ -173,7 +173,7 @@ simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
 #--------------------------------------------------------------------
 #' @rdname simage  
 #' @method simage data.grid
-#' @param data.ind integer or character with the index or name of the component 
+#' @param data.ind integer (or character) with the index (or name) of the component 
 #' containing the values to be used for coloring the rectangles.
 #' @export
 simage.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {

@@ -43,4 +43,3 @@ real and CPU times.
 \seealso{
 \code{\link{proc.time}}, \code{\link{system.time}}, \code{\link{flush.console}}.
 }
-
