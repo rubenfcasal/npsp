@@ -1,0 +1,500 @@
+---
+title: 'Nonparametric Spatial Data Analysis with the *npsp* Package'
+author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
+date: '`r paste("npsp", packageVersion("npsp"))`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Nonparametric Analysis of Spatial Data (with the npsp package)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.height=5, fig.width=7, fig.align = 'center')
+```
+
+# The `npsp` package
+
+```{r}
+library(npsp)
+```
+
+##  Example: Nonparametric spatial analyses of Wolfcamp aquifer data
+
+```{r, fig.height=5, fig.width=7}
+#   ?aquifer
+str(aquifer)
+#   Scatter plot with a color scale
+with(aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))
+```
+
+##   Model
+
+Model:
+$$Y(\mathbf{x})=m(\mathbf{x})+\varepsilon(\mathbf{x})$$
+
+*   $m(\cdot)$ tendencia (función de regresión).
+
+*   $\varepsilon$ proceso de error estacionario de 2${{}^o}$ orden,
+    de media cero y covariograma $C(\cdot)$.
+
+Modelo **no paramétrico**: no se supone ninguna forma concreta para
+$m(\mathbf{\cdot})$ y $\gamma(\mathbf{\cdot})$ (funciones suaves).
+
+Ventajas:
+
+*   Evitan problemas debidos a una mala especificación del modelo.
+
+*   Más fáciles de automatizar.
+
+*   De utilidad en inferencia paramétrica.
+
+##  Example: Wolfcamp aquifer
+```{r, fig.height=7, fig.width=7}
+summary(aquifer)
+scattersplot(aquifer[,1:2], aquifer$head/100, 
+             main = "Wolfcamp aquifer data", xlab = 'lon', 
+             ylab='lat', zlab = 'piezometric-head  (hundreds)',
+             col = jet.colors(128))
+```
+
+
+##  Herramientas disponibles en R
+
+Geoestadística:
+
+*   `geoR`, `fields`, `sm`, ...
+
+Estadística no paramétrica:
+
+*   `mgcv` (splines), `KernSmooth`
+
+*   `modreg` (stats), `MASS`, `gam`
+
+*   `sm`, `locfit`, `ks`, `fields`, `locpol`, `bigvis`, ...
+
+Problemas:
+
+*   Funcionalidad muy limitada para estadística espacial no
+    paramétrica .
+
+*   Dificultad para implementar nuevos métodos.
+
+*   Otras limitaciones: lentitud (e.g. no binning), n${{}^o}$ de
+    dimensiones,...
+
+El paquete `npsp`: https://cran.r-project.org/package=npsp
+
+
+
+#  Linear binning
+
+Para acelerar los cálculos se emplea binning (WARPing; e.g. Wand and Jones, 1995):
+
+*   datos $\Longrightarrow$ discretización $\Longrightarrow$ suavizado
+$\Longrightarrow$ interpolación
+
+*   Discretización: binning lineal. 
+
+Procedimiento análogo para interpolación lineal.
+
+###  `npsp` functions: `binning` (S3 generic and methods), ...
+
+Binning:
+
+```{r }
+#   fig.height=5, fig.width=5}
+cpu.time(reset=TRUE)
+bin <- binning(aquifer[,1:2], aquifer$head, nbin = c(41,41), set.NA = TRUE) 
+simage(bin, main = 'Binning averages')
+points(bin$data$x, col = 'darkgray')
+cpu.time(total = FALSE)
+```
+
+###  `npsp` functions: `interp` (S3 generic and methods), `predict` (methods `locpol.bin` y `np.den`).
+```{r}
+nbin.hd <- c(128, 128)
+bin.nna <- binning(aquifer[,1:2], aquifer$head, nbin = nbin.hd)
+with(bin.nna$data, summary((y - interp(bin.nna, newx = x)$y)/y ))
+```
+
+
+
+
+#  Density estimation
+
+La estimación de la densidad está implementada como un caso
+particular de regresión (se suavizan los pesos binning
+reescalados).
+
+###  `npsp` functions: `np.den`, ...
+
+##  Example: Wolfcamp aquifer
+
+```{r }
+#   fig.height=7, fig.width=7}
+h.den <- diag(c(55,55))#    alternatively: h.cv(as.bin.den(bin))$h
+den <- np.den(bin, h = h.den, degree = 0)
+plot(den, main = 'Estimated log(density)')
+#   Index with grid nodes far from data
+mask <- log(den$est) > -15
+bin <- mask(bin, mask = mask)
+cpu.time(total = FALSE)
+```
+
+
+#  Trend estimation
+
+##  Regresión polinómica local
+
+###  Caso univariante
+
+Para cada $x_{0}$ se ajusta un polinomio:
+$$\beta_{0}+\beta_{1}\left(x - x_{0}\right) + \cdots 
++ \beta_{p}\left( x-x_{0}\right)^{p}$$ 
+por mínimos cuadrados ponderados con pesos
+$w_{i} = \frac{1}{h}K\left(\frac{x-x_{0}}{h}\right)$.
+
+*   $\hat{m}_{h}(x_{0})=\hat{\beta}_{0}$.
+
+*   Adicionalmente: 
+    $\widehat{m_{h}^{r)}}(x_{0}) = r!\hat{\beta}_{r}$.
+
+Habitualmente:
+
+*   $p=0$: Estimador Nadaraya-Watson.
+
+*   $p=1$: Estimador lineal local.
+
+###  Caso multivariante 
+
+Análogo al caso univariante.
+
+Estimador lineal local multivariante:
+$$\min_{\beta_{0},\boldsymbol{\beta}_{1}}\sum_{i=1}^{n}
+\left( Y(\mathbf{x}_{i})-\beta_{0}-{\boldsymbol{\beta}}_{1}^{t}
+(\mathbf{x}_{i}-\mathbf{x})\right)^{2}
+K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),$$
+$\hat{m}_{\mathbf{H}}(\mathbf{x})=\hat{\beta}_{0}$, donde:
+
+*   $\mathbf{H}$ matriz definida positiva de orden $d$.
+
+*   $K_{\mathbf{H}}(\mathbf{u})=\left\vert \mathbf{H}\right\vert
+    ^{-1}K(\mathbf{H}^{-1}\mathbf{u})$, $K$ núcleo multivariante.
+
+Explícitamente:
+$$\hat{m}_{\mathbf{H}}(\mathbf{x}) = \mathbf{e}_{1}^{t} \left(
+\mathbf{X}_{\mathbf{x}}^{t} {\mathbf{W}}_{\mathbf{x}} 
+\mathbf{X}_{\mathbf{x}} \right)^{-1} \mathbf{X}_{\mathbf{x}}^{t} 
+{\mathbf{W}}_{\mathbf{x}}\mathbf{Y} \equiv {s}_{\mathbf{x}}^{t}\mathbf{Y}$$
+
+*   $\mathbf{e}_{1} = \left( 1, \cdots, 0\right)^{t}$.
+
+*   $\mathbf{X}_{\mathbf{x}}$ matriz con
+    $(1,(\mathbf{x}_{i}-\mathbf{x})^{t})$ en fila $i$.
+
+*   $\mathbf{W}_{\mathbf{x}} = \mathtt{diag} \left(  K_{\mathbf{H}}(\mathbf{x}_{1} 
+    - \mathbf{x}), ..., K_{\mathbf{H}}(\mathbf{x}_{n}-\mathbf{x}) \right)$.
+
+Matriz de suavizado o matriz hat $\mathbf{S}$: matriz $n\times
+n$ con $\mathbf{s}_{\mathbf{x}_{i}}^{t}$ en la fila $i$, tal que
+$\mathbf{\hat{Y}}=\mathbf{SY}$.
+
+###  `npsp` functions: `locpol` (S3 generic and methods).
+
+*   Permite cácular eficientemente la matriz de suavizado o matriz
+    hat $\mathbf{S}$ (de utilidad p.e. para la estimación de 
+    la dependencia de los datos o la selección de la ventana).
+
+*   Código _optimizado_ para minimizar el tiempo de computación 
+    y los requerimientos de memoria. 
+    Especialmente en Validación cruzada, Estimación del variograma y Simulación.
+
+*   Los cálculos se realizan en FORTRAN.
+    Para resolver el problema de regresión lineal (local), el paquete
+   `npsp` emplea una modificación de la rutina DGELSY de la librería
+    LAPACK (admite matrices de rango deficiente).
+
+##  Example: Wolfcamp aquifer
+
+```{r}
+lp <- locpol(bin, h = diag(75, 2), hat.bin = TRUE)  
+#                                  np.svariso.corr: 'lp' must have a '$locpol$hat' component
+# Perspective plot with a color scale
+spersp(lp, main = 'Trend estimates', zlab = 'piezometric-head levels', 
+       theta = 120)   
+cpu.time(total = FALSE)
+```
+
+#  Variogram estimation
+
+##  Modelado de la dependencia
+
+También se realiza a partir de los residuos:
+$$e(\mathbf{x}_{i})=Y(\mathbf{x}_{i})-\hat{m}(\mathbf{x}_{i})$$
+
+*Note*: To avoid the biases in variogram estimation, 
+the use of (the fully nonparametric correction algorithm in) 
+function `np.svariso.corr()` will be recomended 
+(see e.g. Fernández-Casal and Francisco-Fernández, 2013, 
+or the section about [Bias-corrected variogram estimation][Bias-corrected variogram estimation])
+
+Si la media se supone cte.:
+$e(\mathbf{x}_{i})\equiv Y(\mathbf{x}_{i})$.
+
+Se puede ver como un caso particular de regresión:
+$$\gamma\left(  \mathbf{x}_{i}-\mathbf{x}_{j}\right)  =\frac{1}{2}E\left(
+\varepsilon(\mathbf{x}_{i})-\varepsilon(\mathbf{x}_{j})\right)^{2}$$
+
+con $N=\frac{n(n-1)}{2}$ observaciones:
+$${\left(\mathbf{x}_{i}-\mathbf{x}_{j},
+(e(\mathbf{x}_{i})-e(\mathbf{x}_{j}))^2 / 2 \right)}$$
+(sesgadas si se estima la tendencia).
+  
+
+##  Estimación piloto del variograma
+
+Estimador polinómico local:
+
+$$\begin{aligned}
+\min_{\beta_{0}, \boldsymbol{\beta}_{1}, \cdots}
+\sum_{i=1}^{n}\left( \frac{1}{2} \left( e(\mathbf{x}_{i})-e(\mathbf{x}_{j})
+\right)^{2} - \beta_{0} - {\boldsymbol{\beta}}_{1}^{t} (\mathbf{x}_{i} - 
+mathbf{x}_{j} - \mathbf{u}) - \cdots\right)  ^{2}\times & \\
+K_{\mathbf{G}}(\mathbf{x}_{i}-\mathbf{x}_{j}-\mathbf{u})  &
+\end{aligned}$$
+
+$\hat{\gamma}_{\mathbf{G}}(\mathbf{u}) = \hat{\beta}_{0}$.
+
+
+###  `npsp` functions: `svar.bin`, `h.cv` y `np.svar`
+
+
+##  Ajuste de un modelo no paramétrico
+
+Los estimadores anteriores no pueden ser usados en kriging.
+
+Para resolver este problema se ajusta un modelo válido.
+
+Modelos no paramétricos de Shapiro-Botha. 
+Caso isotrópico:
+    $$\gamma(\left\Vert \mathbf{u} \right\Vert ) = \nu_{0} - 
+    \sum\limits_{k=1}^{K}\kappa_{d}(x_{k}\left\Vert \mathbf{u}\right\Vert )z_{k},$$
+
+*   $x_{k}$ nodos de discretización (fijos).
+
+*   $\kappa_{d}(x) = \left(      \tfrac{2}{x}\right)^{{\frac{d{-2}}{2}}}
+    \Gamma\left(  \tfrac{d}{2}\right)  J_{{\frac{d{-2}}{2}}}(x),\ \ \ 
+    \kappa_{\infty}(x)\equiv e^{-x^{2}}$.
+
+*   $\left( z_{1}, ..., z_{K}, \nu_{0} \right)^{t}$ parámetros,
+    verificando:
+    $$z_{k} \geq0 \text{ y } c_{0} = \nu_{0}-\sum\nolimits_{k=1}^{K}z_{k}\geq0.$$
+
+Extensibles al caso anisotrópico (Fernandez-Casal *et al*., 2003).
+
+El ajuste por WLS a un conjunto de estimaciones piloto se puede
+realizar fácilmente mediante programación cuadrática 
+(modificación de la función `solve.QP` del paquete `quadprog`).
+
+###  `npsp` functions: `fitsvar.sb.iso`
+
+
+##  Example: Wolfcamp aquifer
+
+```{r}
+lp.resid <- lp$data$y - predict(lp)
+  maxlag <- 0.55*sqrt(sum(diff(apply(aquifer[,1:2], 2, range))^2))
+esvar <- np.svariso(aquifer[,1:2], lp.resid, maxlag = 150, nlags = 60, h = 60)
+svm <- fitsvar.sb.iso(esvar)  #   dk = 2
+plot(svm, main = "Nonparametric semivariogram and fitted model")
+cpu.time(total = FALSE)
+```
+
+##  Bias-corrected variogram estimation 
+
+The direct use of the residuals introduces a bias in the estimation 
+of the variogram. 
+This bias is usually negative and higher at large lags 
+(e.g. Cressie, 1993, section 3.4.3).
+A correction for this bias is proposed in Fernandez-Casal and Francisco-Fernandez (2013).
+A similar algorithm (fully nonparametric) is implemented in `np.svariso.corr`.
+
+```{r}
+esvar2 <- np.svariso.corr(lp, maxlag = 150, nlags = 60, h = 60, plot = TRUE)
+svm2 <- fitsvar.sb.iso(esvar2)  #   dk = 2
+plot(svm2, main = "Nonparametric bias-corrected semivariogram and fitted models", 
+     lwd = 2) 
+with(svm$fit, lines(u, fitted.sv, lty = 2))
+cpu.time(total = FALSE)
+```
+
+
+#  Bandwidth selection
+
+*   Validación cruzada
+    tradicional:$$CV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
+    \left( Y(\mathbf{x}_{i}) - \hat{m}_{-i}(\mathbf{x}_{i}) \right)^{2},$$
+    siendo $\hat{m}_{-i}(\mathbf{x}_{i})$ la estimación obtenida
+    eliminando el dato $i$.
+
+*   Validación cruzada modificada para dependencia (Chu and Marron, 1991):
+    $$CV_{m}(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  Y(\mathbf{x}_{i})-\hat
+    {m}_{-N(i)}(\mathbf{x}_{i})\right)^{2},$$ 
+    siendo $\hat{m}_{-i}(\mathbf{x}_{i})$ la estimación obtenida eliminando los
+    datos en un vecindario $N(i)$ de $\mathbf{x}_{i}$.
+
+*   Validación cruzada generalizada con corrección de sesgo para
+    dependencia (Francisco-Fernandez and Opsomer, 2005):
+    $$GCV_{c}(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  \frac{Y(\mathbf{x}_{i})-\hat{m}(\mathbf{x}_{i})}{1-\frac{1}{n}tr\left(  \mathbf{SR}\right)
+    }\right)  ^{2},$$ siendo $\mathbf{R}$ la matriz de correlaciones
+    (estimada).
+
+###  `npsp` functions: `h.cv`, `hcv.data`, `locpolhcv`, ...
+
+
+##  Example: Wolfcamp aquifer
+
+```{r eval = TRUE, warning=FALSE}
+#   Example (speeding computations...):
+bin2 <- binning(aquifer[,1:2], aquifer$head, nbin = c(21,21))
+# Warning: There is not enough data in some neighborhoods ('NRL < NINDRL'):
+h.cv(bin2, h.start = c(50, 25), objective = "GCV", ncv = 0)
+# cov.bin <-  varcov(svm2, coords = coords(bin2))
+lp.h <- h.cv(bin2, h.start = c(50, 25), objective = "GCV", ncv = 0, cov.bin = svm2)
+lp.h
+cpu.time(total = FALSE)
+```
+
+
+#  Final estimation
+
+
+##  trend re-estimation
+```{r}
+lp <- locpol(lp, h = lp.h$h, hat.bin = TRUE)   # np.svariso.corr
+# Perspective plot with a color scale
+spersp(lp, main = 'Trend estimates', zlab = 'piezometric-head levels', theta = 120)   
+cpu.time(total = FALSE)
+
+```
+
+##  Variogram re-estimation
+```{r}
+lp.resid <- residuals(lp)
+esvar <- np.svariso(aquifer[,1:2], lp.resid, maxlag = 150, nlags = 60, h = 60)
+svm <- fitsvar.sb.iso(esvar)  # dk = 2
+esvar3 <- np.svariso.corr(lp, maxlag = 150, nlags = 60, h = 60, plot = FALSE)
+svm3 <- fitsvar.sb.iso(esvar3, dk = 0)
+
+plot(svm3, main = "Nonparametric bias-corrected semivariogram and fitted models", 
+     lwd = 2) 
+# with(svm$fit, lines(u, fitted.sv, lty = 2))
+with(svm2$fit, lines(u, fitted.sv, lty = 2, lwd = 2))
+cpu.time(total = FALSE)
+```
+
+##  trend and variogram re-re-estimation?
+
+Do you think it is necessary?...
+
+Compute the final trend estimates:
+```{r}
+lp <- locpol(aquifer[,1:2], aquifer$head, nbin = nbin.hd, 
+             h = lp$locpol$h, hat.bin = FALSE)
+# Perspective plot with a color scale
+simage(lp, main = 'Final trend estimates\n(piezometric-head levels)')   
+cpu.time(total = FALSE)
+```
+
+
+#  Kriging predictions
+
+Cressie, 1993
+Chilés y Delfiner, 
+
+###  `npsp` functions: `kriging.np` 
+
+##  Example: Wolfcamp aquifer
+
+###  Kriging system
+
+```{r kriging}
+krig.grid <- kriging.np(lp, svm3)
+cpu.time(total = FALSE)
+```
+
+###  Kriging maps
+
+```{r kriging.maps}
+simage(krig.grid, 'kpred', main = 'Kriging predictions', 
+       col =  jet.colors(256))
+simage(krig.grid, 'ksd', main = 'Kriging sd', col =  hot.colors(256))
+with(aquifer, points(lon, lat, cex = 0.75))
+cpu.time()
+```
+
+
+# Resumen y futuras implementaciones
+
+##  Resumen
+
+Entorno homogéneo para la estimación polinómica lócal
+    multidimensional: densidad, tendencia, variograma,...
+
+*   Binning, matriz de suavizado, derivadas, ...
+
+*   Mínima dependencia de otros paquetes.
+
+Trata de minimizar el tiempo de computación y los requerimientos de memoria. 
+
+Clases y métodos S3 sencillos.
+
+*   Pensado para interactuar con las clases S4 del paquete `sp`.
+
+*   Del mismo tipo que las del paquete alternativo `sf`.
+
+Fácil implementación de nuevos métodos.
+
+
+## Futuras implementaciones
+
+*   Modelos anisotrópicos de semivariograma (caso espacio-temporal).
+
+*   Modelos aditivos y parcialmente lineales.
+
+*   Kriging local.
+
+*   ...
+
+
+# References
+
+*   Chu, C.K. and Marron, J.S. (1991) Comparison of Two Bandwidth
+    Selectors with Dependent Errors. *The Annals of Statistics*, 19,
+    1906-1918.
+
+*   Fernandez-Casal R. and Francisco-Fernandez M. (2013) 
+    Nonparametric bias-corrected variogram estimation under non-constant trend. 
+    *Stoch. Environ. Res. Ris. Assess. (SERRA)*, 1-14, doi:10.1007/s00477-013-0817-8.
+    
+*   Fernandez-Casal R., Gonzalez-Manteiga W. and Febrero-Bande M. (2003) 
+    Flexible Spatio-Temporal Stationary Variogram Models.
+    *Statistics and Computing*, 13, 127-136.
+    
+*   Francisco-Fernandez M. and Opsomer J.D. (2005) Smoothing
+    parameter selection methods for nonparametric regression with
+    spatially correlated errors. *Canadian Journal of Statistics*,
+    33, 539-558.
+    
+*   Wand M.P. and Jones M.C. (1995) *Kernel Smoothing*. Chapman and Hall.
+
+
+
+
+
+
+
+
+
