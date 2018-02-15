@@ -1,8 +1,8 @@
 Package: npsp
 Type: Package
 Title: Nonparametric Spatial Statistics
-Version: 0.6-2
-Date: 2017-10-02
+Version: 0.7-1
+Date: 2018-02-11
 Authors@R: person("Ruben", "Fernandez-Casal", role = c("aut", "cre"), 
     email = "rubenfcasal@gmail.com")
 Maintainer: Ruben Fernandez-Casal <rubenfcasal@gmail.com>

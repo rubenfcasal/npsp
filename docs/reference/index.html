@@ -71,16 +71,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -109,7 +106,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;0.6-2</small>
+        <small>version&nbsp;0.7-1</small>
       </h1>
     </div>
 
@@ -125,7 +122,7 @@
         <tr>
           <th colspan="2">
             <h2 id="section-local-polinomial-estimation" class="hasAnchor"><a href="#section-local-polinomial-estimation" class="anchor"></a>Local polinomial estimation</h2>
-            <p class="section-desc"><p>Nonparametric estimation of a multidimensional regression function (e.g. a spatial trend), a probability density function or a semivariogram. To speed up computations, linear binning is used to discretize the corresponding data. A full bandwidth matrix and a multiplicative triweight kernel is used to compute the weights. Main calculations are performed in FORTRAN using the LAPACK library.</p></p>
+            <p class="section-desc"><p>Nonparametric estimation of a multidimensional regression function (e.g. a spatial trend), a probability density function or a semivariogram. To speed up computations, linear binning is used to discretize the (corresponding) data. A full bandwidth matrix and a multiplicative triweight kernel is used to compute the weights. Main calculations are performed in FORTRAN using the LAPACK library.</p></p>
           </th>
         </tr>
         <tr>
@@ -134,6 +131,12 @@
             <p><code><a href="npsp-package.html">npsp-package</a></code> </p>
           </td>
           <td><p>npsp: Nonparametric spatial (geo)statistics</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="np.fitgeo.html">np.fitgeo</a></code> </p>
+          </td>
+          <td><p>Fit a nonparametric geostatistical model</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -158,6 +161,12 @@
             <p><code><a href="interp.html">interp</a></code> <code><a href="interp.html">predict</a></code> </p>
           </td>
           <td><p>Fast linear interpolation of a regular grid</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="np.geo.html">np.geo</a></code> </p>
+          </td>
+          <td><p>Nonparametric geostatistical model (S3 class "np.geo")</p></td>
         </tr>
       </tbody><tbody>
         <tr>

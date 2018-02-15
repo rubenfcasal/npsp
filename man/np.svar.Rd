@@ -25,8 +25,8 @@ np.svariso(x, y, h = NULL, maxlag = NULL, nlags = NULL,
   ncv = 0, ...)
 
 np.svariso.hcv(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nlags,
-  degree = 1, drv = FALSE, hat.bin = TRUE, objective = c("CV", "GCV",
-  "MASE"), ncv = ifelse(objective == "GCV", 0, 1), cov.bin = NULL, ...)
+  degree = 1, drv = FALSE, hat.bin = TRUE, loss = c("ARSE", "ARAE",
+  "ASE", "AAE"), ncv = 1, warn = FALSE, ...)
 
 np.svariso.corr(lp, x = lp$data$x, h = NULL, maxlag = NULL,
   nlags = NULL, minlag = maxlag/nlags, degree = 1, drv = FALSE,
@@ -55,16 +55,18 @@ only the upper triangular part of h is used).}
 
 \item{drv}{logical; if \code{TRUE}, the matrix of estimated first derivatives is returned.}
 
-\item{hat.bin}{logical; if \code{TRUE}, the hat matrix of the binned semivariances is returned.}
+\item{hat.bin}{logical; if \code{TRUE}, the hat matrix of the binned semivariances is returned.
+Defaults to identity.}
 
 \item{ncv}{integer; determines the number of cells leaved out in each dimension.
 Defaults to 0 (the full data is used) and it is not normally changed by the user
 in this setting. See "Details" below.}
 
-\item{objective}{character; optimal criterion to be used ("CV", "GCV" or "MASE").}
+\item{loss}{character; CV error. See "Details" bellow.}
 
-\item{cov.bin}{covariance matrix of the binned semivariances. 
-Defaults to identity.}
+\item{warn}{logical; sets the handling of warning messages
+(normally due to the lack of data in some neighborhoods).
+If \code{FALSE} all warnings are ignored.}
 
 \item{lp}{local polynomial estimate of the trend function (object of class 
 \code{\link{locpol.bin}}).}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linear binning � binning • npsp</title>
+<title>Linear binning — binning • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,16 +71,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -206,10 +203,10 @@ may be useful for plotting the binned averages <code>$biny</code>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>with</span>(<span class='no'>earthquakes</span>, <span class='fu'><a href='spoints.html'>spoints</a></span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>mag</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Earthquake data"</span>))</div><div class='img'><img src='binning-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>with</span>(<span class='no'>earthquakes</span>, <span class='fu'><a href='spoints.html'>spoints</a></span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='no'>mag</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Earthquake data"</span>))</div><div class='img'><img src='binning-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>bin</span> <span class='kw'>&lt;-</span> <span class='fu'>binning</span>(<span class='no'>earthquakes</span>[, <span class='fu'>c</span>(<span class='st'>"lon"</span>, <span class='st'>"lat"</span>)], <span class='no'>earthquakes</span>$<span class='no'>mag</span>, <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>,<span class='fl'>30</span>), <span class='kw'>set.NA</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='simage.html'>simage</a></span>(<span class='no'>bin</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Binning averages"</span>)</div><div class='input'><span class='fu'>with</span>(<span class='no'>earthquakes</span>, <span class='fu'>points</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>20</span>))</div><div class='img'><img src='binning-6.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'><a href='simage.html'>simage</a></span>(<span class='no'>bin</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Binning averages"</span>)</div><div class='input'><span class='fu'>with</span>(<span class='no'>earthquakes</span>, <span class='fu'>points</span>(<span class='no'>lon</span>, <span class='no'>lat</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>20</span>))</div><div class='img'><img src='binning-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

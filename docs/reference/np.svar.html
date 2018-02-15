@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Local polynomial estimation of the semivariogram � np.svar • npsp</title>
+<title>Local polynomial estimation of the semivariogram — np.svar • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,16 +71,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -131,8 +128,8 @@ using local polynomial kernel smoothing of linearly binned semivariances.</p>
   <span class='kw'>ncv</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
 
 <span class='fu'>np.svariso.hcv</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>maxlag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nlags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>minlag</span> <span class='kw'>=</span> <span class='no'>maxlag</span>/<span class='no'>nlags</span>,
-  <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>drv</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>hat.bin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>objective</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CV"</span>, <span class='st'>"GCV"</span>,
-  <span class='st'>"MASE"</span>), <span class='kw'>ncv</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>objective</span> <span class='kw'>==</span> <span class='st'>"GCV"</span>, <span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>cov.bin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+  <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>drv</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>hat.bin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>loss</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ARSE"</span>, <span class='st'>"ARAE"</span>,
+  <span class='st'>"ASE"</span>, <span class='st'>"AAE"</span>), <span class='kw'>ncv</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>warn</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='fu'>np.svariso.corr</span>(<span class='no'>lp</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>lp</span>$<span class='no'>data</span>$<span class='no'>x</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>maxlag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>nlags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>minlag</span> <span class='kw'>=</span> <span class='no'>maxlag</span>/<span class='no'>nlags</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>drv</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -183,7 +180,8 @@ only the upper triangular part of h is used).</p></td>
     </tr>
     <tr>
       <th>hat.bin</th>
-      <td><p>logical; if <code>TRUE</code>, the hat matrix of the binned semivariances is returned.</p></td>
+      <td><p>logical; if <code>TRUE</code>, the hat matrix of the binned semivariances is returned.
+Defaults to identity.</p></td>
     </tr>
     <tr>
       <th>ncv</th>
@@ -192,13 +190,14 @@ Defaults to 0 (the full data is used) and it is not normally changed by the user
 in this setting. See "Details" below.</p></td>
     </tr>
     <tr>
-      <th>objective</th>
-      <td><p>character; optimal criterion to be used ("CV", "GCV" or "MASE").</p></td>
+      <th>loss</th>
+      <td><p>character; CV error. See "Details" bellow.</p></td>
     </tr>
     <tr>
-      <th>cov.bin</th>
-      <td><p>covariance matrix of the binned semivariances. 
-Defaults to identity.</p></td>
+      <th>warn</th>
+      <td><p>logical; sets the handling of warning messages
+(normally due to the lack of data in some neighborhoods).
+If <code>FALSE</code> all warnings are ignored.</p></td>
     </tr>
     <tr>
       <th>lp</th>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>npsp: Nonparametric spatial (geo)statistics � npsp-package • npsp</title>
+<title>npsp: Nonparametric spatial (geo)statistics — npsp-package • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,16 +71,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -121,6 +118,10 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
 
     <p><strong>Nonparametric methods for inference on both spatial trend 
 and variogram functions</strong>:
+    <code><a href='np.fitgeo.html'>np.fitgeo</a></code> (automatically) fits an isotropic nonparametric geostatistical model
+by estimating the trend and the variogram (using a bias-corrected estimator) iteratively
+(by calling <code><a href='h.cv.html'>h.cv</a></code>, <code><a href='locpol.html'>locpol</a></code>, <code><a href='np.svar.html'>np.svariso.corr</a></code> and 
+<code><a href='fitsvar.sb.iso.html'>fitsvar.sb.iso</a></code> at each iteration).
     <code><a href='locpol.html'>locpol</a></code>, <code><a href='np.den.html'>np.den</a></code> and <code><a href='np.svar.html'>np.svar</a></code>
 use local polynomial kernel methods to compute
 nonparametric estimates of a multidimensional regression function,
@@ -171,12 +172,12 @@ and Tomas Cotos-Ya\~nez (Dep. Statistics, University of Vigo, Spain).</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
+    <p>Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2018)
 Nonparametric geostatistical risk mapping, <em>Stoch. Environ. Res. Ris. Assess.</em>, 
 <a href='https://doi.org/10.1007/s00477-017-1407-y'>https://doi.org/10.1007/s00477-017-1407-y</a>.</p>
 <p>Fernandez-Casal R., Castillo-Paez S. and Garcia-Soidan P. (2017)
 Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, 
-<em>Spa. Sta.</em>, <a href='https://doi.org/10.1016/j.spasta.2017.04.001'>https://doi.org/10.1016/j.spasta.2017.04.001</a>.</p>
+<em>Spa. Sta.</em>, <b>22</b>, 358-370, <a href='https://doi.org/10.1016/j.spasta.2017.04.001'>https://doi.org/10.1016/j.spasta.2017.04.001</a>.</p>
 <p>Fernandez-Casal R. and Francisco-Fernandez M. (2014) 
 Nonparametric bias-corrected variogram estimation under non-constant trend, 
 <em>Stoch. Environ. Res. Ris. Assess.</em>, <b>28</b>, 1247-1259.</p>

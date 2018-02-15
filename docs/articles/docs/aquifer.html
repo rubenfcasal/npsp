@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Análisis no paramétrico de datos espaciales (aquifer) • npsp</title>
+<title>Geoestadística no paramétrica con el paquete <em>npsp</em> • npsp</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
@@ -48,16 +48,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -84,528 +81,510 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>Análisis no paramétrico de datos espaciales (aquifer)</h1>
+      <h1>Geoestadística no paramétrica con el paquete <em>npsp</em>
+</h1>
                         <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.6.2</h4>
+            <h4 class="date">npsp 0.7.1</h4>
           </div>
 
     
     
 <div class="contents">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(npsp)</code></pre></div>
+<pre><code> Package npsp: Nonparametric Spatial Statistics,
+ version 0.7-1 (built on 2018-02-11).
+ Copyright (C) R. Fernandez-Casal 2012-2018.
+ Type `help(npsp)` for an overview of the package and
+ `demo(package = "npsp")` for the list of available demos.</code></pre>
 <div id="geoestadistica-no-parametrica" class="section level1">
 <h1 class="hasAnchor">
 <a href="#geoestadistica-no-parametrica" class="anchor"></a>Geoestadística no paramétrica</h1>
-<div id="el-paquete-npsp" class="section level2">
-<h2 class="hasAnchor">
-<a href="#el-paquete-npsp" class="anchor"></a>El paquete <code>npsp</code>
-</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(npsp)</code></pre></div>
-<pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.6-2 (built on 2017-10-02).
-##  Copyright (C) R. Fernandez-Casal 2012-2017.
-##  Type `help(npsp)` for an overview of the package and
-##  `demo(package = "npsp")` for the list of available demos.</code></pre>
-<div id="modelo" class="section level3">
-<h3 class="hasAnchor">
-<a href="#modelo" class="anchor"></a>Modelo</h3>
+<p>Nos centraremos en el caso de procesos espaciales <span class="math inline">\(\left\lbrace Y(\mathbf{x}), \mathbf{x} \in D\subset \mathbb{R}^{d} \right\rbrace\)</span>, con dominio <span class="math inline">\(D\)</span> continuo fijo: proceso geoestadístico.</p>
 <ul>
-<li>
-<p>Modelo:<span class="math display">\[Y(\mathbf{x})=m(\mathbf{x})+\varepsilon(\mathbf{x})\]</span></p>
-<ul>
-<li><p><span class="math inline">\(m(\cdot)\)</span> tendencia (función de regresión).</p></li>
-<li><p><span class="math inline">\(\varepsilon\)</span> proceso de error estacionario de 2<span class="math inline">\({{}^o}\)</span> orden, de media cero y covariograma <span class="math inline">\(C(\cdot)\)</span>.</p></li>
-</ul>
+<li>El objetivo en el futuro es considerar procesos puntuales marcados: <span class="math inline">\(D\)</span> es un proceso puntual en <span class="math inline">\(\mathbb{R}^{d}.\)</span>
 </li>
-<li><p>Modelo <strong>no paramétrico</strong>: no se supone ninguna forma concreta para <span class="math inline">\(m(\mathbf{\cdot})\)</span> y <span class="math inline">\(\gamma(\mathbf{\cdot})\)</span> (funciones suaves).</p></li>
-<li>
-<p>Ventajas:</p>
+</ul>
+<p>Normalmente sólo se observa un conjunto de valores <span class="math inline">\(\left\{ y(\mathbf{x}_{1}),\ldots,y(\mathbf{x}_{n})\right\}\)</span> (<strong>realización parcial</strong>).</p>
+<div id="ejemplo" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ejemplo" class="anchor"></a>Ejemplo</h2>
+<p>Se utilizará como ejemplo el conjunto de datos <a href="https://rubenfcasal.github.io/npsp/reference/aquifer.html"><code>aquifer</code></a>: nivel del agua subterránea en el acuífero Wolfcamp.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(aquifer)</code></pre></div>
+<pre><code>'data.frame':   85 obs. of  3 variables:
+ $ lon : num  42.78 -27.4 -1.16 -18.62 96.47 ...
+ $ lat : num  127.6 90.8 84.9 76.5 64.6 ...
+ $ head: num  1464 2553 2158 2455 1756 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   Scatter plot with a color scale</span>
+<span class="kw">with</span>(aquifer, <span class="kw"><a href="../../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;"></p>
+</div>
+<div id="modelo-general" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modelo-general" class="anchor"></a>Modelo general</h2>
+<p>Se supone que el proceso se descompone en <em>variabilidad de gran escala</em> y <em>variabilidad de pequeña escala</em>: <span class="math display">\[Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),\]</span> donde:</p>
+<ul>
+<li><p><span class="math inline">\(\mu(\cdot)\)</span> es la tendencia (función determinística).</p></li>
+<li><p><span class="math inline">\(\varepsilon(\cdot)\)</span> es un proceso de error estacionario de segundo orden, de media cero y covariograma: <span class="math display">\[C(\mathbf{u}) = Cov(\varepsilon(\mathbf{x}),
+   \varepsilon(\mathbf{x}+\mathbf{u} ))\]</span> (varianza <span class="math inline">\(\sigma^2 = C(\mathbf{0})\)</span>).</p></li>
+</ul>
+<p>La dependencia espacial se modela normalmente a través del variograma: <span class="math display">\[2\gamma(\mathbf{u}) = Var(\varepsilon \left( \mathbf{x}\right)
+-\varepsilon \left(\mathbf{x}+\mathbf{u}\right) ),\]</span> verificando <span class="math inline">\(\gamma(\mathbf{u}) = C(0) - C(\mathbf{u})\)</span>.</p>
+<p>Se empleará un modelo <strong>no paramétrico</strong>: no se supone ninguna forma concreta para <span class="math inline">\(\mu(\mathbf{\cdot})\)</span> y <span class="math inline">\(\gamma(\mathbf{\cdot})\)</span> (funciones suaves).</p>
 <ul>
 <li><p>Evitan problemas debidos a una mala especificación del modelo.</p></li>
 <li><p>Más fáciles de automatizar.</p></li>
-<li><p>De utilidad en inferencia paramétrica.</p></li>
-</ul>
-</li>
+<li><p>Resultan también de utilidad en inferencia paramétrica.</p></li>
 </ul>
 </div>
-<div id="herramientas-disponibles-en-r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#herramientas-disponibles-en-r" class="anchor"></a>Herramientas disponibles en R</h3>
-<ul>
-<li>
-<p>Geoestadística:</p>
-<ul>
-<li>
-<code>geoR</code>, <code>fields</code>, <code>sm</code>, …</li>
-</ul>
-</li>
-<li>
-<p>Estadística no paramétrica:</p>
-<ul>
-<li><p><code>mgcv</code> (splines), <code>KernSmooth</code></p></li>
-<li><p><code>modreg</code> (stats), <code>MASS</code>, <code>gam</code></p></li>
-<li><p><code>sm</code>, <code>locfit</code>, <code>ks</code>, <code>fields</code>, <code>locpol</code>, <code>bigvis</code>, …</p></li>
-</ul>
-</li>
-<li>
-<p>Problemas:</p>
-<ul>
-<li><p>Funcionalidad muy limitada para estadística espacial no paramétrica .</p></li>
-<li><p>Dificultad para implementar nuevos métodos.</p></li>
-<li><p>Otras limitaciones: lentitud (e.g. no binning), n<span class="math inline">\({{}^o}\)</span> de dimensiones,…</p></li>
-</ul>
-</li>
-<li><p>El paquete <code>npsp</code>: <a href="https://cran.r-project.org/package=npsp" class="uri">https://cran.r-project.org/package=npsp</a></p></li>
-</ul>
-</div>
-</div>
-<div id="linear-binning" class="section level2">
+<div id="ejemplo-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#linear-binning" class="anchor"></a>Linear binning</h2>
+<a href="#ejemplo-1" class="anchor"></a>Ejemplo</h2>
+<p>Con el conjunto de datos de ejemplo puede ser preferible emplear métodos paramétricos. El tamaño muestral es pequeño y un modelo lineal para la tendencia parece ser adecuado.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>aquifer[,<span class="dv">1</span>:<span class="dv">2</span>]      <span class="co"># coordenadas espaciales</span>
+y &lt;-<span class="st"> </span>aquifer$head/<span class="dv">100</span>   <span class="co"># respuesta (en cientos de pies)</span>
+<span class="kw"><a href="../../reference/scattersplot.html">scattersplot</a></span>(x, y, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>, <span class="dt">xlab =</span> <span class="st">'lon'</span>, <span class="dt">ylab =</span><span class="st">'lat'</span>, 
+             <span class="dt">zlab =</span> <span class="st">'piezometric-head'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">128</span>))</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
+</div>
+<div id="inferencia-no-parametrica-en-procesos-geoestadisticos" class="section level2">
+<h2 class="hasAnchor">
+<a href="#inferencia-no-parametrica-en-procesos-geoestadisticos" class="anchor"></a>Inferencia (no paramétrica) en procesos geoestadísticos</h2>
+<p>A partir de los valores observados <span class="math inline">\(\mathbf{Y}=(Y(\mathbf{x}_1),\ldots,Y(\mathbf{x}_n))^{t}\)</span> puede interesar:</p>
 <ul>
-<li>
-<p>Para acelerar los cálculos se emplea binning (WARPing):</p>
+<li><p>Obtener predicciones (kriging): <span class="math inline">\(\hat{Y}(\mathbf{x}_0)\)</span>.</p></li>
+<li><p>Realizar inferencias (estimación, contrastes) sobre las componentes del modelo <span class="math inline">\(\hat{\mu}(\cdot)\)</span>, <span class="math inline">\(\hat{\gamma}(\cdot)\)</span>.</p></li>
+<li><p>Obtención de mapas de riesgo <span class="math inline">\(P({Y}(\mathbf{x}_0)\geq c)\)</span></p></li>
+<li><p>…</p></li>
+</ul>
+<p>Aunque hay una gran cantidad de paquetes de R con herramientas de utilidad en geoestadística (<code>geoR</code>, <code>gstat</code>, <code>fields</code>, …) o en estadística no paramétrica (<code>mgcv</code>, <code>KernSmooth</code>, <code>sm</code>, …), la mayoría presentan una funcionalidad muy limitada para estadística espacial no paramétrica o resulta difícil emplearlos para implementar nuevos métodos (además de otras limitaciones, como su eficiencia computacional o el número de dimensiones que soportan). Por este motivo se decidió desarrollar el paquete <a href="https://rubenfcasal.github.io/npsp"><code>npsp</code></a>:</p>
 <ul>
-<li><p>datos <span class="math inline">\(\Longrightarrow\)</span> discretización <span class="math inline">\(\Longrightarrow\)</span> suavizado <span class="math inline">\(\Longrightarrow\)</span> interpolación</p></li>
-<li>
-<p>Discretización: binning lineal.</p>
+<li><p>CRAN: <a href="https://cran.r-project.org/package=npsp" class="uri">https://cran.r-project.org/package=npsp</a></p></li>
+<li><p>Github: <a href="http://github.com/rubenfcasal/npsp" class="uri">http://github.com/rubenfcasal/npsp</a></p></li>
+</ul>
+<p>La idea sería:</p>
+<ul>
+<li><p>Proporcionar un entorno homogéneo para la estimación polinómica lócal multidimensional (tendencia, variograma, densidad, …), especialmente para el caso de procesos espaciales (y espacio-temporales).</p></li>
+<li><p>Trata de minimizar el tiempo de computación y los requerimientos de memoria.</p></li>
+<li><p>Emplear clases y métodos S3 sencillos (que permitan interactuar con las clases S4 del paquete <code>sp</code> y las nuevas S3 del paquete <code>sf</code>; ver <code>npsp/inst/</code> <a href="https://github.com/rubenfcasal/npsp/blob/master/inst/locpol_classes.pdf">locpol_classes.pdf</a>).</p></li>
+<li><p>Robusto y que facilite la implementación de nuevos métodos.</p></li>
+</ul>
+</div>
+</div>
+<div id="binning-lineal" class="section level1">
+<h1 class="hasAnchor">
+<a href="#binning-lineal" class="anchor"></a>Binning lineal</h1>
+<p>Para acelerar los cálculos se emplea binning (WARPing; e.g. Wand and Jones, 1995):</p>
+<ul>
+<li>datos <span class="math inline">\(\Longrightarrow\)</span> discretización <span class="math inline">\(\Longrightarrow\)</span> suavizado <span class="math inline">\(\Longrightarrow\)</span> interpolación</li>
+</ul>
+<p>Normalmente el resultado final del análisis es una rejilla y el último paso sólo interesa en cálculos intermedios (e.g. obtención de residuos).</p>
+<div id="discretizacion" class="section level2">
+<h2 class="hasAnchor">
+<a href="#discretizacion" class="anchor"></a>Discretización</h2>
+<p>En la estimación polinómica local se emplea binning lineal.</p>
 <ul>
 <li>Wand M.P. and Jones M.C. (1995) <em>Kernel Smoothing</em>. Chapman and Hall.</li>
 </ul>
-</li>
+<p>Las principales funciones son:</p>
+<ul>
+<li><p>Tendencia (y densidad): <a href="https://rubenfcasal.github.io/npsp/reference/binning.html"><code>binning</code></a>.</p></li>
+<li><p>Variograma: <a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html"><code>svar.bin</code></a></p></li>
 </ul>
-</li>
-<li><p>Procedimiento análogo para interpolación lineal.</p></li>
-</ul>
-<div id="ejemplo-nivel-agua-subterranea" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ejemplo-nivel-agua-subterranea" class="anchor"></a>Ejemplo: nivel agua subterránea</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fig.height=5, fig.width=7}</span>
-<span class="co"># ?aquifer</span>
-<span class="kw">str</span>(aquifer)</code></pre></div>
-<pre><code>## 'data.frame':    85 obs. of  3 variables:
-##  $ lon : num  42.78 -27.4 -1.16 -18.62 96.47 ...
-##  $ lat : num  127.6 90.8 84.9 76.5 64.6 ...
-##  $ head: num  1464 2553 2158 2455 1756 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(aquifer)</code></pre></div>
-<pre><code>##       lon               lat               head     
-##  Min.   :-145.24   Min.   :  9.414   Min.   :1024  
-##  1st Qu.: -21.30   1st Qu.: 33.682   1st Qu.:1548  
-##  Median :  11.66   Median : 59.158   Median :1797  
-##  Mean   :  16.89   Mean   : 79.356   Mean   :2002  
-##  3rd Qu.:  70.90   3rd Qu.:131.825   3rd Qu.:2540  
-##  Max.   : 112.80   Max.   :184.766   Max.   :3571</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Scatter plot with a color scale</span>
-<span class="kw">with</span>(aquifer, <span class="kw"><a href="../../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>Binning:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fig.height=5, fig.width=5}</span>
-<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## CPU time has been initialized.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">41</span>,<span class="dv">41</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)
+<p>Normalmente se emplearan dos rejillas, una de baja resolución para acelerar los cálculos durante el proceso de modelado (selección de la ventana, cálculos intermedios, …) y otra con la resolución deseada para obtener los resultados finales.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>CPU time has been initialized.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(x, y, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">41</span>,<span class="dv">41</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>) 
 <span class="kw"><a href="../../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages'</span>)
-<span class="kw">points</span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">col =</span> <span class="st">'darkgray'</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
+<span class="co"># Data points</span>
+<span class="kw">points</span>(bin$data$x, <span class="dt">col =</span> <span class="st">'darkgray'</span>)
+<span class="co"># Binning grid</span>
+coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/coordvalues.html">coordvalues</a></span>(bin)
+<span class="kw">abline</span>(<span class="dt">v =</span> coordvs[[<span class="dv">1</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)
+<span class="kw">abline</span>(<span class="dt">h =</span> coordvs[[<span class="dv">2</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/binning-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.06    0.02    0.08</code></pre>
-<ul>
-<li>Interpolación:<code>interp</code> (genérica), <code>predict</code>.</li>
-</ul>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.032   0.000   0.034 </code></pre>
 </div>
-</div>
-<div id="density-estimation" class="section level2">
+<div id="interpolacion" class="section level2">
 <h2 class="hasAnchor">
-<a href="#density-estimation" class="anchor"></a>Density estimation</h2>
-<p>La estimación de la densidad está implementada como un caso particular de regresión (se suavizan los pesos binning reescalados).</p>
-<div id="ejemplo-nivel-agua-subterranea-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ejemplo-nivel-agua-subterranea-1" class="anchor"></a>Ejemplo: nivel agua subterránea</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fig.height=7, fig.width=7}</span>
-h.den &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">c</span>(<span class="dv">55</span>,<span class="dv">55</span>)) <span class="co"># alternatively: h.cv(as.bin.den(bin))$h</span>
-den &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.den.html">np.den</a></span>(bin, <span class="dt">h =</span> h.den, <span class="dt">degree =</span> <span class="dv">0</span>)
-<span class="kw">plot</span>(den, <span class="dt">main =</span> <span class="st">'Estimated log(density)'</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Index with grid nodes far from data</span>
-mask &lt;-<span class="st"> </span><span class="kw">log</span>(den<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">15</span>
-bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mask.html">mask</a></span>(bin, <span class="dt">mask =</span> mask)
-<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.25    0.00    0.25</code></pre>
-</div>
-</div>
-<div id="trend-estimation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#trend-estimation" class="anchor"></a>Trend estimation</h2>
-<div id="regresion-polinomica-local" class="section level3">
-<h3 class="hasAnchor">
-<a href="#regresion-polinomica-local" class="anchor"></a>Regresión polinómica local</h3>
-<div id="caso-univariante" class="section level4">
-<h4 class="hasAnchor">
-<a href="#caso-univariante" class="anchor"></a>Caso univariante</h4>
+<a href="#interpolacion" class="anchor"></a>Interpolación</h2>
+<p>En el paquete se emplea interpolación lineal (algoritmo análogo al binning lineal). Métodos:</p>
 <ul>
 <li>
-<p>Para cada <span class="math inline">\(x_{0}\)</span> se ajusta un polinomio: <span class="math display">\[\beta_{0}+\beta_{1}\left(x - x_{0}\right) + \cdots
-+ \beta_{p}\left( x-x_{0}\right)^{p}\]</span> por mínimos cuadrados ponderados con pesos <span class="math inline">\(w_{i} = \frac{1}{h}K\left(\frac{x-x_{0}}{h}\right)\)</span>.</p>
-<ul>
-<li><p><span class="math inline">\(\hat{m}_{h}(x_{0})=\hat{\beta}_{0}\)</span>.</p></li>
-<li><p>Adicionalmente: <span class="math inline">\(\widehat{m_{h}^{r)}}(x_{0}) = r!\hat{\beta}_{r}\)</span>.</p></li>
-</ul>
+<a href="https://rubenfcasal.github.io/npsp/reference/interp.html"><code>interp</code></a> y <a href="https://rubenfcasal.github.io/npsp/reference/interp.html"><code>predict</code></a>
 </li>
+</ul>
+</div>
+</div>
+<div id="estimacion-de-la-densidad" class="section level1">
+<h1 class="hasAnchor">
+<a href="#estimacion-de-la-densidad" class="anchor"></a>Estimación de la densidad</h1>
+<p>La estimación de la densidad está implementada como un caso particular de regresión (se suavizan los pesos binning reescalados):</p>
+<ul>
 <li>
-<p>Habitualmente:</p>
+<a href="https://rubenfcasal.github.io/npsp/reference/np.den.html"><code>np.den</code></a>.</li>
+</ul>
+<p>Por defecto emplea el estimador lineal local (establecer <code>degree = 0</code> para Nadaraya-Watson).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">den &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.den.html">np.den</a></span>(bin, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="dv">60</span>, <span class="dv">2</span>), <span class="dt">degree =</span> <span class="dv">0</span>) 
+<span class="co"># alternatively, set h = h.cv(as.bin.den(bin))$h</span>
+<span class="kw">plot</span>(den, <span class="dt">main =</span> <span class="st">'Estimated log(density)'</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/np.den-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>Se puede emplear por ejemplo para establecer una máscara que filtre las posiciones alejadas de los datos.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mask.html">mask</a></span>(bin, <span class="dt">mask =</span> <span class="kw">log</span>(den$est) &gt;<span class="st"> </span>-<span class="dv">14</span>)
+<span class="kw">str</span>(bin)</code></pre></div>
+<pre><code>List of 5
+ $ biny: num [1:41, 1:41] NA NA NA NA NA NA 35.1 35.1 NA NA ...
+ $ binw: num [1:41, 1:41] 0 0 0 0 0 ...
+ $ grid:List of 6
+  ..$ nd      : int 2
+  ..$ n       : int [1:2] 41 41
+  ..$ min     : num [1:2] -145.24 9.41
+  ..$ max     : num [1:2] 113 185
+  ..$ lag     : num [1:2] 6.45 4.38
+  ..$ dimnames: chr [1:2] "lon" "lat"
+  ..- attr(*, "class")= chr "grid.par"
+ $ data:List of 3
+  ..$ x  : num [1:85, 1:2] 42.78 -27.4 -1.16 -18.62 96.47 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:85] "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:2] "lon" "lat"
+  ..$ y  : num [1:85] 14.6 25.5 21.6 24.6 17.6 ...
+  ..$ med: num 20
+ $ mask: logi [1:41, 1:41] TRUE TRUE TRUE TRUE TRUE TRUE ...
+ - attr(*, "class")= chr [1:3] "bin.data" "bin.den" "data.grid"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.296   0.008   0.314 </code></pre>
+</div>
+<div id="estimacion-de-la-tendencia" class="section level1">
+<h1 class="hasAnchor">
+<a href="#estimacion-de-la-tendencia" class="anchor"></a>Estimación de la tendencia</h1>
+<div id="regresion-polinomica-local" class="section level2">
+<h2 class="hasAnchor">
+<a href="#regresion-polinomica-local" class="anchor"></a>Regresión polinómica local</h2>
+<p>En el caso univariante, para cada <span class="math inline">\(x_{0}\)</span> se ajusta un polinomio: <span class="math display">\[\beta_{0}+\beta_{1}\left(x - x_{0}\right) + \cdots 
++ \beta_{p}\left( x-x_{0}\right)^{p}\]</span> por mínimos cuadrados ponderados, con pesos <span class="math inline">\(w_{i} = \frac{1}{h}K\left(\frac{x-x_{0}}{h}\right)\)</span>.</p>
+<ul>
+<li><p>La estimación en <span class="math inline">\(x_{0}\)</span> es <span class="math inline">\(\hat{\mu}_{h}(x_{0})=\hat{\beta}_{0}\)</span>.</p></li>
+<li><p>Adicionalmente: <span class="math inline">\(\widehat{\mu_{h}^{r)}}(x_{0}) = r!\hat{\beta}_{r}\)</span>.</p></li>
+</ul>
+<p>Habitualmente se considera:</p>
 <ul>
 <li><p><span class="math inline">\(p=0\)</span>: Estimador Nadaraya-Watson.</p></li>
 <li><p><span class="math inline">\(p=1\)</span>: Estimador lineal local.</p></li>
 </ul>
-</li>
-</ul>
-</div>
-<div id="caso-multivariante" class="section level4">
-<h4 class="hasAnchor">
-<a href="#caso-multivariante" class="anchor"></a>Caso multivariante</h4>
-<ul>
-<li><p>Análogo al caso univariante.</p></li>
-<li>
-<p>Estimador lineal local multivariante: <span class="math display">\[\min_{\beta_{0},\boldsymbol{\beta}_{1}}\sum_{i=1}^{n}
+<p>El caso multivariante es análogo. La estimación lineal local multivariante <span class="math inline">\(\hat{\mu}_{\mathbf{H}}(\mathbf{x})=\hat{\beta}_{0}\)</span> se obtiene al minimizar: <span class="math display">\[\min_{\beta_{0},\boldsymbol{\beta}_{1}}\sum_{i=1}^{n}
 \left( Y(\mathbf{x}_{i})-\beta_{0}-{\boldsymbol{\beta}}_{1}^{t}
 (\mathbf{x}_{i}-\mathbf{x})\right)^{2}
-K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),\]</span> <span class="math inline">\(\hat{m}_{\mathbf{H}}(\mathbf{x})=\hat{\beta}_{0}\)</span>, donde:</p>
+K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),\]</span> donde:</p>
 <ul>
-<li><p><span class="math inline">\(\mathbf{H}\)</span> matriz definida positiva de orden <span class="math inline">\(d\)</span>.</p></li>
-<li><p><span class="math inline">\(K_{\mathbf{H}}(\mathbf{u})=\left\vert \mathbf{H}\right\vert ^{-1}K(\mathbf{H}^{-1}\mathbf{u})\)</span>, <span class="math inline">\(K\)</span> núcleo multivariante.</p></li>
+<li><p><span class="math inline">\(\mathbf{H}\)</span> es la matriz de ventanas <span class="math inline">\(d\times d\)</span> (simétrica no singular).</p></li>
+<li><p><span class="math inline">\(K_{\mathbf{H}}(\mathbf{u})=\left\vert \mathbf{H}\right\vert ^{-1}K(\mathbf{H}^{-1}\mathbf{u})\)</span> y <span class="math inline">\(K\)</span> núcleo multivariante.</p></li>
 </ul>
-</li>
-<li>
-<p>Explícitamente: <span class="math display">\[\hat{m}_{\mathbf{H}}(\mathbf{x}) = \mathbf{e}_{1}^{t} \left(
-\mathbf{X}_{\mathbf{x}}^{t} {\mathbf{W}}_{\mathbf{x}}
-\mathbf{X}_{\mathbf{x}} \right)^{-1} \mathbf{X}_{\mathbf{x}}^{t}
-{\mathbf{W}}_{\mathbf{x}}\mathbf{Y} \equiv {s}_{\mathbf{x}}^{t}\mathbf{Y}\]</span></p>
-<ul>
-<li><p><span class="math inline">\(\mathbf{e}_{1} = \left( 1, \cdots, 0\right)^{t}\)</span>.</p></li>
-<li><p><span class="math inline">\(\mathbf{X}_{\mathbf{x}}\)</span> matriz con <span class="math inline">\((1,(\mathbf{x}_{i}-\mathbf{x})^{t})\)</span> en fila <span class="math inline">\(i\)</span>.</p></li>
-<li><p><span class="math inline">\(\mathbf{W}_{\mathbf{x}} = \mathtt{diag} \left( K_{\mathbf{H}}(\mathbf{x}_{1} - \mathbf{x}), ..., K_{\mathbf{H}}(\mathbf{x}_{n}-\mathbf{x}) \right)\)</span>.</p></li>
-</ul>
-</li>
-<li><p>Matriz de suavizado o matriz hat <span class="math inline">\(\mathbf{S}\)</span>: matriz <span class="math inline">\(n\times n\)</span> con <span class="math inline">\(\mathbf{s}_{\mathbf{x}_{i}}^{t}\)</span> en la fila <span class="math inline">\(i\)</span>, tal que <span class="math inline">\(\mathbf{\hat{Y}}=\mathbf{SY}\)</span>.</p></li>
-</ul>
+<p>Explícitamente: <span class="math display">\[\hat{\mu}_{\mathbf{H}}(\mathbf{x}) = \mathbf{e}_{1}^{t} \left(
+\mathbf{X}_{\mathbf{x}}^{t} {\mathbf{W}}_{\mathbf{x}} 
+\mathbf{X}_{\mathbf{x}} \right)^{-1} \mathbf{X}_{\mathbf{x}}^{t} 
+{\mathbf{W}}_{\mathbf{x}}\mathbf{Y} \equiv {s}_{\mathbf{x}}^{t}\mathbf{Y},\]</span> donde <span class="math inline">\(\mathbf{e}_{1} = \left( 1, \cdots, 0\right)^{t}\)</span>, <span class="math inline">\(\mathbf{X}_{\mathbf{x}}\)</span> es la matriz con <span class="math inline">\((1,(\mathbf{x}_{i}-\mathbf{x})^{t})\)</span> en fila <span class="math inline">\(i\)</span>, y <span class="math inline">\(\mathbf{W}_{\mathbf{x}} = \mathtt{diag} \left( K_{\mathbf{H}}(\mathbf{x}_{1} - \mathbf{x}), ..., K_{\mathbf{H}}(\mathbf{x}_{n}-\mathbf{x}) \right)\)</span> es la matriz de pesos.</p>
+<p>Se puede pensar que se obtiene aplicando un suavizado lineal a <span class="math inline">\((\mathbf{x}_i, Y(\mathbf{x}_i))\)</span>: <span class="math display">\[\hat{\boldsymbol{\mu}} = \mathbf{SY},\]</span> siendo <span class="math inline">\(\mathbf{S}\)</span> la matriz de suavizado con <span class="math inline">\(\mathbf{s}_{\mathbf{x}_{i}}^{t}\)</span> en la fila <span class="math inline">\(i\)</span>.</p>
 </div>
-<div id="implementacion-en-el-paquete-npsp-funcion-generica-locpol-" class="section level4">
-<h4 class="hasAnchor">
-<a href="#implementacion-en-el-paquete-npsp-funcion-generica-locpol-" class="anchor"></a>Implementación en el paquete npsp: función genérica <code>locpol</code>.</h4>
-<ul>
-<li>
-<p>Los cálculos se realizan en FORTRAN.</p>
-<ul>
-<li><p>Para resolver el problema de regresión lineal (local), el paquete <code>npsp</code> emplea una modificación de la rutina DGELSY de la librería LAPACK (admite matrices de rango deficiente).</p></li>
-<li><p>Permite cácular eficientemente la matriz de suavizado o matriz hat <span class="math inline">\(\mathbf{S}\)</span> (de utilidad p.e. para la estimación de la dependencia de los datos o la selección de la ventana).</p></li>
-<li><p>Código <em>optimizado</em> para minimizar el tiempo de computación y los requerimientos de memoria. Especialmente en Validación cruzada, Estimación del variograma y Simulación.</p></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div id="ejemplo-nivel-agua-subterranea-2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ejemplo-nivel-agua-subterranea-2" class="anchor"></a>Ejemplo: nivel agua subterránea</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="dv">75</span>, <span class="dv">2</span>), <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)
-          <span class="co"># np.svariso.corr: 'lp' must have a '$locpol$hat' component</span>
-<span class="co"># Perspective plot with a color scale</span>
-<span class="kw"><a href="../../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head levels'</span>,
-       <span class="dt">theta =</span> <span class="dv">120</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.31    0.06    0.37</code></pre>
-</div>
-</div>
-<div id="variogram-estimation" class="section level2">
+<div id="implementacion-en-el-paquete-npsp" class="section level2">
 <h2 class="hasAnchor">
-<a href="#variogram-estimation" class="anchor"></a>Variogram estimation</h2>
-<div id="modelado-de-la-dependencia" class="section level3">
-<h3 class="hasAnchor">
-<a href="#modelado-de-la-dependencia" class="anchor"></a>Modelado de la dependencia</h3>
+<a href="#implementacion-en-el-paquete-npsp" class="anchor"></a>Implementación en el paquete <code>npsp</code>
+</h2>
+<p>La estimación polinómica local está implementada en la función genérica <a href="https://rubenfcasal.github.io/npsp/reference/locpol.html"><code>locpol</code></a>:</p>
 <ul>
-<li>
-<p>También se realiza a partir de los residuos: <span class="math display">\[e(\mathbf{x}_{i})=Y(\mathbf{x}_{i})-\hat{m}(\mathbf{x}_{i})\]</span></p>
-<ul>
-<li>Para evitar sesgo en la estimación del variograma:Fernández-Casal R. y Francisco-Fernández M. (2013) Nonparametric bias-corrected variogram estimation under non-constant trend. <em>Stoch. Environ. Res. Ris. Assess.</em>. Aceptado para publicación.</li>
-</ul>
-</li>
-<li><p>Si la media se supone cte.: <span class="math inline">\(e(\mathbf{x}_{i})\equiv Y(\mathbf{x}_{i})\)</span>.</p></li>
-<li>
-<p>Se puede ver como un caso particular de regresión: <span class="math display">\[\gamma\left(  \mathbf{x}_{i}-\mathbf{x}_{j}\right)  =\frac{1}{2}E\left(
-\varepsilon(\mathbf{x}_{i})-\varepsilon(\mathbf{x}_{j})\right)^{2}\]</span></p>
-<ul>
-<li>con <span class="math inline">\(N=\frac{n(n-1)}{2}\)</span> observaciones: <span class="math display">\[{\left(\mathbf{x}_{i}-\mathbf{x}_{j},
-(e(\mathbf{x}_{i})-e(\mathbf{x}_{j}))^2 / 2 \right)}\]</span> (sesgadas si se estima la tendencia).</li>
-</ul>
-</li>
+<li><p>Emplea una matriz de ventanas completa y un núcleo triweight para el cálculo de los pesos.</p></li>
+<li><p>Permite cálcular eficientemente la matriz de suavizado <span class="math inline">\(\mathbf{S}\)</span> (de utilidad en la estimación de la dependencia, en la selección de la ventana, …).</p></li>
+<li><p>Código <em>optimizado</em> para minimizar el tiempo de computación y los requerimientos de memoria (especialmente para validación cruzada, estimación del variograma, …). Los cálculos se realizan en FORTRAN.</p></li>
+<li><p>Para resolver el problema de regresión lineal (local), se emplea (<a href="https://github.com/rubenfcasal/npsp/blob/master/src/dgelsyr.f"><code>src/dgelsyr.f</code></a>) una modificación de la rutina DGELSY de la librería LAPACK (admite matrices de rango deficiente).</p></li>
 </ul>
 </div>
-<div id="estimacion-piloto-del-variograma" class="section level3">
-<h3 class="hasAnchor">
-<a href="#estimacion-piloto-del-variograma" class="anchor"></a>Estimación piloto del variograma</h3>
-<ul>
-<li>
-<p>Estimador polinómico local:</p>
-<p><span class="math display">\[\begin{aligned}
+<div id="ejemplo-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ejemplo-2" class="anchor"></a>Ejemplo</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> <span class="kw">diag</span>(<span class="dv">100</span>, <span class="dv">2</span>), <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  
+<span class="co"># Perspective plot with a color scale</span>
+<span class="kw"><a href="../../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)   </code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.260   0.000   0.268 </code></pre>
+</div>
+</div>
+<div id="estimacion-del-variograma" class="section level1">
+<h1 class="hasAnchor">
+<a href="#estimacion-del-variograma" class="anchor"></a>Estimación del variograma</h1>
+<p>Al igual que en la geoestadística paramétrica tradicional, el modelado de la dependencia se realiza a partir de los residuos: <span class="math display">\[e(\mathbf{x}_{i})=Y(\mathbf{x}_{i})-\hat{\mu}(\mathbf{x}_{i}).\]</span> Si la media se supone cte. (proceso estacionario) se trabaja directamente con las observaciones (se sustituiría <span class="math inline">\(e(\mathbf{x}_{i})\)</span> por <span class="math inline">\(Y(\mathbf{x}_{i})\)</span> en las expresiones).</p>
+<p>La estimación se realiza en dos pasos, en primer lugar se obtiene una estimación piloto del variograma y posteriormente se ajusta un modelo válido.</p>
+<div id="estimacion-piloto-del-variograma" class="section level2">
+<h2 class="hasAnchor">
+<a href="#estimacion-piloto-del-variograma" class="anchor"></a>Estimación piloto del variograma</h2>
+<p>En los métodos tradicionales se trata como un caso particular de regresión: <span class="math display">\[\gamma\left(  \mathbf{x}_{i}-\mathbf{x}_{j}\right)  =\frac{1}{2}E\left(
+\varepsilon(\mathbf{x}_{i})-\varepsilon(\mathbf{x}_{j})\right)^{2}\]</span> con <span class="math inline">\(N=\frac{n(n-1)}{2}\)</span> observaciones: <span class="math display">\[{\left(\mathbf{x}_{i}-\mathbf{x}_{j},
+(e(\mathbf{x}_{i})-e(\mathbf{x}_{j}))^2 / 2 \right)},\]</span> asumiendo que la variabilidad de los residuos es (similar a) la de los errores.</p>
+<p>La estimación polinómico local <span class="math inline">\(\hat{\gamma}_{\mathbf{G}}(\mathbf{u}) = \hat{\beta}_{0}\)</span> se obtendría minimizando: <span class="math display">\[\begin{aligned}
 \min_{\beta_{0}, \boldsymbol{\beta}_{1}, \cdots}
 \sum_{i=1}^{n}\left( \frac{1}{2} \left( e(\mathbf{x}_{i})-e(\mathbf{x}_{j})
-\right)^{2} - \beta_{0} - {\boldsymbol{\beta}}_{1}^{t} (\mathbf{x}_{i} -
-mathbf{x}_{j} - \mathbf{u}) - \cdots\right)  ^{2}\times &amp; \\
+\right)^{2} - \beta_{0} - {\boldsymbol{\beta}}_{1}^{t} (\mathbf{x}_{i} - 
+\mathbf{x}_{j} - \mathbf{u}) - \cdots\right)  ^{2}\times &amp; \\
 K_{\mathbf{G}}(\mathbf{x}_{i}-\mathbf{x}_{j}-\mathbf{u})  &amp;
-\end{aligned}\]</span></p>
+\end{aligned},\]</span> siendo <span class="math inline">\(\mathbf{G}\)</span> la correspondiente matriz de ventanas.</p>
+<p>Actualmente en el paquete <code>npsp</code> solo está implementado el caso isotrópico:</p>
 <ul>
-<li>
-<span class="math inline">\(\hat{\gamma}_{\mathbf{G}}(\mathbf{u}) = \hat{\beta}_{0}\)</span>.</li>
+<li><p><a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html"><code>svar.bin</code></a>: estimador empírico con binning lineal.</p></li>
+<li><p><a href="https://rubenfcasal.github.io/npsp/reference/np.svar.html"><code>np.svar</code></a>: estimador polinómico local.</p></li>
 </ul>
-</li>
-<li><p><em>Implementación en el paquete npsp:</em> <code>svar.bin</code>, <code>h.cv</code> y <code>np.svar</code></p></li>
-</ul>
-</div>
-<div id="ajuste-de-un-modelo-no-parametrico" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ajuste-de-un-modelo-no-parametrico" class="anchor"></a>Ajuste de un modelo no paramétrico</h3>
-<ul>
-<li><p>Los estimadores anteriores no pueden ser usados en kriging.</p></li>
-<li><p>Para resolver este problema se ajusta un modelo válido.</p></li>
-<li>
-<p>Modelos no paramétricos de Shapiro-Botha. Caso isotrópico: <span class="math display">\[\gamma(\left\Vert \mathbf{u} \right\Vert ) = \nu_{0} -
-\sum\limits_{k=1}^{K}\kappa_{d}(x_{k}\left\Vert \mathbf{u}\right\Vert )z_{k},\]</span></p>
-<ul>
-<li><p><span class="math inline">\(x_{k}\)</span> nodos de discretización (fijos).</p></li>
-<li><p><span class="math inline">\(\kappa_{d}(x) = \left( \tfrac{2}{x}\right)^{{\frac{d{-2}}{2}}} \Gamma\left( \tfrac{d}{2}\right) J_{{\frac{d{-2}}{2}}}(x),\ \ \
-\kappa_{\infty}(x)\equiv e^{-x^{2}}\)</span>.</p></li>
-<li><p><span class="math inline">\(\left( z_{1}, ..., z_{K}, \nu_{0} \right)^{t}\)</span> parámetros, verificando: <span class="math display">\[z_{k} \geq0 \text{ y } c_{0} = \nu_{0}-\sum\nolimits_{k=1}^{K}z_{k}\geq0.\]</span></p></li>
-</ul>
-</li>
-<li>
-<p>Extensibles al caso anisotrópico.</p>
-<ul>
-<li>Fernandez-Casal R., Gonzalez-Manteiga W. and Febrero-Bande M. (2003) Flexible Spatio-Temporal Stationary Variogram Models. <em>Statistics and Computing</em>, 13, 127-136.</li>
-</ul>
-</li>
-<li>
-<p>El ajuste por WLS a un conjunto de estimaciones piloto se puede realizar fácilmente mediante programación cuadrática.</p>
-<ul>
-<li>Función <code>solve.QP</code> del paquete <code>quadprog</code>.</li>
-</ul>
-</li>
-<li><p><em>Implementación en el paquete npsp:</em> <code>fitsvar.sb.iso</code></p></li>
-</ul>
-</div>
-<div id="ejemplo-nivel-agua-subterranea-3" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ejemplo-nivel-agua-subterranea-3" class="anchor"></a>Ejemplo: nivel agua subterránea</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span>lp<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span><span class="kw">predict</span>(lp)
-<span class="co"># maxlag &lt;- 0.55*sqrt(sum(diff(apply(aquifer[,1:2], 2, range))^2))</span>
-esvar &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
-svm &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co"># dk = 2</span>
-<span class="kw">plot</span>(svm, <span class="dt">main =</span> <span class="st">"Nonparametric semivariogram and fitted model"</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.17    0.03    0.21</code></pre>
-</div>
-<div id="bias-corrected-variogram-estimation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bias-corrected-variogram-estimation" class="anchor"></a>Bias-corrected variogram estimation</h3>
-<ul>
-<li><p>The direct use of the residuals introduces a bias in the estimation of the variogram. This bias is usually negative and higher at large lags (e.g. Cressie, 1993, section 3.4.3).</p></li>
-<li>A correction for this bias is proposed in:</li>
-<li><p>Fernandez-Casal R. and Francisco-Fernandez M. (2013) Nonparametric bias-corrected variogram estimation under non-constant trend. Stoch. Environ. Res. Ris. Assess. (SERRA), 1-14, <a href="doi:10.1007/s00477-013-0817-8" class="uri">doi:10.1007/s00477-013-0817-8</a>.</p></li>
-<li><p>A similar algorithm (fully nonparametric) is implemented in ‘np.svariso.corr’.</p></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">esvar2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
-<pre><code>## Iteration  2 :  1 
-## Iteration  3 :  0.1021595 
-## Iteration  4 :  0.07323588 
-## Iteration  5 :  0.05777008 
-## Iteration  6 :  0.04794432</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar2)  <span class="co"># dk = 2</span>
-<span class="kw">plot</span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>,
-     <span class="dt">lwd =</span> <span class="dv">2</span>)
-<span class="kw">with</span>(svm<span class="op">$</span>fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.36    0.03    0.39</code></pre>
-</div>
-</div>
-<div id="bandwidth-selection" class="section level2">
-<h2 class="hasAnchor">
-<a href="#bandwidth-selection" class="anchor"></a>Bandwidth selection</h2>
-<ul>
-<li><p>Validación cruzada tradicional:<span class="math display">\[CV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
-\left( Y(\mathbf{x}_{i}) - \hat{m}_{-i}(\mathbf{x}_{i}) \right)^{2},\]</span> siendo <span class="math inline">\(\hat{m}_{-i}(\mathbf{x}_{i})\)</span> la estimación obtenida eliminando el dato <span class="math inline">\(i\)</span>.</p></li>
-<li>
-<p>Validación cruzada modificada para dependencia: <span class="math display">\[CV_{m}(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  Y(\mathbf{x}_{i})-\hat
-{m}_{-N(i)}(\mathbf{x}_{i})\right)^{2},\]</span> siendo <span class="math inline">\(\hat{m}_{-i}(\mathbf{x}_{i})\)</span> la estimación obtenida eliminando los datos en un vecindario <span class="math inline">\(N(i)\)</span> de <span class="math inline">\(\mathbf{x}_{i}\)</span>.</p>
-<ul>
-<li>Chu, C.K. and Marron, J.S. (1991) Comparison of Two Bandwidth Selectors with Dependent Errors. <em>The Annals of Statistics</em>, 19, 1906-1918.</li>
-</ul>
-</li>
-<li>
-<p>Validación cruzada generalizada con corrección de sesgo para dependencia:<span class="math display">\[GCV_{c}(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  \frac{Y(\mathbf{x}_{i})-\hat{m}(\mathbf{x}_{i})}{1-\frac{1}{n}tr\left(  \mathbf{SR}\right)
-}\right)  ^{2},\]</span> siendo <span class="math inline">\(\mathbf{R}\)</span> la matriz de correlaciones (estimada).</p>
-<ul>
-<li>Francisco-Fernandez M. and Opsomer J.D. (2005) Smoothing parameter selection methods for nonparametric regression with spatially correlated errors. <em>Canadian Journal of Statistics</em>, 33, 539-558.</li>
-</ul>
-</li>
-</ul>
-<div id="implementacion-en-el-paquete-npsp-h-cv-hcv-data-locpolhcv" class="section level3">
-<h3 class="hasAnchor">
-<a href="#implementacion-en-el-paquete-npsp-h-cv-hcv-data-locpolhcv" class="anchor"></a>Implementación en el paquete npsp: <code>h.cv</code>, <code>hcv.data</code>, <code>locpolhcv</code>, …</h3>
-</div>
-<div id="ejemplo-nivel-agua-subterranea-4" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ejemplo-nivel-agua-subterranea-4" class="anchor"></a>Ejemplo: nivel agua subterránea</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Example (speeding computations...):</span>
-bin2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">nbin =</span> <span class="kw">c</span>(<span class="dv">21</span>,<span class="dv">21</span>))
-<span class="co"># Warning: There is not enough data in some neighborhoods ('NRL &lt; NINDRL'):</span>
-<span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">25</span>), <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">ncv =</span> <span class="dv">0</span>)</code></pre></div>
-<pre><code>## $h
-##          [,1]     [,2]
-## [1,] 70.49316  0.00000
-## [2,]  0.00000 66.65354
-## 
-## $value
-## [1] 30321.69
-## 
-## $objective
-## [1] "GCV"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># cov.bin &lt;-  varcov(svm2, coords = coords(bin2))</span>
-lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">25</span>), <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">ncv =</span> <span class="dv">0</span>, <span class="dt">cov.bin =</span> svm2)
-lp.h</code></pre></div>
-<pre><code>## $h
-##          [,1]     [,2]
-## [1,] 406.4146  0.00000
-## [2,]   0.0000 65.67983
-## 
-## $value
-## [1] 53359.01
-## 
-## $objective
-## [1] "GCV"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    1.00    0.27    1.26</code></pre>
-</div>
-</div>
-<div id="final-estimation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#final-estimation" class="anchor"></a>Final estimation</h2>
-<div id="trend-re-estimation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#trend-re-estimation" class="anchor"></a>trend re-estimation</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> lp.h<span class="op">$</span>h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  <span class="co"># np.svariso.corr</span>
-<span class="co"># Perspective plot with a color scale</span>
-<span class="kw"><a href="../../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head levels'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.16    0.03    0.19</code></pre>
-</div>
-<div id="variogram-re-estimation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#variogram-re-estimation" class="anchor"></a>Variogram re-estimation</h3>
+<p>Estas funciones son adecuadas para procesos estacionarios y se podrían emplear en el caso no estacionario para estimar el variograma residual (sesgado) calculando previamente los residuos.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span><span class="kw">residuals</span>(lp)
-esvar &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
-svm &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co"># dk = 2</span>
-esvar3 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
-svm3 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar3, <span class="dt">dk =</span> <span class="dv">0</span>)
-
-<span class="kw">plot</span>(svm3, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>,
-     <span class="dt">lwd =</span> <span class="dv">2</span>)
-<span class="co"># with(svm$fit, lines(u, fitted.sv, lty = 2))</span>
-<span class="kw">with</span>(svm2<span class="op">$</span>fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>))</code></pre></div>
-<p><img src="aquifer_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
+esvar0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso</a></span>(x, lp.resid, <span class="dt">nlags =</span> <span class="dv">50</span>, <span class="dt">h =</span> <span class="dv">50</span>)
+<span class="kw">plot</span>(esvar0, <span class="dt">main =</span> <span class="st">"Nonparametric (residual) pilot semivariogram"</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.22    0.04    0.26</code></pre>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.204   0.004   0.213 </code></pre>
 </div>
-<div id="trend-and-variogram-re-re-estimation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#trend-and-variogram-re-re-estimation" class="anchor"></a>trend and variogram re-re-estimation?</h3>
-<p>Do you think it is necessary?…</p>
-</div>
-</div>
-<div id="kriging-predictions" class="section level2">
+<div id="estimacion-piloto-del-variograma-con-correccion-de-sesgo" class="section level2">
 <h2 class="hasAnchor">
-<a href="#kriging-predictions" class="anchor"></a>Kriging predictions</h2>
-<div id="kriging-system" class="section level3">
-<h3 class="hasAnchor">
-<a href="#kriging-system" class="anchor"></a>Kriging system</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/kriging.np.html">kriging.np</a></span>(lp, svm3, lp.resid)
-<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.15    0.00    0.16</code></pre>
+<a href="#estimacion-piloto-del-variograma-con-correccion-de-sesgo" class="anchor"></a>Estimación piloto del variograma con corrección de sesgo</h2>
+<p>El uso directo de los residuos <span class="math inline">\(\boldsymbol{\hat{\varepsilon}} = \mathbf{Y} - \hat{\boldsymbol{\mu}} = (\mathbf{I - S})\mathbf{Y}\)</span> introduce un sesgo en la estimación del variograma, ya que su variabilidad es distinta de la de los errores: <span class="math display">\[Var(\boldsymbol{\hat{\varepsilon}}) = 
+{\boldsymbol{\Sigma}}_{\hat{\varepsilon}}
+= \boldsymbol{\Sigma} + \mathbf{B},\]</span> siendo <span class="math inline">\(\mathbf{B} = \mathbf{S} \boldsymbol{\Sigma} \mathbf{S}^{t} - \boldsymbol{\Sigma} \mathbf{S}^{t} - \mathbf{S} \boldsymbol{\Sigma}\)</span> la matriz de sesgos.</p>
+<p>En términos del variograma: <span class="math display">\[Var\left(\hat{\varepsilon}(\mathbf{x}_i) 
+- \hat{\varepsilon}(\mathbf{x}_j) \right) =
+Var\left(\varepsilon(\mathbf{x}_i) - \varepsilon(\mathbf{x}_j) \right)
++ b_{ii} + b_{jj} - 2 b_{ij}.\]</span> Este sesgo es normalmente negativo y mayor en saltos grandes (ver p.e. Cressie, 1993, sección 3.4.3). En Fernandez-Casal y Francisco-Fernandez (2013) se propone un método iterativo para su corrección. La función <code>np.svariso.corr</code> implementa un algoritmo similar (totalmente no paramétrico). Comenzando con el estimador lineal local residual anterior, en cada iteración <span class="math inline">\(k\)</span> se actualizan las diferencias <span class="math inline">\((\hat{\varepsilon}(\mathbf{x}_i)- \hat{\varepsilon}(\mathbf{x}_j))^2\)</span> reemplazándolas por: <span class="math display">\[(\hat{\varepsilon}(\mathbf{x}_i)- \hat{\varepsilon}(\mathbf{x}_j))^2 
+- \hat{b}_{ii}^{(k-1)} - \hat{b}_{jj}^{(k-1)} + 2 \hat{b}_{ij}^{(k-1)},\]</span> siendo <span class="math inline">\(\hat{\mathbf{B}}^{(k-1)}\)</span> la aproximación del sesgo obtenida en la iteración anterior.</p>
+<p>Ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">esvar &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> <span class="dv">50</span>, <span class="dt">h =</span> <span class="dv">50</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/np.svariso.corr-1.png" width="672" style="display: block; margin: auto;"></p>
+<pre><code>Iteration  2 :  1 
+Iteration  3 :  0.1071746 
+Iteration  4 :  0.07731208 
+Iteration  5 :  0.06118289 
+Iteration  6 :  0.05087295 
+Iteration  7 :  0.04358588 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.332   0.004   0.388 </code></pre>
 </div>
-<div id="kriging-maps" class="section level3">
-<h3 class="hasAnchor">
-<a href="#kriging-maps" class="anchor"></a>Kriging maps</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/spersp.html">spersp</a></span>(krig.grid, <span class="st">'kpred'</span>, <span class="dt">main =</span> <span class="st">'Kriging predictions'</span>,
-       <span class="dt">col =</span>  <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">theta =</span> <span class="dv">120</span>)</code></pre></div>
-<p><img src="aquifer_files/figure-html/kriging.maps-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'ksd'</span>, <span class="dt">main =</span> <span class="st">'Kriging sd'</span>, <span class="dt">col =</span>  <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>))
-<span class="kw">with</span>(aquifer, <span class="kw">points</span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))</code></pre></div>
-<p><img src="aquifer_files/figure-html/kriging.maps-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.10    0.04    0.12 
-## Total time:
-##    user  system elapsed 
-##    2.78    0.52    3.29</code></pre>
+<div id="ajuste-de-un-modelo-no-parametrico" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ajuste-de-un-modelo-no-parametrico" class="anchor"></a>Ajuste de un modelo no paramétrico</h2>
+<p>Los estimadores piloto no verifican las propiedades de un variograma (condicionalmente semidefinidos negativos) y no pueden ser usados en predicción espacial (kriging). Para resolver este problema se ajusta un modelo válido.</p>
+<p>La función <a href="https://rubenfcasal.github.io/npsp/reference/fitsvar.sb.iso.html"><code>fitsvar.sb.iso</code></a> permite ajustar un modelo no paramétrico de Shapiro-Botha. En el caso isotrópico son de la forma: <span class="math display">\[\gamma(\left\Vert \mathbf{u} \right\Vert ) = \nu_{0} - 
+    \sum\limits_{k=1}^{K}\kappa_{d}(x_{k}\left\Vert \mathbf{u}\right\Vert )
+    z_{k},\]</span> siendo:</p>
+<ul>
+<li><p><span class="math inline">\(\kappa_{d}(x) = \left( \tfrac{2}{x}\right)^{{\frac{d{-2}}{2}}} \Gamma\left( \tfrac{d}{2}\right) J_{{\frac{d{-2}}{2}}}(x)\)</span>, donde <span class="math inline">\(J_p\)</span> es la función de Bessel de orden <span class="math inline">\(p\)</span>.</p></li>
+<li><p><span class="math inline">\(x_{k}\)</span> nodos de discretización (siguiendo la recomendación de Gorsich y Genton, 2004, se establecen reescalando los ceros de las funciones de Bessel (ver <a href="https://rubenfcasal.github.io/npsp/reference/disc.sb.html"><code>disc.sb</code></a>).).</p></li>
+<li><p><span class="math inline">\(\left( z_{1}, ..., z_{K}, \nu_{0} \right)^{t}\)</span> parámetros, verificando: <span class="math display">\[z_{k} \geq0 \text{ y } 
+c_{0} =  \nu_{0}-\sum\nolimits_{k=1}^{K}z_{k}\geq0.\]</span></p></li>
+</ul>
+<p>El ajuste por WLS a un conjunto de estimaciones piloto se puede realizar fácilmente mediante programación cuadrática (modificación de la función <code>solve.QP</code> del paquete <code>quadprog</code> para obtener la solución de problemas no estrictamente convexos).</p>
+<p>Estos modelos son muy flexibles por lo que es habitual considerar una dimensión <span class="math inline">\(d\)</span> mayor que la de los datos para obtener ajustes más suaves (empleando el parámetro <code>dk</code>). En el límite obtendríamos <span class="math inline">\(\kappa_{\infty}(x)\equiv e^{-x^{2}}\)</span>, que se correspondería con un modelo válido en cualquier dimensión (se selecciona estableciendo<code>dk = 0</code>).</p>
+<p>Ejemplo:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar, <span class="dt">dk =</span> <span class="dv">0</span>)
+<span class="kw">plot</span>(svm, <span class="dt">main =</span> <span class="st">"Nonparametric semivariogram and fitted model"</span>)
+svm0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar0, <span class="dt">dk =</span> <span class="dv">0</span>) 
+<span class="kw">with</span>(svm0$fit, <span class="kw">lines</span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>))</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.176   0.108   0.343 </code></pre>
+<p>Estos modelos son extensibles al caso anisotrópico (Fernandez-Casal <em>et al</em>., 2003), adecuado para procesos espacio-temporales.</p>
 </div>
 </div>
-</div>
-<div id="resumen-y-futuras-implementaciones" class="section level1">
+<div id="seleccion-de-las-ventanas" class="section level1">
 <h1 class="hasAnchor">
-<a href="#resumen-y-futuras-implementaciones" class="anchor"></a>Resumen y futuras implementaciones</h1>
-<div id="resumen" class="section level2">
+<a href="#seleccion-de-las-ventanas" class="anchor"></a>Selección de las ventanas</h1>
+<p>La función genérica <a href="https://rubenfcasal.github.io/npsp/reference/h.cv.html"><code>h.cv</code></a> permite seleccionar la ventana de una estimación polinómico local (de la tendencia, densidad o variograma) usando criterios de validación cruzada (CV), validación cruzada generalizada (GCV) o MASE (estándar y modificados).</p>
+<div id="estimacion-de-la-tendencia-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#resumen" class="anchor"></a>Resumen</h2>
+<a href="#estimacion-de-la-tendencia-1" class="anchor"></a>Estimación de la tendencia</h2>
+<p>Con los criterios de selección de la ventana diseñados para datos independientes se tiende a infrasuavizar la estimación (e.g. Opsomer et al, 2001):</p>
 <ul>
-<li>
-<p>Entorno homogéneo para la estimación polinómica lócal multidimensional: densidad, tendencia, variograma,…</p>
+<li><p>Validación cruzada tradicional (LOOCV): <span class="math display">\[CV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
+\left( Y(\mathbf{x}_{i}) - \hat{\mu}_{-i}(\mathbf{x}_{i}) \right)^{2},\]</span> siendo <span class="math inline">\(\hat{\mu}_{-i}(\mathbf{x}_{i})\)</span> la estimación obtenida eliminando el dato <span class="math inline">\(i\)</span>-ésimo.</p></li>
+<li><p>Validación cruzada generalizada (Craven y Wahba, 1978): <span class="math display">\[GCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
+\left(  \frac{Y(\mathbf{x}_{i}) -\hat{\mu}(\mathbf{x}_{i})}
+{1-\frac{1}{n}tr\left( \mathbf{S}\right) }\right)^{2}.\]</span></p></li>
+</ul>
+<p>Por ello se han propuesto distintos criterios alternativos para el caso de datos dependientes:</p>
 <ul>
-<li><p>Binning, matriz de suavizado, derivadas, …</p></li>
-<li><p>Mínima dependencia de otros paquetes.</p></li>
+<li><p>Validación cruzada modificada (Chu and Marron, 1991): <span class="math display">\[MCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  Y(\mathbf{x}_{i})-\hat
+{\mu}_{-N(i)}(\mathbf{x}_{i})\right)^{2},\]</span> siendo <span class="math inline">\(\hat{\mu}_{-i}(\mathbf{x}_{i})\)</span> la estimación obtenida eliminando los datos en un vecindario <span class="math inline">\(N(i)\)</span> de <span class="math inline">\(\mathbf{x}_{i}\)</span>.</p></li>
+<li><p>Validación cruzada generalizada con corrección de sesgo para dependencia (Francisco-Fernandez and Opsomer, 2005): <span class="math display">\[CGCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n} \left(  
+\frac{Y(\mathbf{x}_{i}) -\hat{\mu}(\mathbf{x}_{i})} {1 -
+\frac{1}{n}tr\left( \mathbf{S} \hat{\mathbf{R}} \right) }\right)^{2},\]</span> siendo <span class="math inline">\(\hat{\mathbf{R}}\)</span> una estimación de la matriz de correlaciones.</p></li>
 </ul>
-</li>
-<li><p>Trata de minimizar el tiempo de computación y los requerimientos de memoria.</p></li>
-<li>
-<p>Clases y métodos S3 sencillos.</p>
+<p>Adicionalmente, reescribiendo el criterio MCV de la forma: <span class="math display">\[MCV(\mathbf{H}) = \frac{1}{n}  \left( \mathbf{Y}-\mathbf{S}_{-N} \mathbf{Y}\right) ^{t} \left( \mathbf{Y}-\mathbf{S}_{-N} \mathbf{Y} \right),\]</span> donde <span class="math inline">\(N = \left\lbrace N(1),\ldots, N(n) \right\rbrace\)</span>, puede verse que: <span class="math display">\[\mathrm{E}\left( MCV(\mathbf{H})\right) \simeq MASE(\mathbf{H}) +
+\sigma^{2} - \frac{2}{n}tr\left(\mathbf{S}_{-N}\boldsymbol{\Sigma}\right),\]</span> siendo: <span class="math display">\[MASE(\mathbf{H})= \frac{1}{n}\mathbb{E}\left( \left(
+\mathbf{SY}-\boldsymbol{\mu}\right)^{t} \left(
+\mathbf{SY}-\boldsymbol{\mu}\right) \right) = \\
+= \frac{1}{n}\left(\mathbf{S}\boldsymbol{\mu}-\boldsymbol{\mu}\right)^{t}
+\left( \mathbf{S}\boldsymbol{\mu}-\boldsymbol{\mu}\right) +
+\frac{1}{n}tr\left( \mathbf{S}\boldsymbol{\Sigma }\mathbf{S}^{t}\right).\]</span></p>
 <ul>
-<li>Pensado para interactuar con las clases S4 del paquete <code>sp.</code>
-</li>
+<li><p>Validación cruzada modificada corregida (Fernández-Casal et al, Preprint): <span class="math display">\[CMCV(\mathbf{H}) = \frac{1}{n}\sum_{i=1}^{n} \left( 
+Y(\mathbf{x}_{i}) - \hat{\mu}_{-N(i)}{(\mathbf{x_i)}} \right)^{2} + 
+\frac{2}{n}tr\left( \mathbf{S}_{-N} \hat{\boldsymbol{\Sigma}}\right).\]</span> <span class="math inline">\(CCV\)</span> sería un caso particular tomando <span class="math inline">\(N = N_1 = \left\lbrace \{\mathbf{x}_{1}\}, \ldots, \{\mathbf{x}_{n}\}\right\rbrace\)</span>.</p></li>
+<li><p>Ventana por bootstrap suavizado: El criterio <span class="math inline">\(MASE(\mathbf{H})\)</span> puede ser empleado cuando se conocen la media y varianzas teóricas (p.e. en simulación), pero si se sustituyen por estimaciones, obtendríamos la ventana óptima MASE de la correspondiente distribución bootstrap.</p></li>
 </ul>
-</li>
-<li><p>Fácil implementación de nuevos métodos.</p></li>
-</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   Example:</span>
+bin2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(x, y)     <span class="co"># sets nbin automatically</span>
+<span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))                <span class="co"># MCV (ncv = 2)</span></code></pre></div>
+<pre><code>$h
+         [,1]   [,2]
+[1,] 150.2659  0.000
+[2,]   0.0000 82.392
+
+$value
+[1] 3.989047
+
+$objective
+[1] "CV"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># cov.bin &lt;-  varcov(svm2, coords = coords(bin2))</span>
+lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">cov.bin =</span> svm, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">100</span>)) <span class="co"># CMCV (ncv = 2)</span>
+lp.h</code></pre></div>
+<pre><code>$h
+         [,1]     [,2]
+[1,] 403.1891   0.0000
+[2,]   0.0000 206.8383
+
+$value
+[1] 5.948936
+
+$objective
+[1] "CV"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  1.204   0.216   1.668 </code></pre>
+<p>Hay que tener cuidado con los algoritmos de optimización automáticos. Por defecto se emplea el método “L-BFGS-B” de la función <code>optim</code>. Como se trata de una minimización no lineal multidimensional puede haber problemas de mínimos locales. Para intentar evitar este problema se puede establecer unos valores iniciales para los parámetros de la ventana mediante el argumento <code>h.start</code>. Alternativamente se puede establecer el parámetro <code>DEalgorithm = TRUE</code> para utilizar el algoritmo genético de optimización del paquete <code>DEoptim</code> (aunque puede aumentar considerablemente el tiempo de computación).</p>
+<p>Empleando la ventana seleccionada se podría reestimar de nuevo la tendencia, aunque también habría que volver a estimar el variograma (si se modifica la variabilidad de gran escala, habría que actualizar la variabilidad de pequeña escala). Este procedimento se podría repetir iterativamente. Se tratará más adelante en la sección “<a href="Estimaci%C3%B3n%20conjunta%20(autom%C3%A1tica)">Estimación conjunta (automática)</a>”.</p>
 </div>
+<div id="estimacion-del-variograma-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#estimacion-del-variograma-1" class="anchor"></a>Estimación del variograma</h2>
+<p>La ventana para la estimación del variograma puede seleccionarse por ejemplo minimizando el correspondiente error cuadrático de validación cruzada: <span class="math display">\[\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^{n}
+\left( \left( \hat{\varepsilon}(\mathbf{x}_{i})
+- \hat{\varepsilon}(\mathbf{x}_{j})\right)^{2}
+- 2\hat{\gamma}_{-(i,j)}\left( \left\Vert \mathbf{x}_{i}
+- \mathbf{x}_{j}\right\Vert \right) \right) ^{2},\]</span> siendo <span class="math inline">\(\hat{\gamma}_{-(i,j)}(\cdot )\)</span> la estimación obtenida descartando <span class="math inline">\(\left( \hat{\varepsilon}(\mathbf{x}_{i}) - \hat{\varepsilon}(\mathbf{x}_{j})\right) ^{2}\)</span>. Sin embargo, para tener un mejor ajuste cerca del origen, suele ser preferible emplear el error cuadrático relativo de validación cruzada: <span class="math display">\[\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^{n}\left( \frac{\left( \hat{
+\varepsilon}(\mathbf{x}_{i})-\hat{\varepsilon}(\mathbf{x}_{j})\right) ^{2}
+}{2\hat{\gamma}_{-(i,j)}\left( \left\Vert \mathbf{x}_{i}-\mathbf{x}
+_{j}\right\Vert \right) }-1\right) ^{2}.\]</span> Adicionalmente, si hay datos atípicos, sería recomendable emplear un error absoluto en lugar de cuadrático.</p>
+<p>Ninguno de estos criterios tiene en cuenta la dependencia entre las semivarianzas, por lo que las ventanas seleccionadas tenderán a infrasuavizar (especialmente en saltos grandes). Si se emplea un procedimiento automático, puede ser recomendable incrementar la ventana obtenida con estos criterios (en el algoritmo automático implementado en <code>np.fitgeo</code> descrito a continuación, si no se especifica la ventana para la estimación del variograma, se incrementa por defecto la ventana obtenida con <code>h.cv</code> en un 50%).</p>
+<p>NOTA: Actualmente sólo está implementada la estimación con ventana global. En este caso, como las semivarianzas no son homocedásticas, sería preferible emplear ventanas locales.</p>
+</div>
+</div>
+<div id="estimacion-conjunta-automatica" class="section level1">
+<h1 class="hasAnchor">
+<a href="#estimacion-conjunta-automatica" class="anchor"></a>Estimación conjunta (automática)</h1>
+<p>Como se comentó en la sección anterior, para poder seleccionar una ventana “óptima” para la estimación de la tendencia es necesario disponer de una estimación del variograma. Sin embargo, la estimación de la dependencia requiere de una estimación de la tendencia. Para resolver este problema circular se puede emplear un algoritmo iterativo (similar al método de estimación paramétrica tradicional propuesto por Neuman y Jacobson, 1984):</p>
+<ol style="list-style-type: decimal">
+<li><p>Seleccionar una ventana inicial <span class="math inline">\(\mathbf{H}^{(0)}\)</span> para <span class="math inline">\(\hat{\mu}\)</span> (usando por ejemplo <span class="math inline">\(MCV\)</span>).</p></li>
+<li><p>Para <span class="math inline">\(k\geq 1\)</span>, usando la ventana <span class="math inline">\(\mathbf{H}^{(k-1)}\)</span> calcular <span class="math inline">\(\hat{\boldsymbol{\mu}} = \mathbf{S}\mathbf{Y}\)</span> y los correspondientes residuos <span class="math inline">\(\hat{\boldsymbol{\varepsilon}}\)</span>.</p></li>
+<li><p>Empleando el algoritmo para la corrección de sesgo, obtener una estimación piloto <span class="math inline">\(\tilde{\gamma}(\cdot)\)</span>, y ajustar un modelo S-B.</p></li>
+<li><p>Construir <span class="math inline">\(\hat{\Sigma}^{(k)}\)</span> y seleccionar una nueva ventana <span class="math inline">\(\mathbf{H}^{(k)}\)</span> (empleando <span class="math inline">\(CMCV\)</span> o <span class="math inline">\(CGCV\)</span>).</p></li>
+<li><p>Repetir los pasos 2 al 4 hasta obtener convergencia.</p></li>
+</ol>
+<p>Este algoritmo está implementado en la función <a href="https://rubenfcasal.github.io/npsp/reference/np.fitgeo.html">np.fitgeo</a> y normalmente dos iteraciones (el valor por defecto) son suficientes. Por ejemplo, se podría hacer un modelado automático ejecutando:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span>(x, y, <span class="dt">svm.resid =</span> <span class="ot">TRUE</span>, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))
+<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  1.068   0.124   1.338 </code></pre>
+<p>El parámetro <code>iter</code> controla el número máximo de iteraciones del algoritmo completo. Estableciendo <code>iter = 0</code> se emplea el variograma residual:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span>(x, y, <span class="dt">iter =</span> <span class="dv">0</span>, <span class="dt">h.start =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</code></pre></div>
+<p>La rutina devuelve el modelo no paramétrico ajustado, un objeto <a href="https://rubenfcasal.github.io/npsp/reference/np.geo.html">np.geo</a> que contiene las estimaciones de la tendencia y del variograma. Al representarlo gráficamente:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(geom)</code></pre></div>
+<p><img src="aquifer_files/figure-html/plot.np.fitgeo-1.png" width="864" style="display: block; margin: auto;"> Además de las estimaciones finales de la tendencia y del variograma, se muestra también el variograma ajustado obtenido en la iteración anterior (y si <code>svm.resid = TRUE</code> el variograma residual). Si no hay grandes diferencias no habría necesidad de seguir iterando, ya que el criterio de selección de la ventana proporcionaría un suavizado similar.</p>
+</div>
+<div id="prediccion-kriging" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prediccion-kriging" class="anchor"></a>Predicción kriging</h1>
+<p>La función genérica <code>kriging.np</code> permite obtener predicciones mediante kriging residual (combinando la estimación de la tendencia con el kriging simple de los residuos). Actualmente solo está implementado kriging simple y kriging residual con vecindario global. Para la resolución del sistema de ecuaciones kriging, a partir de la factorización de Choleski de la matriz de covarianzas, se emplea el paquete <code>spam</code> para matrices dispersas.</p>
+<p>Como ejemplo, compararemos las predicciones kriging obtenidas con el ajuste automático con las correspondientes a la estimación con el variograma residual.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/kriging.np.html">kriging.np</a></span>(geom0, <span class="dt">ngrid =</span> <span class="kw">c</span>(<span class="dv">96</span>, <span class="dv">96</span>)) <span class="co"># 9216 predicciones</span>
+krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/kriging.np.html">kriging.np</a></span>(geom, <span class="dt">ngrid =</span> <span class="kw">c</span>(<span class="dv">96</span>, <span class="dv">96</span>))
+<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  3.200   0.312   3.780 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
+scale.range &lt;-<span class="st"> </span><span class="kw">range</span>(krig.grid0$trend, krig.grid$trend, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
+<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'trend'</span>, <span class="dt">slim =</span> scale.range, 
+        <span class="dt">main =</span> <span class="st">'Trend estimates (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
+<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'trend'</span>, <span class="dt">slim =</span> scale.range, 
+        <span class="dt">main =</span> <span class="st">'Trend estimates (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
+<span class="kw">par</span>(old.par)
+<span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-9-1.png" width="864" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
+scale.range &lt;-<span class="st"> </span><span class="kw">range</span>(krig.grid0$kpred, krig.grid$kpred, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
+<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'kpred'</span>, <span class="dt">slim =</span> scale.range, 
+       <span class="dt">main =</span> <span class="st">'Kriging predictions (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
+<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'kpred'</span>, <span class="dt">slim =</span> scale.range, 
+       <span class="dt">main =</span> <span class="st">'Kriging predictions (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
+<span class="kw">par</span>(old.par)
+<span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-9-2.png" width="864" style="display: block; margin: auto;"></p>
+<p>Hay que tener en cuenta que se trata de un método robusto y no depende demasiado del modelo de tendencia (la variabilidad no explicada por la tendencia es capturada por la variabilidad de pequeña escala). En este caso es de especial importancia la estimación del variograma cerca del origen.</p>
+<p>Sin embargo, si se comparan las varianzas kriging (o se emplean otros métodos de inferencia, como por ejemplo bootstrap) puede haber grandes diferencias entre los resultados obtenidos con distintos modelos.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw">c</span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
+scale.range &lt;-<span class="st"> </span><span class="kw">range</span>(krig.grid0$ksd, krig.grid$ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
+<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'ksd'</span>, <span class="dt">slim =</span> scale.range, 
+        <span class="dt">main =</span> <span class="st">'Kriging sd (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
+<span class="kw">with</span>(aquifer, <span class="kw">points</span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
+<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">slim =</span> scale.range, 
+        <span class="dt">main =</span> <span class="st">'Kriging sd (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
+<span class="kw">with</span>(aquifer, <span class="kw">points</span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
+<span class="kw">par</span>(old.par)
+<span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="aquifer_files/figure-html/unnamed-chunk-10-1.png" width="864" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
+<pre><code>Time of last operation: 
+   user  system elapsed 
+  0.352   0.080   0.483 
+Total time:
+   user  system elapsed 
+  7.124   0.856   8.829 </code></pre>
 <div id="futuras-implementaciones" class="section level2">
 <h2 class="hasAnchor">
 <a href="#futuras-implementaciones" class="anchor"></a>Futuras implementaciones</h2>
 <ul>
 <li><p>Modelos anisotrópicos de semivariograma (caso espacio-temporal).</p></li>
 <li><p>Modelos aditivos y parcialmente lineales.</p></li>
+<li><p>Modelos dinámicos.</p></li>
 <li><p>Kriging local.</p></li>
 <li><p>…</p></li>
 </ul>
 </div>
+</div>
+<div id="referencias" class="section level1">
+<h1 class="hasAnchor">
+<a href="#referencias" class="anchor"></a>Referencias</h1>
+<ul>
+<li><p>Chu, C.K. and Marron, J.S. (1991) Comparison of Two Bandwidth Selectors with Dependent Errors. <em>The Annals of Statistics</em>, <strong>19</strong>, 1906-1918.</p></li>
+<li><p>Fernández-Casal R., Castillo-Páez S. and Francisco-Fernández M. (2018), Nonparametric geostatistical risk mapping, <em>Stoch. Environ. Res. Ris. Assess.</em>, <a href="https://doi.org/10.1007/s00477-017-1407-y">DOI</a>.</p></li>
+<li><p>Fernández-Casal R., Castillo-Páez S. and García-Soidán P. (2017), Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, <em>Spa. Sta.</em>, <strong>22</strong>, 358-370, <a href="https://doi.org/10.1016/j.spasta.2017.04.001">DOI</a>.</p></li>
+<li><p>Fernandez-Casal R. and Francisco-Fernandez M. (2014) Nonparametric bias-corrected variogram estimation under non-constant trend, <em>Stoch. Environ. Res. Ris. Assess.</em>, <strong>28</strong>, 1247-1259.</p></li>
+<li><p>Fernandez-Casal R., Gonzalez-Manteiga W. and Febrero-Bande M. (2003) Flexible Spatio-Temporal Stationary Variogram Models, <em>Statistics and Computing</em>, <strong>13</strong>, 127-136.</p></li>
+<li><p>Francisco-Fernandez M. and Opsomer J.D. (2005) Smoothing parameter selection methods for nonparametric regression with spatially correlated errors. <em>Canadian Journal of Statistics</em>, 33, 539-558.</p></li>
+<li><p>Rupert D. and Wand M.P. (1994) Multivariate locally weighted least squares regression. <em>The Annals of Statistics</em>, <strong>22</strong>, 1346-1370.</p></li>
+<li><p>Shapiro A. and Botha J.D. (1991) Variogram fitting with a general class of conditionally non-negative definite functions. <em>Computational Statistics and Data Analysis</em>, <strong>11</strong>, 87-96.</p></li>
+<li><p>Wand M.P. (1994) Fast Computation of Multivariate Kernel Estimators. <em>Journal of Computational and Graphical Statistics</em>, <strong>3</strong>, 433-445.</p></li>
+<li><p>Wand M.P. and Jones M.C. (1995) <em>Kernel Smoothing</em>. Chapman and Hall, London.</p></li>
+</ul>
 </div>
 </div>
   </div>
@@ -617,22 +596,46 @@ svm3 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fit
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="#geoestadistica-no-parametrica">Geoestadística no paramétrica</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#el-paquete-npsp">El paquete <code>npsp</code></a></li>
-      <li><a href="#linear-binning">Linear binning</a></li>
-      <li><a href="#density-estimation">Density estimation</a></li>
-      <li><a href="#trend-estimation">Trend estimation</a></li>
-      <li><a href="#variogram-estimation">Variogram estimation</a></li>
-      <li><a href="#bandwidth-selection">Bandwidth selection</a></li>
-      <li><a href="#final-estimation">Final estimation</a></li>
-      <li><a href="#kriging-predictions">Kriging predictions</a></li>
+<li><a href="#ejemplo">Ejemplo</a></li>
+      <li><a href="#modelo-general">Modelo general</a></li>
+      <li><a href="#ejemplo-1">Ejemplo</a></li>
+      <li><a href="#inferencia-no-parametrica-en-procesos-geoestadisticos">Inferencia (no paramétrica) en procesos geoestadísticos</a></li>
       </ul>
 </li>
       <li>
-<a href="#resumen-y-futuras-implementaciones">Resumen y futuras implementaciones</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#resumen">Resumen</a></li>
-      <li><a href="#futuras-implementaciones">Futuras implementaciones</a></li>
+<a href="#binning-lineal">Binning lineal</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#discretizacion">Discretización</a></li>
+      <li><a href="#interpolacion">Interpolación</a></li>
       </ul>
 </li>
+      <li><a href="#estimacion-de-la-densidad">Estimación de la densidad</a></li>
+      <li>
+<a href="#estimacion-de-la-tendencia">Estimación de la tendencia</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#regresion-polinomica-local">Regresión polinómica local</a></li>
+      <li><a href="#implementacion-en-el-paquete-npsp">Implementación en el paquete <code>npsp</code></a></li>
+      <li><a href="#ejemplo-2">Ejemplo</a></li>
+      </ul>
+</li>
+      <li>
+<a href="#estimacion-del-variograma">Estimación del variograma</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#estimacion-piloto-del-variograma">Estimación piloto del variograma</a></li>
+      <li><a href="#estimacion-piloto-del-variograma-con-correccion-de-sesgo">Estimación piloto del variograma con corrección de sesgo</a></li>
+      <li><a href="#ajuste-de-un-modelo-no-parametrico">Ajuste de un modelo no paramétrico</a></li>
+      </ul>
+</li>
+      <li>
+<a href="#seleccion-de-las-ventanas">Selección de las ventanas</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#estimacion-de-la-tendencia-1">Estimación de la tendencia</a></li>
+      <li><a href="#estimacion-del-variograma-1">Estimación del variograma</a></li>
+      </ul>
+</li>
+      <li><a href="#estimacion-conjunta-automatica">Estimación conjunta (automática)</a></li>
+      <li>
+<a href="#prediccion-kriging">Predicción kriging</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#futuras-implementaciones">Futuras implementaciones</a></li>
+      </ul>
+</li>
+      <li><a href="#referencias">Referencias</a></li>
       </ul>
 </div>
       </div>

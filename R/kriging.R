@@ -12,6 +12,9 @@
 #   - newx = FALSE -> CV? chol2inv.spam
 #--------------------------------------------------------------------
 
+#--------------------------------------------------------------------
+# kriging.np(object, ...) S3 generic function
+#--------------------------------------------------------------------
 #' Nonparametric (residual) kriging
 #' 
 #' Compute simple kriging or residual kriging predictions 
@@ -19,23 +22,57 @@
 #  *and cross-validation measures, not yet...*
 #' ). Currently, only global (residual) simple kriging is implemented.
 #' @aliases kriging 
-#' @param  lp local polynomial estimate of the trend function (object of class 
-#'  \code{\link{locpol.bin}}).
-#' @param svm semivariogram model (of class extending \code{\link{svarmod}})
-#' or covariance matrix of the data.
-#' @param lp.resid  residuals (defaults to \code{residuals(lp)})
-#' @seealso \code{\link{locpol}}, \code{\link{np.svar}}.
+#' @param  object object used to select a method: 
+#' local polynomial estimate of the trend (class \code{\link{locpol.bin}}) 
+#' or nonparametric geostatistical model (class extending \code{\link{np.geo}}).
+#' @param ... further arguments passed to or from other methods.
 #' @export
-kriging.np <- function(lp, svm, lp.resid = residuals(lp)) {
+#--------------------------------------------------------------------
+kriging.np <- function(object, ...) UseMethod("kriging.np")
+
+
+
+#' @rdname kriging.np  
+#' @method kriging.np default
+#' @param svm semivariogram model (of class extending \code{\link{svarmod}}).
+# or covariance matrix of the data.
+#' @param  ngrid number of grid nodes in each dimension. 
+#' @param lp.resid  residuals (defaults to \code{residuals(object)}).
+#' @seealso \code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{np.svar}}.
+#' @export
+#--------------------------------------------------------------------
+kriging.np.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...) {
+  stopifnot(inherits(object, "locpol.bin" ))
+  masked <- !is.null(object$mask)  # Interpolar mask?
+  if (lp.hd <- any(ngrid != object$grid$n))
+    object <- with(object, locpol(data$x, data$y, nbin = ngrid, h = locpol$h))
+  if (is.null(lp.resid))
+    lp.resid <- if(inherits(svm, "fitsvar")) svm$esv$data$y else residuals(object)
+  krig.grid <- kriging.simple(x = object$data$x, y = lp.resid, newx = object, svm = svm)
+  krig.grid$kpred <- object$est + krig.grid$kpred
+  krig.grid$trend <- object$est
   # OJO: Si lp data is masked... 
-  krig.grid <- kriging.simple(x = lp$data$x, y = lp.resid, newx = lp$grid, svm = svm)
-  krig.grid$kpred <- lp$est + krig.grid$kpred
-  if (!is.null(lp$mask)) 
-    is.na(krig.grid$ksd) <- !lp$mask
-  krig.grid$lp <- lp
-  krig.grid$residuals <- lp.resid
+  if (masked) 
+    if (lp.hd) {
+      warning("A resized 'object' can not be masked (`ngrid != object$grid$n`).")
+      # Interpolar mask?
+    } else 
+      is.na(krig.grid$ksd) <- !object$mask
+  # krig.grid$lp <- object
+  # krig.grid$residuals <- lp.resid
   return(krig.grid)
 }
+
+
+#' @rdname kriging.np  
+#' @method kriging.np np.geo
+#' @export
+#--------------------------------------------------------------------
+kriging.np.np.geo <- function(object, ngrid = object$grid$n, ...) {
+  return(
+    kriging.np.default(object, object$svm, object$residuals, ngrid = ngrid, ...)
+  )}
+
 
 #' @rdname kriging.np
 #' @inheritParams locpol.default
@@ -44,34 +81,40 @@ kriging.np <- function(lp, svm, lp.resid = residuals(lp)) {
 #'    or an object extending \code{\link{grid.par}}-\code{\link{class}}
 #'    (\code{\link{data.grid}}).
 #' @export
+#--------------------------------------------------------------------
 kriging.simple <- function(x, y, newx, svm) {
   x <- as.matrix(x)
   if ( !identical(length(y), nrow(x)) )
     stop("arguments 'y' and 'x' do not have the same length.")  
-  grid <- NULL
-  if((inherits(newx, "grid.par")) || (inherits(newx, "data.grid"))) {
+  gridded <- inherits(newx, "grid.par") || inherits(newx, "data.grid")
+  if (gridded) {
     grid <- if(inherits(newx, "grid.par")) newx else newx$grid
-    newx <- coords(grid)
+    newx <- coords(newx)
   }
   res <- kriging.simple.solve(x = x, newx = newx, svm = svm)
   kpred <- drop(y %*% res$lambda)
   ksd2 <- with(res, cov.est[1,1] - colSums( lambda * cov.pred ))
-  if (!is.null(grid)) {
+  if (gridded) {
     krig.grid <- data.grid(kpred = kpred, ksd = sqrt(ksd2), grid = grid)
+    # krig.grid$kpred <- kpred
+    # krig.grid$ksd <- sqrt(ksd2)
     krig.grid$kriging <- res
-    krig.grid$svm <- svm      
+    oldClass(krig.grid) <- c("krig.grid", oldClass(krig.grid))
     return(krig.grid)    
   } else {
     return(list(kpred = kpred, ksd = sqrt(ksd2), 
-                kriging = res, svm = svm))
+                kriging = res)) 
   }
 }
 
+
 #' @rdname kriging.np
 #' @export
+#--------------------------------------------------------------------
 kriging.simple.solve <- function(x, newx, svm) {
-# spam = TRUE
-# newx = FALSE -> CV? chol2inv.spam
+# Evitar recalcular matriz de covarianza y factorizacion
+  # spam = TRUE
+  # newx = FALSE -> CV? chol2inv.spam
   if (!inherits(svm, "svarmod"))
     stop("'svm' must be a semivariogram model ('svarmod' class).")
   x <- as.matrix(x)
@@ -85,34 +128,29 @@ kriging.simple.solve <- function(x, newx, svm) {
   cov.pred <- matrix(covar(svm, dist2, discretize = TRUE), nrow = nrow(x))
   # Kriging system
   # U.est <- chol(cov.est) # Interface to the LAPACK routines DPOTRF and DPSTRF,
-  # cpu.time(total = FALSE)
   ## Time of last operation: 
   ##    user  system elapsed 
   ##   20.00    1.03   22.10
   # cov.inv.est <- chol2inv(U.est) # Interface to the LAPACK routine DPOTRI.
   # lambda <- cov.inv.est %*% cov.pred
-  # cpu.time(total = FALSE)
   ## Time of last operation: 
   ##    user  system elapsed 
   ##   16.03    0.12   16.25
   # L.est <- t(U.est)
   # lambda.pred2 <- backsolve(U.est,
   #                forwardsolve(L.est, cov.pred))
-  # cpu.time(total = FALSE)
   ## Time of last operation: backsolve
   ##    user  system elapsed
   ##   20.57    0.08   20.65
   # lambda <- .DPOSV_R(cov.est, cov.pred)
-  # cpu.time(total = FALSE)
   # # Time of last operation:
   # #  user  system elapsed
   # # 29.50    0.02   44.99
   # library(Matrix)
   # lambda <- solve(as(cov.est, "dpoMatrix"), cov.pred)
-  # cpu.time(total = FALSE)
-  # # Time of last operation: 
-  # #  user  system elapsed 
-  # # 28.72    0.14   37.75
+  ## Time of last operation: 
+  ##  user  system elapsed 
+  ## 28.72    0.14   37.75
   # library(spam)
   if (!requireNamespace("spam")) stop("'spam' package must be installed...")
   chol <- spam::chol.spam(spam::as.spam(cov.est))

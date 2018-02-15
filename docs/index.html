@@ -48,16 +48,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -91,9 +88,9 @@
 <div id="npsp-nonparametric-spatial-geostatistics" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#npsp-nonparametric-spatial-geostatistics" class="anchor"></a>npsp: Nonparametric spatial (geo)statistics</h1></div>
-<div id="version-0-6-2" class="section level3">
+<div id="version-0-7-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#version-0-6-2" class="anchor"></a>Version 0.6.2</h3>
+<a href="#version-0-7-1" class="anchor"></a>Version 0.7.1</h3>
 <p>This package implements nonparametric methods for inference on multidimensional spatial (or spatio-temporal) processes, which may be (especially) useful in (automatic) geostatistical modeling and interpolation.</p>
 </div>
 <div id="main-functions" class="section level2">
@@ -101,7 +98,8 @@
 <a href="#main-functions" class="anchor"></a>Main functions</h2>
 <p>Nonparametric methods for inference on both spatial trend and variogram functions:</p>
 <ul>
-<li><p><code>locpol</code>, <code>np.den</code> and <code>np.svar</code> use local polynomial kernel smoothing to compute nonparametric estimates of a multidimensional regression function (e.g. a spatial trend), a probability density function or a semivariogram (or their first derivatives), respectively. Estimates of these functions can be constructed for any dimension (the amount of available memory is the only limitation).</p></li>
+<li><p><code>np.fitgeo</code> (automatically) fits an isotropic nonparametric geostatistical model by estimating the trend and the variogram (using a bias-corrected estimator) iteratively (by calling <code>h.cv</code>, <code>locpol</code>, <code>np.svariso.corr</code> and <code>fitsvar.sb.iso</code> at each iteration)</p></li>
+<li><p><code>locpol</code>, <code>np.den</code> and <code>np.svar</code> use local polynomial kernel smoothing to compute nonparametric estimates of a multidimensional regression function (e.g. a spatial trend), a probability density function or a semivariogram (or their first derivatives), respectively. Estimates of these functions can be constructed for any dimension (depending on the amount of available memory).</p></li>
 <li><p><code>np.svariso.corr</code> computes a bias-corrected nonparametric semivariogram estimate using an iterative algorithm similar to that described in Fernandez-Casal and Francisco-Fernandez (2014). This procedure tries to correct the bias due to the direct use of residuals (obtained, in this case, from a nonparametric estimation of the trend function) in semivariogram estimation.</p></li>
 <li><p><code>fitsvar.sb.iso</code> fits a ‘nonparametric’ isotropic Shapiro-Botha variogram model by WLS. Currently, only isotropic semivariogram estimation is supported.</p></li>
 </ul>
@@ -114,13 +112,6 @@
 Users are encouraged to use <code>krige</code> (or <code>krige.cv</code>) utilities in gstat package together with <code>as.vgm</code> for local kriging.</p></li>
 </ul>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>npsp</code> is available from CRAN, but you can install the development version from github with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"rubenfcasal/npsp"</span>)</code></pre></div>
-</div>
 <div id="other-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-functions" class="anchor"></a>Other functions</h2>
@@ -131,6 +122,13 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 </ul>
 <p>There are also some functions which can be used to interact with other packages. For instance, <code>as.variogram</code> (geoR) or <code>as.vgm</code> (gstat).</p>
 <p>See the <a href="reference/index.html">Reference</a> for the complete list of functions.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p><code>npsp</code> is available from CRAN, but you can install the development version from github with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+devtools::<span class="kw">install_github</span>(<span class="st">"rubenfcasal/npsp"</span>)</code></pre></div>
 </div>
 <div id="author" class="section level2">
 <h2 class="hasAnchor">
@@ -146,8 +144,8 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <ul>
-<li><p>Fernández-Casal R., Castillo-Páez S. and Francisco-Fernández M. (2017), Nonparametric geostatistical risk mapping, <em>Stoch. Environ. Res. Ris. Assess.</em>, <a href="https://doi.org/10.1007/s00477-017-1407-y">DOI</a>.</p></li>
-<li><p>Fernández-Casal R., Castillo-Páez S. and García-Soidán P. (2017), Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, <em>Spa. Sta.</em>, <a href="https://doi.org/10.1016/j.spasta.2017.04.001">DOI</a>.</p></li>
+<li><p>Fernández-Casal R., Castillo-Páez S. and Francisco-Fernández M. (2018), Nonparametric geostatistical risk mapping, <em>Stoch. Environ. Res. Ris. Assess.</em>, <a href="https://doi.org/10.1007/s00477-017-1407-y">DOI</a>.</p></li>
+<li><p>Fernández-Casal R., Castillo-Páez S. and García-Soidán P. (2017), Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, <em>Spa. Sta.</em>, <strong>22</strong>, 358-370, <a href="https://doi.org/10.1016/j.spasta.2017.04.001">DOI</a>.</p></li>
 <li><p>Fernandez-Casal R. and Francisco-Fernandez M. (2014) Nonparametric bias-corrected variogram estimation under non-constant trend, <em>Stoch. Environ. Res. Ris. Assess.</em>, <strong>28</strong>, 1247-1259.</p></li>
 <li><p>Fernandez-Casal R., Gonzalez-Manteiga W. and Febrero-Bande M. (2003) Flexible Spatio-Temporal Stationary Variogram Models, <em>Statistics and Computing</em>, <strong>13</strong>, 127-136.</p></li>
 <li><p>Rupert D. and Wand M.P. (1994) Multivariate locally weighted least squares regression. <em>The Annals of Statistics</em>, <strong>22</strong>, 1346-1370.</p></li>

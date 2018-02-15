@@ -1,10 +1,37 @@
+# npsp 0.7-1
+
+* Changes in `kriging.np`: 
+
+  - S3 generic function. 
+
+  - `kriging.np` renamed as `kriging.np.default`.
+
+  - Added `kriging.np.np.geo` S3 method.
+
+  - Added `ngrid` parameter.
+
+
+# npsp 0.7-0
+
+* Added `np.geo` S3 class (nonparametric geostatistical model),  
+  constructor function and methods. 
+
+  - Added `plot()` S3 method for `np.geo` class.
+
+  - Added `residuals()` S3 method for `np.geo` class.
+
+* Added `np.fitgeo()` S3 generic function and methods
+ (`np.fitgeo.default`, `np.fitgeo.locpol.bin` and `np.fitgeo.np.geo`).
+ 
+* Fixed bug in `np.svariso.hcv()` (thanks to Tomas Cotos-Yañez).
+
 
 # npsp 0.6-2 
 
 *  Added a website for the package (with pkgdown).
- 
+
 *  Added 'NEWS.md' and 'index.Rmd'.
- 
+
 *  Added some vignettes (pkgdown articles): 
    "npsp.Rmd", "precipitation.Rmd", "krigstat.Rmd", "docs/aquifer.Rmd", "docs/Introduccion.Rmd".
 
@@ -93,4 +120,4 @@
 
 # npsp 0.5-3 or older 
 
-See [npsp ChangeLog](../../ChangeLog) (also for more info). 
+See [npsp ChangeLog](https://github.com/rubenfcasal/npsp/blob/master/ChangeLog) (also for more info). 

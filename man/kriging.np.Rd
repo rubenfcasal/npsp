@@ -3,24 +3,35 @@
 \name{kriging.np}
 \alias{kriging.np}
 \alias{kriging}
+\alias{kriging.np.default}
+\alias{kriging.np.np.geo}
 \alias{kriging.simple}
 \alias{kriging.simple.solve}
 \title{Nonparametric (residual) kriging}
 \usage{
-kriging.np(lp, svm, lp.resid = residuals(lp))
+kriging.np(object, ...)
+
+\method{kriging.np}{default}(object, svm, lp.resid = NULL,
+  ngrid = object$grid$n, ...)
+
+\method{kriging.np}{np.geo}(object, ngrid = object$grid$n, ...)
 
 kriging.simple(x, y, newx, svm)
 
 kriging.simple.solve(x, newx, svm)
 }
 \arguments{
-\item{lp}{local polynomial estimate of the trend function (object of class 
-\code{\link{locpol.bin}}).}
+\item{object}{object used to select a method: 
+local polynomial estimate of the trend (class \code{\link{locpol.bin}}) 
+or nonparametric geostatistical model (class extending \code{\link{np.geo}}).}
 
-\item{svm}{semivariogram model (of class extending \code{\link{svarmod}})
-or covariance matrix of the data.}
+\item{...}{further arguments passed to or from other methods.}
 
-\item{lp.resid}{residuals (defaults to \code{residuals(lp)})}
+\item{svm}{semivariogram model (of class extending \code{\link{svarmod}}).}
+
+\item{lp.resid}{residuals (defaults to \code{residuals(object)}).}
+
+\item{ngrid}{number of grid nodes in each dimension.}
 
 \item{x}{a (data) object used to select a method.}
 
@@ -37,5 +48,5 @@ Compute simple kriging or residual kriging predictions
 ). Currently, only global (residual) simple kriging is implemented.
 }
 \seealso{
-\code{\link{locpol}}, \code{\link{np.svar}}.
+\code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{np.svar}}.
 }

@@ -71,16 +71,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -112,6 +109,29 @@
     </div>
 
     <div class="contents">
+    <div id="npsp-0-7-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#npsp-0-7-1" class="anchor"></a>npsp 0.7-1</h1>
+<ul>
+<li><p>Changes in <code>kriging.np</code>:</p></li>
+<li><p>S3 generic function.</p></li>
+<li><p><code>kriging.np</code> renamed as <code>kriging.np.default</code>.</p></li>
+<li><p>Added <code>kriging.np.np.geo</code> S3 method.</p></li>
+<li><p>Added <code>ngrid</code> parameter.</p></li>
+</ul>
+</div>
+    <div id="npsp-0-7-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#npsp-0-7-0" class="anchor"></a>npsp 0.7-0</h1>
+<ul>
+<li><p>Added <code>np.geo</code> S3 class (nonparametric geostatistical model),<br>
+constructor function and methods.</p></li>
+<li><p>Added <code>plot()</code> S3 method for <code>np.geo</code> class.</p></li>
+<li><p>Added <code>residuals()</code> S3 method for <code>np.geo</code> class.</p></li>
+<li><p>Added <code><a href="../reference/np.fitgeo.html">np.fitgeo()</a></code> S3 generic function and methods (<code>np.fitgeo.default</code>, <code>np.fitgeo.locpol.bin</code> and <code>np.fitgeo.np.geo</code>).</p></li>
+<li><p>Fixed bug in <code><a href="../reference/np.svar.html">np.svariso.hcv()</a></code> (thanks to Tomas Cotos-Yañez).</p></li>
+</ul>
+</div>
     <div id="npsp-0-6-2" class="section level1">
 <h1 class="hasAnchor">
 <a href="#npsp-0-6-2" class="anchor"></a>npsp 0.6-2</h1>
@@ -199,7 +219,7 @@ generic function (constructor) and methods.</p>
     <div id="npsp-0-5-3-or-older" class="section level1">
 <h1 class="hasAnchor">
 <a href="#npsp-0-5-3-or-older" class="anchor"></a>npsp 0.5-3 or older</h1>
-<p>See <a href="../../ChangeLog">npsp ChangeLog</a> (also for more info).</p>
+<p>See <a href="https://github.com/rubenfcasal/npsp/blob/master/ChangeLog">npsp ChangeLog</a> (also for more info).</p>
 </div>
     </div>
   </div>
@@ -208,6 +228,8 @@ generic function (constructor) and methods.</p>
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#npsp-0-7-1">0.7-1</a></li>
+        <li><a href="#npsp-0-7-0">0.7-0</a></li>
         <li><a href="#npsp-0-6-2">0.6-2</a></li>
         <li><a href="#npsp-0-6-1">0.6-1</a></li>
         <li><a href="#npsp-0-6-0">0.6-0</a></li>

@@ -1,31 +1,12 @@
----
-title: 'Total Monthly Precipitation'
-author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
-date: '`r paste("npsp", packageVersion("npsp"))`'
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Total Monthly Precipitation}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-
-```{r setup, include=FALSE}
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(cache = FALSE, fig.height=5, fig.width=7, fig.align = 'center')
 # knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev='svg', out.width=1024, fig.height=6, fig.width=8)
-```
 
-```{r library, warning=TRUE}
+## ----library, warning=TRUE-----------------------------------------------
 library(npsp)
 library(sp)
-```
 
-
-Data
-=====
-
-
-```{r Datos}
+## ----Datos---------------------------------------------------------------
 # Total Monthly Precipitation
 spoints(precipitation)
 
@@ -39,25 +20,15 @@ slim <- range(precipitation$y)
 col <- jet.colors(256)
 col2 <- hot.colors(256)
 cpu.time(reset=TRUE)
-```
 
-
-Exploratory data analysis
--------------------------
-
-```{r summary}
+## ----summary-------------------------------------------------------------
 y.summary <- summary(precipitation$y) # Resumen de datos
 y.summary
 
 scattersplot(precipitation)
 cpu.time(total = FALSE)
-```
 
-
-Linear binning
---------------
-
-```{r binning}
+## ----binning-------------------------------------------------------------
 nbin <- c(30, 30)
 bin <- binning(coord, nbin = nbin, precipitation$y, set.NA = TRUE)
 cpu.time(total = FALSE)
@@ -72,16 +43,8 @@ points(bin$data$x, pch ='+')
 coordvs <- coordvalues(bin)
 abline(v = coordvs[[1]], lty = 3)
 abline(h = coordvs[[2]], lty = 3)
-```
 
-
-Pilot estimation
-================
-
-Initial trend estimates
------------------------
-
-```{r lp0}
+## ----lp0-----------------------------------------------------------------
 lp0.h <- h.cv(bin)$h
 lp0.h    # <- diag(c(6.85061, 2.946348))   
 
@@ -108,13 +71,8 @@ plot(lp0.pred, lp0.resid, main = "Residuals vs Fitted",
      xlab = "Fitted values", ylab = "Residuals")
 abline(h = 0, lty = 2, col = "darkgray")
 par(old.par)
-```
 
-
-Initial variogram 
-------------------
-
-```{r svm0}
+## ----svm0----------------------------------------------------------------
 # rule.svar(coord)
 nlags <- 60 
 maxlag <- 10
@@ -142,13 +100,8 @@ abline(h = c(svm02$nugget, svm02$sill), lty = 3)
 abline(v = 0, lty = 3)
 legend("bottomright", legend = c("corrected", 'biased'),
             lty = c(1, 1), pch = c(NA, NA), lwd = c(2, 1))
-```
 
-
-Bandwidth selection
-===================
-
-```{r hcv.data}
+## ----hcv.data------------------------------------------------------------
 # GCV criterion (Francisco-Fernandez and Opsomer, 2005)
 lp.h <- h.cv(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h
 lp.h    # <- diag(c(11.11463, 18.59536))
@@ -158,21 +111,10 @@ cpu.time(total = FALSE)
 ## Time of last operation: hcv.data
 ##    user  system elapsed 
 ##   10.39    1.39   11.87
-```
 
+## ----lp------------------------------------------------------------------
 
-Final variogram
-===============
-
-Trend re-estimation
--------------------
-
-```{r lp}
-```
-
-Final trend (low resolution):
-
-```{r }
+## ------------------------------------------------------------------------
 lp <- locpol(bin, h = lp.h, hat.bin = TRUE)
 cpu.time(total = FALSE)
 simage(lp, main = "Trend Estimation", slim = slim, 
@@ -191,25 +133,17 @@ plot(lp.pred, lp.resid, main = "Residuals vs Fitted",
      xlab = "Fitted values", ylab = "Residuals")
 abline(h = 0, lty = 2, col = "darkgray")
 par(old.par)
-```
 
-
-Fitted variogram model
-----------------------
-
-```{r lp.svm2}
+## ----lp.svm2-------------------------------------------------------------
 
 svar.bin <- svariso(coord, lp.resid,  nlags = nlags, maxlag = maxlag)  
 svar.np.h <- h.cv(svar.bin)$h  # svar.np.h <- 2.257358
 svar.np <- np.svar(svar.bin, h = svar.np.h)
 svm <- fitsvar.sb.iso(svar.np, dk = 0)
 svar.np2 <- np.svariso.corr(lp, nlags = nlags, maxlag = maxlag, 
-                            h = svar.np.h, plot = TRUE, ylim = c(0, 0.6))
-```
+                            h = svar.np.h, plot = TRUE, ylim = c(0, 0.3))
 
-Final variogram: 
-
-```{r }
+## ------------------------------------------------------------------------
 svm2 <- fitsvar.sb.iso(svar.np2, dk = 0) # Shapiro-Botha model
 
 cpu.time(total = FALSE)
@@ -227,18 +161,10 @@ legend("bottomright", legend = c("corrected", 'biased', "corrected initial",
        lwd = c(2, 1))
 
 cpu.time(total = FALSE)
-```
 
+## ----bin.hd--------------------------------------------------------------
 
-Final trend estimates
-=====================
-
-```{r bin.hd}
-```
-
-High resolution binning (120x120):
-
-```{r }
+## ------------------------------------------------------------------------
 bin.hd <- binning(coord, precipitation$y,
                nbin = c(120,120), set.NA = TRUE)
 simage(bin.hd, main = 'Binning averages',
@@ -247,11 +173,8 @@ simage(bin.hd, main = 'Binning averages',
        slim = slim)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-```
 
-Density estimation (used for mask in binning HD)
-
-```{r h.den}
+## ----h.den---------------------------------------------------------------
 h.den <- h.cv(as.bin.den(bin), ncv = 2)$h         # diag(0.4061458, 0.6349045)
 den <- np.den(bin.hd, h = h.den, degree = 0)
 plot(den, main = 'Estimated log(density)',
@@ -259,32 +182,23 @@ plot(den, main = 'Estimated log(density)',
           sub = paste0("(", paste(dim(bin.hd), collapse = "x"), ")") )
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-```
 
-Data mask (filtering):
-
-```{r mask}
+## ----mask----------------------------------------------------------------
 spp.grid <- SpatialPoints(coords(bin.hd))
 proj4string(spp.grid) <- proj4string(border) # CRS("+init=epsg:28992 +units=km")
 mask.sp <- !is.na(over(spp.grid, as(border, 'SpatialPolygons')))
 mask <- mask.sp | (bin.hd$binw > 0)  #indice
 bin.hd <- mask(bin.hd, mask = mask)
-```
 
-Final trend (high resolution):
-
-```{r }
+## ------------------------------------------------------------------------
 lp.hd <- locpol(bin.hd, h = lp.h)
 
 simage(lp.hd, main = "Final trend estimates", slim = slim, 
        xlab = labels$x[1], ylab = labels$x[2], col = col2)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-```
 
-Grid mask (some data will be filtered...):
-
-```{r lp.def}
+## ----lp.def--------------------------------------------------------------
 lp <- lp.hd
 trend.est <- predict(lp)
 lp.resid <- lp$data$y - trend.est
@@ -292,27 +206,13 @@ lp$mask <- NULL
 lp <- mask(lp, mask = mask.sp, warn = FALSE)  # warning=FALSE
 
 cpu.time(total = FALSE)
-```
 
-
-Kriging predictions
-===================
-
-
-Kriging system
----------------
-
-```{r kriging}
+## ----kriging-------------------------------------------------------------
 
 krig.grid <- kriging.np(lp, svm2, lp.resid)
 cpu.time(total = FALSE)
-```
 
-
-Kriging maps
-------------
-
-```{r kriging.maps}
+## ----kriging.maps--------------------------------------------------------
 
 simage(krig.grid, 'kpred', main = 'Kriging predictions', slim = slim,
                   xlab = labels$x[1], ylab = labels$x[2])
@@ -326,5 +226,4 @@ plot(interior, border = "lightgray", lwd = 1, add = TRUE)
 
 cpu.time()
 # save.image(".RData")
-```
 

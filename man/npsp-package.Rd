@@ -15,6 +15,11 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
 \strong{Nonparametric methods for inference on both spatial trend 
 and variogram functions}:
 
+\code{\link{np.fitgeo}} (automatically) fits an isotropic nonparametric geostatistical model
+by estimating the trend and the variogram (using a bias-corrected estimator) iteratively
+(by calling \code{\link{h.cv}}, \code{\link{locpol}}, \code{\link{np.svariso.corr}} and 
+\code{\link{fitsvar.sb.iso}} at each iteration).
+
 \code{\link{locpol}}, \code{\link{np.den}} and \code{\link{np.svar}}
 use local polynomial kernel methods to compute
 nonparametric estimates of a multidimensional regression function,
@@ -73,13 +78,13 @@ and Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
 }
 
 \references{
-Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
+Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2018)
 Nonparametric geostatistical risk mapping, \emph{Stoch. Environ. Res. Ris. Assess.}, 
 \url{https://doi.org/10.1007/s00477-017-1407-y}.
 
 Fernandez-Casal R., Castillo-Paez S. and Garcia-Soidan P. (2017)
 Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, 
-\emph{Spa. Sta.}, \url{https://doi.org/10.1016/j.spasta.2017.04.001}.
+\emph{Spa. Sta.}, \bold{22}, 358-370, \url{https://doi.org/10.1016/j.spasta.2017.04.001}.
 
 Fernandez-Casal R. and Francisco-Fernandez M. (2014) 
 Nonparametric bias-corrected variogram estimation under non-constant trend, 

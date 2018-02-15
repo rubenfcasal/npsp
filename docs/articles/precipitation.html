@@ -87,7 +87,7 @@
       <h1>Total Monthly Precipitation</h1>
                         <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.6.2</h4>
+            <h4 class="date">npsp 0.7.1</h4>
           </div>
 
     
@@ -95,8 +95,8 @@
 <div class="contents">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(npsp)</code></pre></div>
 <pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.6-2 (built on 2017-10-02).
-##  Copyright (C) R. Fernandez-Casal 2012-2017.
+##  version 0.7-1 (built on 2018-02-11).
+##  Copyright (C) R. Fernandez-Casal 2012-2018.
 ##  Type `help(npsp)` for an overview of the package and
 ##  `demo(package = "npsp")` for the list of available demos.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)</code></pre></div>
@@ -129,7 +129,7 @@ y.summary</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.20    0.08    0.28</code></pre>
+##    0.34    0.28    0.68</code></pre>
 </div>
 <div id="linear-binning" class="section level2">
 <h2 class="hasAnchor">
@@ -139,7 +139,7 @@ bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.17    0.03    0.21</code></pre>
+##    0.35    0.11    0.50</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages and data points'</span>, <span class="dt">slim =</span> slim,
        <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],
        <span class="dt">sub =</span> <span class="kw">paste0</span>(<span class="st">"("</span>, <span class="kw">paste</span>(<span class="kw">dim</span>(bin), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>))
@@ -170,7 +170,7 @@ lp0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.47    0.11    0.57</code></pre>
+##    0.90    0.38    1.39</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp0, <span class="dt">main =</span> <span class="st">"Initial trend estimates"</span>, <span class="dt">slim =</span> slim,
        <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
@@ -218,7 +218,7 @@ svm02 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsv
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    5.75    0.23    5.99</code></pre>
+##   11.39    0.56   12.18</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svm02, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, 
      <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.np2))), 
      <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">max</span>(svar.np2<span class="op">$</span>biny, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
@@ -243,7 +243,7 @@ lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    1.47    0.41    1.88</code></pre>
+##    2.38    0.67    3.10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lp.h &lt;- hcv.data(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h</span>
 <span class="co"># lp.h    # &lt;- diag(c(10.0871, 18.3956))</span>
 ## Time of last operation: hcv.data
@@ -261,7 +261,7 @@ lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre>
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.05    0.03    0.07</code></pre>
+##    0.11    0.02    0.13</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp, <span class="dt">main =</span> <span class="st">"Trend Estimation"</span>, <span class="dt">slim =</span> slim, 
        <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
 <span class="kw">plot</span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
@@ -289,7 +289,7 @@ svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h
 svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)
 svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np, <span class="dt">dk =</span> <span class="dv">0</span>)
 svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag, 
-                            <span class="dt">h =</span> svar.np.h, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.6</span>))</code></pre></div>
+                            <span class="dt">h =</span> svar.np.h, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</code></pre></div>
 <p><img src="precipitation_files/figure-html/lp.svm2-1.png" width="672" style="display: block; margin: auto;"></p>
 <pre><code>## Iteration  2 :  1 
 ## Iteration  3 :  0.0276809</code></pre>
@@ -299,7 +299,7 @@ svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    3.05    0.19    3.25</code></pre>
+##    5.22    0.37    5.64</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, 
      <span class="dt">legend =</span> <span class="ot">FALSE</span>)
 <span class="kw">plot</span>(svm, <span class="dt">add =</span> <span class="ot">TRUE</span>)
@@ -315,7 +315,7 @@ svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.00    0.01    0.01</code></pre>
+##    0.01    0.02    0.05</code></pre>
 </div>
 </div>
 <div id="final-trend-estimates" class="section level1">
@@ -364,7 +364,7 @@ lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.htm
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    2.27    0.38    2.64</code></pre>
+##    3.72    1.08    4.92</code></pre>
 </div>
 <div id="kriging-predictions" class="section level1">
 <h1 class="hasAnchor">
@@ -376,7 +376,7 @@ lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.htm
 <span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    7.63    0.25    7.89</code></pre>
+##   13.33    0.37   13.81</code></pre>
 </div>
 <div id="kriging-maps" class="section level2">
 <h2 class="hasAnchor">
@@ -394,10 +394,10 @@ lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.htm
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.12    0.15    0.28 
+##    0.37    0.16    0.53 
 ## Total time:
 ##    user  system elapsed 
-##   21.18    1.87   23.07</code></pre>
+##   38.12    4.02   42.93</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save.image(".RData")</span></code></pre></div>
 </div>
 </div>

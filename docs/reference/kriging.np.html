@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nonparametric (residual) kriging � kriging.np • npsp</title>
+<title>Nonparametric (residual) kriging — kriging.np • npsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,16 +71,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/docs/aquifer.html">Análisis no paramétrico de datos espaciales (aquifer)</a>
+      <a href="../articles/docs/aquifer.html">Geoestadística no paramétrica con el paquete *npsp*</a>
     </li>
     <li>
       <a href="../articles/docs/Introduccion.html"> Introducción a la Geoestadística con R</a>
     </li>
     <li>
       <a href="../articles/krigstat.html">Kriging with gstat</a>
-    </li>
-    <li>
-      <a href="../articles/precipitation.html">Total Monthly Precipitation</a>
     </li>
   </ul>
 </li>
@@ -116,7 +113,14 @@
 ). Currently, only global (residual) simple kriging is implemented.</p>
     
 
-    <pre class="usage"><span class='fu'>kriging.np</span>(<span class='no'>lp</span>, <span class='no'>svm</span>, <span class='kw'>lp.resid</span> <span class='kw'>=</span> <span class='fu'>residuals</span>(<span class='no'>lp</span>))
+    <pre class="usage"><span class='fu'>kriging.np</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>kriging.np</span>(<span class='no'>object</span>, <span class='no'>svm</span>, <span class='kw'>lp.resid</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ngrid</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>grid</span>$<span class='no'>n</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for np.geo</span>
+<span class='fu'>kriging.np</span>(<span class='no'>object</span>, <span class='kw'>ngrid</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>grid</span>$<span class='no'>n</span>, <span class='no'>...</span>)
 
 <span class='fu'>kriging.simple</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>newx</span>, <span class='no'>svm</span>)
 
@@ -126,18 +130,26 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lp</th>
-      <td><p>local polynomial estimate of the trend function (object of class 
-<code><a href='locpol.html'>locpol.bin</a></code>).</p></td>
+      <th>object</th>
+      <td><p>object used to select a method: 
+local polynomial estimate of the trend (class <code><a href='locpol.html'>locpol.bin</a></code>) 
+or nonparametric geostatistical model (class extending <code><a href='np.geo.html'>np.geo</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments passed to or from other methods.</p></td>
     </tr>
     <tr>
       <th>svm</th>
-      <td><p>semivariogram model (of class extending <code><a href='svarmod.html'>svarmod</a></code>)
-or covariance matrix of the data.</p></td>
+      <td><p>semivariogram model (of class extending <code><a href='svarmod.html'>svarmod</a></code>).</p></td>
     </tr>
     <tr>
       <th>lp.resid</th>
-      <td><p>residuals (defaults to <code>residuals(lp)</code>)</p></td>
+      <td><p>residuals (defaults to <code>residuals(object)</code>).</p></td>
+    </tr>
+    <tr>
+      <th>ngrid</th>
+      <td><p>number of grid nodes in each dimension.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -158,7 +170,7 @@ or an object extending <code><a href='grid.par.html'>grid.par</a></code>-<code>c
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='locpol.html'>locpol</a></code>, <code><a href='np.svar.html'>np.svar</a></code>.</p>
+    <p><code><a href='np.fitgeo.html'>np.fitgeo</a></code>, <code><a href='locpol.html'>locpol</a></code>, <code><a href='np.svar.html'>np.svar</a></code>.</p>
     
 
   </div>

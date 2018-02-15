@@ -84,7 +84,6 @@ np.svar <- function(x, ...) UseMethod("np.svar")
 #' @param  nlags number of lags. Defaults to 101. 
 #' @param  minlag minimun lag. 
 #' @param  hat.bin logical; if \code{TRUE}, the hat matrix of the binned semivariances is returned.
-#' @param cov.bin covariance matrix of the binned semivariances. 
 #' Defaults to identity. 
 #' @export
 np.svar.default <- function(x, y, h = NULL, maxlag = NULL, nlags = NULL,
@@ -183,26 +182,27 @@ np.svariso <- np.svar.default
 #             ncv = ifelse(objective == "GCV", 0, 1) , cov.bin = NULL, ...)  
 #--------------------------------------------------------------------
 #' @rdname np.svar  
-#' @inheritParams h.cv.bin.data 
+#' @inheritParams h.cv.svar.bin 
 #' @details  \code{np.svariso.hcv} calls \code{\link{h.cv}} to obtain an "optimal" 
 #' bandwith (additional arguments \code{...} are passed to this function). 
 #' Argument \code{ncv} is only used here at the bandwith selection stage 
 #' (estimation is done with all the data).
+# @param cov.bin covariance matrix of the binned semivariances. 
 #' @export
 np.svariso.hcv <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nlags, 
-                  degree = 1, drv = FALSE, hat.bin = TRUE, objective = c("CV", "GCV", "MASE"), 
-                  ncv = ifelse(objective == "GCV", 0, 1) , cov.bin = NULL, ...) { 
+                  degree = 1, drv = FALSE, hat.bin = TRUE, 
+                  loss = c("ARSE", "ARAE", "ASE", "AAE"), ncv = 1, warn = FALSE, ...) { 
 #--------------------------------------------------------------------
-    objective <- match.arg(objective)
+    loss <- match.arg(loss)
+    if (is.null(maxlag)) 
+      maxlag <- 0.55*sqrt(sum(diff(apply(x, 2, range))^2)) # 55% of largest lag
     if (is.null(nlags)) nlags <- 101       # dimension of the binning grid
     bin <- svariso(x, y, maxlag = maxlag, nlags = nlags, minlag = minlag, 
             estimator = "classical") 
-    hopt <- h.cv.bin.data(bin, objective = objective, degree = degree, 
-            ncv = ncv , cov.bin = cov.bin, ...)$h
+    hopt <- h.cv.svar.bin(bin, loss = loss, degree = degree, 
+            ncv = ncv , warn = warn, ...)$h
     return(locpol(bin, h = hopt, degree = degree, drv = drv, hat.bin = hat.bin))
 }           
-
-
 
 #--------------------------------------------------------------------
 #' @rdname np.svar

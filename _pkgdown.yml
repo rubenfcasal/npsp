@@ -9,11 +9,12 @@ reference:
     desc: >
       Nonparametric estimation of a multidimensional regression function (e.g. a spatial trend), 
       a probability density function or a semivariogram.
-      To speed up computations, linear binning is used to discretize the corresponding data. 
+      To speed up computations, linear binning is used to discretize the (corresponding) data. 
       A full bandwidth matrix and a multiplicative triweight kernel is used to compute the weights. 
       Main calculations are performed in FORTRAN using the LAPACK library.
     contents: 
-      - npsp-package 
+      - npsp-package
+      - np.fitgeo
       - locpol 
       - np.den 
       - np.svar 
@@ -23,6 +24,7 @@ reference:
       - np.svariso.hcv
       - predict.locpol.bin
       - predict.np.den
+      - np.geo
   - title: "Bandwidth selection"
     desc: "Cross-validation methods for bandwidth selection in local polynomial kernel smoothing."
     contents:
