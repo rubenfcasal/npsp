@@ -20,10 +20,10 @@ as.sp(obj, ...)
 
 \item{data.ind}{integer or character; vector with indexes or names of the data components.}
 
-\item{proj4string}{an object of class \code{\link[sp]{CRS-class}}.}
+\item{proj4string}{a \code{\link[sp]{CRS-class}} object.}
 }
 \description{
-Converts a npsp object to a \link[sp]{sp} object.
+Converts a npsp object to a \link[sp:00sp]{sp} object.
 }
 \seealso{
 \code{\link{as.data.frame.data.grid}}

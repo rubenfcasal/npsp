@@ -15,7 +15,8 @@ as.vgm(x, ...)
 
 \method{as.vgm}{svarmod}(x, ...)
 
-vgm.tab.svarmod(x, h = seq(0, x$range, length = 1000), sill = x$sill, ...)
+vgm.tab.svarmod(x, h = seq(0, x$range, length = 1000), sill = x$sill,
+  ...)
 
 \method{as.vgm}{sb.iso}(x, h = seq(0, x$range, length = 1000),
   sill = x$sill, ...)

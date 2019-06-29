@@ -9,7 +9,7 @@
 varcov(x, coords, ...)
 
 \method{varcov}{isotropic}(x, coords, sill = x$sill, range.taper,
-  discretize = TRUE, ...)
+  discretize = nrow(coords) > 256, ...)
 
 \method{varcov}{np.svar}(x, coords, sill = max(x$est),
   range.taper = x$grid$max, ...)

@@ -13,18 +13,20 @@ h.cv(bin, ...)
 \method{h.cv}{bin.data}(bin, objective = c("CV", "GCV", "MASE"),
   h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1,
   ncv = ifelse(objective == "CV", 2, 0), cov.bin = NULL,
-  DEalgorithm = FALSE, warn = TRUE, tol.mask = npsp.tolerance(2), ...)
+  DEalgorithm = FALSE, warn = TRUE, tol.mask = npsp.tolerance(2),
+  ...)
 
 \method{h.cv}{bin.den}(bin, h.start = NULL, h.lower = NULL,
   h.upper = NULL, degree = 1, ncv = 2, DEalgorithm = FALSE, ...)
 
 \method{h.cv}{svar.bin}(bin, loss = c("ARSE", "ARAE", "ASE", "AAE"),
-  h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1, ncv = 1,
-  DEalgorithm = FALSE, warn = FALSE, ...)
+  h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1,
+  ncv = 1, DEalgorithm = FALSE, warn = FALSE, ...)
 
 hcv.data(bin, objective = c("CV", "GCV", "MASE"), h.start = NULL,
-  h.lower = NULL, h.upper = NULL, degree = 1, ncv = ifelse(objective ==
-  "CV", 1, 0), cov.dat = NULL, DEalgorithm = FALSE, warn = TRUE, ...)
+  h.lower = NULL, h.upper = NULL, degree = 1,
+  ncv = ifelse(objective == "CV", 1, 0), cov.dat = NULL,
+  DEalgorithm = FALSE, warn = TRUE, ...)
 }
 \arguments{
 \item{bin}{object used to select a method (binned data, binned density or binned semivariogram).}

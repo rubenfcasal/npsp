@@ -28,8 +28,8 @@ locpol(x, ...)
 
 locpolhcv(x, y, nbin = NULL, objective = c("CV", "GCV", "MASE"),
   degree = 1 + as.numeric(drv), drv = FALSE, hat.bin = FALSE,
-  set.NA = FALSE, ncv = ifelse(objective == "CV", 2, 0), cov.dat = NULL,
-  ...)
+  set.NA = FALSE, ncv = ifelse(objective == "CV", 2, 0),
+  cov.dat = NULL, ...)
 }
 \arguments{
 \item{x}{a (data) object used to select a method.}

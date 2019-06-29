@@ -17,7 +17,8 @@ Typically an output of \code{\link{np.fitgeo}}.}
 
 \item{main.svar}{title for the semivariogram plot.}
 
-\item{...}{additional graphical parameters (currently ignored).}
+\item{...}{additional graphical parameters 
+(to be passed to \code{\link{simage}} for trend plotting).}
 }
 \description{
 Plots the trend estimates and the fitted variogram model.

@@ -10,33 +10,34 @@
 np.fitgeo(x, ...)
 
 \method{np.fitgeo}{default}(x, y, nbin = NULL, iter = 2, h = NULL,
-  tol = 0.05, set.NA = FALSE, h.svar = NULL, maxlag = NULL,
-  nlags = NULL, dk = 0, svm.resid = FALSE, warn = FALSE, plot = FALSE,
-  ...)
+  tol = 0.05, set.NA = FALSE, h.svar = NULL, corr.svar = TRUE,
+  maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,
+  hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...)
 
 \method{np.fitgeo}{locpol.bin}(x, svm, iter = 1, tol = 0.05,
-  h.svar = svm$esv$locpol$h, dk = 0, warn = FALSE, plot = FALSE, ...)
+  h.svar = svm$esv$locpol$h, dk = 0, corr.svar = TRUE,
+  svm.resid = FALSE, hat.bin = corr.svar, warn = FALSE,
+  plot = FALSE, ...)
 
 \method{np.fitgeo}{fitgeo}(x, iter = 1, tol = 0.05,
-  h.svar = x$svm$esv$locpol$h, dk = x$svm$par$dk, warn = FALSE,
+  h.svar = x$svm$esv$locpol$h, dk = x$svm$par$dk, corr.svar = TRUE,
+  svm.resid = FALSE, hat.bin = corr.svar, warn = FALSE,
   plot = FALSE, ...)
 }
 \arguments{
-\item{x}{object used to select a method (binned data, binned density 
-or binned semivariogram).}
+\item{x}{a (data) object used to select a method.}
 
 \item{...}{further arguments passed to \code{\link{h.cv}}
-(trend bandwith selecction parameters).}
+(trend bandwith selection parameters).}
 
 \item{y}{vector of data (response variable).}
 
 \item{nbin}{vector with the number of bins on each dimension.}
 
-\item{iter}{maximum number of interations (of the whole algorithm).
-(traditional approach in geostatistics).}
+\item{iter}{maximum number of interations (of the whole algorithm).}
 
 \item{h}{initial bandwidth matrix for trend estimation
-(final bandwith if \code{iter <= 1}).}
+(final bandwith if \code{iter = 1}).}
 
 \item{tol}{relative convergence tolerance (semivariogram).}
 
@@ -45,6 +46,11 @@ to cells without data to \code{NA}.}
 
 \item{h.svar}{bandwidth matrix for variogram estimation.}
 
+\item{corr.svar}{logical; if \code{TRUE} (default), a bias-corrected semivariogram estimate 
+is computed (see \code{\link{np.svariso.corr}}). 
+If code{FALSE} the (uncorrected) residual variogram is computed
+(the traditional approach in geostatistics).}
+
 \item{maxlag}{maximum lag. Defaults to 55\% of largest lag.}
 
 \item{nlags}{number of lags. Defaults to 101.}
@@ -52,7 +58,9 @@ to cells without data to \code{NA}.}
 \item{dk}{dimension of the Shapiro-Botha variogram model (see \code{\link{fitsvar.sb.iso}}).}
 
 \item{svm.resid}{logical; if \code{TRUE}, the fitted (uncorrected) residual semivariogram model
-is computed and returned.}
+is computed and returned (this parameter has no effect when \code{corr.svar = FALSE}).}
+
+\item{hat.bin}{logical; if \code{TRUE}, the hat matrix of the binned data is returned.}
 
 \item{warn}{logical; sets the handling of warning messages in bandwith selection (\code{\link{h.cv}}).}
 
@@ -73,8 +81,8 @@ with the additional (some optional) 3 components:
 }
 \description{
 Fits a nonparametric (isotropic) geostatistical model 
-(joint estimation of the trend and the variogram) by calling 
-\code{\link{locpol}},  \code{\link{np.svariso.corr}} and 
+(jointly estimates the trend and the variogram) by calling 
+\code{\link{locpol}},  \code{\link{np.svariso.corr}} (or \code{\link{np.svariso}} ) and 
 \code{\link{fitsvar.sb.iso}} iteratively. 
 At each iteration, the trend estimation bandwith is updated 
 by a call to \code{\link{h.cv}}.
@@ -83,9 +91,27 @@ by a call to \code{\link{h.cv}}.
 Currently, only isotropic semivariogram estimation is supported.
 
 If parameter \code{h} is not specified,
-\code{\link{h.cv}} is called to set it.
+\code{\link{h.cv}} is called with the default values (modified CV) to set it.
 If parameter \code{h.svar} is not specified,
 is set to \code{1.5*h.cv.svar.bin()$h}.
+
+Setting \code{corr.svar = TRUE} may be very slow (and memory demanding) when the number of data is large 
+(note also that the bias in the residual variogram decreases when the sample size increases).
+}
+\examples{
+
+geomod <- np.fitgeo(aquifer[,1:2], aquifer$head, svm.resid = TRUE)
+plot(geomod)
+
+
+# Uncorrected variogram estimator
+geomod0 <- np.fitgeo(aquifer[,1:2], aquifer$head, iter = 1, corr.svar = FALSE)
+plot(geomod0)
+
+# Additional iteration with bias-corrected variogram estimator
+geomod1 <- np.fitgeo(geomod0, corr.svar = TRUE, svm.resid = TRUE)
+plot(geomod1)
+
 }
 \seealso{
 \code{\link{locpol}}, \code{\link{fitsvar.sb.iso}}, \code{\link{np.svar}}, 

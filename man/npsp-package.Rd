@@ -43,7 +43,7 @@ model by WLS. Currently, only isotropic semivariogram estimation is supported.
 
 \strong{Nonparametric residual kriging} (sometimes called external drift kriging):
 
-\code{kriging.np} computes residual kriging predictions  
+\code{np.kriging} computes residual kriging predictions  
 (and the corresponding simple kriging standard errors).
 
 \code{kriging.simple} computes simple kriging predictions, standard errors  

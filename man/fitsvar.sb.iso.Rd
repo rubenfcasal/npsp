@@ -6,8 +6,9 @@
 \title{Fit an isotropic Shapiro-Botha variogram model}
 \usage{
 fitsvar.sb.iso(esv, dk = 4 * ncol(esv$data$x), nx = NULL,
-  rmax = esv$grid$max, min.contrib = 10, method = c("cressie", "equal",
-  "npairs", "linear"), iter = 10, tol = sqrt(.Machine$double.eps))
+  rmax = esv$grid$max, min.contrib = 10, method = c("cressie",
+  "equal", "npairs", "linear"), iter = 10,
+  tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{esv}{pilot semivariogram estimate, a \code{\link{np.svar}}-\code{\link{class}} 

@@ -10,8 +10,8 @@
 splot(slim = c(0, 1), col = jet.colors(128), breaks = NULL,
   horizontal = FALSE, legend.shrink = 0.9, legend.width = 1.2,
   legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
-  bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL,
-  legend.args = NULL, add = FALSE)
+  bigplot = NULL, smallplot = NULL, lab.breaks = NULL,
+  axis.args = NULL, legend.args = NULL, add = FALSE)
 
 scolor(s, col = jet.colors(128), slim = range(s, finite = TRUE))
 

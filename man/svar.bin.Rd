@@ -6,7 +6,6 @@
 \alias{svar.bin.default}
 \alias{iso.svar}
 \alias{svariso}
-\alias{svariso}
 \title{Linear binning of semivariances}
 \usage{
 svar.bin(x, ...)

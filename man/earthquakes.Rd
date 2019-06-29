@@ -15,7 +15,7 @@
 }}
 \source{
 National Geographic Institute (IGN) of Spain: \cr
-\url{http://www.ign.es/ign/layout/sismologiaObtencionDatosSismiscos.do}.
+\url{https://www.ign.es/web/ign/portal/sis-area-sismicidad}.
 }
 \description{
 The data set consists of 1859 earthquakes (with magnitude above or equal to

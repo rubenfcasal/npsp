@@ -9,18 +9,20 @@
 \usage{
 spoints(x, ...)
 
-\method{spoints}{default}(x, y = NULL, s, slim = range(s, finite = TRUE),
-  col = jet.colors(128), breaks = NULL, legend = TRUE,
+\method{spoints}{default}(x, y = NULL, s, slim = range(s, finite =
+  TRUE), col = jet.colors(128), breaks = NULL, legend = TRUE,
   horizontal = FALSE, legend.shrink = 1, legend.width = 1.2,
   legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
-  bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL,
-  legend.args = NULL, add = FALSE, graphics.reset = add, pch = 16,
-  cex = 1.5, xlab = NULL, ylab = NULL, ...)
+  bigplot = NULL, smallplot = NULL, lab.breaks = NULL,
+  axis.args = NULL, legend.args = NULL, add = FALSE,
+  graphics.reset = add, pch = 16, cex = 1.5, xlab = NULL,
+  ylab = NULL, asp = NA, ...)
 
-\method{spoints}{data.grid}(x, s = x[[1]], xlab = NULL, ylab = NULL, ...)
+\method{spoints}{data.grid}(x, s = x[[1]], xlab = NULL, ylab = NULL,
+  ...)
 
-\method{spoints}{SpatialPointsDataFrame}(x, data.ind = 1, main, xlab, ylab,
-  legend.lab, ...)
+\method{spoints}{SpatialPointsDataFrame}(x, data.ind = 1, main, xlab,
+  ylab, legend.lab, ...)
 }
 \arguments{
 \item{x}{object used to select a method. In the default method, it provides the \code{x} 
@@ -101,6 +103,8 @@ of \code{\link{par}("cex")}.}
 \item{xlab}{label for the x axis, defaults to a description of \code{x}.}
 
 \item{ylab}{label for the y axis, defaults to a description of \code{y}.}
+
+\item{asp}{the y/x aspect ratio, see \code{\link{plot.window}}.}
 
 \item{data.ind}{integer (or character) with the index (or name) of the data component.}
 

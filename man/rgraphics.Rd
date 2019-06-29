@@ -7,13 +7,14 @@
 \alias{contour.data.grid}
 \title{R Graphics for gridded data}
 \usage{
-\method{image}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL, ...)
+\method{image}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL,
+  ...)
 
 \method{persp}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL,
   zlab = NULL, ...)
 
-\method{contour}{data.grid}(x, data.ind = 1, filled = FALSE, xlab = NULL,
-  ylab = NULL, ...)
+\method{contour}{data.grid}(x, data.ind = 1, filled = FALSE,
+  xlab = NULL, ylab = NULL, ...)
 }
 \arguments{
 \item{x}{a "\code{\link{data.grid}}"-class object.}

@@ -7,16 +7,20 @@
 \alias{as.bin.data}
 \alias{as.bin.data.data.grid}
 \alias{as.bin.data.bin.data}
+\alias{as.bin.data.SpatialGridDataFrame}
 \title{Linear binning}
 \usage{
 binning(x, y = NULL, nbin = NULL, set.NA = FALSE)
 
 as.bin.data(object, ...)
 
-\method{as.bin.data}{data.grid}(object, data.ind = 1, weights.ind = NULL,
-  ...)
+\method{as.bin.data}{data.grid}(object, data.ind = 1,
+  weights.ind = NULL, ...)
 
 \method{as.bin.data}{bin.data}(object, ...)
+
+\method{as.bin.data}{SpatialGridDataFrame}(object, data.ind = 1,
+  weights.ind = NULL, ...)
 }
 \arguments{
 \item{x}{vector or matrix of covariates (e.g. spatial coordinates). 

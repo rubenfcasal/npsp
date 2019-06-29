@@ -4,7 +4,8 @@
 \alias{cpu.time}
 \title{Total and partial CPU time used}
 \usage{
-cpu.time(..., reset = FALSE, total = TRUE, last = TRUE, flush = FALSE)
+cpu.time(..., reset = FALSE, total = TRUE, last = TRUE,
+  flush = FALSE)
 }
 \arguments{
 \item{...}{objects (describing the last operation) to be printed (using \code{\link{cat}}), 

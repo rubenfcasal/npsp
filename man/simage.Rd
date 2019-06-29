@@ -9,18 +9,21 @@
 \usage{
 simage(x, ...)
 
-\method{simage}{default}(x = seq(0, 1, len = nrow(s)), y = seq(0, 1, len =
-  ncol(s)), s, slim = range(s, finite = TRUE), col = jet.colors(128),
-  breaks = NULL, legend = TRUE, horizontal = FALSE, legend.shrink = 1,
-  legend.width = 1.2, legend.mar = ifelse(horizontal, 3.1, 5.1),
-  legend.lab = NULL, bigplot = NULL, smallplot = NULL,
-  lab.breaks = NULL, axis.args = NULL, legend.args = NULL,
-  graphics.reset = FALSE, xlab = NULL, ylab = NULL, ...)
+\method{simage}{default}(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
+  len = ncol(s)), s, slim = range(s, finite = TRUE),
+  col = jet.colors(128), breaks = NULL, legend = TRUE,
+  horizontal = FALSE, legend.shrink = 1, legend.width = 1.2,
+  legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
+  bigplot = NULL, smallplot = NULL, lab.breaks = NULL,
+  axis.args = NULL, legend.args = NULL, graphics.reset = FALSE,
+  xlab = NULL, ylab = NULL, asp = NA, ...)
 
-\method{simage}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL, ...)
+\method{simage}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL,
+  ...)
 
 \method{plot}{np.den}(x, y = NULL, log = TRUE, contour = TRUE,
-  points = TRUE, col = hot.colors(128), tolerance = npsp.tolerance(), ...)
+  points = TRUE, col = hot.colors(128), tolerance = npsp.tolerance(),
+  ...)
 }
 \arguments{
 \item{x}{grid values for \code{x} coordinate. If \code{x} is a list, 
@@ -93,6 +96,8 @@ reset plot parameters to the values before entering the function.}
 \item{xlab}{label for the x axis, defaults to a description of \code{x}.}
 
 \item{ylab}{label for the y axis, defaults to a description of \code{y}.}
+
+\item{asp}{the y/x aspect ratio, see \code{\link{plot.window}}.}
 
 \item{data.ind}{integer (or character) with the index (or name) of the component 
 containing the values to be used for coloring the rectangles.}

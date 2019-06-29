@@ -2,16 +2,13 @@
 % Please edit documentation in R/svar.grid.R
 \name{svar.grid}
 \alias{svar.grid}
-\alias{svar.grid.fitsvar}
 \alias{svar.grid.svarmod}
 \title{Discretize a (semi)variogram model}
 \usage{
 svar.grid(svar, log = TRUE, ...)
 
-\method{svar.grid}{fitsvar}(svar, log = TRUE, ...)
-
-\method{svar.grid}{svarmod}(svar, n = 101, min = 10 * .Machine$double.eps,
-  max = 1.1 * svar$range, log = TRUE, ...)
+\method{svar.grid}{svarmod}(svar, log = TRUE, n = 256, min = 10 *
+  .Machine$double.eps, max = 1.1 * svar$range, ...)
 }
 \arguments{
 \item{svar}{(fitted) variogram model (a \code{\link{svarmod}} 
@@ -22,7 +19,7 @@ in  (base 2) logarithmic scale.}
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{n}{number of lags. Defaults to 101.}
+\item{n}{number of lags. Defaults to 256.}
 
 \item{min}{minimun lag. Defaults to \code{10*.Machine$double.eps}.}
 

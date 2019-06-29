@@ -20,7 +20,7 @@ and the following \code{\link{attributes}}:
 }}
 \source{
 National Climatic Data Center: \cr
-\url{http://www.ncdc.noaa.gov}.
+\url{https://www.ncdc.noaa.gov/cdo-web/datasets}.
 }
 \description{
 The data set consists of total precipitations during March 2016

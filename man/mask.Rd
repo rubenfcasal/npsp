@@ -15,11 +15,13 @@ mask(x, ...)
 \method{mask}{bin.den}(x, mask = mask.default(x$binw, npsp.tolerance(2)),
   warn = TRUE, ...)
 
-\method{mask}{bin.data}(x, mask = mask.default(x$binw, npsp.tolerance(2)),
-  set.NA = TRUE, warn = TRUE, filter.lp = set.NA, ...)
+\method{mask}{bin.data}(x, mask = mask.default(x$binw,
+  npsp.tolerance(2)), set.NA = TRUE, warn = TRUE, filter.lp = set.NA,
+  ...)
 
-\method{mask}{locpol.bin}(x, mask = mask.default(x$binw, npsp.tolerance(2)),
-  set.NA = TRUE, warn = TRUE, filter.lp = set.NA, ...)
+\method{mask}{locpol.bin}(x, mask = mask.default(x$binw,
+  npsp.tolerance(2)), set.NA = TRUE, warn = TRUE, filter.lp = set.NA,
+  ...)
 }
 \arguments{
 \item{x}{object used to select a method (binned data, ...).}
