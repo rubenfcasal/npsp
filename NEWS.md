@@ -18,6 +18,10 @@ https://rubenfcasal.github.io/npsp
  * Changes in pkgdown documentation (NEWS.Rmd, README.Rmd,...).
  
  * Changes in 'npsp.Rmd' vignette.
+ 
+ * Updated `np.fitgeo()` S3 methods.
+ 
+ * Changes in 'Makevars' to remove module files created by the Fortran compilation. 
    
 
 ## Version 0.7-3 (2018-11-10)
