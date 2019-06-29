@@ -4,7 +4,7 @@
 \name{precipitation}
 \alias{precipitation}
 \title{Precipitation data}
-\format{A \code{\link[sp]{SpatialPointsDataFrame}} with 1053 observations on the 
+\format{A \code{\link[sp:SpatialGridDataFrame-class]{SpatialPointsDataFrame}} with 1053 observations on the 
 following 6 variables:
 \describe{
   \item{y}{total precipitations (square-root of rainfall inches),}

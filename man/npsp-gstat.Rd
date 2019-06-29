@@ -39,7 +39,7 @@ Tries to convert a variogram object to \code{\link[gstat]{vgm}}
 S3 generic function. 
 
 \code{as.vgm.variomodel} tries to convert an object of class \code{variomodel}
-defined in \pkg{geoR} (interface to \code{\link[gstat]{as.vgm.variomodel}}
+defined in \pkg{geoR} (interface to \code{\link[gstat:vgm]{as.vgm.variomodel}}
 defined in \pkg{gstat}).
 
 \code{vgm.tab.svarmod} converts a \code{svarmod} object to a 

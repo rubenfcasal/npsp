@@ -108,7 +108,7 @@ Wand M.P. and Jones M.C. (1995) \emph{Kernel Smoothing}. Chapman and Hall, Londo
 }
 \author{
 Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
-Please send comments, error reports or suggestions to \url{rubenfcasal@gmail.com}.
+Please send comments, error reports or suggestions to \email{rubenfcasal@gmail.com}.
 }
 \keyword{nonparametric}
 \keyword{smooth}

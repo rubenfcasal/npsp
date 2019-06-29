@@ -31,7 +31,7 @@ Constructor function of the \code{grid.par}-\code{\link{class}}.
 All parameters must have the same length. 
 Only one of the arguments \code{max} or \code{lag} must be specified. 
 
-S3 'version' of the \code{\link[sp]{GridTopology}}-\code{\link{class}} of the \pkg{sp} package.
+S3 'version' of the \code{\link[sp:GridTopology-class]{GridTopology}}-\code{\link{class}} of the \pkg{sp} package.
 }
 \examples{
 grid.par(n = c(100, 100), min = c(-10, 42), max = c(-7.5, 44))
