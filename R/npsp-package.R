@@ -73,7 +73,7 @@
 #' For instance, \code{\link{as.variogram}} (\pkg{geoR}) or \code{\link{as.vgm}} (\pkg{gstat}).
 #'
 #' @author Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
-#' Please send comments, error reports or suggestions to \url{rubenfcasal@@gmail.com}.
+#' Please send comments, error reports or suggestions to \email{rubenfcasal@@gmail.com}.
 #' 
 #' @section Acknowledgments:
 #' Important suggestions and contributions to some techniques included here were
@@ -205,7 +205,7 @@ NULL
 #' recorded over 1053 locations on the continental part of USA.
 #' @name precipitation
 #' @docType data
-#' @format A \code{\link[sp]{SpatialPointsDataFrame}} with 1053 observations on the 
+#' @format A \code{\link[sp:SpatialGridDataFrame-class]{SpatialPointsDataFrame}} with 1053 observations on the 
 #' following 6 variables:
 #' \describe{
 #'   \item{y}{total precipitations (square-root of rainfall inches),}

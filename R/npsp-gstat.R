@@ -27,7 +27,7 @@ NULL
 #' S3 generic function. 
 #'
 #' \code{as.vgm.variomodel} tries to convert an object of class \code{variomodel}
-#' defined in \pkg{geoR} (interface to \code{\link[gstat]{as.vgm.variomodel}}
+#' defined in \pkg{geoR} (interface to \code{\link[gstat:vgm]{as.vgm.variomodel}}
 #' defined in \pkg{gstat}).
 #' @param  x   variogram model object (used to select a method).
 #' @param  ... further arguments passed to or from other methods.

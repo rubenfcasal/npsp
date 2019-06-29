@@ -37,7 +37,7 @@
 #' @details All parameters must have the same length. 
 #' Only one of the arguments \code{max} or \code{lag} must be specified. 
 #' 
-#' S3 'version' of the \code{\link[sp]{GridTopology}}-\code{\link{class}} of the \pkg{sp} package.
+#' S3 'version' of the \code{\link[sp:GridTopology-class]{GridTopology}}-\code{\link{class}} of the \pkg{sp} package.
 #' @return Returns an object of class \code{grid.par}, a list with the arguments as components 
 #'    and an additional component \code{$nd = length(n)}.
 #' @seealso \code{\link{data.grid}}.
