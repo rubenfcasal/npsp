@@ -1,7 +1,7 @@
 #--------------------------------------------------------------------
 #   kriging.R (npsp package)
 #--------------------------------------------------------------------
-#   kriging.np(lp, svm, lp.resid = residuals(lp))
+#   np.kriging(lp, svm, lp.resid = residuals(lp))
 #   kriging.simple(x, y, newx, svm)
 #   kriging.simple.solve(x, newx, svm)  
 #
@@ -13,7 +13,7 @@
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
-# kriging.np(object, ...) S3 generic function
+# np.kriging(object, ...) S3 generic function
 #--------------------------------------------------------------------
 #' Nonparametric (residual) kriging
 #' 
@@ -28,12 +28,12 @@
 #' @param ... further arguments passed to or from other methods.
 #' @export
 #--------------------------------------------------------------------
-kriging.np <- function(object, ...) UseMethod("kriging.np")
+np.kriging <- function(object, ...) UseMethod("np.kriging")
 
 
 
-#' @rdname kriging.np  
-#' @method kriging.np default
+#' @rdname np.kriging  
+#' @method np.kriging default
 #' @param svm semivariogram model (of class extending \code{\link{svarmod}}).
 # or covariance matrix of the data.
 #' @param  ngrid number of grid nodes in each dimension. 
@@ -41,7 +41,7 @@ kriging.np <- function(object, ...) UseMethod("kriging.np")
 #' @seealso \code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{np.svar}}.
 #' @export
 #--------------------------------------------------------------------
-kriging.np.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...) {
+np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...) {
   stopifnot(inherits(object, "locpol.bin" ))
   masked <- !is.null(object$mask)  # Interpolar mask?
   if (lp.hd <- any(ngrid != object$grid$n))
@@ -64,17 +64,17 @@ kriging.np.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid
 }
 
 
-#' @rdname kriging.np  
-#' @method kriging.np np.geo
+#' @rdname np.kriging  
+#' @method np.kriging np.geo
 #' @export
 #--------------------------------------------------------------------
-kriging.np.np.geo <- function(object, ngrid = object$grid$n, ...) {
+np.kriging.np.geo <- function(object, ngrid = object$grid$n, ...) {
   return(
-    kriging.np.default(object, object$svm, object$residuals, ngrid = ngrid, ...)
+    np.kriging.default(object, object$svm, object$residuals, ngrid = ngrid, ...)
   )}
 
 
-#' @rdname kriging.np
+#' @rdname np.kriging
 #' @inheritParams locpol.default
 #' @param newx vector/matrix with the (irregular) locations to predict 
 #'    (columns correspond with dimensions and rows with locations) 
@@ -108,7 +108,7 @@ kriging.simple <- function(x, y, newx, svm) {
 }
 
 
-#' @rdname kriging.np
+#' @rdname np.kriging
 #' @export
 #--------------------------------------------------------------------
 kriging.simple.solve <- function(x, newx, svm) {
