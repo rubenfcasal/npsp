@@ -107,7 +107,7 @@ simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
     legend.width = 1.2, legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
     bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL, 
     legend.args = NULL, graphics.reset = FALSE, xlab = NULL, ylab = NULL,
-    ...) {
+    asp = NA, ...) {
 #--------------------------------------------------------------------
     if (missing(s)) {
         if (!missing(x)) {
@@ -161,7 +161,7 @@ simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
         if (ds == 0) ds <- abs(slim[1L])
         breaks <- seq.int(slim[1L] - ds/1000, slim[2L] + ds/1000, length.out = length(col) + 1)
     }
-    image(x, y, s, xlab = xlab, ylab = ylab, col = col, breaks = breaks, ...)
+    image(x, y, s, xlab = xlab, ylab = ylab, col = col, breaks = breaks, asp = asp, ...)
     box()   
     if (graphics.reset) par(res$old.par)    
     return(invisible(res))        

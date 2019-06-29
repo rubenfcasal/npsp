@@ -81,6 +81,7 @@ spoints <- function(x, ...) UseMethod("spoints")
 #' of \code{\link{par}("cex")}.
 #' @param xlab label for the x axis, defaults to a description of \code{x}.
 #' @param ylab label for the y axis, defaults to a description of \code{y}.
+#' @param asp the y/x aspect ratio, see \code{\link{plot.window}}.
 #' @param ... additional graphical parameters (to be passed to the main plot function
 #' or \code{sxxxx.default}; e.g. \code{xlim, ylim,} ...). NOTE:
 #' graphical arguments passed here will only have impact on the main plot.
@@ -100,7 +101,7 @@ spoints.default <- function(x, y = NULL, s, slim = range(s, finite = TRUE), col 
     legend.width = 1.2, legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
     bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL,
     legend.args = NULL, add = FALSE, graphics.reset = add,
-    pch = 16, cex = 1.5, xlab = NULL, ylab = NULL, ...) {
+    pch = 16, cex = 1.5, xlab = NULL, ylab = NULL, asp = NA, ...) {
 #--------------------------------------------------------------------
     if (legend)
         # image in splot checks breaks and other parameters...
@@ -125,7 +126,7 @@ spoints.default <- function(x, y = NULL, s, slim = range(s, finite = TRUE), col 
     if (!add) {
         # if (is.null(xlab)) xlab <- deparse(substitute(x))
         # if (is.null(ylab)) ylab <- if (!missing(y)) deparse(substitute(y)) else "Y"
-        plot(x, y, type = "p", pch = pch, cex = cex, col = col[icol], xlab = xlab, ylab = ylab, ...)
+        plot(x, y, type = "p", pch = pch, cex = cex, col = col[icol], xlab = xlab, ylab = ylab, asp = asp, ...)
     } else {
         graphics.reset <- TRUE
         points(x, y, pch = pch, cex = cex, col = col[icol], ...)
