@@ -8,6 +8,19 @@ https://rubenfcasal.github.io/npsp
 # npsp 0.7
 
 
+## Version 0.7-5 (2019-06-29)
+
+ * Updated `np.fitgeo()` S3 methods.
+ 
+ * Changes in 'Makevars' to remove module files created by the Fortran compilation. 
+ 
+ * Fixed bug in `h.cv.bin.data()` (`match.arg(objective)`).
+ 
+ * 'README.md' is now generated from 'README.Rmd'.
+ 
+ * Updated roxygen documentation to avoid warnings.
+   
+
 ## Version 0.7-4 (2019-06-15)
 
  * `kriging.np()` methods renamed as `np.kriging()` (for consistency).
@@ -19,10 +32,6 @@ https://rubenfcasal.github.io/npsp
  
  * Changes in 'npsp.Rmd' vignette.
  
- * Updated `np.fitgeo()` S3 methods.
- 
- * Changes in 'Makevars' to remove module files created by the Fortran compilation. 
-   
 
 ## Version 0.7-3 (2018-11-10)
 

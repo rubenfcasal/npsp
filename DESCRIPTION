@@ -1,8 +1,8 @@
 Package: npsp
 Type: Package
 Title: Nonparametric Spatial Statistics
-Version: 0.7-4
-Date: 2019-06-15
+Version: 0.7-5
+Date: 2019-06-29
 Authors@R: person("Ruben", "Fernandez-Casal", , "rubenfcasal@gmail.com", role = c("aut", "cre"), 
     comment = c(ORCID = "0000-0002-5785-3739"))
 Maintainer: Ruben Fernandez-Casal <rubenfcasal@gmail.com>
