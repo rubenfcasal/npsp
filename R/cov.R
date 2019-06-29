@@ -101,13 +101,14 @@ varcov <- function(x, coords, ...)  UseMethod("varcov")
 #' @param  discretize logical. If \code{TRUE} (default), the variogram is (previously) discretized. 
 #' @export
 varcov.isotropic <- function(x, coords, sill = x$sill, range.taper, 
-                             discretize = TRUE, ...) {
+                             discretize = nrow(coords) > 256, ...) {
   #--------------------------------------------------------------------
   if(missing(coords)) 
     stop("argument 'coords' (spatial coordinates) must be provided")
+  coords <- as.matrix(coords)
   n <- nrow(coords)
   dists <- as.vector(dist(coords))   # lower triangle of the distance matrix
-  if (discretize) x <- svar.grid(x)
+  # if (discretize) x <- svar.grid(x)
   if(!missing(range.taper)) {
     index <- dists <= range.taper
     covs  <- numeric(length(dists))
