@@ -2,6 +2,11 @@
 output: github_document
 ---
 
+<!-- 
+README.md is generated from README.Rmd. 
+Please edit that file 
+-->
+
 npsp: Nonparametric spatial (geo)statistics
 ============================================
 
@@ -10,6 +15,13 @@ npsp: Nonparametric spatial (geo)statistics
 This package implements nonparametric methods 
 for inference on multidimensional spatial (or spatio-temporal) processes,
 which may be (especially) useful in (automatic) geostatistical modeling and interpolation.
+
+
+```{r echo=FALSE, results='asis'}
+if ('github_document' == rmarkdown::all_output_formats(knitr::current_input()) && !knitr:::is_html_output()) 
+   cat('For more information visit the [web page](https://rubenfcasal.github.io/npsp) of the package.')
+```
+
 
 Main functions
 --------------
