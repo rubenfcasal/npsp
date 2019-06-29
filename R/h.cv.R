@@ -135,6 +135,7 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
 #--------------------------------------------------------------------
     if (!inherits(bin, "bin.data") | inherits(bin, "svar.bin"))
         stop("function only works for objects of class 'bin.data'")
+    objective <- match.arg(objective)
     if  (!is.null(cov.bin) && (objective == "GCV"))
         if ( inherits(cov.bin, "svarmod")) {
             sill <- cov.bin$sill
@@ -143,7 +144,6 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
     nd <- bin$grid$nd
     n <- bin$grid$n
     nt <- prod(n)
-    objective <- match.arg(objective)
     lag <- bin$grid$lag
     if(is.null(h.lower)) h.lower <- (1.5+ncv)*lag
     if(is.null(h.upper)) h.upper <- 1.5*n*lag
