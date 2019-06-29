@@ -7,14 +7,18 @@
 #       dimnames.data.grid(x)
 #       dim.data.grid(x)
 #   interp.data.grid()
+#   as.data.grid     S3 generic and methods
+#       as.data.grid.SpatialGridDataFrame(object, data.ind)
 #   as.data.frame.data.grid(x, data.ind = NULL, coords = FALSE, sp = FALSE, 
 #                           row.names = NULL, check.names = coords,  ...) 
+#   npsp-internals
+#     revdim(a, d)
 #
 # PENDENTE:
 #   - exemplos
 #   - as.data.grid()
 #
-#   (c) R. Fernandez-Casal         Last revision: Aug 2017
+#   (c) R. Fernandez-Casal         Last revision: Mar 2018
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
@@ -70,6 +74,34 @@ data.grid <- function(..., grid = NULL) {
 } # data.grid
 
 
+#--------------------------------------------------------------------
+# Converts a \link[sp:00sp]{sp} gridded objects to a npsp `data.grid` object
+#' @rdname data.grid 
+#' @param object (gridded data) used to select a method.
+# @param ... further arguments passed to or from other methods.
+#' @export
+as.data.grid <- function(object, ...) UseMethod("as.data.grid")
+# S3 generic function as.data.grid
+#--------------------------------------------------------------------
+
+#' @rdname data.grid 
+#' @method as.data.grid SpatialGridDataFrame
+# @param data.ind integer or character vector with the indexes or names of the components.
+#' @export
+as.data.grid.SpatialGridDataFrame <- function(object, data.ind = NULL, ...) {
+  gridpar <- gridparameters(object)
+  n <- gridpar$cells.dim
+  if (is.null(data.ind)) data.ind <- 1:ncol(object@data)
+  # Conversion a data.grid 2D
+  # result <- lapply(object@data[data.ind], function(x) matrix(x, nrow = n[1], ncol = n[2])[ , n[2]:1])
+  result <- lapply(object@data[data.ind], function(d) revdim(array(d, dim = n), 2))  
+  result$grid <- with(gridpar, grid.par(n = n, min = cellcentre.offset, lag = cellsize))
+  oldClass(result) <- "data.grid"
+  return(result)
+}
+
+
+#--------------------------------------------------------------------
 #' @rdname data.grid
 #' @method as.data.frame data.grid
 #' @param x a \code{data.grid} object.
@@ -78,10 +110,13 @@ data.grid <- function(..., grid = NULL) {
 #' @param sp logical; if \code{TRUE}, the second dimension of the data is reversed 
 #' (as it is stored in \pkg{sp} package). 
 #' @param row.names \code{NULL}, column to be used as row names, or vector giving the row names for the data frame.
+#' @param optional	logical; Not currently used (see \code{\link{as.data.frame}}).
 #' @param check.names logical; if \code{TRUE}, the names of the variables in the data 
 #' frame are checked and adjusted if necessary.
 #       coords = TRUE, ns <- names(coords) if(any(ns %in% names) ns <- paste("coord", ns, sep=".")
-as.data.frame.data.grid <- function(x, data.ind = NULL, coords = FALSE, sp = FALSE, row.names = NULL, check.names = coords,  ...){
+#' @export
+as.data.frame.data.grid <- function(x, row.names = NULL, optional = FALSE, data.ind = NULL, coords = FALSE, sp = FALSE, 
+                                    check.names = coords,  ...){
   # A botch...
   index <- !sapply(x, is.list) & (sapply(x, length) == prod(dim(x)))
   # verificar dimensiones...
@@ -92,7 +127,7 @@ as.data.frame.data.grid <- function(x, data.ind = NULL, coords = FALSE, sp = FAL
   }
   res <- x[data.ind]
   if(sp && (length(dim(x)) > 1)) 
-    res <- lapply(res, function(d) revdim(array(d, dim = dim(x)),2))
+    res <- lapply(res, function(dat) revdim(array(dat, dim = dim(x)),2))
   res <- lapply(res, as.vector)
   
   if (coords) 
@@ -100,7 +135,8 @@ as.data.frame.data.grid <- function(x, data.ind = NULL, coords = FALSE, sp = FAL
   else  
     res <- data.frame(res, row.names = row.names)
   return(res)        
-}
+  #--------------------------------------------------------------------
+} # as.data.frame.data.grid
 
 
 # [R] Reversing one dimension of an array, in a generalized case
