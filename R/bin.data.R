@@ -175,3 +175,20 @@ as.bin.data.bin.data <- function(object, ...) {
 }
 
 
+#--------------------------------------------------------------------
+#' @rdname binning
+#' @method as.bin.data SpatialGridDataFrame
+#' @export
+as.bin.data.SpatialGridDataFrame <- function(object, data.ind = 1, weights.ind = NULL, ...) {
+  #--------------------------------------------------------------------
+  # if (!inherits(object, "data.grid"))
+  #   stop("function only works for objects of class (or extending) 'data.grid'")
+  if (!is.null(weights.ind)) {
+    data.ind <- c(data.ind, weights.ind)
+    weights.ind <- 2 
+  }     
+  result <- as.data.grid.SpatialGridDataFrame(object, data.ind = data.ind)
+  result <- as.bin.data(result, data.ind = 1, weights.ind = weights.ind)
+  return(result)
+}
+
