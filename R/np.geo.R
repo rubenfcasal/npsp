@@ -82,15 +82,14 @@ residuals.np.geo <- function(object, ...) {
 #' Fit a nonparametric geostatistical model
 #'
 #' Fits a nonparametric (isotropic) geostatistical model 
-#' (joint estimation of the trend and the variogram) by calling 
-#' \code{\link{locpol}},  \code{\link{np.svariso.corr}} and 
+#' (jointly estimates the trend and the variogram) by calling 
+#' \code{\link{locpol}},  \code{\link{np.svariso.corr}} (or \code{\link{np.svariso}} ) and 
 #' \code{\link{fitsvar.sb.iso}} iteratively. 
 #' At each iteration, the trend estimation bandwith is updated 
 #' by a call to \code{\link{h.cv}}.
-#' @param x object used to select a method (binned data, binned density 
-#' or binned semivariogram).
+#' @param x a (data) object used to select a method.
 #' @param ... further arguments passed to \code{\link{h.cv}}
-#' (trend bandwith selecction parameters).
+#' (trend bandwith selection parameters).
 #' @details Currently, only isotropic semivariogram estimation is supported.
 #' @return Returns an object of \code{\link{class}} \code{fitgeo} 
 #' (extends \code{\link{np.geo}}). A \code{\link{locpol.bin}} object
@@ -113,26 +112,36 @@ np.fitgeo <- function(x, ...) UseMethod("np.fitgeo")
 #' @inheritParams locpol.default
 #' @inheritParams np.svariso.corr
 #' @param iter maximum number of interations (of the whole algorithm).
-#  If \code{iter == 0} the (uncorrected) residual variogram is computed
-#' (traditional approach in geostatistics).
 #' @param  h initial bandwidth matrix for trend estimation
-#' (final bandwith if \code{iter <= 1}).
+#' (final bandwith if \code{iter = 1}).
 #' @param tol relative convergence tolerance (semivariogram).
 #' @param h.svar bandwidth matrix for variogram estimation.
+#' @param corr.svar logical; if \code{TRUE} (default), a bias-corrected semivariogram estimate 
+#' is computed (see \code{\link{np.svariso.corr}}). 
+#' If code{FALSE} the (uncorrected) residual variogram is computed
+#' (the traditional approach in geostatistics).
 #' @param dk dimension of the Shapiro-Botha variogram model (see \code{\link{fitsvar.sb.iso}}).
 #' @param svm.resid logical; if \code{TRUE}, the fitted (uncorrected) residual semivariogram model
-#' is computed and returned.
+#' is computed and returned (this parameter has no effect when \code{corr.svar = FALSE}).
 #' @param warn logical; sets the handling of warning messages in bandwith selection (\code{\link{h.cv}}).
 #' @param plot logical; if \code{TRUE}, semivariogram estimates obtained at each iteration are plotted.
 #' @details If parameter \code{h} is not specified,
-#' \code{\link{h.cv}} is called to set it.
+#' \code{\link{h.cv}} is called with the default values (modified CV) to set it.
 #' If parameter \code{h.svar} is not specified,
 #' is set to \code{1.5*h.cv.svar.bin()$h}.
+#' 
+#' Setting \code{corr.svar = TRUE} may be very slow (and memory demanding) when the number of data is large 
+#' (note also that the bias in the residual variogram decreases when the sample size increases).
+#' @examples
+#' 
+#' geomod <- np.fitgeo(aquifer[,1:2], aquifer$head, svm.resid = TRUE)
+#' plot(geomod)
+#' 
 #' @export
 #--------------------------------------------------------------------
 np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05, set.NA = FALSE, 
-                              h.svar = NULL, maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,  
-                              warn = FALSE, plot = FALSE, ...) {
+                              h.svar = NULL, corr.svar = TRUE, maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,  
+                              hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
 #--------------------------------------------------------------------
   stopifnot(!missing(x), !missing(y)) # Solo para datos geoestadisticos
   # Binning
@@ -140,31 +149,35 @@ np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05,
   # Trend estimation
   if(is.null(h)) 
     h <- h.cv(bin, warn = warn, ...)$h
-  lp <- locpol(bin, h = h, hat.bin = TRUE)   # np.svariso.corr
+  lp <- locpol(bin, h = h, hat.bin = hat.bin)   # np.svariso.corr
   # Variogram estimation
   lp.resid <- residuals(lp)
-  if(is.null(h.svar) || svm.resid || iter == 0) {
+  if(is.null(h.svar) || svm.resid || !corr.svar) {
     esvar0 <- svariso(x, lp.resid, maxlag = maxlag, nlags = nlags)
     if(is.null(h.svar)) h.svar <- 1.5 * h.cv.svar.bin(esvar0, warn = warn)$h
-    if(svm.resid || iter == 0) {
+    if(svm.resid || !corr.svar) {
       esvar0 <- np.svar(esvar0, h = h.svar)
       svm0 <- fitsvar.sb.iso(esvar0, dk = dk)
     }  
   }  
-  if (iter > 0) {
+  if (corr.svar) {
     esvar <- np.svariso.corr(lp, h = h.svar, maxlag = maxlag, nlags = nlags, plot = plot)
     svm <- fitsvar.sb.iso(esvar, dk = dk)
   } else svm <- svm0
+  if (plot) plot(svm)
   # Result
+  svm$corr.svar <- corr.svar
   svm$iter <- iter
-  result <- if(svm.resid && iter > 0) 
+  result <- if(svm.resid && corr.svar) 
     np.geo(lp, svm, svm0) else np.geo(lp, svm)
   if(iter > 1) {
-    result <- np.fitgeo.fitgeo(result, iter = iter - 1, tol = tol, ... )
+    result <- np.fitgeo.fitgeo(result, iter = iter - 1, tol = tol,  corr.svar = corr.svar, 
+                               svm.resid = svm.resid, hat.bin = hat.bin, ... )
     result$svm$iter <- result$svm$iter + 1
   }  
   return(result)
 }
+
 
 
 #' @rdname np.fitgeo  
@@ -174,20 +187,34 @@ np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05,
 #' @export
 #--------------------------------------------------------------------
 np.fitgeo.locpol.bin <- function(x, svm, iter = 1, tol = 0.05, h.svar = svm$esv$locpol$h,   
-                                 dk = 0, warn = FALSE, plot = FALSE, ...) {
+                                 dk = 0,corr.svar = TRUE, svm.resid = FALSE,  
+                                 hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
 #--------------------------------------------------------------------
   if(!inherits(svm, "fitsvar")) stop("'svm' is not a fitted variogram model")
   return(np.fitgeo.fitgeo(np.geo(x, svm), iter = iter, tol = tol, h.svar = h.svar,   
-                          dk = dk, warn = warn, plot = plot, ...))
+                          dk = dk, corr.svar = corr.svar, svm.resid = svm.resid, 
+                          hat.bin = hat.bin, warn = warn, plot = plot, ...))
 }
 
 #' @rdname np.fitgeo  
 #' @method np.fitgeo fitgeo
+#' @examples
+#' 
+#' # Uncorrected variogram estimator
+#' geomod0 <- np.fitgeo(aquifer[,1:2], aquifer$head, iter = 1, corr.svar = FALSE)
+#' plot(geomod0)
+#' 
+#' # Additional iteration with bias-corrected variogram estimator
+#' geomod1 <- np.fitgeo(geomod0, corr.svar = TRUE, svm.resid = TRUE)
+#' plot(geomod1)
+#' 
 #' @export
 #--------------------------------------------------------------------
 np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$h,   
-                             dk = x$svm$par$dk, warn = FALSE, plot = FALSE, ...) {
+                             dk = x$svm$par$dk, corr.svar = TRUE, svm.resid = FALSE,  
+                             hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
 #--------------------------------------------------------------------
+# NOTA: No sería necesario recalcular en cada iteración si svm.resid = TRUE y corr.svar = TRUE   
   lp <- x
   svm <- x$svm
   maxlag <- svm$esv$grid$max
@@ -197,23 +224,33 @@ np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$
     # Trend estimation
     h <- if(hasArg("h.start")) h.cv(lp, cov.bin = svm, warn = warn, ...)$h else 
       h.cv(lp, cov.bin = svm, h.start = diag(lp$locpol$h), warn = warn, ...)$h
-    lp <- locpol(lp, h = h, hat.bin = TRUE)   # np.svariso.corr
+    lp <- locpol(lp, h = h, hat.bin = hat.bin)   # hat.bin = TRUE for np.svariso.corr
     # Variogram estimation
     lp.resid <- residuals(lp)
-    if(is.null(h.svar)) {
+    if(is.null(h.svar) || svm.resid || !corr.svar) {
       esvar0 <- svariso(lp$data$x, lp.resid, maxlag = maxlag, nlags = nlags)
-      h.svar <- 1.5 * h.cv.svar.bin(esvar0, h.start = diag(svm$esv$locpol$h), warn = warn)$h
+      if(is.null(h.svar)) 
+        h.svar <- 1.5 * h.cv.svar.bin(esvar0, h.start = diag(svm$esv$locpol$h), warn = warn)$h
+      if(svm.resid || !corr.svar) {
+        esvar0 <- np.svar(esvar0, h = h.svar)
+        svm0 <- fitsvar.sb.iso(esvar0, dk = dk)
+      }  
     }  
-    esvar <- np.svariso.corr(lp, h = h.svar, maxlag = maxlag, nlags = nlags, plot = plot)
-    svm <- fitsvar.sb.iso(esvar, dk = dk)
+    if (corr.svar) {
+      esvar <- np.svariso.corr(lp, h = h.svar, maxlag = maxlag, nlags = nlags, plot = plot)
+      svm <- fitsvar.sb.iso(esvar, dk = dk)
+    } else svm <- svm0
+    if (plot) plot(svm)
     error <- sqrt(mean((last.fit/svm$fit$fitted.sv - 1)^2, na.rm = TRUE))
     if (error < tol) break
   }
+  svm$corr.svar <- corr.svar
   svm$last.fit <- last.fit
   svm$last.fit.error <- error
   svm$iter <- i
   # Result
-  result <- np.geo(lp, svm, x$svm0)
+  result <- if(svm.resid && corr.svar) 
+    np.geo(lp, svm, svm0) else np.geo(lp, svm)
   return(result)
 }
 
@@ -228,15 +265,16 @@ np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$
 #' @param y	ignored argument.
 #' @param main.trend	title for the trend plot.
 #' @param main.svar	title for the semivariogram plot.
-#' @param ... additional graphical parameters (currently ignored).
+#' @param ... additional graphical parameters 
+#' (to be passed to \code{\link{simage}} for trend plotting).
 #' @export
 plot.fitgeo <- function(x, y = NULL, main.trend = 'Trend estimates', 
                         main.svar = NULL, ...) {
   old.par <- par(mfrow = c(1,2)) #, omd = c(0.01, 0.9, 0.05, 0.95))
-  simage(x, main = main.trend)
+  simage(x, main = main.trend, ...)
   main.svar <- if (is.null(main.svar)) 
-    if (x$svm$iter == 0) "Nonparametric (uncorrected) semivariogram" else 
-      "Nonparametric (bias-corrected) semivariogram"
+    if (x$svm$corr.svar) "Semivariogram estimates \n (bias-corrected)" else 
+      "Semivariogram estimates \n (uncorrected)"
   legend <- c("estimates", "fitted model")
   lty <- c(NA, 1)
   pch <- c(1, NA)
