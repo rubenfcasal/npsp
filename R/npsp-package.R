@@ -46,8 +46,8 @@
 #' 
 #' \strong{Nonparametric residual kriging} (sometimes called external drift kriging):
 #' 
-#' \code{kriging.np} computes residual kriging predictions  
-# \code{\link{kriging.np}} computes residual kriging predictions  
+#' \code{np.kriging} computes residual kriging predictions  
+# \code{\link{np.kriging}} computes residual kriging predictions  
 #' (and the corresponding simple kriging standard errors).
 #' 
 #' \code{kriging.simple} computes simple kriging predictions, standard errors  
@@ -146,7 +146,7 @@ NULL
 #'   \item{mag}{Magnitude (Richter's scale).}
 #' }
 #' @source National Geographic Institute (IGN) of Spain: \cr
-#' \url{http://www.ign.es/ign/layout/sismologiaObtencionDatosSismiscos.do}.
+#' \url{https://www.ign.es/web/ign/portal/sis-area-sismicidad}.
 #' @references
 #' Francisco-Fernandez M., Quintela-del-Rio A. and Fernandez-Casal R. (2012)
 #'    Nonparametric methods for spatial regression. An application to seismic
@@ -220,7 +220,7 @@ NULL
 #'   \item{interior}{\code{\link[sp]{SpatialPolygons}} with the U.S. state boundaries.}
 #' }
 #' @source National Climatic Data Center: \cr
-#' \url{http://www.ncdc.noaa.gov}.
+#' \url{https://www.ncdc.noaa.gov/cdo-web/datasets}.
 #' @references
 #' Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
 #' Nonparametric geostatistical risk mapping, \emph{Stoch. Environ. Res. Ris. Assess.}, 

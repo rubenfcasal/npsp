@@ -8,8 +8,8 @@
 #       np.svar.svar.bin(x, h, degree, drv,  hat.bin, ncv, ...) 
 #   np.svariso(x, y, h, maxlag, nlags, minlag, degree,
 #                   drv, hat.bin, ncv, ...)   
-#   np.svariso.hcv(x, y, maxlag, nlags, minlag, degree, drv, hat.bin,
-#                   objective, ncv, cov.bin, ...)
+#   np.svariso.hcv(x, y, maxlag, nlags, minlag, degree,
+#                   drv, hat.bin, loss, ncv, warn, ...)
 #   np.svariso.corr(lp, x, h, maxlag, nlags, minlag, degree, drv, hat.bin,
 #                   tol, max.iter, plot, ylim)   
 #
@@ -84,7 +84,8 @@ np.svar <- function(x, ...) UseMethod("np.svar")
 #' @param  nlags number of lags. Defaults to 101. 
 #' @param  minlag minimun lag. 
 #' @param  hat.bin logical; if \code{TRUE}, the hat matrix of the binned semivariances is returned.
-#' Defaults to identity. 
+# @param cov.bin covariance matrix of the binned semivariances. 
+# Defaults to identity. 
 #' @export
 np.svar.default <- function(x, y, h = NULL, maxlag = NULL, nlags = NULL,
                       minlag = maxlag/nlags, degree = 1,
@@ -177,17 +178,12 @@ np.svariso <- np.svar.default
 
 
 #--------------------------------------------------------------------
-# np.svariso.hcv(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nlags, 
-#             degree = 1, drv = FALSE, hat.bin = TRUE, objective = c("CV", "GCV", "MASE"), 
-#             ncv = ifelse(objective == "GCV", 0, 1) , cov.bin = NULL, ...)  
-#--------------------------------------------------------------------
 #' @rdname np.svar  
 #' @inheritParams h.cv.svar.bin 
 #' @details  \code{np.svariso.hcv} calls \code{\link{h.cv}} to obtain an "optimal" 
 #' bandwith (additional arguments \code{...} are passed to this function). 
 #' Argument \code{ncv} is only used here at the bandwith selection stage 
 #' (estimation is done with all the data).
-# @param cov.bin covariance matrix of the binned semivariances. 
 #' @export
 np.svariso.hcv <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nlags, 
                   degree = 1, drv = FALSE, hat.bin = TRUE, 

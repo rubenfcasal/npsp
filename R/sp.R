@@ -1,6 +1,6 @@
 #' Convert npsp object to sp object
 #'
-#' Converts a npsp object to a \link[sp]{sp} object.
+#' Converts a npsp object to a \link[sp:00sp]{sp} object.
 #'
 #' @param obj a \code{\link{npsp}} object.
 #' @param ... further arguments passed to or from other methods.
@@ -19,7 +19,8 @@ as.sp.grid.par <- function(obj, ...)
 #' @rdname as.sp
 #' @method as.sp data.grid
 #' @param data.ind integer or character; vector with indexes or names of the data components.
-#' @param proj4string an object of class \code{\link[sp]{CRS-class}}.
+#' @param proj4string a \code{\link[sp]{CRS-class}} object.
+#' @export
 as.sp.data.grid <- function(obj, data.ind = NULL, proj4string = CRS(as.character(NA)), ...){
   return(SpatialGridDataFrame(as.sp(obj$grid), 
                               as.data.frame(obj, data.ind = data.ind, sp = TRUE), 
