@@ -29,7 +29,7 @@ Data
 As an example, the `precipitation` data set will be considered 
 (a `SpatialPointsDataFrame` object). It consists of total precipitations
 (rainfall inches) during March 2016 recorded over 1053 locations on the
-continental part of USA (available at *http://www.ncdc.noaa.gov/pclcd*).
+continental part of USA (available at https://www.ncdc.noaa.gov/cdo-web/datasets).
 
 ```{r Datos}
 # Total Monthly Precipitation
@@ -66,24 +66,24 @@ Automatic model fitting
 
 ```{r np.fitgeo}
 nbin <- c(30, 30)
-geom <- np.fitgeo(coord, precipitation$y, nbin = nbin, svm.resid = TRUE)
+geomod <- np.fitgeo(coord, precipitation$y, nbin = nbin, svm.resid = TRUE)
 cpu.time(total = FALSE)
 ```
 
 Data mask (filtering):
 
 ```{r}
-spp.grid <- SpatialPoints(coords(geom))
+spp.grid <- SpatialPoints(coords(geomod))
 proj4string(spp.grid) <- proj4string(border) # CRS("+init=epsg:28992 +units=km")
 mask.sp <- !is.na(over(spp.grid, as(border, 'SpatialPolygons')))
-geom <- mask(geom, mask = mask.sp | (geom$binw > 0))
+geomod <- mask(geomod, mask = mask.sp | (geomod$binw > 0))
 cpu.time(total = FALSE)
 ```
 
 Plot final trend and variogram estimates:
 
 ```{r, fig.height=5, fig.width=9}
-plot(geom)
+plot(geomod, asp = 1)
 ```
 
 
@@ -285,17 +285,17 @@ plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
 ```
 
-Density estimation (used for mask in binning HD)
+<!-- Density estimation (used for mask in binning HD) -->
 
-```{r h.den}
-h.den <- h.cv(as.bin.den(bin), ncv = 2)$h         # diag(0.4061458, 0.6349045)
-den <- np.den(bin.hd, h = h.den, degree = 0)
-plot(den, main = 'Estimated log(density)',
-          xlab = labels$x[1], ylab = labels$x[2],
-          sub = paste0("(", paste(dim(bin.hd), collapse = "x"), ")") )
-plot(border, border = "darkgray", lwd = 2, add = TRUE)
-plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-```
+<!-- ```{r h.den} -->
+<!-- h.den <- h.cv(as.bin.den(bin), ncv = 2)$h         # diag(0.4061458, 0.6349045) -->
+<!-- den <- np.den(bin.hd, h = h.den, degree = 0) -->
+<!-- plot(den, main = 'Estimated log(density)', -->
+<!--           xlab = labels$x[1], ylab = labels$x[2], -->
+<!--           sub = paste0("(", paste(dim(bin.hd), collapse = "x"), ")") ) -->
+<!-- plot(border, border = "darkgray", lwd = 2, add = TRUE) -->
+<!-- plot(interior, border = "lightgray", lwd = 1, add = TRUE) -->
+<!-- ``` -->
 
 Data mask (filtering):
 
@@ -303,7 +303,7 @@ Data mask (filtering):
 spp.grid <- SpatialPoints(coords(bin.hd))
 proj4string(spp.grid) <- proj4string(border) # CRS("+init=epsg:28992 +units=km")
 mask.sp <- !is.na(over(spp.grid, as(border, 'SpatialPolygons')))
-mask <- mask.sp | (bin.hd$binw > 0)  #indice
+mask <- mask.sp | (bin.hd$binw > 0)  # to avoid filtering data...
 bin.hd <- mask(bin.hd, mask = mask)
 ```
 
@@ -316,19 +316,24 @@ simage(lp.hd, main = "Final trend estimates", slim = slim,
        xlab = labels$x[1], ylab = labels$x[2], col = col2)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-```
-
-Grid mask (some data will be filtered...):
-
-```{r lp.def}
-lp <- lp.hd
-trend.est <- predict(lp)
-lp.resid <- lp$data$y - trend.est
-lp$mask <- NULL
-lp <- mask(lp, mask = mask.sp, warn = FALSE)  # warning=FALSE
-
 cpu.time(total = FALSE)
 ```
+
+
+<!-- Grid mask (some data will be filtered...): -->
+
+<!-- ```{r lp.def} -->
+<!-- lp <- lp.hd -->
+<!-- trend.est <- predict(lp) -->
+<!-- lp.resid <- lp$data$y - trend.est -->
+<!-- lp$mask <- NULL -->
+<!-- lp <- mask(lp, mask = mask.sp, warn = FALSE)  # warning=FALSE -->
+
+<!-- cpu.time(total = FALSE) -->
+
+<!-- krig.grid <- np.kriging(lp, svm2, lp.resid) -->
+<!-- cpu.time(total = FALSE) -->
+<!-- ``` -->
 
 
 Kriging predictions
@@ -340,7 +345,7 @@ Kriging system
 
 ```{r kriging}
 
-krig.grid <- kriging.np(lp, svm2, lp.resid)
+krig.grid <- np.kriging(lp.hd, svm2)
 cpu.time(total = FALSE)
 ```
 

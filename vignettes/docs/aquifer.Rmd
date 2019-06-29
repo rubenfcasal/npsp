@@ -1,10 +1,10 @@
 ---
-title: 'Geoestadística no paramétrica con el paquete *npsp*'
+title: 'Geoestadistica no parametrica con el paquete *npsp*'
 author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
 date: '`r paste("npsp", packageVersion("npsp"))`'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Geoestadística no paramétrica con el paquete *npsp*'}
+  %\VignetteIndexEntry{Geoestadística no paramétrica con el paquete *npsp*}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -639,7 +639,7 @@ un suavizado similar.
 Predicción kriging
 ==================
 
-La función genérica `kriging.np` permite obtener predicciones mediante
+La función genérica `np.kriging` permite obtener predicciones mediante
 kriging residual (combinando la estimación de la tendencia con el
 kriging simple de los residuos). 
 Actualmente solo está implementado kriging simple y kriging residual 
@@ -653,8 +653,8 @@ con el ajuste automático con las correspondientes a la estimación
 con el variograma residual.
 
 ```{r kriging}
-krig.grid0 <- kriging.np(geom0, ngrid = c(96, 96)) # 9216 predicciones
-krig.grid <- kriging.np(geom, ngrid = c(96, 96))
+krig.grid0 <- np.kriging(geom0, ngrid = c(96, 96)) # 9216 predicciones
+krig.grid <- np.kriging(geom, ngrid = c(96, 96))
 cpu.time(total = FALSE)
 ```
 

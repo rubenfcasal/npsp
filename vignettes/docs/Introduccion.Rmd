@@ -1,5 +1,5 @@
 ---
-title: ' Introducción a la Geoestadística con R'
+title: ' Introduccion a la Geoestadistica con R'
 author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
 date: '`r paste("npsp", packageVersion("npsp"))`'
 output:
@@ -92,6 +92,9 @@ Paquetes de R
     -   `spgrass6`, `GeoXp`, `PBSmapping`, ...
 
     -   `googleVis`, `plotGoogleMaps`, ...
+
+
+Una introducción a la geoestadística con el paquete `geoR` está disponible [aquí](https://rubenfcasal.github.io/post/introducci%C3%B3n-a-la-geoestad%C3%ADstica-con-geor/).
 
 
 El paquete `sp`
