@@ -3,6 +3,10 @@ url: http://rubenfcasal.github.io/npsp
 template:
   params:
     bootswatch: cerulean
+    
+authors:
+  Ruben Fernandez-Casal:
+    href: https://rubenfcasal.github.io 
 
 reference:
   - title: "Local polinomial estimation"
@@ -58,7 +62,7 @@ reference:
   - title: "Kriging"
     desc: "Nonparametric residual kriging (sometimes called external drift kriging) and simple kriging."
     contents:
-      - kriging.np 
+      - np.kriging 
       - kriging.simple 
       - kriging.simple.solve 
   - title: "Gridded data"
@@ -80,7 +84,8 @@ reference:
       - spersp 
       - scolor 
       - jet.colors 
-      - hot.colors 
+      - hot.colors
+      - plot.fitgeo
       - plot.np.den
       - plot.fitsvar
       - plot.svar.bin

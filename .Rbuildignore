@@ -1,8 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
+^pkgdown$
 ^docs$
-^index\.Rmd$
+^README\.Rmd$
+^README-.*\.png$
 ^src/*\.o$
 ^src/*\.so$
 ^src/*\.dll$
