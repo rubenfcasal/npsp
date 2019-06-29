@@ -448,7 +448,7 @@
 !                   IF (GetHAT.AND.(RANKRL = NINDRL)) CALL GetVHatLP(VHAT)
                     IF (GetHAT) CALL GetVHatLP(VHAT)
 !                   PENDIENTE:Controlar la posibilidad de error o warning
-!                   LError = (INFORL /= 0)
+!                   LError = (INFORL /= 0) ! Actualmente genera error en ModRegLinRL
                     IF (GetDERIV) THEN
                         DO i = 2, RANKRL
                             IF ( JPVTRL( i ) <= nd + 1 )                          &
@@ -530,7 +530,7 @@
 !           Asignar memoria matriz temporal
             allocate(ibin(ny, 2**nd), ibinw(ny, 2**nd), phat(ny, ngrid))
 !           It would be advisable to verify that the memory allocation was correct...            
-!           , stat = i) if (i /= 0) call error(i)
+!           , stat = i) if (i /= 0) call error(i, 'predict_locpol_bin: ALLOCATE')
 !           warning: ... may be used uninitialized in this function [-Wmaybe-uninitialized]
         else
 !           This would not be really necessary, only to avoid        
@@ -607,7 +607,7 @@
         end do
 !       liberar memoria
        deallocate (ibin, ibinw, phat, stat = i)
-       if (i /= 0) call error(i)
+       if (i /= 0) call error(i, 'predict_locpol_bin: DEALLOCATE')
     return
     end subroutine predict_locpol_bin
 

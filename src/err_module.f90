@@ -3,7 +3,7 @@
 !-----------------------------------------------------------------------
 !     Modulo para manejar los codigos de error.
 !
-!     AVISO: Este modulo es una versión preliminar y será modificado.
+!     AVISO: Este modulo es una versiÃ³n preliminar y serÃ¡ modificado.
 !     (para que todas las rutinas controlen los errores)
 !
 !   Autor: (c) Ruben Fernandez-Casal    
@@ -18,10 +18,10 @@
 !   --------------------------------------------------------------------
 
 !         --------------------------------------------------------------
-!         [SetErrAct] Establecer acción al producirse un error:
+!         [SetErrAct] Establecer acciÃ³n al producirse un error:
 !                     iact = -2 -> No parar ni imprimir
 !                     iact = -1 -> No parar
-!                     iact =  0 -> Acción por defecto
+!                     iact =  0 -> AcciÃ³n por defecto
 !                     iact =  1 -> Defecto + Imprimir
 !                     iact =  2 -> Defecto + Imprimir y parar
 !         --------------------------------------------------------------
@@ -31,14 +31,14 @@
           END SUBROUTINE SetErrAct
 
 !         --------------------------------------------------------------
-!         [GetErrAct] Devuelve acción en caso de error:
+!         [GetErrAct] Devuelve acciÃ³n en caso de error:
 !         --------------------------------------------------------------
           INTEGER FUNCTION GetErrAct()
           GetErrAct = erraction
           END FUNCTION GetErrAct
 
 !         --------------------------------------------------------------
-!         [SetErrCode]    Establece el código de error
+!         [SetErrCode]    Establece el cÃ³digo de error
 !         --------------------------------------------------------------
           SUBROUTINE SetErrCode(icode)
           INTEGER icode
@@ -46,7 +46,7 @@
           END SUBROUTINE SetErrCode
 
 !         --------------------------------------------------------------
-!         [GetErrCode]    Devuelve el código de error
+!         [GetErrCode]    Devuelve el cÃ³digo de error
 !         --------------------------------------------------------------
           INTEGER FUNCTION GetErrCode()
           GetErrCode = errcode
@@ -57,24 +57,27 @@
 !   --------------------------------------------------------------------
 
 !     ------------------------------------------------------------------
-!     [Error]  Se llama a esta función si se produce un error
+!     [Error]  Se llama a esta funciÃ³n si se produce un error
 !     ------------------------------------------------------------------
       subroutine error(i, label)
       integer i
-      character(*), optional :: label
+      character(*) label
 !     ------------------------------------------------------------------
-!     Escribir error
+!     Fortran optional arguments produces LTO warnings from gcc9  
+!     character(*), optional :: label
+!     Print error
 !     if (present(label)) WRITE(*,*) label, i
-!     STOP 'ERROR CRITICO'
+!     STOP 'CRITICAL ERROR'
+!     if (present(label)) call intpr(label, -1, i, 1)
 !     ------------------------------------------------------------------
-      if (present(label)) call intpr(label, -1, i, 1)
+      call intpr(label, -1, i, 1)
       call rexit('npsp shared library: CRITICAL ERROR')
       return
       end subroutine error
 
 
 !     ------------------------------------------------------------------
-!     [warning]  Se llama a esta función si se produce un warning
+!     [warning]  Se llama a esta funciÃ³n si se produce un warning
 !     ------------------------------------------------------------------
       subroutine warning(label1, label2, i)
       character(*) label1

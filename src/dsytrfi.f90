@@ -1,6 +1,6 @@
 !     ------------------------------------------------------------------
 !     [DSYTRFI]   Calcula el determinante y la inversa de una matriz
-!                 simétrica a partir de la factorización UDU'.
+!                 simÃ©trica a partir de la factorizaciÃ³n UDU'.
 !     ------------------------------------------------------------------
       SUBROUTINE DSYTRFI(N, A, AI, DET)
       IMPLICIT NONE
@@ -22,10 +22,10 @@
       LWORK = -1    ! Determine the block size
       CALL DSYTRF( 'U', N, AI, N, IPIV, tmp, LWORK, INFO )
       LWORK = NINT(tmp)
-      ALLOCATE(WORK(LWORK),STAT=i)
-      IF (i.NE.0) CALL Error(i)
+      ALLOCATE(WORK(LWORK), STAT=i)
+      IF (i.NE.0) CALL Error(i, 'DSYTRFI: ALLOCATE')
       CALL DSYTRF( 'U', N, AI, N, IPIV, WORK, LWORK, INFO )
-      IF (INFO.NE.0) CALL Error(INFO)
+      IF (INFO.NE.0) CALL Error(INFO, 'DSYTRFI: DSYTRF')
 !     Calcular el determinante
 !     If IPIV(k) > 0, then rows and columns k and IPIV(k) were
 !           interchanged and D(k,k) is a 1-by-1 diagonal block.
@@ -45,10 +45,10 @@
 !     DSYTRI computes the inverse of a real symmetric indefinite matrix
 !           A using the factorization computed by DSYTRF.
       CALL DSYTRI( 'U', N, AI, N, IPIV, WORK, INFO )
-      IF (INFO.NE.0) CALL Error(INFO)
+      IF (INFO.NE.0) CALL Error(INFO, 'DSYTRFI: DSYTRI')
 !     Liberar memoria
       DEALLOCATE (WORK,STAT=i)
-      IF (i.NE.0) CALL Error(i)
+      IF (i.NE.0) CALL Error(i, 'DSYTRFI: DEALLOCATE')
       RETURN
       END SUBROUTINE DSYTRFI
 

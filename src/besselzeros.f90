@@ -1,9 +1,9 @@
 !-----------------------------------------------------------------------
-!   [besselzeros.f90]   Utilidades para discretizaciÛn de la distribuciÛn
+!   [besselzeros.f90]   Utilidades para discretizaci√≥n de la distribuci√≥n
 !                       espectral de un variograma multidimensional
 !
 !   Interfaces con R:
-!       disc_sbv      ptos de discretizaciÛn para un modelo de variograma de 
+!       disc_sbv      ptos de discretizaci√≥n para un modelo de variograma de 
 !                     Shapiro-Botha (R "disc_sbv")
 !
 !   Autor: (c) Ruben Fernandez-Casal                Creacion: Abr 2002
@@ -11,22 +11,22 @@
 !-----------------------------------------------------------------------
 
 !     ------------------------------------------------------------------
-!     [disc_sbv]  Obtiene los ptos de discretizaciÛn de la funciÛn de 
-!                 distribuciÛn espectral para un modelo de Shapiro-Botha 
-!                 extendido. Basado en el artÌculo:
+!     [disc_sbv]  Obtiene los ptos de discretizaci√≥n de la funci√≥n de 
+!                 distribuci√≥n espectral para un modelo de Shapiro-Botha 
+!                 extendido. Basado en el art√≠culo:
 !                 Gorsich y Genton (2001) "On the discretization of 
 !                 nonparametric covariogram estimators"
 !
-!     PAR¡METROS:
-!         nx = n∫ de nodos                                            (I)
+!     PAR√ÅMETROS:
+!         nx = n¬∫ de nodos                                            (I)
 !         x(nx) = nodos                                               (O)
-!         dim = dimensiÛn correspondiente                             (I)
-!         ((dim-2.0)/2.0 orden de la funciÛn de Bessel)
-!         rango = m·ximo salto                                        (I)
+!         dim = dimensi√≥n correspondiente                             (I)
+!         ((dim-2.0)/2.0 orden de la funci√≥n de Bessel)
+!         rango = m√°ximo salto                                        (I)
 !     ------------------------------------------------------------------
       SUBROUTINE disc_sbv(nx, x, dim, rango)
       IMPLICIT NONE
-!     Par·metros
+!     Par√°metros
       INTEGER nx, dim, i
       REAL(8) x(nx), rango, a
 !     En el caso infinito se toman equidistantes
@@ -38,7 +38,7 @@
           a =(dim-2.0)/2.0
           CALL besselzeros(nx, a, x)
       END IF
-!     Se reescala por m·ximo salto
+!     Se reescala por m√°ximo salto
       DO i = 1,nx
           x(i) = x(i)/rango
       END DO
@@ -47,15 +47,15 @@
 
 
 !     ------------------------------------------------------------------
-!     [Besselzeros]   Calcula los ceros de una funciÛn de Bessel de orden
+!     [Besselzeros]   Calcula los ceros de una funci√≥n de Bessel de orden
 !                     real utilizando el algoritmo propuesto por J.S. Ball
 !                     (2000) "Automatic computation of zeros of Bessel
 !                     functions and other special functions", 1458-1464,
 !                     J. Sci. Comput.
 !
-!     PAR¡METROS:
-!         nt = n∫ de ceros                                            (I)
-!         a = orden de la funciÛn de Bessel                           (I)
+!     PAR√ÅMETROS:
+!         nt = n¬∫ de ceros                                            (I)
+!         a = orden de la funci√≥n de Bessel                           (I)
 !         c(nt) = ceros (ordenados)                                   (O)
 !     ------------------------------------------------------------------
       SUBROUTINE besselzeros(nt, a, c)
@@ -68,7 +68,8 @@
       REAL(8), ALLOCATABLE :: e(:), d(:), z(:,:)
 !     Asignar memoria a variables locales
       nmax = 2*nt
-      ALLOCATE (e(nmax+1), d(nmax), z(nmax, nmax))
+      ALLOCATE (e(nmax+1), d(nmax), z(nmax, nmax),STAT=i)
+      IF (i.NE.0) CALL Error(i,'besselzeros: ALLOCATE')
 !     Valores iniciales
       z=0.0D0
       do 10 i=1,nmax
@@ -101,7 +102,7 @@
    40 continue
 !     Liberar memoria de variables locales
       DEALLOCATE (e,d,z,STAT=i)
-      IF (i.NE.0) CALL Error(i)
+      IF (i.NE.0) CALL Error(i,'besselzeros: DEALLOCATE')
       RETURN
       END SUBROUTINE Besselzeros
 

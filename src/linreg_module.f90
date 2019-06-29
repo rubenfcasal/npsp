@@ -1,5 +1,5 @@
 !-----------------------------------------------------------------------
-!     [linreg_module.f90]   Modulo para la regresion lineal en la estimaci髇
+!     [linreg_module.f90]   Modulo para la regresion lineal en la estimaci贸n
 !                           lineal local multidimensional
 !
 !     (c) Ruben Fernandez-Casal       Fecha revision: Abr 2007, Abr 2012, Jun 2013
@@ -35,14 +35,14 @@
 !         Asignar memoria
           ALLOCATE (XRL(LDXRL, NINDRL), YRL(LDXRL), BRL(LDXRL),           &
      &            RRL(LDXRL, NINDRL), JPVTRL(NINDRL), STAT = i)
-          IF (i /= 0) CALL Error(i)
+          IF (i /= 0) CALL Error(i, 'ModRegLinRL: ModRegLinInit')
 !         Obtener espacio lapack
           LWKRL = -1
           CALL DGELSYR( LDXRL, NINDRL, 1, RRL, LDXRL, BRL, LDXRL, JPVTRL,  & 
      &                  RCONDRL, RANKRL, BRL(1), LWKRL, INFORL )
           LWKRL = NINT(BRL(1))
           ALLOCATE(WKRL(LWKRL), STAT = i)
-          IF (i /= 0) CALL Error(i)
+          IF (i /= 0) CALL Error(i, 'ModRegLinRL: ModRegLinInit')
           ModRegLinIni = .TRUE.
           RETURN
           END SUBROUTINE ModRegLinInit
@@ -57,10 +57,10 @@
 !         --------------------------------------------------------------
 !         Liberar memoria
           DEALLOCATE (XRL, YRL, BRL, RRL, WKRL, JPVTRL, STAT = i)
-          IF (i /= 0) CALL Error(i)
+          IF (i /= 0) CALL Error(i, 'ModRegLinRL: ModRegLinExit')
           IF (ALLOCATED(HATRL)) THEN
               DEALLOCATE(HATRL, STAT = i)
-              IF (i /= 0) CALL Error(i)
+              IF (i /= 0) CALL Error(i, 'ModRegLinRL: ModRegLinExit')
           END IF
           ModRegLinIni = .FALSE.
           RETURN
@@ -68,7 +68,7 @@
 
 
 !         --------------------------------------------------------------
-!         [ModRegLinRL]   Regresi髇 lineal
+!         [ModRegLinRL]   Regresi贸n lineal
 !         --------------------------------------------------------------
           SUBROUTINE ModRegLinRL
           REAL(8), EXTERNAL :: DDOT
@@ -80,7 +80,7 @@
           BRL(1:NRL) = YRL(1:NRL)
           JPVTRL = 0
           JPVTRL(1) = 1 ! the 1ST column of X to the front of XP
-!         Realizar regresi髇
+!         Realizar regresi贸n
           CALL DGELSYR( NRL, NINDRL, 1, RRL, LDXRL, BRL, LDXRL, JPVTRL,  & 
      &                  RCONDRL, RANKRL, WKRL, LWKRL, INFORL )
 !         B = 0.0d0
@@ -92,8 +92,8 @@
 
 
 !         --------------------------------------------------------------
-!         [GetVHatLP] Obtiene el vector de la matrix hat de la estimaci髇
-!                     polin髆ico local correspondiente a la 鷏tima regresi髇 lineal
+!         [GetVHatLP] Obtiene el vector de la matrix hat de la estimaci贸n
+!                     polin贸mico local correspondiente a la 煤ltima regresi贸n lineal
 !         --------------------------------------------------------------
           SUBROUTINE GetVHatLP(VHAT)
           REAL(8)  VHAT(NRL)
@@ -127,7 +127,7 @@
 
 
 !     ------------------------------------------------------------------
-!     [RegLin]   Regresi髇 lineal
+!     [RegLin]   Regresi贸n lineal
 !     ------------------------------------------------------------------
       SUBROUTINE RegLin(N, NIND, X, LDX, Y, B, INFO)
       USE linreg_module
@@ -140,12 +140,12 @@
       NRL = N
       XRL(1:NRL, 1:NINDRL) = X(1:NRL, 1:NINDRL)
       YRL(1:NRL) = Y(1:NRL)
-!     Realizar regresi髇
+!     Realizar regresi贸n
       CALL ModRegLinRL
 !     Resultados
       INFO = INFORL
       IF( INFO.GT.0 ) THEN
-          CALL Error(INFO,'RegLin')
+          CALL Error(INFO,'RegLin: INFORL')
       END IF
       B = 0.0d0
       DO i = 1, RANKRL
