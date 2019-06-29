@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
       </span>
     </div>
 
@@ -90,9 +90,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduccion a la Geoestadistica con R</h1>
-                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es">ruben.fcasal@udc.es</a>)</h4>
+                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.7.4</h4>
+            <h4 class="date">npsp 0.7.5</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/docs/Introduccion.Rmd"><code>vignettes/docs/Introduccion.Rmd</code></a></small>
       <div class="hidden name"><code>Introduccion.Rmd</code></div>
@@ -144,19 +144,19 @@
 <div id="wolfcamp-aquifer-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wolfcamp-aquifer-data" class="anchor"></a>Wolfcamp aquifer data:</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</a></code></pre></div>
 <pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.7-4 (built on 2019-06-15).
+##  version 0.7-5 (built on 2019-06-29).
 ##  Copyright (C) R. Fernandez-Casal 2012-2018.
 ##  Type `help(npsp)` for an overview of the package and
 ##  `demo(package = "npsp")` for the list of available demos.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ?aquifer</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(aquifer)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># ?aquifer</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(aquifer)</a></code></pre></div>
 <pre><code>## 'data.frame':    85 obs. of  3 variables:
 ##  $ lon : num  42.78 -27.4 -1.16 -18.62 96.47 ...
 ##  $ lat : num  127.6 90.8 84.9 76.5 64.6 ...
 ##  $ head: num  1464 2553 2158 2455 1756 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(aquifer)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(aquifer)</a></code></pre></div>
 <pre><code>##       lon               lat               head     
 ##  Min.   :-145.24   Min.   :  9.414   Min.   :1024  
 ##  1st Qu.: -21.30   1st Qu.: 33.682   1st Qu.:1548  
@@ -164,8 +164,8 @@
 ##  Mean   :  16.89   Mean   : 79.356   Mean   :2002  
 ##  3rd Qu.:  70.90   3rd Qu.:131.825   3rd Qu.:2540  
 ##  Max.   : 112.80   Max.   :184.766   Max.   :3571</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Scatter plot with a color scale</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="../../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Scatter plot with a color scale</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="../../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</a></code></pre></div>
 <p><img src="Introduccion_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -204,7 +204,7 @@
 <li>El paquete <code>sp</code>: Classes and methods for spatial data.</li>
 </ul>
 </li>
-<li><p>Bivand, R.S., Pebesma, E.J. y Gómez-Rubio, V. (2008). <em>Applied Spatial Data Analysis with R</em>. Use R! Series. Springer.*<a href="http://www.asdar-book.org*" class="uri">http://www.asdar-book.org*</a></p></li>
+<li><p>Bivand, R.S., Pebesma, E.J. y Gómez-Rubio, V. (2008). <em>Applied Spatial Data Analysis with R</em>. Use R! Series. Springer.<em><a href="http://www.asdar-book.org" class="uri">http://www.asdar-book.org</a></em></p></li>
 <li>
 <p>Sirve de soporte a muchos otros paquetes.</p>
 <ul>

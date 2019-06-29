@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
       </span>
     </div>
 
@@ -90,9 +90,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Nonparametric Spatial Data Analysis with the <em>npsp</em> Package</h1>
-                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es">ruben.fcasal@udc.es</a>)</h4>
+                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.7.4</h4>
+            <h4 class="date">npsp 0.7.5</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/npsp.Rmd"><code>vignettes/npsp.Rmd</code></a></small>
       <div class="hidden name"><code>npsp.Rmd</code></div>
@@ -102,66 +102,66 @@
     
     
 <p>This vignette (a working draft) tries to illustrate the use of the <code>npsp</code> package…</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</a></code></pre></div>
 <pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.7-4 (built on 2019-06-15).
+##  version 0.7-5 (built on 2019-06-29).
 ##  Copyright (C) R. Fernandez-Casal 2012-2018.
 ##  Type `help(npsp)` for an overview of the package and
 ##  `demo(package = "npsp")` for the list of available demos.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sp)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sp)</a></code></pre></div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
-<p>As an example, the <code>precipitation</code> data set will be considered (a <code>SpatialPointsDataFrame</code> object). It consists of total precipitations (rainfall inches) during March 2016 recorded over 1053 locations on the continental part of USA (available at *<a href="http://www.ncdc.noaa.gov/pclcd*" class="uri">http://www.ncdc.noaa.gov/pclcd*</a>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Total Monthly Precipitation</span>
-<span class="kw"><a href="../reference/spoints.html">spoints</a></span>(precipitation)</code></pre></div>
+<p>As an example, the <code>precipitation</code> data set will be considered (a <code>SpatialPointsDataFrame</code> object). It consists of total precipitations (rainfall inches) during March 2016 recorded over 1053 locations on the continental part of USA (available at <a href="https://www.ncdc.noaa.gov/cdo-web/datasets" class="uri">https://www.ncdc.noaa.gov/cdo-web/datasets</a>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># Total Monthly Precipitation</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="../reference/spoints.html">spoints</a></span>(precipitation)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/Datos-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(precipitation<span class="op">$</span>y)
-coord &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/coordinates">coordinates</a></span>(precipitation)
-attributes &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(precipitation)
-labels &lt;-<span class="st"> </span>attributes<span class="op">$</span>labels 
-border &lt;-<span class="st"> </span>attributes<span class="op">$</span>border 
-interior &lt;-<span class="st"> </span>attributes<span class="op">$</span>interior 
-slim &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(precipitation<span class="op">$</span>y)
-col &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>)
-col2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>)
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">n &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(precipitation<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb5-2" title="2">coord &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/coordinates">coordinates</a></span>(precipitation)</a>
+<a class="sourceLine" id="cb5-3" title="3">attributes &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(precipitation)</a>
+<a class="sourceLine" id="cb5-4" title="4">labels &lt;-<span class="st"> </span>attributes<span class="op">$</span>labels </a>
+<a class="sourceLine" id="cb5-5" title="5">border &lt;-<span class="st"> </span>attributes<span class="op">$</span>border </a>
+<a class="sourceLine" id="cb5-6" title="6">interior &lt;-<span class="st"> </span>attributes<span class="op">$</span>interior </a>
+<a class="sourceLine" id="cb5-7" title="7">slim &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(precipitation<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb5-8" title="8">col &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>)</a>
+<a class="sourceLine" id="cb5-9" title="9">col2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>)</a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## CPU time has been initialized.</code></pre>
 <div id="exploratory-data-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#exploratory-data-analysis" class="anchor"></a>Exploratory data analysis</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y.summary &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(precipitation<span class="op">$</span>y) <span class="co"># Resumen de datos</span>
-y.summary</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">y.summary &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(precipitation<span class="op">$</span>y) <span class="co"># Resumen de datos</span></a>
+<a class="sourceLine" id="cb7-2" title="2">y.summary</a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.000   1.100   1.539   1.551   1.954   4.105</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/scattersplot.html">scattersplot</a></span>(precipitation)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/scattersplot.html">scattersplot</a></span>(precipitation)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/summary-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.14    0.25    0.39</code></pre>
+##    0.16    0.91    1.06</code></pre>
 </div>
 <div id="automatic-model-fitting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#automatic-model-fitting" class="anchor"></a>Automatic model fitting</h2>
 <p><code>np.fitgeo</code> (automatically) fits an isotropic nonparametric geostatistical model by estimating the trend and the variogram (using a bias-corrected estimator) iteratively.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nbin &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">30</span>, <span class="dv">30</span>)
-geomod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.fitgeo.html">np.fitgeo</a></span>(coord, precipitation<span class="op">$</span>y, <span class="dt">nbin =</span> nbin, <span class="dt">svm.resid =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">nbin &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">30</span>, <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2">geomod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.fitgeo.html">np.fitgeo</a></span>(coord, precipitation<span class="op">$</span>y, <span class="dt">nbin =</span> nbin, <span class="dt">svm.resid =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   12.00    0.57   12.56</code></pre>
+##   18.89    1.33   20.39</code></pre>
 <p>Data mask (filtering):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spp.grid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPoints</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(geomod))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(spp.grid) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(border) <span class="co"># CRS("+init=epsg:28992 +units=km")</span>
-mask.sp &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/over">over</a></span>(spp.grid, <span class="kw">as</span>(border, <span class="st">'SpatialPolygons'</span>)))
-geomod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(geomod, <span class="dt">mask =</span> mask.sp <span class="op">|</span><span class="st"> </span>(geomod<span class="op">$</span>binw <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>))
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">spp.grid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPoints</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(geomod))</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(spp.grid) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(border) <span class="co"># CRS("+init=epsg:28992 +units=km")</span></a>
+<a class="sourceLine" id="cb14-3" title="3">mask.sp &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/over">over</a></span>(spp.grid, <span class="kw">as</span>(border, <span class="st">'SpatialPolygons'</span>)))</a>
+<a class="sourceLine" id="cb14-4" title="4">geomod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(geomod, <span class="dt">mask =</span> mask.sp <span class="op">|</span><span class="st"> </span>(geomod<span class="op">$</span>binw <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.10    0.01    0.11</code></pre>
+##    0.11    0.06    0.36</code></pre>
 <p>Plot final trend and variogram estimates:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(geomod, <span class="dt">asp =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(geomod, <span class="dt">asp =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-2-1.png" width="864" style="display: block; margin: auto;"></p>
 <p>The algorithm is described below…</p>
 </div>
@@ -169,23 +169,23 @@ geomod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask
 <div id="linear-binning" class="section level1">
 <h1 class="hasAnchor">
 <a href="#linear-binning" class="anchor"></a>Linear binning</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## CPU time has been initialized.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, precipitation<span class="op">$</span>y, <span class="dt">nbin =</span> nbin, <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, precipitation<span class="op">$</span>y, <span class="dt">nbin =</span> nbin, <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.00    0.01    0.01</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages and data points'</span>, <span class="dt">slim =</span> slim,
-       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],
-       <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"("</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(bin), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">pch =</span><span class="st">'+'</span>)
-coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coordvalues.html">coordvalues</a></span>(bin)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> coordvs[[<span class="dv">1</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> coordvs[[<span class="dv">2</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</code></pre></div>
+##       0       0       0</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages and data points'</span>, <span class="dt">slim =</span> slim,</a>
+<a class="sourceLine" id="cb21-2" title="2">       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb21-3" title="3">       <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"("</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(bin), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>))</a>
+<a class="sourceLine" id="cb21-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb21-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb21-6" title="6"></a>
+<a class="sourceLine" id="cb21-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">pch =</span><span class="st">'+'</span>)</a>
+<a class="sourceLine" id="cb21-8" title="8">coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coordvalues.html">coordvalues</a></span>(bin)</a>
+<a class="sourceLine" id="cb21-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> coordvs[[<span class="dv">1</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb21-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> coordvs[[<span class="dv">2</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/binning-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="pilot-estimation" class="section level1">
@@ -194,96 +194,96 @@ coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coo
 <div id="initial-trend-estimates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#initial-trend-estimates" class="anchor"></a>Initial trend estimates</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp0.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin)<span class="op">$</span>h
-lp0.h    <span class="co"># &lt;- diag(c(6.85061, 2.946348))   </span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">lp0.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin)<span class="op">$</span>h</a>
+<a class="sourceLine" id="cb22-2" title="2">lp0.h    <span class="co"># &lt;- diag(c(6.85061, 2.946348))   </span></a></code></pre></div>
 <pre><code>##         [,1]     [,2]
 ## [1,] 6.85061 0.000000
 ## [2,] 0.00000 2.946348</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Initial linear Local trend estimation</span>
-lp0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> lp0.h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>) 
-
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># Initial linear Local trend estimation</span></a>
+<a class="sourceLine" id="cb24-2" title="2">lp0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> lp0.h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>) </a>
+<a class="sourceLine" id="cb24-3" title="3"></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.34    0.35    0.71</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp0, <span class="dt">main =</span> <span class="st">"Initial trend estimates"</span>, <span class="dt">slim =</span> slim,
-       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(coord[,<span class="dv">1</span>], coord[,<span class="dv">2</span>], <span class="dt">col=</span><span class="st">"darkgray"</span>)</code></pre></div>
+##    0.50    0.97    1.53</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp0, <span class="dt">main =</span> <span class="st">"Initial trend estimates"</span>, <span class="dt">slim =</span> slim,</a>
+<a class="sourceLine" id="cb26-2" title="2">       <span class="dt">col =</span> col2, <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(coord[,<span class="dv">1</span>], coord[,<span class="dv">2</span>], <span class="dt">col=</span><span class="st">"darkgray"</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/lp0-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Residuals</span>
-lp0.pred &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(lp0)
-lp0.resid &lt;-<span class="st"> </span>lp0<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>lp0.pred
-lp0.r2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(lp0.pred, lp0<span class="op">$</span>data<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span> <span class="co"># assuming independence...</span>
-
-old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/hist">hist</a></span>(lp0.resid)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lp0.pred, lp0.resid, <span class="dt">main =</span> <span class="st">"Residuals vs Fitted"</span>,
-     <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="st">"R^2 ="</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(lp0.r2, <span class="dv">2</span>)),
-     <span class="dt">xlab =</span> <span class="st">"Fitted values"</span>, <span class="dt">ylab =</span> <span class="st">"Residuals"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgray"</span>)</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># Residuals</span></a>
+<a class="sourceLine" id="cb27-2" title="2">lp0.pred &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(lp0)</a>
+<a class="sourceLine" id="cb27-3" title="3">lp0.resid &lt;-<span class="st"> </span>lp0<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>lp0.pred</a>
+<a class="sourceLine" id="cb27-4" title="4">lp0.r2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(lp0.pred, lp0<span class="op">$</span>data<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span> <span class="co"># assuming independence...</span></a>
+<a class="sourceLine" id="cb27-5" title="5"></a>
+<a class="sourceLine" id="cb27-6" title="6">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb27-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/hist">hist</a></span>(lp0.resid)</a>
+<a class="sourceLine" id="cb27-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lp0.pred, lp0.resid, <span class="dt">main =</span> <span class="st">"Residuals vs Fitted"</span>,</a>
+<a class="sourceLine" id="cb27-9" title="9">     <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="st">"R^2 ="</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(lp0.r2, <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb27-10" title="10">     <span class="dt">xlab =</span> <span class="st">"Fitted values"</span>, <span class="dt">ylab =</span> <span class="st">"Residuals"</span>)</a>
+<a class="sourceLine" id="cb27-11" title="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgray"</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/lp0-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a></code></pre></div>
 </div>
 <div id="initial-variogram" class="section level2">
 <h2 class="hasAnchor">
 <a href="#initial-variogram" class="anchor"></a>Initial variogram</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rule.svar(coord)</span>
-nlags &lt;-<span class="st"> </span><span class="dv">60</span> 
-maxlag &lt;-<span class="st"> </span><span class="dv">10</span>
-<span class="co"># Empirical variogram with linear binning:</span>
-svar.bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/svar.bin.html">svariso</a></span>(coord, lp0.resid,  <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag)  
-sv.lags &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.bin)
-svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)<span class="op">$</span>h
-<span class="co"># Local linear variogram estimation</span>
-svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)  <span class="co"># biased</span>
-<span class="co"># Fitted Shapiro-Botha variogram model</span>
-svm0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np, <span class="dt">dk =</span> <span class="dv">0</span>)       
-<span class="co"># Bias-corrected variogram estimation</span>
-svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp0, <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag, 
-                            <span class="dt">h=</span>svar.np.h, <span class="dt">plot =</span> <span class="ot">TRUE</span>) </code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="co"># rule.svar(coord)</span></a>
+<a class="sourceLine" id="cb29-2" title="2">nlags &lt;-<span class="st"> </span><span class="dv">60</span> </a>
+<a class="sourceLine" id="cb29-3" title="3">maxlag &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="co"># Empirical variogram with linear binning:</span></a>
+<a class="sourceLine" id="cb29-5" title="5">svar.bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/svar.bin.html">svariso</a></span>(coord, lp0.resid,  <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag)  </a>
+<a class="sourceLine" id="cb29-6" title="6">sv.lags &lt;-<span class="st"> </span><span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.bin)</a>
+<a class="sourceLine" id="cb29-7" title="7">svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)<span class="op">$</span>h</a>
+<a class="sourceLine" id="cb29-8" title="8"><span class="co"># Local linear variogram estimation</span></a>
+<a class="sourceLine" id="cb29-9" title="9">svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)  <span class="co"># biased</span></a>
+<a class="sourceLine" id="cb29-10" title="10"><span class="co"># Fitted Shapiro-Botha variogram model</span></a>
+<a class="sourceLine" id="cb29-11" title="11">svm0 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np, <span class="dt">dk =</span> <span class="dv">0</span>)       </a>
+<a class="sourceLine" id="cb29-12" title="12"><span class="co"># Bias-corrected variogram estimation</span></a>
+<a class="sourceLine" id="cb29-13" title="13">svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp0, <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag, </a>
+<a class="sourceLine" id="cb29-14" title="14">                            <span class="dt">h=</span>svar.np.h, <span class="dt">plot =</span> <span class="ot">TRUE</span>) </a></code></pre></div>
 <p><img src="npsp_files/figure-html/svm0-1.png" width="672" style="display: block; margin: auto;"></p>
 <pre><code>## Iteration  2 :  1 
 ## Iteration  3 :  0.07754415 
 ## Iteration  4 :  0.0530029 
 ## Iteration  5 :  0.03988535</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fitted Shapiro-Botha variogram model</span>
-svm02 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np2, <span class="dt">dk =</span> <span class="dv">0</span>) 
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># Fitted Shapiro-Botha variogram model</span></a>
+<a class="sourceLine" id="cb31-2" title="2">svm02 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np2, <span class="dt">dk =</span> <span class="dv">0</span>) </a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    5.38    0.42    5.81</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm02, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, 
-     <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.np2))), 
-     <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(svar.np2<span class="op">$</span>biny, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm0, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svar.np, <span class="dt">type =</span> <span class="st">"p"</span>, <span class="dt">pch =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(svm02<span class="op">$</span>nugget, svm02<span class="op">$</span>sill), <span class="dt">lty =</span> <span class="dv">3</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">3</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"bottomright"</span>, <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"corrected"</span>, <span class="st">'biased'</span>),
-            <span class="dt">lty =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">pch =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">NA</span>, <span class="ot">NA</span>), <span class="dt">lwd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>))</code></pre></div>
+##    9.67    1.26   11.03</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm02, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, </a>
+<a class="sourceLine" id="cb33-2" title="2">     <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(svar.np2))), </a>
+<a class="sourceLine" id="cb33-3" title="3">     <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(svar.np2<span class="op">$</span>biny, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm0, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svar.np, <span class="dt">type =</span> <span class="st">"p"</span>, <span class="dt">pch =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(svm02<span class="op">$</span>nugget, svm02<span class="op">$</span>sill), <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb33-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb33-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"bottomright"</span>, <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"corrected"</span>, <span class="st">'biased'</span>),</a>
+<a class="sourceLine" id="cb33-9" title="9">            <span class="dt">lty =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">pch =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="ot">NA</span>, <span class="ot">NA</span>), <span class="dt">lwd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="npsp_files/figure-html/svm0-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="bandwidth-selection" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bandwidth-selection" class="anchor"></a>Bandwidth selection</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># GCV criterion (Francisco-Fernandez and Opsomer, 2005)</span>
-lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin, <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">cov =</span> svm02, <span class="dt">DEalgorithm =</span> <span class="ot">FALSE</span>)<span class="op">$</span>h
-lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># GCV criterion (Francisco-Fernandez and Opsomer, 2005)</span></a>
+<a class="sourceLine" id="cb34-2" title="2">lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(bin, <span class="dt">objective =</span> <span class="st">"GCV"</span>, <span class="dt">cov =</span> svm02, <span class="dt">DEalgorithm =</span> <span class="ot">FALSE</span>)<span class="op">$</span>h</a>
+<a class="sourceLine" id="cb34-3" title="3">lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></a></code></pre></div>
 <pre><code>##          [,1]    [,2]
 ## [1,] 11.11399  0.0000
 ## [2,]  0.00000 18.6437</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    1.27    0.22    1.48</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lp.h &lt;- hcv.data(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h</span>
-<span class="co"># lp.h    # &lt;- diag(c(10.0871, 18.3956))</span>
-## Time of last operation: hcv.data
-##    user  system elapsed 
-##   10.39    1.39   11.87</code></pre></div>
+##    1.80    0.83    2.67</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="co"># lp.h &lt;- hcv.data(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="co"># lp.h    # &lt;- diag(c(10.0871, 18.3956))</span></a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="co">## Time of last operation: hcv.data</span></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="co">##    user  system elapsed </span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="co">##   10.39    1.39   11.87</span></a></code></pre></div>
 </div>
 <div id="final-variogram" class="section level1">
 <h1 class="hasAnchor">
@@ -292,79 +292,79 @@ lp.h    <span class="co"># &lt;- diag(c(11.11463, 18.59536))</span></code></pre>
 <h2 class="hasAnchor">
 <a href="#trend-re-estimation" class="anchor"></a>Trend re-estimation</h2>
 <p>Final trend (low resolution):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> lp.h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> lp.h, <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.06    0.01    0.08</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp, <span class="dt">main =</span> <span class="st">"Trend Estimation"</span>, <span class="dt">slim =</span> slim, 
-       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+##    0.09    0.03    0.13</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp, <span class="dt">main =</span> <span class="st">"Trend Estimation"</span>, <span class="dt">slim =</span> slim, </a>
+<a class="sourceLine" id="cb41-2" title="2">       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)</a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb41-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># spoints(coord[,1], coord[,2], precipitation$y, add = TRUE)</span>
-<span class="co"># New Residuals</span>
-lp.pred &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(lp)
-lp.resid &lt;-<span class="st"> </span>lp<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>lp.pred
-lp.r2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(lp.pred, lp<span class="op">$</span>data<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span> <span class="co"># assuming independence...</span>
-old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/hist">hist</a></span>(lp.resid)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lp.pred, lp.resid, <span class="dt">main =</span> <span class="st">"Residuals vs Fitted"</span>, 
-     <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="st">"R^2 ="</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(lp0.r2, <span class="dv">2</span>)),
-     <span class="dt">xlab =</span> <span class="st">"Fitted values"</span>, <span class="dt">ylab =</span> <span class="st">"Residuals"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgray"</span>)</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="co"># spoints(coord[,1], coord[,2], precipitation$y, add = TRUE)</span></a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="co"># New Residuals</span></a>
+<a class="sourceLine" id="cb42-3" title="3">lp.pred &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/predict">predict</a></span>(lp)</a>
+<a class="sourceLine" id="cb42-4" title="4">lp.resid &lt;-<span class="st"> </span>lp<span class="op">$</span>data<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>lp.pred</a>
+<a class="sourceLine" id="cb42-5" title="5">lp.r2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(lp.pred, lp<span class="op">$</span>data<span class="op">$</span>y)<span class="op">^</span><span class="dv">2</span> <span class="co"># assuming independence...</span></a>
+<a class="sourceLine" id="cb42-6" title="6">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb42-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/hist">hist</a></span>(lp.resid)</a>
+<a class="sourceLine" id="cb42-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(lp.pred, lp.resid, <span class="dt">main =</span> <span class="st">"Residuals vs Fitted"</span>, </a>
+<a class="sourceLine" id="cb42-9" title="9">     <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="st">"R^2 ="</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(lp0.r2, <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb42-10" title="10">     <span class="dt">xlab =</span> <span class="st">"Fitted values"</span>, <span class="dt">ylab =</span> <span class="st">"Residuals"</span>)</a>
+<a class="sourceLine" id="cb42-11" title="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">"darkgray"</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a></code></pre></div>
 </div>
 <div id="fitted-variogram-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fitted-variogram-model" class="anchor"></a>Fitted variogram model</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svar.bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/svar.bin.html">svariso</a></span>(coord, lp.resid,  <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag)  
-svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)<span class="op">$</span>h  <span class="co"># svar.np.h &lt;- 2.257358</span>
-svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)
-svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np, <span class="dt">dk =</span> <span class="dv">0</span>)
-svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag, 
-                            <span class="dt">h =</span> svar.np.h, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">svar.bin &lt;-<span class="st"> </span><span class="kw"><a href="../reference/svar.bin.html">svariso</a></span>(coord, lp.resid,  <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag)  </a>
+<a class="sourceLine" id="cb44-2" title="2">svar.np.h &lt;-<span class="st"> </span><span class="kw"><a href="../reference/h.cv.html">h.cv</a></span>(svar.bin)<span class="op">$</span>h  <span class="co"># svar.np.h &lt;- 2.257358</span></a>
+<a class="sourceLine" id="cb44-3" title="3">svar.np &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svar</a></span>(svar.bin, <span class="dt">h =</span> svar.np.h)</a>
+<a class="sourceLine" id="cb44-4" title="4">svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np, <span class="dt">dk =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb44-5" title="5">svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> nlags, <span class="dt">maxlag =</span> maxlag, </a>
+<a class="sourceLine" id="cb44-6" title="6">                            <span class="dt">h =</span> svar.np.h, <span class="dt">plot =</span> <span class="ot">TRUE</span>, <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</a></code></pre></div>
 <p><img src="npsp_files/figure-html/lp.svm2-1.png" width="672" style="display: block; margin: auto;"></p>
 <pre><code>## Iteration  2 :  1 
 ## Iteration  3 :  0.02763527</code></pre>
 <p>Final variogram:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np2, <span class="dt">dk =</span> <span class="dv">0</span>) <span class="co"># Shapiro-Botha model</span>
-
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(svar.np2, <span class="dt">dk =</span> <span class="dv">0</span>) <span class="co"># Shapiro-Botha model</span></a>
+<a class="sourceLine" id="cb46-2" title="2"></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    2.89    0.27    3.17</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, 
-     <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svar.np, <span class="dt">type =</span> <span class="st">"p"</span>, <span class="dt">pch =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(svm2<span class="op">$</span>nugget, svm2<span class="op">$</span>sill), <span class="dt">lty =</span> <span class="dv">3</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">3</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm0, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm02, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"bottomright"</span>, <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"corrected"</span>, <span class="st">'biased'</span>, <span class="st">"corrected initial"</span>,
-       <span class="st">'biased initial'</span>), <span class="dt">lty =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">pch =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="ot">NA</span>), 
-       <span class="dt">lwd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>))</code></pre></div>
+##    4.97    1.13    6.12</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram</span><span class="ch">\n</span><span class="st">and fitted models"</span>, </a>
+<a class="sourceLine" id="cb48-2" title="2">     <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb48-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb48-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svar.np, <span class="dt">type =</span> <span class="st">"p"</span>, <span class="dt">pch =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb48-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(svm2<span class="op">$</span>nugget, svm2<span class="op">$</span>sill), <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb48-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb48-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm0, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb48-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm02, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb48-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"bottomright"</span>, <span class="dt">legend =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"corrected"</span>, <span class="st">'biased'</span>, <span class="st">"corrected initial"</span>,</a>
+<a class="sourceLine" id="cb48-10" title="10">       <span class="st">'biased initial'</span>), <span class="dt">lty =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">pch =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="ot">NA</span>), </a>
+<a class="sourceLine" id="cb48-11" title="11">       <span class="dt">lwd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.00    0.02    0.02</code></pre>
+##    0.02    0.05    0.07</code></pre>
 </div>
 </div>
 <div id="final-trend-estimates" class="section level1">
 <h1 class="hasAnchor">
 <a href="#final-trend-estimates" class="anchor"></a>Final trend estimates</h1>
 <p>High resolution binning (120x120):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, precipitation<span class="op">$</span>y,
-               <span class="dt">nbin =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">120</span>,<span class="dv">120</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../reference/simage.html">simage</a></span>(bin.hd, <span class="dt">main =</span> <span class="st">'Binning averages'</span>,
-       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],
-       <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"("</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(bin.hd), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>),
-       <span class="dt">slim =</span> slim)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/binning.html">binning</a></span>(coord, precipitation<span class="op">$</span>y,</a>
+<a class="sourceLine" id="cb51-2" title="2">               <span class="dt">nbin =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">120</span>,<span class="dv">120</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb51-3" title="3"><span class="kw"><a href="../reference/simage.html">simage</a></span>(bin.hd, <span class="dt">main =</span> <span class="st">'Binning averages'</span>,</a>
+<a class="sourceLine" id="cb51-4" title="4">       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb51-5" title="5">       <span class="dt">sub =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="st">"("</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(bin.hd), <span class="dt">collapse =</span> <span class="st">"x"</span>), <span class="st">")"</span>),</a>
+<a class="sourceLine" id="cb51-6" title="6">       <span class="dt">slim =</span> slim)</a>
+<a class="sourceLine" id="cb51-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb51-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 <!-- Density estimation (used for mask in binning HD) -->
 <!-- ```{r h.den} -->
@@ -377,23 +377,23 @@ svar.np2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np
 <!-- plot(interior, border = "lightgray", lwd = 1, add = TRUE) -->
 <!-- ``` -->
 <p>Data mask (filtering):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">spp.grid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPoints</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(bin.hd))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(spp.grid) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(border) <span class="co"># CRS("+init=epsg:28992 +units=km")</span>
-mask.sp &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/over">over</a></span>(spp.grid, <span class="kw">as</span>(border, <span class="st">'SpatialPolygons'</span>)))
-mask &lt;-<span class="st"> </span>mask.sp <span class="op">|</span><span class="st"> </span>(bin.hd<span class="op">$</span>binw <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co"># to avoid filtering data...</span>
-bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(bin.hd, <span class="dt">mask =</span> mask)</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">spp.grid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/SpatialPoints">SpatialPoints</a></span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(bin.hd))</a>
+<a class="sourceLine" id="cb52-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(spp.grid) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/is.projected">proj4string</a></span>(border) <span class="co"># CRS("+init=epsg:28992 +units=km")</span></a>
+<a class="sourceLine" id="cb52-3" title="3">mask.sp &lt;-<span class="st"> </span><span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sp/topics/over">over</a></span>(spp.grid, <span class="kw">as</span>(border, <span class="st">'SpatialPolygons'</span>)))</a>
+<a class="sourceLine" id="cb52-4" title="4">mask &lt;-<span class="st"> </span>mask.sp <span class="op">|</span><span class="st"> </span>(bin.hd<span class="op">$</span>binw <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co"># to avoid filtering data...</span></a>
+<a class="sourceLine" id="cb52-5" title="5">bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(bin.hd, <span class="dt">mask =</span> mask)</a></code></pre></div>
 <p>Final trend (high resolution):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin.hd, <span class="dt">h =</span> lp.h)
-
-<span class="kw"><a href="../reference/simage.html">simage</a></span>(lp.hd, <span class="dt">main =</span> <span class="st">"Final trend estimates"</span>, <span class="dt">slim =</span> slim, 
-       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">lp.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(bin.hd, <span class="dt">h =</span> lp.h)</a>
+<a class="sourceLine" id="cb53-2" title="2"></a>
+<a class="sourceLine" id="cb53-3" title="3"><span class="kw"><a href="../reference/simage.html">simage</a></span>(lp.hd, <span class="dt">main =</span> <span class="st">"Final trend estimates"</span>, <span class="dt">slim =</span> slim, </a>
+<a class="sourceLine" id="cb53-4" title="4">       <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)</a>
+<a class="sourceLine" id="cb53-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb53-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    1.51    0.31    1.83</code></pre>
+##    2.42    0.98    3.45</code></pre>
 <!-- Grid mask (some data will be filtered...): -->
 <!-- ```{r lp.def} -->
 <!-- lp <- lp.hd -->
@@ -412,33 +412,33 @@ bin.hd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask
 <div id="kriging-system" class="section level2">
 <h2 class="hasAnchor">
 <a href="#kriging-system" class="anchor"></a>Kriging system</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.kriging.html">np.kriging</a></span>(lp.hd, svm2)
-<span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.kriging.html">np.kriging</a></span>(lp.hd, svm2)</a>
+<a class="sourceLine" id="cb56-2" title="2"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##   11.18    0.31   11.48</code></pre>
+##   20.75    1.73   22.72</code></pre>
 </div>
 <div id="kriging-maps" class="section level2">
 <h2 class="hasAnchor">
 <a href="#kriging-maps" class="anchor"></a>Kriging maps</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'kpred'</span>, <span class="dt">main =</span> <span class="st">'Kriging predictions'</span>, <span class="dt">slim =</span> slim,
-                  <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="kw"><a href="../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'kpred'</span>, <span class="dt">main =</span> <span class="st">'Kriging predictions'</span>, <span class="dt">slim =</span> slim,</a>
+<a class="sourceLine" id="cb58-2" title="2">                  <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb58-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb58-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/kriging.maps-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'ksd'</span>, <span class="dt">main =</span> <span class="st">'Kriging sd'</span>,
-                  <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="kw"><a href="../reference/simage.html">simage</a></span>(krig.grid, <span class="st">'ksd'</span>, <span class="dt">main =</span> <span class="st">'Kriging sd'</span>,</a>
+<a class="sourceLine" id="cb59-2" title="2">                  <span class="dt">xlab =</span> labels<span class="op">$</span>x[<span class="dv">1</span>], <span class="dt">ylab =</span> labels<span class="op">$</span>x[<span class="dv">2</span>], <span class="dt">col =</span> col2)</a>
+<a class="sourceLine" id="cb59-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(border, <span class="dt">border =</span> <span class="st">"darkgray"</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb59-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(interior, <span class="dt">border =</span> <span class="st">"lightgray"</span>, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="npsp_files/figure-html/kriging.maps-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.17    0.23    0.41 
+##    0.23    0.89    1.17 
 ## Total time:
 ##    user  system elapsed 
-##   22.80    2.15   25.00</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save.image(".RData")</span></code></pre></div>
+##   40.45    7.87   48.89</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="co"># save.image(".RData")</span></a></code></pre></div>
 </div>
 </div>
   </div>

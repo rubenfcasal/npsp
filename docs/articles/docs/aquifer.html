@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
       </span>
     </div>
 
@@ -91,9 +91,9 @@
     <div class="page-header toc-ignore">
       <h1>Geoestadistica no parametrica con el paquete <em>npsp</em>
 </h1>
-                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es">ruben.fcasal@udc.es</a>)</h4>
+                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.7.4</h4>
+            <h4 class="date">npsp 0.7.5</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/docs/aquifer.Rmd"><code>vignettes/docs/aquifer.Rmd</code></a></small>
       <div class="hidden name"><code>aquifer.Rmd</code></div>
@@ -102,9 +102,9 @@
 
     
     
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</a></code></pre></div>
 <pre><code> Package npsp: Nonparametric Spatial Statistics,
- version 0.7-4 (built on 2019-06-15).
+ version 0.7-5 (built on 2019-06-29).
  Copyright (C) R. Fernandez-Casal 2012-2018.
  Type `help(npsp)` for an overview of the package and
  `demo(package = "npsp")` for the list of available demos.</code></pre>
@@ -121,13 +121,13 @@
 <h2 class="hasAnchor">
 <a href="#ejemplo" class="anchor"></a>Ejemplo</h2>
 <p>Se utilizará como ejemplo el conjunto de datos <a href="https://rubenfcasal.github.io/npsp/reference/aquifer.html"><code>aquifer</code></a>: nivel del agua subterránea en el acuífero Wolfcamp.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(aquifer)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(aquifer)</a></code></pre></div>
 <pre><code>'data.frame':   85 obs. of  3 variables:
  $ lon : num  42.78 -27.4 -1.16 -18.62 96.47 ...
  $ lat : num  127.6 90.8 84.9 76.5 64.6 ...
  $ head: num  1464 2553 2158 2455 1756 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   Scatter plot with a color scale</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="../../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co">#   Scatter plot with a color scale</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="../../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="modelo-general" class="section level2">
@@ -137,7 +137,7 @@
 <ul>
 <li><p><span class="math inline">\(\mu(\cdot)\)</span> es la tendencia (función determinística).</p></li>
 <li><p><span class="math inline">\(\varepsilon(\cdot)\)</span> es un proceso de error estacionario de segundo orden, de media cero y covariograma: <span class="math display">\[C(\mathbf{u}) = Cov(\varepsilon(\mathbf{x}),
-   \varepsilon(\mathbf{x}+\mathbf{u} ))\]</span> (varianza <span class="math inline">\(\sigma^2 = C(\mathbf{0})\)</span>).</p></li>
+\varepsilon(\mathbf{x}+\mathbf{u} ))\]</span> (varianza <span class="math inline">\(\sigma^2 = C(\mathbf{0})\)</span>).</p></li>
 </ul>
 <p>La dependencia espacial se modela normalmente a través del variograma: <span class="math display">\[2\gamma(\mathbf{u}) = Var(\varepsilon \left( \mathbf{x}\right)
 -\varepsilon \left(\mathbf{x}+\mathbf{u}\right) ),\]</span> verificando <span class="math inline">\(\gamma(\mathbf{u}) = C(0) - C(\mathbf{u})\)</span>.</p>
@@ -152,10 +152,10 @@
 <h2 class="hasAnchor">
 <a href="#ejemplo-1" class="anchor"></a>Ejemplo</h2>
 <p>Con el conjunto de datos de ejemplo puede ser preferible emplear métodos paramétricos. El tamaño muestral es pequeño y un modelo lineal para la tendencia parece ser adecuado.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]      <span class="co"># coordenadas espaciales</span>
-y &lt;-<span class="st"> </span>aquifer<span class="op">$</span>head<span class="op">/</span><span class="dv">100</span>   <span class="co"># respuesta (en cientos de pies)</span>
-<span class="kw"><a href="../../reference/scattersplot.html">scattersplot</a></span>(x, y, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>, <span class="dt">xlab =</span> <span class="st">'lon'</span>, <span class="dt">ylab =</span><span class="st">'lat'</span>, 
-             <span class="dt">zlab =</span> <span class="st">'piezometric-head'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">128</span>))</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x &lt;-<span class="st"> </span>aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]      <span class="co"># coordenadas espaciales</span></a>
+<a class="sourceLine" id="cb6-2" title="2">y &lt;-<span class="st"> </span>aquifer<span class="op">$</span>head<span class="op">/</span><span class="dv">100</span>   <span class="co"># respuesta (en cientos de pies)</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw"><a href="../../reference/scattersplot.html">scattersplot</a></span>(x, y, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>, <span class="dt">xlab =</span> <span class="st">'lon'</span>, <span class="dt">ylab =</span><span class="st">'lat'</span>, </a>
+<a class="sourceLine" id="cb6-4" title="4">             <span class="dt">zlab =</span> <span class="st">'piezometric-head'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">128</span>))</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="inferencia-no-parametrica-en-procesos-geoestadisticos" class="section level2">
@@ -203,21 +203,21 @@ y &lt;-<span class="st"> </span>aquifer<span class="op">$</span>head<span class=
 <li><p>Variograma: <a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html"><code>svar.bin</code></a></p></li>
 </ul>
 <p>Normalmente se emplearan dos rejillas, una de baja resolución para acelerar los cálculos durante el proceso de modelado (selección de la ventana, cálculos intermedios, …) y otra con la resolución deseada para obtener los resultados finales.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">reset=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>CPU time has been initialized.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(x, y, <span class="dt">nbin =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">41</span>,<span class="dv">41</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>) 
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages'</span>)
-<span class="co"># Data points</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">col =</span> <span class="st">'darkgray'</span>)
-<span class="co"># Binning grid</span>
-coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/coordvalues.html">coordvalues</a></span>(bin)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> coordvs[[<span class="dv">1</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> coordvs[[<span class="dv">2</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(x, y, <span class="dt">nbin =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">41</span>,<span class="dv">41</span>), <span class="dt">set.NA =</span> <span class="ot">TRUE</span>) </a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="../../reference/simage.html">simage</a></span>(bin, <span class="dt">main =</span> <span class="st">'Binning averages'</span>)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co"># Data points</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(bin<span class="op">$</span>data<span class="op">$</span>x, <span class="dt">col =</span> <span class="st">'darkgray'</span>)</a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co"># Binning grid</span></a>
+<a class="sourceLine" id="cb9-6" title="6">coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/coordvalues.html">coordvalues</a></span>(bin)</a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v =</span> coordvs[[<span class="dv">1</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h =</span> coordvs[[<span class="dv">2</span>]], <span class="dt">lty =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/binning-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.00    0.03    0.05 </code></pre>
+   0.04    0.14    0.19 </code></pre>
 </div>
 <div id="interpolacion" class="section level2">
 <h2 class="hasAnchor">
@@ -239,13 +239,13 @@ coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/
 <a href="https://rubenfcasal.github.io/npsp/reference/np.den.html"><code>np.den</code></a>.</li>
 </ul>
 <p>Por defecto emplea el estimador lineal local (establecer <code>degree = 0</code> para Nadaraya-Watson).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">den &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.den.html">np.den</a></span>(bin, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="dv">60</span>, <span class="dv">2</span>), <span class="dt">degree =</span> <span class="dv">0</span>) 
-<span class="co"># alternatively, set h = h.cv(as.bin.den(bin))$h</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(den, <span class="dt">main =</span> <span class="st">'Estimated log(density)'</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">den &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.den.html">np.den</a></span>(bin, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="dv">60</span>, <span class="dv">2</span>), <span class="dt">degree =</span> <span class="dv">0</span>) </a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co"># alternatively, set h = h.cv(as.bin.den(bin))$h</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(den, <span class="dt">main =</span> <span class="st">'Estimated log(density)'</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/np.den-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Se puede emplear por ejemplo para establecer una máscara que filtre las posiciones alejadas de los datos.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mask.html">mask</a></span>(bin, <span class="dt">mask =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(den<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">14</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(bin)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">bin &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mask.html">mask</a></span>(bin, <span class="dt">mask =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(den<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="dv">-14</span>)</a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(bin)</a></code></pre></div>
 <pre><code>List of 5
  $ biny: num [1:41, 1:41] NA NA NA NA NA NA 35.1 35.1 NA NA ...
  $ binw: num [1:41, 1:41] 0 0 0 0 0 ...
@@ -266,10 +266,10 @@ coordvs &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/
   ..$ med: num 20
  $ mask: logi [1:41, 1:41] TRUE TRUE TRUE TRUE TRUE TRUE ...
  - attr(*, "class")= chr [1:3] "bin.data" "bin.den" "data.grid"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.24    0.09    0.32 </code></pre>
+   0.35    0.36    0.72 </code></pre>
 </div>
 <div id="estimacion-de-la-tendencia" class="section level1">
 <h1 class="hasAnchor">
@@ -317,14 +317,14 @@ K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),\]</span> donde:</p>
 <div id="ejemplo-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ejemplo-2" class="anchor"></a>Ejemplo</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="dv">100</span>, <span class="dv">2</span>), <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  
-<span class="co"># Perspective plot with a color scale</span>
-<span class="kw"><a href="../../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)   </code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">lp &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/locpol.html">locpol</a></span>(bin, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="dv">100</span>, <span class="dv">2</span>), <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  </a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co"># Perspective plot with a color scale</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="kw"><a href="../../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, <span class="dt">zlab =</span> <span class="st">'piezometric-head'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)   </a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.18    0.06    0.25 </code></pre>
+   0.25    0.23    0.48 </code></pre>
 </div>
 </div>
 <div id="estimacion-del-variograma" class="section level1">
@@ -351,14 +351,14 @@ K_{\mathbf{G}}(\mathbf{x}_{i}-\mathbf{x}_{j}-\mathbf{u})  &amp;
 <li><p><a href="https://rubenfcasal.github.io/npsp/reference/np.svar.html"><code>np.svar</code></a>: estimador polinómico local.</p></li>
 </ul>
 <p>Estas funciones son adecuadas para procesos estacionarios y se podrían emplear en el caso no estacionario para estimar el variograma residual (sesgado) calculando previamente los residuos.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/residuals">residuals</a></span>(lp)
-esvar0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso</a></span>(x, lp.resid, <span class="dt">nlags =</span> <span class="dv">50</span>, <span class="dt">h =</span> <span class="dv">50</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(esvar0, <span class="dt">main =</span> <span class="st">"Nonparametric (residual) pilot semivariogram"</span>)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">lp.resid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/residuals">residuals</a></span>(lp)</a>
+<a class="sourceLine" id="cb20-2" title="2">esvar0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso</a></span>(x, lp.resid, <span class="dt">nlags =</span> <span class="dv">50</span>, <span class="dt">h =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(esvar0, <span class="dt">main =</span> <span class="st">"Nonparametric (residual) pilot semivariogram"</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.10    0.07    0.16 </code></pre>
+   0.15    0.24    0.41 </code></pre>
 </div>
 <div id="estimacion-piloto-del-variograma-con-correccion-de-sesgo" class="section level2">
 <h2 class="hasAnchor">
@@ -372,7 +372,7 @@ Var\left(\varepsilon(\mathbf{x}_i) - \varepsilon(\mathbf{x}_j) \right)
 + b_{ii} + b_{jj} - 2 b_{ij}.\]</span> Este sesgo es normalmente negativo y mayor en saltos grandes (ver p.e. Cressie, 1993, sección 3.4.3). En Fernandez-Casal y Francisco-Fernandez (2013) se propone un método iterativo para su corrección. La función <code>np.svariso.corr</code> implementa un algoritmo similar (totalmente no paramétrico). Comenzando con el estimador lineal local residual anterior, en cada iteración <span class="math inline">\(k\)</span> se actualizan las diferencias <span class="math inline">\((\hat{\varepsilon}(\mathbf{x}_i)- \hat{\varepsilon}(\mathbf{x}_j))^2\)</span> reemplazándolas por: <span class="math display">\[(\hat{\varepsilon}(\mathbf{x}_i)- \hat{\varepsilon}(\mathbf{x}_j))^2 
 - \hat{b}_{ii}^{(k-1)} - \hat{b}_{jj}^{(k-1)} + 2 \hat{b}_{ij}^{(k-1)},\]</span> siendo <span class="math inline">\(\hat{\mathbf{B}}^{(k-1)}\)</span> la aproximación del sesgo obtenida en la iteración anterior.</p>
 <p>Ejemplo:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">esvar &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> <span class="dv">50</span>, <span class="dt">h =</span> <span class="dv">50</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">esvar &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">nlags =</span> <span class="dv">50</span>, <span class="dt">h =</span> <span class="dv">50</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/np.svariso.corr-1.png" width="672" style="display: block; margin: auto;"></p>
 <pre><code>Iteration  2 :  1 
 Iteration  3 :  0.1071746 
@@ -380,10 +380,10 @@ Iteration  4 :  0.07731208
 Iteration  5 :  0.06118289 
 Iteration  6 :  0.05087295 
 Iteration  7 :  0.04358588 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.09    0.04    0.14 </code></pre>
+   0.16    0.09    0.27 </code></pre>
 </div>
 <div id="ajuste-de-un-modelo-no-parametrico" class="section level2">
 <h2 class="hasAnchor">
@@ -401,15 +401,15 @@ c_{0} =  \nu_{0}-\sum\nolimits_{k=1}^{K}z_{k}\geq0.\]</span></p></li>
 <p>El ajuste por WLS a un conjunto de estimaciones piloto se puede realizar fácilmente mediante programación cuadrática (modificación de la función <code>solve.QP</code> del paquete <code>quadprog</code> para obtener la solución de problemas no estrictamente convexos).</p>
 <p>Estos modelos son muy flexibles por lo que es habitual considerar una dimensión <span class="math inline">\(d\)</span> mayor que la de los datos para obtener ajustes más suaves (empleando el parámetro <code>dk</code>). En el límite obtendríamos <span class="math inline">\(\kappa_{\infty}(x)\equiv e^{-x^{2}}\)</span>, que se correspondería con un modelo válido en cualquier dimensión (se selecciona estableciendo<code>dk = 0</code>).</p>
 <p>Ejemplo:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar, <span class="dt">dk =</span> <span class="dv">0</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm, <span class="dt">main =</span> <span class="st">"Nonparametric semivariogram and fitted model"</span>)
-svm0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar0, <span class="dt">dk =</span> <span class="dv">0</span>) 
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(svm0<span class="op">$</span>fit, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">svm &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar, <span class="dt">dk =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm, <span class="dt">main =</span> <span class="st">"Nonparametric semivariogram and fitted model"</span>)</a>
+<a class="sourceLine" id="cb27-3" title="3">svm0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar0, <span class="dt">dk =</span> <span class="dv">0</span>) </a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(svm0<span class="op">$</span>fit, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>))</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.08    0.03    0.11 </code></pre>
+   0.17    0.08    0.25 </code></pre>
 <p>Estos modelos son extensibles al caso anisotrópico (Fernandez-Casal <em>et al</em>., 2003), adecuado para procesos espacio-temporales.</p>
 </div>
 </div>
@@ -449,9 +449,9 @@ Y(\mathbf{x}_{i}) - \hat{\mu}_{-N(i)}{(\mathbf{x_i)}} \right)^{2} +
 \frac{2}{n}tr\left( \mathbf{S}_{-N} \hat{\boldsymbol{\Sigma}}\right).\]</span> <span class="math inline">\(CCV\)</span> sería un caso particular tomando <span class="math inline">\(N = N_1 = \left\lbrace \{\mathbf{x}_{1}\}, \ldots, \{\mathbf{x}_{n}\}\right\rbrace\)</span>.</p></li>
 <li><p>Ventana por bootstrap suavizado: El criterio <span class="math inline">\(MASE(\mathbf{H})\)</span> puede ser empleado cuando se conocen la media y varianzas teóricas (p.e. en simulación), pero si se sustituyen por estimaciones, obtendríamos la ventana óptima MASE de la correspondiente distribución bootstrap.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#   Example:</span>
-bin2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(x, y)     <span class="co"># sets nbin automatically</span>
-<span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>))                <span class="co"># MCV (ncv = 2)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="co">#   Example:</span></a>
+<a class="sourceLine" id="cb30-2" title="2">bin2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/binning.html">binning</a></span>(x, y)     <span class="co"># sets nbin automatically</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>))                <span class="co"># MCV (ncv = 2)</span></a></code></pre></div>
 <pre><code>$h
          [,1]   [,2]
 [1,] 150.2659  0.000
@@ -462,9 +462,9 @@ $value
 
 $objective
 [1] "CV"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># cov.bin &lt;-  varcov(svm2, coords = coords(bin2))</span>
-lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">cov.bin =</span> svm, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>)) <span class="co"># CMCV (ncv = 2)</span>
-lp.h</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="co"># cov.bin &lt;-  varcov(svm2, coords = coords(bin2))</span></a>
+<a class="sourceLine" id="cb32-2" title="2">lp.h &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/h.cv.html">h.cv</a></span>(bin2, <span class="dt">cov.bin =</span> svm, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>)) <span class="co"># CMCV (ncv = 2)</span></a>
+<a class="sourceLine" id="cb32-3" title="3">lp.h</a></code></pre></div>
 <pre><code>$h
          [,1]    [,2]
 [1,] 403.1891   0.000
@@ -475,10 +475,10 @@ $value
 
 $objective
 [1] "CV"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.98    0.05    1.03 </code></pre>
+   1.35    0.31    1.68 </code></pre>
 <p>Hay que tener cuidado con los algoritmos de optimización automáticos. Por defecto se emplea el método “L-BFGS-B” de la función <code>optim</code>. Como se trata de una minimización no lineal multidimensional puede haber problemas de mínimos locales. Para intentar evitar este problema se puede establecer unos valores iniciales para los parámetros de la ventana mediante el argumento <code>h.start</code>. Alternativamente se puede establecer el parámetro <code>DEalgorithm = TRUE</code> para utilizar el algoritmo genético de optimización del paquete <code>DEoptim</code> (aunque puede aumentar considerablemente el tiempo de computación).</p>
 <p>Empleando la ventana seleccionada se podría reestimar de nuevo la tendencia, aunque también habría que volver a estimar el variograma (si se modifica la variabilidad de gran escala, habría que actualizar la variabilidad de pequeña escala). Este procedimento se podría repetir iterativamente. Se tratará más adelante en la sección “<a href="Estimaci%C3%B3n%20conjunta%20(autom%C3%A1tica)">Estimación conjunta (automática)</a>”.</p>
 </div>
@@ -509,15 +509,15 @@ _{j}\right\Vert \right) }-1\right) ^{2}.\]</span> Adicionalmente, si hay datos a
 <li><p>Repetir los pasos 2 al 4 hasta obtener convergencia.</p></li>
 </ol>
 <p>Este algoritmo está implementado en la función <a href="https://rubenfcasal.github.io/npsp/reference/np.fitgeo.html">np.fitgeo</a> y normalmente dos iteraciones (el valor por defecto) son suficientes. Por ejemplo, se podría hacer un modelado automático ejecutando:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span>(x, y, <span class="dt">svm.resid =</span> <span class="ot">TRUE</span>, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>))
-<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">geom &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span>(x, y, <span class="dt">svm.resid =</span> <span class="ot">TRUE</span>, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>))</a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.88    0.06    0.95 </code></pre>
+   1.35    0.30    1.67 </code></pre>
 <p>El parámetro <code>iter</code> controla el número máximo de iteraciones del algoritmo completo. Estableciendo <code>iter = 0</code> se emplea el variograma residual:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">geom0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span>(x, y, <span class="dt">iter =</span> <span class="dv">0</span>, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>))</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">geom0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span>(x, y, <span class="dt">iter =</span> <span class="dv">0</span>, <span class="dt">h.start =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">100</span>, <span class="dv">100</span>))</a></code></pre></div>
 <p>La rutina devuelve el modelo no paramétrico ajustado, un objeto <a href="https://rubenfcasal.github.io/npsp/reference/np.geo.html">np.geo</a> que contiene las estimaciones de la tendencia y del variograma. Al representarlo gráficamente:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(geom)</code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(geom)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/plot.np.fitgeo-1.png" width="864" style="display: block; margin: auto;"> Además de las estimaciones finales de la tendencia y del variograma, se muestra también el variograma ajustado obtenido en la iteración anterior (y si <code>svm.resid = TRUE</code> el variograma residual). Si no hay grandes diferencias no habría necesidad de seguir iterando, ya que el criterio de selección de la ventana proporcionaría un suavizado similar.</p>
 </div>
 <div id="prediccion-kriging" class="section level1">
@@ -525,50 +525,50 @@ _{j}\right\Vert \right) }-1\right) ^{2}.\]</span> Adicionalmente, si hay datos a
 <a href="#prediccion-kriging" class="anchor"></a>Predicción kriging</h1>
 <p>La función genérica <code>np.kriging</code> permite obtener predicciones mediante kriging residual (combinando la estimación de la tendencia con el kriging simple de los residuos). Actualmente solo está implementado kriging simple y kriging residual con vecindario global. Para la resolución del sistema de ecuaciones kriging, a partir de la factorización de Choleski de la matriz de covarianzas, se emplea el paquete <code>spam</code> para matrices dispersas.</p>
 <p>Como ejemplo, compararemos las predicciones kriging obtenidas con el ajuste automático con las correspondientes a la estimación con el variograma residual.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.kriging.html">np.kriging</a></span>(geom0, <span class="dt">ngrid =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">96</span>, <span class="dv">96</span>)) <span class="co"># 9216 predicciones</span>
-krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.kriging.html">np.kriging</a></span>(geom, <span class="dt">ngrid =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">96</span>, <span class="dv">96</span>))
-<span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">krig.grid0 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.kriging.html">np.kriging</a></span>(geom0, <span class="dt">ngrid =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">96</span>, <span class="dv">96</span>)) <span class="co"># 9216 predicciones</span></a>
+<a class="sourceLine" id="cb40-2" title="2">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/np.kriging.html">np.kriging</a></span>(geom, <span class="dt">ngrid =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">96</span>, <span class="dv">96</span>))</a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   2.89    0.05    2.96 </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
-scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid0<span class="op">$</span>trend, krig.grid<span class="op">$</span>trend, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'trend'</span>, <span class="dt">slim =</span> scale.range, 
-        <span class="dt">main =</span> <span class="st">'Trend estimates (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'trend'</span>, <span class="dt">slim =</span> scale.range, 
-        <span class="dt">main =</span> <span class="st">'Trend estimates (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)
-<span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+   4.44    0.15    4.61 </code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))</a>
+<a class="sourceLine" id="cb42-2" title="2">scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid0<span class="op">$</span>trend, krig.grid<span class="op">$</span>trend, <span class="dt">finite =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb42-3" title="3"><span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'trend'</span>, <span class="dt">slim =</span> scale.range, </a>
+<a class="sourceLine" id="cb42-4" title="4">        <span class="dt">main =</span> <span class="st">'Trend estimates (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb42-5" title="5"><span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'trend'</span>, <span class="dt">slim =</span> scale.range, </a>
+<a class="sourceLine" id="cb42-6" title="6">        <span class="dt">main =</span> <span class="st">'Trend estimates (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb42-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a>
+<a class="sourceLine" id="cb42-8" title="8"><span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-9-1.png" width="864" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
-scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid0<span class="op">$</span>kpred, krig.grid<span class="op">$</span>kpred, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'kpred'</span>, <span class="dt">slim =</span> scale.range, 
-       <span class="dt">main =</span> <span class="st">'Kriging predictions (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'kpred'</span>, <span class="dt">slim =</span> scale.range, 
-       <span class="dt">main =</span> <span class="st">'Kriging predictions (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)
-<span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))</a>
+<a class="sourceLine" id="cb43-2" title="2">scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid0<span class="op">$</span>kpred, krig.grid<span class="op">$</span>kpred, <span class="dt">finite =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'kpred'</span>, <span class="dt">slim =</span> scale.range, </a>
+<a class="sourceLine" id="cb43-4" title="4">       <span class="dt">main =</span> <span class="st">'Kriging predictions (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'kpred'</span>, <span class="dt">slim =</span> scale.range, </a>
+<a class="sourceLine" id="cb43-6" title="6">       <span class="dt">main =</span> <span class="st">'Kriging predictions (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb43-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a>
+<a class="sourceLine" id="cb43-8" title="8"><span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">jet.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-9-2.png" width="864" style="display: block; margin: auto;"></p>
 <p>Hay que tener en cuenta que se trata de un método robusto y no depende demasiado del modelo de tendencia (la variabilidad no explicada por la tendencia es capturada por la variabilidad de pequeña escala). En este caso es de especial importancia la estimación del variograma cerca del origen.</p>
 <p>Sin embargo, si se comparan las varianzas kriging (o se emplean otros métodos de inferencia, como por ejemplo bootstrap) puede haber grandes diferencias entre los resultados obtenidos con distintos modelos.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
-scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid0<span class="op">$</span>ksd, krig.grid<span class="op">$</span>ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'ksd'</span>, <span class="dt">slim =</span> scale.range, 
-        <span class="dt">main =</span> <span class="st">'Kriging sd (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
-<span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">slim =</span> scale.range, 
-        <span class="dt">main =</span> <span class="st">'Kriging sd (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)
-<span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))</a>
+<a class="sourceLine" id="cb44-2" title="2">scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid0<span class="op">$</span>ksd, krig.grid<span class="op">$</span>ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb44-3" title="3"><span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid0, <span class="st">'ksd'</span>, <span class="dt">slim =</span> scale.range, </a>
+<a class="sourceLine" id="cb44-4" title="4">        <span class="dt">main =</span> <span class="st">'Kriging sd (residuals)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb44-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))</a>
+<a class="sourceLine" id="cb44-6" title="6"><span class="kw"><a href="../../reference/simage.html">simage</a></span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">slim =</span> scale.range, </a>
+<a class="sourceLine" id="cb44-7" title="7">        <span class="dt">main =</span> <span class="st">'Kriging sd (iteration 2)'</span>, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">legend =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb44-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))</a>
+<a class="sourceLine" id="cb44-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a>
+<a class="sourceLine" id="cb44-10" title="10"><span class="kw"><a href="../../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> <span class="kw"><a href="../../reference/splot.html">hot.colors</a></span>(<span class="dv">256</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="aquifer_files/figure-html/unnamed-chunk-10-1.png" width="864" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw"><a href="../../reference/cpu.time.html">cpu.time</a></span>()</a></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.30    0.67    0.98 
+   0.72    1.47    2.24 
 Total time:
    user  system elapsed 
-   5.74    1.15    6.95 </code></pre>
+   8.98    3.37   12.52 </code></pre>
 <div id="futuras-implementaciones" class="section level2">
 <h2 class="hasAnchor">
 <a href="#futuras-implementaciones" class="anchor"></a>Futuras implementaciones</h2>

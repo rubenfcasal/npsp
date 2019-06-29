@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
       </span>
     </div>
 
@@ -124,13 +124,23 @@
       <small>Source: <a href='https://github.com/rubenfcasal/npsp/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="npsp-0-7" class="section level1">
+    <div id="npsp-07" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-7" class="anchor"></a>npsp 0.7<small> Unreleased </small>
+<a href="#npsp-07" class="anchor"></a>npsp 0.7<small> Unreleased </small>
 </h1>
-<div id="version-0-7-4-2019-06-15" class="section level2">
+<div id="version-07-5-2019-06-29" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-7-4-2019-06-15" class="anchor"></a>Version 0.7-4 (2019-06-15)</h2>
+<a href="#version-07-5-2019-06-29" class="anchor"></a>Version 0.7-5 (2019-06-29)</h2>
+<ul>
+<li><p>Updated <code><a href="../reference/np.fitgeo.html">np.fitgeo()</a></code> S3 methods.</p></li>
+<li><p>Changes in ‘Makevars’ to remove module files created by the Fortran compilation.</p></li>
+<li><p>Fixed bug in <code><a href="../reference/h.cv.html">h.cv.bin.data()</a></code> (<code><a href="https://www.rdocumentation.org/packages/base/topics/match.arg">match.arg(objective)</a></code>).</p></li>
+<li><p>‘README.md’ is now generated from ‘README.Rmd’.</p></li>
+</ul>
+</div>
+<div id="version-07-4-2019-06-15" class="section level2">
+<h2 class="hasAnchor">
+<a href="#version-07-4-2019-06-15" class="anchor"></a>Version 0.7-4 (2019-06-15)</h2>
 <ul>
 <li><p><code>kriging.np()</code> methods renamed as <code><a href="../reference/np.kriging.html">np.kriging()</a></code> (for consistency).</p></li>
 <li><p>Minor changes in FORTRAN code (related to <code>error(i, label)</code> function, to avoid LTO warnings from gcc9, which does not detect Fortran optional arguments).</p></li>
@@ -138,9 +148,9 @@
 <li><p>Changes in ‘npsp.Rmd’ vignette.</p></li>
 </ul>
 </div>
-<div id="version-0-7-3-2018-11-10" class="section level2">
+<div id="version-07-3-2018-11-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-7-3-2018-11-10" class="anchor"></a>Version 0.7-3 (2018-11-10)</h2>
+<a href="#version-07-3-2018-11-10" class="anchor"></a>Version 0.7-3 (2018-11-10)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/data.grid.html">as.data.grid()</a></code> S3 generic and <code><a href="../reference/data.grid.html">as.data.grid.SpatialGridDataFrame()</a></code> method.</p></li>
 <li><p>Added <code><a href="../reference/binning.html">as.bin.data.SpatialGridDataFrame()</a></code> S3 method.</p></li>
@@ -148,9 +158,9 @@
 <li><p>Added parameter <code>asp = NA</code> in <code><a href="../reference/spoints.html">spoints()</a></code> and <code><a href="../reference/simage.html">simage()</a></code> methods.</p></li>
 </ul>
 </div>
-<div id="version-0-7-2-2018-02-15" class="section level2">
+<div id="version-07-2-2018-02-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-7-2-2018-02-15" class="anchor"></a>Version 0.7-2 (2018-02-15)</h2>
+<a href="#version-07-2-2018-02-15" class="anchor"></a>Version 0.7-2 (2018-02-15)</h2>
 <ul>
 <li><p>Changed the default value of <code>discretize = nrow(coords) &gt; 256</code> in <code><a href="../reference/varcov.html">varcov.isotropic()</a></code>.</p></li>
 <li><p>Added parameter <code>optional</code> in <code><a href="../reference/data.grid.html">as.data.frame.data.grid()</a></code> (for S3 compatibility).</p></li>
@@ -165,9 +175,9 @@
 <li><p>Updated roxygen2 documentation in “data.grid.R”, “np.svar.R” and “svar.grid”.</p></li>
 </ul>
 </div>
-<div id="version-0-7-1-2018-02-15" class="section level2">
+<div id="version-07-1-2018-02-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-7-1-2018-02-15" class="anchor"></a>Version 0.7-1 (2018-02-15)</h2>
+<a href="#version-07-1-2018-02-15" class="anchor"></a>Version 0.7-1 (2018-02-15)</h2>
 <ul>
 <li>
 <p>Changes in <code>kriging.np</code>:</p>
@@ -184,9 +194,9 @@
 <li><p>“npsp-plot.R” renamed as “svar.plot.R”.</p></li>
 </ul>
 </div>
-<div id="version-0-7-0-2018-02-10" class="section level2">
+<div id="version-07-0-2018-02-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-7-0-2018-02-10" class="anchor"></a>Version 0.7-0 (2018-02-10)</h2>
+<a href="#version-07-0-2018-02-10" class="anchor"></a>Version 0.7-0 (2018-02-10)</h2>
 <ul>
 <li>
 <p>Added <code>np.geo</code> S3 class (nonparametric geostatistical model),<br>
@@ -201,22 +211,22 @@ constructor function and methods.</p>
 </ul>
 </div>
 </div>
-    <div id="npsp-0-6" class="section level1">
+    <div id="npsp-06" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-6" class="anchor"></a>npsp 0.6<small> Unreleased </small>
+<a href="#npsp-06" class="anchor"></a>npsp 0.6<small> Unreleased </small>
 </h1>
-<div id="version-0-6-2-2017-09-24" class="section level2">
+<div id="version-06-2-2017-09-24" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-6-2-2017-09-24" class="anchor"></a>Version 0.6-2 (2017-09-24)</h2>
+<a href="#version-06-2-2017-09-24" class="anchor"></a>Version 0.6-2 (2017-09-24)</h2>
 <ul>
 <li><p>Added a website for the package (with pkgdown).</p></li>
 <li><p>Added ‘NEWS.md’ and ‘index.Rmd’.</p></li>
 <li><p>Added some vignettes (pkgdown articles): “npsp.Rmd”, “precipitation.Rmd”, “krigstat.Rmd”, “docs/aquifer.Rmd”, “docs/Introduccion.Rmd”.</p></li>
 </ul>
 </div>
-<div id="version-0-6-1-2017-06-16" class="section level2">
+<div id="version-06-1-2017-06-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-6-1-2017-06-16" class="anchor"></a>Version 0.6-1 (2017-06-16)</h2>
+<a href="#version-06-1-2017-06-16" class="anchor"></a>Version 0.6-1 (2017-06-16)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/scattersplot.html">scattersplot()</a></code> S3 generic function (and methods).</p></li>
 <li>
@@ -231,9 +241,9 @@ constructor function and methods.</p>
 <li><p>Added <code><a href="../reference/data.grid.html">as.data.frame.data.grid()</a></code> S3 method.</p></li>
 </ul>
 </div>
-<div id="version-0-6-0-2017-05-29" class="section level2">
+<div id="version-06-0-2017-05-29" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-6-0-2017-05-29" class="anchor"></a>Version 0.6-0 (2017-05-29)</h2>
+<a href="#version-06-0-2017-05-29" class="anchor"></a>Version 0.6-0 (2017-05-29)</h2>
 <ul>
 <li>
 <p>Added <code>kriging.np()</code> and <code><a href="../reference/np.kriging.html">kriging.simple()</a></code> functions.</p>
@@ -255,13 +265,13 @@ constructor function and methods.</p>
 </ul>
 </div>
 </div>
-    <div id="npsp-0-5" class="section level1">
+    <div id="npsp-05" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-5" class="anchor"></a>npsp 0.5<small> Unreleased </small>
+<a href="#npsp-05" class="anchor"></a>npsp 0.5<small> Unreleased </small>
 </h1>
-<div id="version-0-5-5-2017-05-21" class="section level2">
+<div id="version-05-5-2017-05-21" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-5-5-2017-05-21" class="anchor"></a>Version 0.5-5 (2017-05-21)</h2>
+<a href="#version-05-5-2017-05-21" class="anchor"></a>Version 0.5-5 (2017-05-21)</h2>
 <ul>
 <li>
 <p>Added <code><a href="../reference/svar.grid.html">svar.grid()</a></code> S3 class (discretized semivariogram),<br>
@@ -282,9 +292,9 @@ generic function (constructor) and methods.</p>
 <li><p>Added <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> S3 method for <code>svarmod</code> class.</p></li>
 </ul>
 </div>
-<div id="version-0-5-4-2017-05-19" class="section level2">
+<div id="version-05-4-2017-05-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-5-4-2017-05-19" class="anchor"></a>Version 0.5-4 (2017-05-19)</h2>
+<a href="#version-05-4-2017-05-19" class="anchor"></a>Version 0.5-4 (2017-05-19)</h2>
 <ul>
 <li><p>Minor changes in <code><a href="../reference/covar.html">covar.svarmod()</a></code> (argument <code>...</code> is passed to <code><a href="../reference/sv.html">sv()</a></code>).</p></li>
 <li><p><code>fitsvar.sb.iso</code> returns additional components (<code>$fit$w</code> and <code>$esv</code>).</p></li>
@@ -294,9 +304,9 @@ generic function (constructor) and methods.</p>
 <li><p>Fixed bug in FORTRAN function KTW(u) (in the normalizing constant; thanks to Tomas Cotos-Yañez).</p></li>
 </ul>
 </div>
-<div id="version-0-5-3-2016-09-28" class="section level2">
+<div id="version-05-3-2016-09-28" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-5-3-2016-09-28" class="anchor"></a>Version 0.5-3 (2016-09-28)</h2>
+<a href="#version-05-3-2016-09-28" class="anchor"></a>Version 0.5-3 (2016-09-28)</h2>
 <ul>
 <li><p>Added ‘README.md’</p></li>
 <li><p>Changes in FORTRAN code to avoid warnings compiling with -Wall -pedantic</p></li>
@@ -304,18 +314,18 @@ generic function (constructor) and methods.</p>
 <li><p>Fixed bug in <code>spoints.default</code> (when <code>add = TRUE</code>).</p></li>
 </ul>
 </div>
-<div id="version-0-5-2-2016-07-01" class="section level2">
+<div id="version-05-2-2016-07-01" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-5-2-2016-07-01" class="anchor"></a>Version 0.5-2 (2016-07-01)</h2>
+<a href="#version-05-2-2016-07-01" class="anchor"></a>Version 0.5-2 (2016-07-01)</h2>
 <ul>
 <li><p>Minor changes in <code><a href="../reference/binning.html">as.bin.data.data.grid()</a></code>.</p></li>
 <li><p>Added <code><a href="../reference/binning.html">as.bin.data.bin.data()</a></code>, <code><a href="../reference/bin.den.html">as.bin.den.bin.den()</a></code> and <code><a href="../reference/bin.den.html">as.bin.den.data.grid()</a></code> methods.</p></li>
 <li><p>Removed <code>as.bin.den.bin.data()</code> (<code>bin.den</code> method is now used).</p></li>
 </ul>
 </div>
-<div id="version-0-5-1-2016-02-12" class="section level2">
+<div id="version-05-1-2016-02-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-5-1-2016-02-12" class="anchor"></a>Version 0.5-1 (2016-02-12)</h2>
+<a href="#version-05-1-2016-02-12" class="anchor"></a>Version 0.5-1 (2016-02-12)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/h.cv.html">h.cv.svar.bin()</a></code> (and <code><a href="../reference/npsp-internals.html">.wloss()</a></code> internal function).</p></li>
 <li><p>Minor changes in <code><a href="../reference/h.cv.html">h.cv.bin.den()</a></code>.</p></li>
@@ -325,9 +335,9 @@ generic function (constructor) and methods.</p>
 <li><p>Changes to conform to the new CRAN policy (IMPORTS).</p></li>
 </ul>
 </div>
-<div id="version-0-5-0-2015-12-01" class="section level2">
+<div id="version-05-0-2015-12-01" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-5-0-2015-12-01" class="anchor"></a>Version 0.5-0 (2015-12-01)</h2>
+<a href="#version-05-0-2015-12-01" class="anchor"></a>Version 0.5-0 (2015-12-01)</h2>
 <ul>
 <li>
 <p>Major changes in <code><a href="../reference/h.cv.html">h.cv.bin.data()</a></code>.</p>
@@ -349,13 +359,13 @@ generic function (constructor) and methods.</p>
 </ul>
 </div>
 </div>
-    <div id="npsp-0-4" class="section level1">
+    <div id="npsp-04" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-4" class="anchor"></a>npsp 0.4<small> Unreleased </small>
+<a href="#npsp-04" class="anchor"></a>npsp 0.4<small> Unreleased </small>
 </h1>
-<div id="version-0-4-1-2015-07-08" class="section level2">
+<div id="version-04-1-2015-07-08" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-4-1-2015-07-08" class="anchor"></a>Version 0.4-1 (2015-07-08)</h2>
+<a href="#version-04-1-2015-07-08" class="anchor"></a>Version 0.4-1 (2015-07-08)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/npsp.tolerance.html">npsp.tolerance()</a></code>.</p></li>
 <li><p>Added <code><a href="../reference/mask.html">mask()</a></code> S3 generic function and methods (<code>mask.default</code>, <code>mask.bin.den</code>, <code>mask.bin.data</code> and <code>mask.locpol.bin</code>).</p></li>
@@ -364,9 +374,9 @@ generic function (constructor) and methods.</p>
 <li><p>Added <code><a href="../reference/interp.html">predict.np.den()</a></code>.</p></li>
 </ul>
 </div>
-<div id="version-0-4-0-2015-03-24" class="section level2">
+<div id="version-04-0-2015-03-24" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-4-0-2015-03-24" class="anchor"></a>Version 0.4-0 (2015-03-24)</h2>
+<a href="#version-04-0-2015-03-24" class="anchor"></a>Version 0.4-0 (2015-03-24)</h2>
 <ul>
 <li><p>Changes on <code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code> to solve non-strictly convex quadratic programs (and to avoid rounding errors in <code>solve.QP</code>, the constraints might not hold exactly…).</p></li>
 <li><p>Minor changes on <code><a href="../reference/disc.sb.html">disc.sb()</a></code> (computation of the discretization nodes when <code>dk = 0</code>).</p></li>
@@ -376,13 +386,13 @@ generic function (constructor) and methods.</p>
 </ul>
 </div>
 </div>
-    <div id="npsp-0-3" class="section level1">
+    <div id="npsp-03" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-3" class="anchor"></a>npsp 0.3<small> Unreleased </small>
+<a href="#npsp-03" class="anchor"></a>npsp 0.3<small> Unreleased </small>
 </h1>
-<div id="version-0-3-7-2014-11-28" class="section level2">
+<div id="version-03-7-2014-11-28" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-7-2014-11-28" class="anchor"></a>Version 0.3-7 (2014-11-28)</h2>
+<a href="#version-03-7-2014-11-28" class="anchor"></a>Version 0.3-7 (2014-11-28)</h2>
 <ul>
 <li><p>Minor changes on <code>h.cv.bin.data</code> and <code>hcv.data</code> (improved computations).</p></li>
 <li><p>Minor changes on <code>spoints.default</code> (<code>xlab</code> and <code>ylab</code> default values).</p></li>
@@ -390,18 +400,18 @@ generic function (constructor) and methods.</p>
 <li><p>Changes on <code>as.variogram.np.svar</code> (equivalent number of contributions).</p></li>
 </ul>
 </div>
-<div id="version-0-3-6-2014-10-16" class="section level2">
+<div id="version-03-6-2014-10-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-6-2014-10-16" class="anchor"></a>Version 0.3-6 (2014-10-16)</h2>
+<a href="#version-03-6-2014-10-16" class="anchor"></a>Version 0.3-6 (2014-10-16)</h2>
 <ul>
 <li><p>Changes on <code>h.cv.bin.data</code> and <code>hcv.data</code> (improved computations, <code>warn</code> parameter added, …).</p></li>
 <li><p>Changed the default value of <code>hat.bin</code> argument to TRUE in <code>locpol.svar.bin</code>, <code>np.svar</code>, <code>np.svariso</code> and <code>np.svariso.corr</code> (to allow for the computation of approximated estimation variances - fitsvar.sb.iso).</p></li>
 <li><p>Changes on <code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code> (<code>min.contrib</code>, <code>gstat</code> -&gt; <code>linear</code> method, …).</p></li>
 </ul>
 </div>
-<div id="version-0-3-5-2014-08-10" class="section level2">
+<div id="version-03-5-2014-08-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-5-2014-08-10" class="anchor"></a>Version 0.3-5 (2014-08-10)</h2>
+<a href="#version-03-5-2014-08-10" class="anchor"></a>Version 0.3-5 (2014-08-10)</h2>
 <ul>
 <li><p>Added <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> S3 methods for <code>svar.bin</code> and <code>np.svar</code> classes.</p></li>
 <li><p>Updated demos <code>aquifer</code> and <code>variogram</code>.</p></li>
@@ -410,9 +420,9 @@ generic function (constructor) and methods.</p>
 <li><p>Minor changes on FORTRAN routine <code>predict_locpol_bin</code> (in ‘lp_module.f90’) to allow for extrapolations (e.g. near the grid border).</p></li>
 </ul>
 </div>
-<div id="version-0-3-4-2014-05-05" class="section level2">
+<div id="version-03-4-2014-05-05" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-4-2014-05-05" class="anchor"></a>Version 0.3-4 (2014-05-05)</h2>
+<a href="#version-03-4-2014-05-05" class="anchor"></a>Version 0.3-4 (2014-05-05)</h2>
 <ul>
 <li><p>Minor changes on <code>fitsvar.sb.iso</code>, now returns an object of class <code>fitsvar</code> (and inherits <code>sb.iso</code>).</p></li>
 <li><p>Added <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> S3 methods for <code>np.den</code> and <code>fitsvar</code> classes.</p></li>
@@ -421,18 +431,18 @@ generic function (constructor) and methods.</p>
 <li><p>Updated demo <code>aquifer</code>.</p></li>
 </ul>
 </div>
-<div id="version-0-3-3-2014-04-04" class="section level2">
+<div id="version-03-3-2014-04-04" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-3-2014-04-04" class="anchor"></a>Version 0.3-3 (2014-04-04)</h2>
+<a href="#version-03-3-2014-04-04" class="anchor"></a>Version 0.3-3 (2014-04-04)</h2>
 <ul>
 <li><p>Added <code>as.bin.data</code> generic function.</p></li>
 <li><p>Minor changes on <code>spersp.default</code> and <code>simage.default</code> to allow for non matrix arguments (of appropriate length) <code>z</code> and <code>s</code> respectively.</p></li>
 <li><p>Minor changes on FORTRAN routine <code>lp</code> (in ‘lp_module.f90’) to avoid potential problems with memory allocation in case of error (“there is not enough data in neighborhoods”).</p></li>
 </ul>
 </div>
-<div id="version-0-3-2-2014-03-24" class="section level2">
+<div id="version-03-2-2014-03-24" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-2-2014-03-24" class="anchor"></a>Version 0.3-2 (2014-03-24)</h2>
+<a href="#version-03-2-2014-03-24" class="anchor"></a>Version 0.3-2 (2014-03-24)</h2>
 <ul>
 <li><p>Updated demo <code>aquifer</code> (illustrating the use of <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code>).</p></li>
 <li><p>Minor changes on <code>bin.data</code>, <code>locpol.bin</code>, <code>svar.bin</code> and <code>np.svar</code> to allow for a dim attribute in argument <code>y</code>.</p></li>
@@ -440,9 +450,9 @@ generic function (constructor) and methods.</p>
 <li><p>Fixed bug (when <code>degree = 0</code>) in fortran subroutine <code>lp</code> (<code>lp_module.f90</code>).</p></li>
 </ul>
 </div>
-<div id="version-0-3-1-2014-03-16" class="section level2">
+<div id="version-03-1-2014-03-16" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-1-2014-03-16" class="anchor"></a>Version 0.3-1 (2014-03-16)</h2>
+<a href="#version-03-1-2014-03-16" class="anchor"></a>Version 0.3-1 (2014-03-16)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/splot.html">splot()</a></code>, <code><a href="../reference/splot.html">scolor()</a></code> and <code><a href="../reference/splot.html">jet.colors()</a></code> (utilities for plotting with a color scale).</p></li>
 <li><p>Added <code><a href="../reference/spoints.html">spoints()</a></code>, <code><a href="../reference/spersp.html">spersp()</a></code> and <code><a href="../reference/simage.html">simage()</a></code> S3 generic functions (and methods).</p></li>
@@ -451,9 +461,9 @@ generic function (constructor) and methods.</p>
 <li><p>Updated documentation (<code>aquifer</code>, <code>earthquakes</code>, <code>locpol</code>, <code>binning</code>, <code>h.cv</code>, …).</p></li>
 </ul>
 </div>
-<div id="version-0-3-0-2014-03-03" class="section level2">
+<div id="version-03-0-2014-03-03" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-3-0-2014-03-03" class="anchor"></a>Version 0.3-0 (2014-03-03)</h2>
+<a href="#version-03-0-2014-03-03" class="anchor"></a>Version 0.3-0 (2014-03-03)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code> function (nonparametric bias-corrected variogram estimation under non-constant trend).</p></li>
 <li><p>Renamed <code>svarisonp()</code> and <code>svarisohcv()</code> to <code><a href="../reference/np.svar.html">np.svariso()</a></code> and <code><a href="../reference/np.svar.html">np.svariso.hcv()</a></code> respectively.</p></li>
@@ -463,13 +473,13 @@ generic function (constructor) and methods.</p>
 </ul>
 </div>
 </div>
-    <div id="npsp-0-2" class="section level1">
+    <div id="npsp-02" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-2" class="anchor"></a>npsp 0.2<small> Unreleased </small>
+<a href="#npsp-02" class="anchor"></a>npsp 0.2<small> Unreleased </small>
 </h1>
-<div id="version-0-2-5-2014-01-20" class="section level2">
+<div id="version-02-5-2014-01-20" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-2-5-2014-01-20" class="anchor"></a>Version 0.2-5 (2014-01-20)</h2>
+<a href="#version-02-5-2014-01-20" class="anchor"></a>Version 0.2-5 (2014-01-20)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/varcov.html">varcov()</a></code> S3 generic function (and methods).</p></li>
 <li><p>Changes on <code><a href="../reference/covar.html">covar()</a></code> (it is now an S3 generic function).</p></li>
@@ -477,9 +487,9 @@ generic function (constructor) and methods.</p>
 <li><p>Minor bug fixes in <code><a href="../reference/h.cv.html">h.cv()</a></code> and <code><a href="../reference/h.cv.html">hcv.data()</a></code> (to ensure binning/data hat matrix computation when needed).</p></li>
 </ul>
 </div>
-<div id="version-0-2-4-2013-11-01" class="section level2">
+<div id="version-02-4-2013-11-01" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-2-4-2013-11-01" class="anchor"></a>Version 0.2-4 (2013-11-01)</h2>
+<a href="#version-02-4-2013-11-01" class="anchor"></a>Version 0.2-4 (2013-11-01)</h2>
 <ul>
 <li><p>Added <code>aquifer</code> package demo.</p></li>
 <li><p><code>NAMESPACE</code> file is now automatically generated by <code>roxygen2</code>.</p></li>
@@ -488,9 +498,9 @@ generic function (constructor) and methods.</p>
 <li><p>Added explicit dependencies to src/Makevars to allow parallel make.</p></li>
 </ul>
 </div>
-<div id="version-0-2-3-2013-10-19" class="section level2">
+<div id="version-02-3-2013-10-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-2-3-2013-10-19" class="anchor"></a>Version 0.2-3 (2013-10-19)</h2>
+<a href="#version-02-3-2013-10-19" class="anchor"></a>Version 0.2-3 (2013-10-19)</h2>
 <ul>
 <li><p>Changed the default value of <code>hat.bin</code> argument to FALSE in <code>locpol</code> and <code>predict.locpol.bin</code>.</p></li>
 <li><p>Added a default value for <code>maxlag</code> argument in <code>svar.bin</code>, <code>svariso</code>, <code>np.svar</code>, <code>svarisonp</code> and <code>svarisohcv</code>.</p></li>
@@ -498,9 +508,9 @@ generic function (constructor) and methods.</p>
 <li><p>Updated documentation.</p></li>
 </ul>
 </div>
-<div id="version-0-2-2-2013-10-15" class="section level2">
+<div id="version-02-2-2013-10-15" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-2-2-2013-10-15" class="anchor"></a>Version 0.2-2 (2013-10-15)</h2>
+<a href="#version-02-2-2013-10-15" class="anchor"></a>Version 0.2-2 (2013-10-15)</h2>
 <ul>
 <li><p>Added <code>bin.den</code> S3 class and methods and <code>as.bin.den</code> generic function.</p></li>
 <li><p>Added <code>np.den</code> S3 class and generic function.</p></li>
@@ -510,9 +520,9 @@ generic function (constructor) and methods.</p>
 <li><p>Minor changes on <code><a href="../reference/binning.html">binning()</a></code> and <code><a href="../reference/interp.html">interp.data.grid()</a></code>.</p></li>
 </ul>
 </div>
-<div id="version-0-2-1-2013-09-12" class="section level2">
+<div id="version-02-1-2013-09-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-2-1-2013-09-12" class="anchor"></a>Version 0.2-1 (2013-09-12)</h2>
+<a href="#version-02-1-2013-09-12" class="anchor"></a>Version 0.2-1 (2013-09-12)</h2>
 <ul>
 <li><p>Completed the package documentation (using <code>roxygen2</code>).</p></li>
 <li><p>Changes on <code>svarmod</code>, added <code>svarmodels</code> (<code>svarmod.R</code>).</p></li>
@@ -520,9 +530,9 @@ generic function (constructor) and methods.</p>
 <li><p>Some minor changes to pass (for the first time) R CMD check without notes or warnings (<code>.onLoad</code> -&gt; <code>.onAttach</code>, …).</p></li>
 </ul>
 </div>
-<div id="version-0-2-0-2013-06-25" class="section level2">
+<div id="version-02-0-2013-06-25" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-2-0-2013-06-25" class="anchor"></a>Version 0.2-0 (2013-06-25)</h2>
+<a href="#version-02-0-2013-06-25" class="anchor"></a>Version 0.2-0 (2013-06-25)</h2>
 <ul>
 <li>
 <p>Major changes in R functions <code>locpol.default</code>, <code>locpol.bin.data</code> and <code>svarisonp</code>:</p>
@@ -544,13 +554,13 @@ generic function (constructor) and methods.</p>
 </ul>
 </div>
 </div>
-    <div id="npsp-0-1" class="section level1">
+    <div id="npsp-01" class="section level1">
 <h1 class="page-header">
-<a href="#npsp-0-1" class="anchor"></a>npsp 0.1<small> Unreleased </small>
+<a href="#npsp-01" class="anchor"></a>npsp 0.1<small> Unreleased </small>
 </h1>
-<div id="version-0-1-8-2013-04-01" class="section level2">
+<div id="version-01-8-2013-04-01" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-8-2013-04-01" class="anchor"></a>Version 0.1-8 (2013-04-01)</h2>
+<a href="#version-01-8-2013-04-01" class="anchor"></a>Version 0.1-8 (2013-04-01)</h2>
 <ul>
 <li><p>Added <code>svarmod</code> and <code>sb.iso</code> (extends <code>svarmod</code>) S3 classes and methods.</p></li>
 <li><p>Added <code>svar()</code> S3 generic and <code><a href="../reference/covar.html">covar()</a></code> functions.</p></li>
@@ -558,35 +568,35 @@ generic function (constructor) and methods.</p>
 <li><p>Added <code><a href="../reference/npsp-gstat.html">as.vgm()</a></code> S3 generic (interoperability with gstat).</p></li>
 </ul>
 </div>
-<div id="version-0-1-7-2013-02-19" class="section level2">
+<div id="version-01-7-2013-02-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-7-2013-02-19" class="anchor"></a>Version 0.1-7 (2013-02-19)</h2>
+<a href="#version-01-7-2013-02-19" class="anchor"></a>Version 0.1-7 (2013-02-19)</h2>
 <ul>
 <li><p>Added <code>h.cv.bin()</code> and <code><a href="../reference/h.cv.html">h.cv()</a></code> functions (EXPERIMENTAL).</p></li>
 <li><p>Changes on <code><a href="../reference/locpol.html">locpolhcv()</a></code> and <code>svarisohcv()</code>.</p></li>
 <li><p>Changes on <code><a href="../reference/interp.html">predict.locpol.bin()</a></code> (new fortran code).</p></li>
 </ul>
 </div>
-<div id="version-0-1-6-2012-10-24" class="section level2">
+<div id="version-01-6-2012-10-24" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-6-2012-10-24" class="anchor"></a>Version 0.1-6 (2012-10-24)</h2>
+<a href="#version-01-6-2012-10-24" class="anchor"></a>Version 0.1-6 (2012-10-24)</h2>
 <ul>
 <li><p>Added <code><a href="../reference/interp.html">predict.locpol.bin()</a></code> and S3 generic function <code><a href="../reference/interp.html">interp()</a></code> (<code><a href="../reference/interp.html">interp.grid.par()</a></code> and <code><a href="../reference/interp.html">interp.data.grid()</a></code> methods).</p></li>
 <li><p>Changes on R-Fortran interfaces (parameters for type(grid_bin) :: bin, <code>lp_raw</code> replaces <code>est_bin</code>, …).</p></li>
 </ul>
 </div>
-<div id="version-0-1-5-2012-09-19" class="section level2">
+<div id="version-01-5-2012-09-19" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-5-2012-09-19" class="anchor"></a>Version 0.1-5 (2012-09-19)</h2>
+<a href="#version-01-5-2012-09-19" class="anchor"></a>Version 0.1-5 (2012-09-19)</h2>
 <ul>
 <li><p>Added <code>hopt.cv()</code>, <code><a href="../reference/locpol.html">locpolhcv()</a></code> and <code>svarisohcv()</code> functions (EXPERIMENTAL).</p></li>
 <li><p>Changes on FORTRAN and R code to handle missing values (EXPERIMENTAL) (NAs on input &amp; output).</p></li>
 <li><p><code><a href="../reference/binning.html">binning()</a></code> is again a standard function (interface to the fortran routine <code>binning</code>).</p></li>
 </ul>
 </div>
-<div id="version-0-1-4-2012-09-01" class="section level2">
+<div id="version-01-4-2012-09-01" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-4-2012-09-01" class="anchor"></a>Version 0.1-4 (2012-09-01)</h2>
+<a href="#version-01-4-2012-09-01" class="anchor"></a>Version 0.1-4 (2012-09-01)</h2>
 <ul>
 <li><p>Added <code>svar.bin</code> (extends <code>bin.data</code>), and <code>np.svar</code> (extends <code>svar.bin</code>) S3 classes and methods.</p></li>
 <li><p>Changes on <code><a href="../reference/svar.bin.html">svariso()</a></code> (returns an object of class <code>svar.bin</code>, …).</p></li>
@@ -594,9 +604,9 @@ generic function (constructor) and methods.</p>
 <li><p>Added <code>variogram</code> package demo.</p></li>
 </ul>
 </div>
-<div id="version-0-1-3-2012-08-25" class="section level2">
+<div id="version-01-3-2012-08-25" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-3-2012-08-25" class="anchor"></a>Version 0.1-3 (2012-08-25)</h2>
+<a href="#version-01-3-2012-08-25" class="anchor"></a>Version 0.1-3 (2012-08-25)</h2>
 <ul>
 <li><p>Added <code>grid.par</code>, <code>data.grid</code>, <code>bin.data</code> and <code>locpol.bin</code> S3 classes and methods.</p></li>
 <li><p>Added <code><a href="../reference/coords.html">coords()</a></code> and <code><a href="../reference/coordvalues.html">coordvalues()</a></code> S3 generic functions.</p></li>
@@ -605,27 +615,27 @@ generic function (constructor) and methods.</p>
 <li><p>Added <code>datagrid</code>, <code>binning</code> and <code>locpol</code> package demos.</p></li>
 </ul>
 </div>
-<div id="version-0-1-2-2012-08-20" class="section level2">
+<div id="version-01-2-2012-08-20" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-2-2012-08-20" class="anchor"></a>Version 0.1-2 (2012-08-20)</h2>
+<a href="#version-01-2-2012-08-20" class="anchor"></a>Version 0.1-2 (2012-08-20)</h2>
 <ul>
 <li><p>Added <code>svarisonp()</code> (interface to the fortran routine <code>svar_iso_np</code>).</p></li>
 <li><p>Added <code><a href="../reference/svar.bin.html">svariso()</a></code> (interface to the fortran routine <code>svar_iso_bin</code>).</p></li>
 <li><p>Added <code>as.variogram.svariso()</code> (interoperability with geoR).</p></li>
 </ul>
 </div>
-<div id="version-0-1-1-2012-06-01" class="section level2">
+<div id="version-01-1-2012-06-01" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-1-2012-06-01" class="anchor"></a>Version 0.1-1 (2012-06-01)</h2>
+<a href="#version-01-1-2012-06-01" class="anchor"></a>Version 0.1-1 (2012-06-01)</h2>
 <ul>
 <li><p>Added a package demo.</p></li>
 <li><p>Added <code>npsp-geoR.R</code> (interoperability with geoR).</p></li>
 <li><p>Some minor changes (output <code>set_bin</code> and <code>locpolbin</code>, <code>onLoad</code>,…).</p></li>
 </ul>
 </div>
-<div id="version-0-1-0-2012-04-17" class="section level2">
+<div id="version-01-0-2012-04-17" class="section level2">
 <h2 class="hasAnchor">
-<a href="#version-0-1-0-2012-04-17" class="anchor"></a>Version 0.1-0 (2012-04-17)</h2>
+<a href="#version-01-0-2012-04-17" class="anchor"></a>Version 0.1-0 (2012-04-17)</h2>
 <p>Initial Version in package form.</p>
 </div>
 </div>
@@ -635,13 +645,13 @@ generic function (constructor) and methods.</p>
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#npsp-0-7">0.7</a></li>
-        <li><a href="#npsp-0-6">0.6</a></li>
-        <li><a href="#npsp-0-5">0.5</a></li>
-        <li><a href="#npsp-0-4">0.4</a></li>
-        <li><a href="#npsp-0-3">0.3</a></li>
-        <li><a href="#npsp-0-2">0.2</a></li>
-        <li><a href="#npsp-0-1">0.1</a></li>
+        <li><a href="#npsp-07">0.7</a></li>
+        <li><a href="#npsp-06">0.6</a></li>
+        <li><a href="#npsp-05">0.5</a></li>
+        <li><a href="#npsp-04">0.4</a></li>
+        <li><a href="#npsp-03">0.3</a></li>
+        <li><a href="#npsp-02">0.2</a></li>
+        <li><a href="#npsp-01">0.1</a></li>
       </ul>
     </div>
   </div>

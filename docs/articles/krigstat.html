@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
       </span>
     </div>
 
@@ -90,9 +90,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Kriging with gstat</h1>
-                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es">ruben.fcasal@udc.es</a>)</h4>
+                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.7.4</h4>
+            <h4 class="date">npsp 0.7.5</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/krigstat.Rmd"><code>vignettes/krigstat.Rmd</code></a></small>
       <div class="hidden name"><code>krigstat.Rmd</code></div>
@@ -109,15 +109,15 @@
 <div id="wolfcamp-aquifer-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wolfcamp-aquifer-data" class="anchor"></a>Wolfcamp aquifer data:</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(npsp)</a></code></pre></div>
 <pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.7-4 (built on 2019-06-15).
+##  version 0.7-5 (built on 2019-06-29).
 ##  Copyright (C) R. Fernandez-Casal 2012-2018.
 ##  Type `help(npsp)` for an overview of the package and
 ##  `demo(package = "npsp")` for the list of available demos.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ?aquifer; str(aquifer); summary(aquifer)</span>
-<span class="co"># Scatter plot with a color scale</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># ?aquifer; str(aquifer); summary(aquifer)</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co"># Scatter plot with a color scale</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="../reference/spoints.html">spoints</a></span>(lon, lat, head, <span class="dt">main =</span> <span class="st">"Wolfcamp aquifer data"</span>))</a></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="kriging" class="section level2">
@@ -126,92 +126,95 @@
 <div id="trend-estimation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#trend-estimation" class="anchor"></a>Trend estimation</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="dv">75</span>, <span class="dv">2</span>), 
-             <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  
-            <span class="co"># np.svariso.corr: 'lp' must have a '$locpol$hat' component</span>
-
-<span class="co"># Mask grid nodes far from data</span>
-mask &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(<span class="kw"><a href="../reference/np.den.html">np.den</a></span>(lp, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">55</span>,<span class="dv">55</span>)), <span class="dt">degree =</span> <span class="dv">0</span>)<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">15</span>
-lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(lp, <span class="dt">mask =</span> mask)
-
-<span class="kw"><a href="../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, 
-       <span class="dt">zlab =</span> <span class="st">'piezometric-head levels'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)   </code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/locpol.html">locpol</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], aquifer<span class="op">$</span>head, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="dv">75</span>, <span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb4-2" title="2">             <span class="dt">hat.bin =</span> <span class="ot">TRUE</span>)  </a>
+<a class="sourceLine" id="cb4-3" title="3">            <span class="co"># np.svariso.corr: 'lp' must have a '$locpol$hat' component</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co"># Mask grid nodes far from data</span></a>
+<a class="sourceLine" id="cb4-6" title="6">mask &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(<span class="kw"><a href="../reference/np.den.html">np.den</a></span>(lp, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/diag">diag</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">55</span>,<span class="dv">55</span>)), <span class="dt">degree =</span> <span class="dv">0</span>)<span class="op">$</span>est) <span class="op">&gt;</span><span class="st"> </span><span class="dv">-15</span></a>
+<a class="sourceLine" id="cb4-7" title="7">lp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mask.html">mask</a></span>(lp, <span class="dt">mask =</span> mask)</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="../reference/spersp.html">spersp</a></span>(lp, <span class="dt">main =</span> <span class="st">'Trend estimates'</span>, </a>
+<a class="sourceLine" id="cb4-10" title="10">       <span class="dt">zlab =</span> <span class="st">'piezometric-head levels'</span>, <span class="dt">theta =</span> <span class="dv">120</span>)   </a></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    1.10    0.18    1.56</code></pre>
+##    1.70    0.71    2.92</code></pre>
 </div>
 <div id="variogram-estimation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#variogram-estimation" class="anchor"></a>Variogram estimation</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lp.resid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/residuals">residuals</a></span>(lp)
-esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
-svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co"># dk = 2</span>
-esvar2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)
-svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar2, <span class="dt">dk =</span> <span class="dv">0</span>)  <span class="co"># dk = Inf</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, 
-     <span class="dt">lwd =</span> <span class="dv">2</span>) 
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(svm<span class="op">$</span>fit, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">lp.resid &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/residuals">residuals</a></span>(lp)</a>
+<a class="sourceLine" id="cb7-2" title="2">esvar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso</a></span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], lp.resid, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3">svm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar)  <span class="co"># dk = 2</span></a>
+<a class="sourceLine" id="cb7-4" title="4">esvar2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/np.svar.html">np.svariso.corr</a></span>(lp, <span class="dt">maxlag =</span> <span class="dv">150</span>, <span class="dt">nlags =</span> <span class="dv">60</span>, <span class="dt">h =</span> <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5">svm2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span>(esvar2, <span class="dt">dk =</span> <span class="dv">0</span>)  <span class="co"># dk = Inf</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(svm2, <span class="dt">main =</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, </a>
+<a class="sourceLine" id="cb7-7" title="7">     <span class="dt">lwd =</span> <span class="dv">2</span>) </a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(svm<span class="op">$</span>fit, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(u, fitted.sv, <span class="dt">lty =</span> <span class="dv">2</span>))</a></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>(<span class="dt">total =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.15    0.03    0.17</code></pre>
+##    0.22    0.13    0.34</code></pre>
 </div>
 </div>
 <div id="residual-kriging" class="section level2">
 <h2 class="hasAnchor">
 <a href="#residual-kriging" class="anchor"></a>Residual Kriging</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sp)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(gstat)
-spdf &lt;-<span class="st"> </span><span class="kw">SpatialPointsDataFrame</span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], 
-            <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">y =</span> aquifer<span class="op">$</span>head, <span class="dt">r =</span> lp.resid))
-newdata &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lp))
-krig &lt;-<span class="st"> </span><span class="kw">krige</span>(r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, 
-              <span class="dt">model =</span> <span class="kw"><a href="../reference/npsp-gstat.html">as.vgm</a></span>(svm))</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sp)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(gstat)</a></code></pre></div>
+<pre><code>## Registered S3 method overwritten by 'xts':
+##   method     from
+##   as.zoo.xts zoo</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">spdf &lt;-<span class="st"> </span><span class="kw">SpatialPointsDataFrame</span>(aquifer[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb12-2" title="2">            <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">y =</span> aquifer<span class="op">$</span>head, <span class="dt">r =</span> lp.resid))</a>
+<a class="sourceLine" id="cb12-3" title="3">newdata &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw"><a href="../reference/coords.html">coords</a></span>(lp))</a>
+<a class="sourceLine" id="cb12-4" title="4">krig &lt;-<span class="st"> </span><span class="kw">krige</span>(r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, </a>
+<a class="sourceLine" id="cb12-5" title="5">              <span class="dt">model =</span> <span class="kw"><a href="../reference/npsp-gstat.html">as.vgm</a></span>(svm))</a></code></pre></div>
 <pre><code>## [using ordinary kriging]</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp<span class="op">$</span>est <span class="op">+</span><span class="st"> </span>krig<span class="op">@</span>data<span class="op">$</span>var1.pred, 
-                       <span class="dt">ksd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(krig<span class="op">@</span>data<span class="op">$</span>var1.var), 
-        <span class="dt">grid =</span> lp<span class="op">$</span>grid)
-krig2 &lt;-<span class="st"> </span><span class="kw">krige</span>(r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, 
-               <span class="dt">model =</span> <span class="kw"><a href="../reference/npsp-gstat.html">as.vgm</a></span>(svm2))</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">krig.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp<span class="op">$</span>est <span class="op">+</span><span class="st"> </span>krig<span class="op">@</span>data<span class="op">$</span>var1.pred, </a>
+<a class="sourceLine" id="cb14-2" title="2">                       <span class="dt">ksd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(krig<span class="op">@</span>data<span class="op">$</span>var1.var), </a>
+<a class="sourceLine" id="cb14-3" title="3">        <span class="dt">grid =</span> lp<span class="op">$</span>grid)</a>
+<a class="sourceLine" id="cb14-4" title="4">krig2 &lt;-<span class="st"> </span><span class="kw">krige</span>(r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">locations =</span> spdf, <span class="dt">newdata =</span> newdata, </a>
+<a class="sourceLine" id="cb14-5" title="5">               <span class="dt">model =</span> <span class="kw"><a href="../reference/npsp-gstat.html">as.vgm</a></span>(svm2))</a></code></pre></div>
 <pre><code>## [using ordinary kriging]</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">krig2.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp<span class="op">$</span>est <span class="op">+</span><span class="st"> </span>krig2<span class="op">@</span>data<span class="op">$</span>var1.pred, 
-                        <span class="dt">ksd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(krig2<span class="op">@</span>data<span class="op">$</span>var1.var), 
-        <span class="dt">grid =</span> lp<span class="op">$</span>grid)
-
-scale.color &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">64</span>)
-scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1100</span>, <span class="dv">4100</span>)
-<span class="co"># 1x2 plot with some room for the legend...</span>
-old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>),
-               <span class="dt">plt=</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.08</span>, <span class="fl">0.94</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span>))
-<span class="kw"><a href="../reference/spersp.html">spersp</a></span>(krig.grid, <span class="dt">main =</span> <span class="st">'Kriging predictions'</span>, 
-       <span class="dt">col =</span> scale.color, <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">theta =</span> <span class="dv">120</span>)
-<span class="kw"><a href="../reference/spersp.html">spersp</a></span>(krig2.grid, <span class="dt">main =</span> <span class="st">'Kriging predictions </span><span class="ch">\n</span><span class="st"> (bias-corrected)'</span>, 
-       <span class="dt">col =</span> scale.color, <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">theta =</span> <span class="dv">120</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)
-<span class="kw"><a href="../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> scale.color, <span class="dt">legend.shrink =</span> <span class="fl">0.6</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">krig2.grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/data.grid.html">data.grid</a></span>(<span class="dt">kpred =</span> lp<span class="op">$</span>est <span class="op">+</span><span class="st"> </span>krig2<span class="op">@</span>data<span class="op">$</span>var1.pred, </a>
+<a class="sourceLine" id="cb16-2" title="2">                        <span class="dt">ksd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">sqrt</a></span>(krig2<span class="op">@</span>data<span class="op">$</span>var1.var), </a>
+<a class="sourceLine" id="cb16-3" title="3">        <span class="dt">grid =</span> lp<span class="op">$</span>grid)</a>
+<a class="sourceLine" id="cb16-4" title="4"></a>
+<a class="sourceLine" id="cb16-5" title="5">scale.color &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splot.html">jet.colors</a></span>(<span class="dv">64</span>)</a>
+<a class="sourceLine" id="cb16-6" title="6">scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1100</span>, <span class="dv">4100</span>)</a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="co"># 1x2 plot with some room for the legend...</span></a>
+<a class="sourceLine" id="cb16-8" title="8">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>),</a>
+<a class="sourceLine" id="cb16-9" title="9">               <span class="dt">plt=</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.08</span>, <span class="fl">0.94</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span>))</a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="kw"><a href="../reference/spersp.html">spersp</a></span>(krig.grid, <span class="dt">main =</span> <span class="st">'Kriging predictions'</span>, </a>
+<a class="sourceLine" id="cb16-11" title="11">       <span class="dt">col =</span> scale.color, <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">theta =</span> <span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb16-12" title="12"><span class="kw"><a href="../reference/spersp.html">spersp</a></span>(krig2.grid, <span class="dt">main =</span> <span class="st">'Kriging predictions </span><span class="ch">\n</span><span class="st"> (bias-corrected)'</span>, </a>
+<a class="sourceLine" id="cb16-13" title="13">       <span class="dt">col =</span> scale.color, <span class="dt">legend =</span> <span class="ot">FALSE</span>, <span class="dt">theta =</span> <span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb16-14" title="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a>
+<a class="sourceLine" id="cb16-15" title="15"><span class="kw"><a href="../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> scale.color, <span class="dt">legend.shrink =</span> <span class="fl">0.6</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))
-scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">125</span>, <span class="dv">200</span>)
-scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid<span class="op">$</span>ksd, krig2.grid<span class="op">$</span>ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/image">image</a></span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, 
-       <span class="dt">main =</span> <span class="st">'Kriging sd'</span>, <span class="dt">col =</span> scale.color)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/image">image</a></span>( krig2.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, 
-       <span class="dt">main =</span> <span class="st">'Kriging sd (bias-corrected)'</span>, <span class="dt">col =</span> scale.color)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)
-<span class="kw"><a href="../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> scale.color, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">old.par &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">omd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span>))</a>
+<a class="sourceLine" id="cb17-2" title="2">scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">125</span>, <span class="dv">200</span>)</a>
+<a class="sourceLine" id="cb17-3" title="3">scale.range &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(krig.grid<span class="op">$</span>ksd, krig2.grid<span class="op">$</span>ksd, <span class="dt">finite =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/image">image</a></span>( krig.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, </a>
+<a class="sourceLine" id="cb17-5" title="5">       <span class="dt">main =</span> <span class="st">'Kriging sd'</span>, <span class="dt">col =</span> scale.color)</a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))</a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/image">image</a></span>( krig2.grid, <span class="st">'ksd'</span>, <span class="dt">zlim =</span> scale.range, </a>
+<a class="sourceLine" id="cb17-8" title="8">       <span class="dt">main =</span> <span class="st">'Kriging sd (bias-corrected)'</span>, <span class="dt">col =</span> scale.color)</a>
+<a class="sourceLine" id="cb17-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(aquifer, <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/points">points</a></span>(lon, lat, <span class="dt">cex =</span> <span class="fl">0.75</span>))</a>
+<a class="sourceLine" id="cb17-10" title="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(old.par)</a>
+<a class="sourceLine" id="cb17-11" title="11"><span class="kw"><a href="../reference/splot.html">splot</a></span>(<span class="dt">slim =</span> scale.range, <span class="dt">col =</span> scale.color, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="../reference/cpu.time.html">cpu.time</a></span>()</a></code></pre></div>
 <pre><code>## Time of last operation: 
 ##    user  system elapsed 
-##    0.62    0.14    0.78 
+##    1.03    0.51    1.63 
 ## Total time:
 ##    user  system elapsed 
-##    1.87    0.35    2.51</code></pre>
+##    2.95    1.35    4.89</code></pre>
 <div id="notes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#notes" class="anchor"></a>Notes:</h3>
