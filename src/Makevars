@@ -12,7 +12,9 @@ PKG_LIBS = ${LAPACK_LIBS} $(BLAS_LIBS) ${FLIBS}
 #FCOPTFLAGS=-O0
 #DEBUG=T
 
-all: $(SHLIB)
+all:
+	@$(MAKE) $(SHLIB)
+	@rm -f *.mod *.o
 
 besselzeros.o: tql2.o err_module.o
 
@@ -25,4 +27,4 @@ lp_module.o: grid_module.o linreg_module.o dsytrfi.o
 svar_module.o: lp_module.o
 
 clean:
-	rm -f $(PROG) $(OBJS) *.mod
+	@rm -f $(PROG) $(OBJS) *.mod
