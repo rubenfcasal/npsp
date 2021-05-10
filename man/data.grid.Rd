@@ -3,43 +3,31 @@
 \name{data.grid}
 \alias{data.grid}
 \alias{data.grid-class}
-\alias{as.data.grid}
-\alias{as.data.grid.SpatialGridDataFrame}
-\alias{as.data.frame.data.grid}
 \title{Gridded data (S3 class "data.grid")}
 \usage{
-data.grid(..., grid = NULL)
-
-as.data.grid(object, ...)
-
-\method{as.data.grid}{SpatialGridDataFrame}(object, data.ind = NULL, ...)
-
-\method{as.data.frame}{data.grid}(x, row.names = NULL,
-  optional = FALSE, data.ind = NULL, coords = FALSE, sp = FALSE,
-  check.names = coords, ...)
+data.grid(
+  ...,
+  grid = NULL,
+  window = NULL,
+  mask = NULL,
+  set.NA = FALSE,
+  warn = FALSE
+)
 }
 \arguments{
 \item{...}{vectors or arrays of data with length equal to \code{prod(grid$n)}.}
 
 \item{grid}{a \code{\link{grid.par}}-\code{\link{class}} object (optional).}
 
-\item{object}{(gridded data) used to select a method.}
+\item{window}{spatial window (values outside this window will be masked), currently an sp-object of class 
+extending \code{\link[sp:SpatialPolygons-class]{SpatialPolygons}}.}
 
-\item{data.ind}{integer or character vector with the indexes or names of the components.}
+\item{mask}{logical; vector (or array) indicating the selected values (not masked).}
 
-\item{x}{a \code{data.grid} object.}
+\item{set.NA}{logical; If \code{TRUE}, the values corresponding
+to masked cells are set to \code{NA}.}
 
-\item{row.names}{\code{NULL}, column to be used as row names, or vector giving the row names for the data frame.}
-
-\item{optional}{logical; Not currently used (see \code{\link{as.data.frame}}).}
-
-\item{coords}{logical; if \code{TRUE}, the (spatial) coordinates of the object are added.}
-
-\item{sp}{logical; if \code{TRUE}, the second dimension of the data is reversed 
-(as it is stored in \pkg{sp} package).}
-
-\item{check.names}{logical; if \code{TRUE}, the names of the variables in the data 
-frame are checked and adjusted if necessary.}
+\item{warn}{logical; If \code{TRUE} a warning message is generated when original data is masked.}
 }
 \value{
 Returns an object of \code{\link{class}} \code{data.grid}, a list with 
@@ -56,5 +44,6 @@ S3 "version" of the \code{\link[sp]{SpatialGridDataFrame}}-\code{\link{class}}
 of the \pkg{sp} package.
 }
 \seealso{
-\code{\link{grid.par}}, \code{\link{binning}}, \code{\link{locpol}}.
+\code{\link{as.data.grid}}, \code{\link{grid.par}}, code{\link{mask}}, 
+\code{\link{binning}}, \code{\link{locpol}}.
 }

@@ -4,7 +4,7 @@
 !
 !   Interfaces con R:
 !       svar_iso_np     Estimador np del svar y rejilla binning (R "svarisonp")
-!       svar_iso_bin    Rejilla binning y estimaciÛn cl·sica/robusta (R "svariso")
+!       svar_iso_bin    Rejilla binning y estimaci√≥n cl√°sica/robusta (R "svariso")
 !
 !   Autor: (c) Ruben Fernandez-Casal                Creacion: Ago 2012
 !   Revision: Jun 2013, Nov 2013
@@ -14,19 +14,19 @@
 !   --------------------------------------------------------------------
     subroutine set_bin_svar_iso(g, nd, x, ny, y, nlags, minlag, maxlag, itipo)
 !   --------------------------------------------------------------------
-!       Establece la rejilla binning (lineal) para la estimaciÛn np de un
-!       semivariograma isotrÛpico.
+!       Establece la rejilla binning (lineal) para la estimaci√≥n np de un
+!       semivariograma isotr√≥pico.
 !           g       = rejilla binning (type(grid_bin))
-!           nlag    = n˙mero de saltos
-!           minlag  = mÌnimo salto (si <0 se toma el valor por defecto maxlag/nlags)
-!           maxlag  = m·ximo salto
+!           nlag    = n√∫mero de saltos
+!           minlag  = m√≠nimo salto (si <0 se toma el valor por defecto maxlag/nlags)
+!           maxlag  = m√°ximo salto
 !           itipo   = Tipo de estimador a calcular
-!                   0 = promedio de las diferencias al cuadrado (equivalente al estimador cl·sico)
+!                   0 = promedio de las diferencias al cuadrado (equivalente al estimador cl√°sico)
 !                   1 = promedio de las diferencias absolutas
 !                   2 = reescalado del promedio de las diferencias absolutas  (equivalente al estimador robusto)
 !       NOTAS:
 !           - Se ignoran los saltos fuera del rango [g%min-g%lag, g%max+g%lag]
-!           - g%ny = N∫ total de pares = (ny*(ny-1))/2 si se consideraran todos los posibles
+!           - g%ny = N¬∫ total de pares = (ny*(ny-1))/2 si se consideraran todos los posibles
 !   --------------------------------------------------------------------
     use grid_module
     implicit none
@@ -61,7 +61,7 @@
                 if (itipo > 0) then
                     tmp = DSQRT(DABS( y(i) - y(j) ))   ! Robusto
                 else
-                    tmp = 0.5d0 * (y(i) - y(j))**2.0d0   ! Cl·sico
+                    tmp = 0.5d0 * (y(i) - y(j))**2.0d0   ! Cl√°sico
                 end if
                 if (ib > 0) then
                     g%y(ib) = g%y(ib) + wl*tmp
@@ -99,7 +99,7 @@
 !
 !   PENDENTE:
 !       - Implementar itipo (actualmente = 0)
-!       - OpciÛn/nueva rutina para establecer rejilla binning a partir de par·metros
+!       - Opci√≥n/nueva rutina para establecer rejilla binning a partir de par√°metros
 !         (calculos manteniendo datos)
 !   OJO: rejilla unidimensional (e.g. ndelcv(1))
 !   --------------------------------------------------------------------
@@ -114,7 +114,7 @@
 !   --------------------------------------------------------------------
 !       subroutine set_bin_svar_iso(g, nd, x, ny, y, nlags, minlag, maxlag, itipo)
         call set_bin_svar_iso(bin, nd, x, ny, y, nlags, minlag, maxlag, 0)    ! Establece la rejilla binning (lineal)
-!       EstimaciÛn y obtenciÛn matriz Hat
+!       Estimaci√≥n y obtenci√≥n matriz Hat
 !       ndelcv = NCV
         call lp(  bin, h, KTWMD, .true., lpe, degree,                           &
                     ideriv == 1, deriv, nlags, ihat == 1, hatlp, nlags,         &
@@ -136,11 +136,11 @@
    &                        bin_lag, bin_med, bin_y, bin_w)
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "svariso"
-!       Devuelve la rejilla binning (lineal) para la estimaciÛn np de un
-!       semivariograma isotrÛpico
-!       Se puede emplear para estimaciÛn cl·sica/robusta.
+!       Devuelve la rejilla binning (lineal) para la estimaci√≥n np de un
+!       semivariograma isotr√≥pico
+!       Se puede emplear para estimaci√≥n cl√°sica/robusta.
 !           itipo   = Tipo de estimador a calcular
-!                   0 = promedio de las diferencias al cuadrado (equivalente al estimador cl·sico)
+!                   0 = promedio de las diferencias al cuadrado (equivalente al estimador cl√°sico)
 !                   1 = promedio de las diferencias absolutas
 !                   2 = reescalado del promedio de las diferencias absolutas  (equivalente al estimador robusto)
 !

@@ -11,7 +11,7 @@
 #       dimnames.data.grid(x)      
 #   is.data.grid(x)       
 #
-#   (c) R. Fernandez-Casal         Last revision: Aug 2013
+#   (c) R. Fernandez-Casal 
 #--------------------------------------------------------------------
 
 

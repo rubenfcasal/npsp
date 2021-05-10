@@ -27,7 +27,7 @@ revdim(a, d)
 
 .compute.masked(bin, cov.bin = NULL, tol.mask = npsp.tolerance(2))
 
-.wloss(est, teor, w, loss = c("ASE", "ARSE", "AAE", "ARAE"))
+.wloss(est, teor, w, loss = c("MSE", "MRSE", "MAE", "MRAE"))
 
 \method{residuals}{locpol.bin}(object, ...)
 
@@ -39,8 +39,7 @@ revdim(a, d)
 
 \method{dimnames}{grid.par}(x)
 
-\method{as.data.frame}{grid.par}(x, row.names = dimnames(x),
-  optional = FALSE, ...)
+\method{as.data.frame}{grid.par}(x, row.names = dimnames(x), optional = FALSE, ...)
 
 is.data.grid(x)
 
@@ -50,9 +49,14 @@ is.data.grid(x)
 
 .rice.rule(x, a = 2, b = 3, ...)
 
-splot.plt(horizontal = FALSE, legend.shrink = 0.9, legend.width = 1,
-  legend.mar = ifelse(horizontal, 3.1, 5.1), bigplot = NULL,
-  smallplot = NULL)
+splot.plt(
+  horizontal = FALSE,
+  legend.shrink = 0.9,
+  legend.width = 1,
+  legend.mar = ifelse(horizontal, 3.1, 5.1),
+  bigplot = NULL,
+  smallplot = NULL
+)
 
 .rev.colorRampPalette(colors, interpolate = "spline", ...)
 }

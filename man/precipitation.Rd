@@ -4,7 +4,8 @@
 \name{precipitation}
 \alias{precipitation}
 \title{Precipitation data}
-\format{A \code{\link[sp:SpatialGridDataFrame-class]{SpatialPointsDataFrame}} with 1053 observations on the 
+\format{
+A \code{\link[sp:SpatialGridDataFrame-class]{SpatialPointsDataFrame}} with 1053 observations on the 
 following 6 variables:
 \describe{
   \item{y}{total precipitations (square-root of rainfall inches),}
@@ -17,7 +18,8 @@ and the following \code{\link{attributes}}:
   \item{border}{\code{\link[sp]{SpatialPolygons}} with the boundary
   of the continental part of USA,}
   \item{interior}{\code{\link[sp]{SpatialPolygons}} with the U.S. state boundaries.}
-}}
+}
+}
 \source{
 National Climatic Data Center: \cr
 \url{https://www.ncdc.noaa.gov/cdo-web/datasets}.

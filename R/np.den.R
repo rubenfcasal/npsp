@@ -13,7 +13,7 @@
 #       np.den.svar.bin(x, h, degree, drv, ncv, ...) 
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Oct 2013                          Last changed:
+#   Created: Oct 2013
 #--------------------------------------------------------------------
 
 

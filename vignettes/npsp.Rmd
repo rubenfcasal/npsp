@@ -1,371 +1,392 @@
 ---
-title: 'Nonparametric Spatial Data Analysis with the *npsp* Package'
+title: 'Introduction to the npsp Package'
 author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
 date: '`r paste("npsp", packageVersion("npsp"))`'
-output: rmarkdown::html_vignette
+output: 
+  html_document:
+    toc: yes
+    toc_depth: 2
+  rmarkdown::html_vignette:
+    toc: yes
+    toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Nonparametric Analysis of Spatial Data (with the npsp package)}
+  %\VignetteIndexEntry{Introduction to the npsp Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache = FALSE, fig.height=5, fig.width=7, fig.align = 'center')
-# knitr::opts_chunk$set(comment=NA, prompt=TRUE, dev='svg', out.width=1024, fig.height=6, fig.width=8)
+knitr::opts_chunk$set(cache = FALSE, fig.height=4, fig.width=7, 
+                      fig.align = 'center', out.width = '100%')
+# knitr::spin("npsp_intro2.R", knit = FALSE)
 ```
 
-This vignette (a working draft) tries to illustrate the use of the `npsp` package...
+This vignette (a working draft) tries to illustrate the use of the `npsp` (Nonparametric spatial statistics) package. 
+This package implements nonparametric methods
+for inference on multidimensional geostatistical processes, avoiding the
+misspecification problems that may arise when using parametric models.
+The spatial process can be either stationary or show a non-constant
+trend. Joint estimation of the trend and the semivariogram can be
+performed automatically, by using the function `np.fitgeo()`, or by
+a step-by-step approach.
+    
 
-```{r library, warning=TRUE}
+# Introduction
+
+We will assume that
+$\left\{ Y(\mathbf{x}),\mathbf{x}\in D \subset \mathbb{R}^{d}\right\}$
+is a spatial process that can be modeled as:
+$$Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),$$ 
+    
+where $\mu(\cdot)$ is the trend function (large-scale variation)
+and the error term $\varepsilon$ (small-scale variation), is a second order stationary
+process with zero mean and covariogram
+$C(\mathbf{u}) = Cov(\varepsilon \left( \mathbf{x}\right) ,\varepsilon \left(\mathbf{x}+\mathbf{u}\right) )$,
+with $\mathbf{u} \in D$.
+
+In this framework, given $n$ observed values
+$\mathbf{Y}=( Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}$, the
+first step consists in estimate the trend $\mu(\mathbf{x})$ and the
+semivariogram $\gamma(\mathbf{h}) = C(\mathbf{0}) - C(\mathbf{u})$.
+
+There are several `R` packages, such as [`gstat`](https://r-spatial.github.io/gstat) or [`geoR`](http://www.leg.ufpr.br/geoR), which
+implement the traditional geostatistical techniques to approximate
+these functions. Nevertheless, as these approaches usually assume
+parametric models, they can present misspecification problems.
+
+The aim of the `npsp` package is to provide nonparametric tools for
+geostatistical modeling and interpolation, under the general spatial
+model (large + small variation scales), and without assuming any specific form
+(parametric model) for the trend and the variogram of the process.
+
+
+```{r }
 library(npsp)
+```
+
+
+The `precipitation` data set (`sp::SpatialGridDataFrame` class object), supplied with the `npsp` package, will
+be used in the examples in this work. The data consist of total
+precipitations (square-root of rainfall inches) during March 2016
+recorded over 1053 locations on the continental part of USA.
+
+
+```{r }
 library(sp)
+summary(precipitation)
 ```
 
 
-Data
-=====
 
-As an example, the `precipitation` data set will be considered 
-(a `SpatialPointsDataFrame` object). It consists of total precipitations
-(rainfall inches) during March 2016 recorded over 1053 locations on the
-continental part of USA (available at https://www.ncdc.noaa.gov/cdo-web/datasets).
+For instance, `spoints()` function may be used
+to plot the data...
 
-```{r Datos}
-# Total Monthly Precipitation
+
+```{r }
 spoints(precipitation)
-
-n <- length(precipitation$y)
-coord <- coordinates(precipitation)
-attributes <- attributes(precipitation)
-labels <- attributes$labels 
-border <- attributes$border 
-interior <- attributes$interior 
-slim <- range(precipitation$y)
-col <- jet.colors(256)
-col2 <- hot.colors(256)
-cpu.time(reset=TRUE)
 ```
 
 
-Exploratory data analysis
--------------------------
+Function `scattersplot()` may be used to detect the presence of a non-constant trend...
 
-```{r summary}
-y.summary <- summary(precipitation$y) # Resumen de datos
-y.summary
-
+```{r scattersplot, fig.height=9, fig.width=9}
 scattersplot(precipitation)
-cpu.time(total = FALSE)
-```
-
-Automatic model fitting
------------------------
-
-`np.fitgeo` (automatically) fits an isotropic nonparametric geostatistical model by estimating the trend and the variogram (using a bias-corrected estimator) iteratively.
-
-```{r np.fitgeo}
-nbin <- c(30, 30)
-geomod <- np.fitgeo(coord, precipitation$y, nbin = nbin, svm.resid = TRUE)
-cpu.time(total = FALSE)
-```
-
-Data mask (filtering):
-
-```{r}
-spp.grid <- SpatialPoints(coords(geomod))
-proj4string(spp.grid) <- proj4string(border) # CRS("+init=epsg:28992 +units=km")
-mask.sp <- !is.na(over(spp.grid, as(border, 'SpatialPolygons')))
-geomod <- mask(geomod, mask = mask.sp | (geomod$binw > 0))
-cpu.time(total = FALSE)
-```
-
-Plot final trend and variogram estimates:
-
-```{r, fig.height=5, fig.width=9}
-plot(geomod, asp = 1)
 ```
 
 
-The algorithm is described below...
+# Trend estimation
+
+The local polynomial trend estimator
+$\hat{\mu}_{\mathbf{H}}(\mathbf{x})$ (e.g. Fan and Gijbels, 1996), obtained by
+polynomial smoothing of
+$\{(\mathbf{x}_{i},Y(\mathbf{x}_{i})):i=1,\ldots,n\}$, is the
+solution for $\beta_0$ to the least squares minimization problem
+$$\begin{aligned}
+    \min_{\beta_0 ,\boldsymbol{\beta}_1, \ldots, \boldsymbol{\beta}_p}
+    \sum_{i=1}^{n}\left\{ Y(\mathbf{x}_{i})-\beta_0 
+    -\boldsymbol{\beta}_1^{t}(\mathbf{x}_{i}-\mathbf{x}) - \ldots \right. \nonumber \\
+    \left. -\boldsymbol{\beta}_p^{t}(\mathbf{x}_{i}-\mathbf{x})^p \right\}^{2}
+    K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),
+\end{aligned}$$ 
+    where $\mathbf{H}$ is a $d\times d$ symmetric
+positive definite matrix; $K$ is a $d$-dimensional kernel and
+$K_{\mathbf{H}}(\mathbf{u})=\left\vert 
+    \mathbf{H}\right\vert ^{-1}K(\mathbf{H}^{-1}\mathbf{u})$.
+
+The bandwidth matrix $\mathbf{H}$ controls the shape and size of the
+local neighborhood used to estimate $\mu(\mathbf{x})$.
+
+The local trend estimates can be computed in practice with the
+`locpol()` function. A full bandwidth matrix and a multiplicative
+triweight kernel is used to compute the weights. Main calculations
+are performed in Fortran using the LAPACK library.
 
 
-Linear binning
-==============
-
-```{r binning}
-cpu.time(reset=TRUE)
-bin <- binning(coord, precipitation$y, nbin = nbin, set.NA = TRUE)
-cpu.time(total = FALSE)
-
-simage(bin, main = 'Binning averages and data points', slim = slim,
-       col = col2, xlab = labels$x[1], ylab = labels$x[2],
-       sub = paste0("(", paste(dim(bin), collapse = "x"), ")"))
-plot(border, border = "darkgray", lwd = 2, add = TRUE)
-plot(interior, border = "lightgray", lwd = 2, add = TRUE)
-
-points(bin$data$x, pch ='+')
-coordvs <- coordvalues(bin)
-abline(v = coordvs[[1]], lty = 3)
-abline(h = coordvs[[2]], lty = 3)
+```{r }
+x <- coordinates(precipitation)
+y <- precipitation$y
+lp <- locpol(x, y, nbin = c(120, 120), h = diag(c(5, 5)))
 ```
 
 
-Pilot estimation
-================
+We can plot the trend estimates with function `simage()` (or `spersp()`). 
+Additionally, in this case the estimates outside of continental part of USA will be masked.
 
-Initial trend estimates
------------------------
-
-```{r lp0}
-lp0.h <- h.cv(bin)$h
-lp0.h    # <- diag(c(6.85061, 2.946348))   
-
-# Initial linear Local trend estimation
-lp0 <- locpol(bin, h = lp0.h, hat.bin = TRUE) 
-
-cpu.time(total = FALSE)
-
-simage(lp0, main = "Initial trend estimates", slim = slim,
-       col = col2, xlab = labels$x[1], ylab = labels$x[2])
+```{r }
+attr <- attributes(precipitation)
+border <- attr$border 
+# Mask grid points outside of continental part of USA
+lp <- mask(lp, window = border)
+interior <- attr$interior 
+slim <- range(y)
+col <- jet.colors(256)
+simage(lp,  slim = slim, main = "Trend estimates",
+       col = col, xlab = "Longitude", ylab = "Latitude", asp = 1)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-points(coord[,1], coord[,2], col="darkgray")
-
-# Residuals
-lp0.pred <- predict(lp0)
-lp0.resid <- lp0$data$y - lp0.pred
-lp0.r2 <- cor(lp0.pred, lp0$data$y)^2 # assuming independence...
-
-old.par <- par(mfrow=c(1,2))
-hist(lp0.resid)
-plot(lp0.pred, lp0.resid, main = "Residuals vs Fitted",
-     sub = paste("R^2 =", round(lp0.r2, 2)),
-     xlab = "Fitted values", ylab = "Residuals")
-abline(h = 0, lty = 2, col = "darkgray")
-par(old.par)
 ```
 
 
-Initial variogram 
-------------------
 
-```{r svm0}
-# rule.svar(coord)
-nlags <- 60 
-maxlag <- 10
-# Empirical variogram with linear binning:
-svar.bin <- svariso(coord, lp0.resid,  nlags = nlags, maxlag = maxlag)  
-sv.lags <- coords(svar.bin)
-svar.np.h <- h.cv(svar.bin)$h
-# Local linear variogram estimation
-svar.np <- np.svar(svar.bin, h = svar.np.h)  # biased
-# Fitted Shapiro-Botha variogram model
-svm0 <- fitsvar.sb.iso(svar.np, dk = 0)       
-# Bias-corrected variogram estimation
-svar.np2 <- np.svariso.corr(lp0, nlags = nlags, maxlag = maxlag, 
-                            h=svar.np.h, plot = TRUE) 
-# Fitted Shapiro-Botha variogram model
-svm02 <- fitsvar.sb.iso(svar.np2, dk = 0) 
-cpu.time(total = FALSE)
 
-plot(svm02, main = "Nonparametric bias-corrected semivariogram\nand fitted models", 
+The smoothing procedures in `npsp` use linear binning to discretize
+the data. For instance, instead of the previous code we can use:
+
+```{r }
+bin <- binning(x, y, nbin = c(120, 120), window = border)
+# lp <- locpol(bin, h = diag(c(5, 5)))
+lp2 <- locpol(bin, h = diag(c(2, 2)))
+simage(lp2, slim = slim, main = "Trend estimates",
+       col = col, xlab = "Longitude", ylab = "Latitude", asp = 1)
+plot(border, border = "darkgray", lwd = 2, add = TRUE)
+plot(interior, border = "lightgray", lwd = 1, add = TRUE)
+```
+
+
+Usually two grids will be considered, a low resolution one
+to speed up computations during the modeling (e.g. by using the
+default values), and a higher resolution one to obtaing the final
+results.
+
+# Bandwidth selection
+
+The trend estimates depends crucially on the bandwidth matrix $H$. 
+A small bandwith will produce undersmoothed estimates, whereas a big bandwith will oversmooth the data. Although it may be subjectively choosed by eye, it could be very beneficial to have automatic selection criteria from the data.
+
+Traditional bandwidth selectors, such as cross validation (CV) or
+generalized cross validation (GCV), do not have a good performance
+for dependent data (Opsomer et al, 2001), since they tend to undersmooth the trend
+function.
+
+The modified cross-validation criteria (MCV), proposed in (Chu and Marron, 1991) for time series, can be adapted for spatial data, by ignoring
+observations in a neighbourhood $N(i)$ around $\mathbf{x}_{i}$. Note
+that the ordinary CV approach is a particular case with
+$N(i)=\left\lbrace \mathbf{x}_{i} \right\rbrace$.
+
+
+In practice, the bandwidth can be selected through the `h.cv()` (or `hcv.data()`)
+function.
+
+
+```{r }
+bin <- binning(x, y, window = border)
+lp0.h <- h.cv(bin)$h
+lp0 <- locpol(bin, h = lp0.h, hat.bin = TRUE) 
+```
+
+
+An alternative is the corrected generalized cross-validation
+criterion (CGCV), proposed in (Francisco-Fernández and Opsomer, 2005), that takes the spatial
+dependence into account. 
+To use this approach in practice (by setting `objective = "GCV"` and `cov.bin` in `h.cv`), 
+an estimate of the variogram is previously required.
+
+# Variogram estimation
+
+When the process is assumed stationary, the pilot local linear
+estimate $\hat\gamma(\mathbf{u})$ is obtained by the linear
+smoothing of
+$\left(\mathbf{x}_{i}-\mathbf{x}_{j},(Y(\mathbf{x}_i)- Y(\mathbf{x}_j))^2/2 \right)$.
+The corresponding bandwidth can be selected, for instance, by
+minimizing the cross-validation relative squared error.
+
+In the general setting with a non constant trend, the natural approach consists in removing
+the trend and estimating the variogram from the residuals
+$\mathbf{r}=\mathbf{Y}-\mathbf{SY}$. Nevertheless, the residuals
+variability may be very different to that of the true errors (see
+e.g. Cressie, 1993, Section 3.4.3, for the case of the linear trend
+estimator). As the bias due to the direct use of residuals in
+variogram estimation may have a significant impact on inference, a
+similar approach to that described in Fernández-Casal and Francisco-Fernández (2014) could be considered.
+
+In practice, the local linear variogram estimates can be computed
+with functions `np.svar()` and `np.svariso.corr()`. The generic
+function `h.cv()` may be used to select the corresponding bandwidth.
+
+
+```{r }
+svar.bin <- svariso(x, residuals(lp0), nlags = 60, maxlag = 20)  
+svar.h <- h.cv(svar.bin)$h
+
+svar.np <- np.svar(svar.bin, h = svar.h)
+svar.np2 <- np.svariso.corr(lp0, nlags = 60, maxlag = 20, 
+                            h = svar.h, plot = FALSE) 
+```
+
+
+The final variogram estimate is obtained by fitting a
+"nonparametric" isotropic Shapiro-Botha variogram model (Shapiro and Botha, 1991), to
+the nonparametric pilot estimate, by using the function
+`fitsvar.sb.iso()`.
+
+
+```{r }
+svm0 <- fitsvar.sb.iso(svar.np, dk = 0) 
+svm1 <- fitsvar.sb.iso(svar.np2, dk = 0) 
+# plot...
+plot(svm1, main = "Nonparametric bias-corrected semivariogram\nand fitted models", 
      legend = FALSE, xlim = c(0,max(coords(svar.np2))), 
      ylim = c(0,max(svar.np2$biny, na.rm = TRUE)))
-plot(svm0, add = TRUE)
+plot(svm0, lwd = c(1, 1), add = TRUE)
 plot(svar.np, type = "p", pch = 2, add = TRUE)
-abline(h = c(svm02$nugget, svm02$sill), lty = 3)
-abline(v = 0, lty = 3)
+# abline(h = c(svm1$nugget, svm1$sill), lty = 3)
+# abline(v = 0, lty = 3)
 legend("bottomright", legend = c("corrected", 'biased'),
-            lty = c(1, 1), pch = c(NA, NA), lwd = c(2, 1))
+            lty = c(1, 1), pch = c(1, 2), lwd = c(1, 1))
 ```
 
 
-Bandwidth selection
-===================
+# Automatic modeling
 
-```{r hcv.data}
-# GCV criterion (Francisco-Fernandez and Opsomer, 2005)
-lp.h <- h.cv(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h
-lp.h    # <- diag(c(11.11463, 18.59536))
-cpu.time(total = FALSE)
-# lp.h <- hcv.data(bin, objective = "GCV", cov = svm02, DEalgorithm = FALSE)$h
-# lp.h    # <- diag(c(10.0871, 18.3956))
-## Time of last operation: hcv.data
-##    user  system elapsed 
-##   10.39    1.39   11.87
+Function `np.fitgeo()` implements an automatic procedure for the
+joint estimation of the trend and the semivariogram. The algorithm
+is as follows:
+
+1.  Select an initial bandwidth to estimate the trend using the MCV
+    criterion (function `h.cv()`).
+
+2.  Compute the local linear trend estimate (function `locpol()`).
+
+3.  Obtain a bias-corrected pilot semivariogram estimate from the
+    corresponding residuals (function `np.svariso.corr()`).
+
+4.  Fit a valid Shapiro-Botha model to the pilot
+    semivariogram estimates (function `fitsvar.sb.iso()`).
+
+5.  Select a new bandwidth matrix for trend estimation with the CGCV
+    criterion, 
+    using the fitted variogram model to approximate the
+    data covariance matrix
+    (function `h.cv()` with `objective = "GCV"` and 
+    `cov.bin =` fitted variogram model).
+
+6.  Repeat steps 2-4 until convergence (in practice, only two
+    iterations are usually needed).
+
+
+
+```{r geomod, fig.height=4, fig.width=12}
+geomod <- np.fitgeo(x, y, nbin = c(30, 30), maxlag = 20, svm.resid = TRUE, window = border)
+plot(geomod)
 ```
 
 
-Final variogram
-===============
+Setting `corr.svar = TRUE` may be very slow (and memory demanding) when the number of data is large (note also that the bias in the residual variogram decreases when the sample size increases).
 
-Trend re-estimation
--------------------
 
-```{r lp}
-```
+# Kriging
 
-Final trend (low resolution):
+The final trend and variogram estimates could be employed for
+spatial prediction, by using method `np.kriging()`.
 
-```{r }
-lp <- locpol(bin, h = lp.h, hat.bin = TRUE)
-cpu.time(total = FALSE)
-simage(lp, main = "Trend Estimation", slim = slim, 
-       xlab = labels$x[1], ylab = labels$x[2], col = col2)
+
+```{r kriging, fig.height=4, fig.width=12}
+
+krig.grid <- np.kriging(geomod, ngrid = c(120, 120))
+# Plot kriging predictions and kriging standard deviations
+old.par <- par(mfrow = c(1,2), omd = c(0.0, 0.98, 0.0, 1))
+krig.grid2 <- krig.grid
+simage(krig.grid2, 'kpred', main = 'Kriging predictions', slim = slim,
+      xlab = "Longitude", ylab = "Latitude" , col = col, asp = 1)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-# spoints(coord[,1], coord[,2], precipitation$y, add = TRUE)
-# New Residuals
-lp.pred <- predict(lp)
-lp.resid <- lp$data$y - lp.pred
-lp.r2 <- cor(lp.pred, lp$data$y)^2 # assuming independence...
-old.par <- par(mfrow=c(1,2))
-hist(lp.resid)
-plot(lp.pred, lp.resid, main = "Residuals vs Fitted", 
-     sub = paste("R^2 =", round(lp0.r2, 2)),
-     xlab = "Fitted values", ylab = "Residuals")
-abline(h = 0, lty = 2, col = "darkgray")
+simage(krig.grid2, 'ksd', main = 'Kriging sd',
+      xlab = "Longitude", ylab = "Latitude" , col = hot.colors(256), asp = 1)
+plot(border, border = "darkgray", lwd = 2, add = TRUE)
+plot(interior, border = "lightgray", lwd = 1, add = TRUE)
 par(old.par)
 ```
 
 
-Fitted variogram model
-----------------------
-
-```{r lp.svm2}
-
-svar.bin <- svariso(coord, lp.resid,  nlags = nlags, maxlag = maxlag)  
-svar.np.h <- h.cv(svar.bin)$h  # svar.np.h <- 2.257358
-svar.np <- np.svar(svar.bin, h = svar.np.h)
-svm <- fitsvar.sb.iso(svar.np, dk = 0)
-svar.np2 <- np.svariso.corr(lp, nlags = nlags, maxlag = maxlag, 
-                            h = svar.np.h, plot = TRUE, ylim = c(0, 0.3))
-```
-
-Final variogram: 
-
-```{r }
-svm2 <- fitsvar.sb.iso(svar.np2, dk = 0) # Shapiro-Botha model
-
-cpu.time(total = FALSE)
-
-plot(svm2, main = "Nonparametric bias-corrected semivariogram\nand fitted models", 
-     legend = FALSE)
-plot(svm, add = TRUE)
-plot(svar.np, type = "p", pch = 2, add = TRUE)
-abline(h = c(svm2$nugget, svm2$sill), lty = 3)
-abline(v = 0, lty = 3)
-plot(svm0, lty = 2, lwd = 1, add = TRUE)
-plot(svm02, lty = 2, lwd = 2, add = TRUE)
-legend("bottomright", legend = c("corrected", 'biased', "corrected initial",
-       'biased initial'), lty = c(1, 1, 2, 2), pch = c(1, 2, NA, NA), 
-       lwd = c(2, 1))
-
-cpu.time(total = FALSE)
-```
+Currently, only global residual kriging is implemented. Users are
+encouraged to use `gstat::krige()` (or `krige.cv()`) together with
+`as.vgm()` for local kriging 
+(see e.g. https://rubenfcasal.github.io/npsp/articles/krigstat.html).
 
 
-Final trend estimates
-=====================
+# Conclusions and future work
 
-```{r bin.hd}
-```
+Unlike traditional geostatistical methods, the nonparametric
+procedures avoid problems due to model misspecification.
 
-High resolution binning (120x120):
+The bias due to the direct use of residuals, may have a significant
+impact on variogram estimation (and consequently on the selected
+bandwidth with the CGCV criterion). Therefore, the use of the
+bias-corrected nonparametric variogram estimator would be
+recommended.
 
-```{r }
-bin.hd <- binning(coord, precipitation$y,
-               nbin = c(120,120), set.NA = TRUE)
-simage(bin.hd, main = 'Binning averages',
-       xlab = labels$x[1], ylab = labels$x[2],
-       sub = paste0("(", paste(dim(bin.hd), collapse = "x"), ")"),
-       slim = slim)
-plot(border, border = "darkgray", lwd = 2, add = TRUE)
-plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-```
+Currently, only isotropic semivariogram estimation is supported, but
+the intention is to extend this approach to anisotropy in two
+components (Fernández-Casal et al., 2003), 
+which could be suitable for modeling spatio-temporal dependency.
 
-<!-- Density estimation (used for mask in binning HD) -->
-
-<!-- ```{r h.den} -->
-<!-- h.den <- h.cv(as.bin.den(bin), ncv = 2)$h         # diag(0.4061458, 0.6349045) -->
-<!-- den <- np.den(bin.hd, h = h.den, degree = 0) -->
-<!-- plot(den, main = 'Estimated log(density)', -->
-<!--           xlab = labels$x[1], ylab = labels$x[2], -->
-<!--           sub = paste0("(", paste(dim(bin.hd), collapse = "x"), ")") ) -->
-<!-- plot(border, border = "darkgray", lwd = 2, add = TRUE) -->
-<!-- plot(interior, border = "lightgray", lwd = 1, add = TRUE) -->
-<!-- ``` -->
-
-Data mask (filtering):
-
-```{r mask}
-spp.grid <- SpatialPoints(coords(bin.hd))
-proj4string(spp.grid) <- proj4string(border) # CRS("+init=epsg:28992 +units=km")
-mask.sp <- !is.na(over(spp.grid, as(border, 'SpatialPolygons')))
-mask <- mask.sp | (bin.hd$binw > 0)  # to avoid filtering data...
-bin.hd <- mask(bin.hd, mask = mask)
-```
-
-Final trend (high resolution):
-
-```{r }
-lp.hd <- locpol(bin.hd, h = lp.h)
-
-simage(lp.hd, main = "Final trend estimates", slim = slim, 
-       xlab = labels$x[1], ylab = labels$x[2], col = col2)
-plot(border, border = "darkgray", lwd = 2, add = TRUE)
-plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-cpu.time(total = FALSE)
-```
+The nonparametric trend and variogram estimates also allow to
+perform inferences about other characteristics of interest of the
+process, for instance, by using the bootstrap algorithm described in
+(Castillo-Páez et al., 2019),
+which will be implemented in the next version of the package
+(https://github.com/rubenfcasal/npsp).
 
 
-<!-- Grid mask (some data will be filtered...): -->
+# Acknowledgments
 
-<!-- ```{r lp.def} -->
-<!-- lp <- lp.hd -->
-<!-- trend.est <- predict(lp) -->
-<!-- lp.resid <- lp$data$y - trend.est -->
-<!-- lp$mask <- NULL -->
-<!-- lp <- mask(lp, mask = mask.sp, warn = FALSE)  # warning=FALSE -->
+This research has been supported by MINECO grant MTM2017-82724-R, and by the Xunta de Galicia (Grupos de Referencia Competitiva ED431C-2020-14 and Centro de Investigación del Sistema universitario de Galicia ED431G 2019/01), all of them through the ERDF.
 
-<!-- cpu.time(total = FALSE) -->
+# References
 
-<!-- krig.grid <- np.kriging(lp, svm2, lp.resid) -->
-<!-- cpu.time(total = FALSE) -->
-<!-- ``` -->
+Castillo-Páez, S., Fernández-Casal, R., García-Soidán, P. (2019). A
+nonparametric bootstrap method for spatial data. *Comput. Stat. Data
+An.*, **137**, 1--15.
 
+Chu, C. K. and Marron, J. S. (1991). Comparison of Two Bandwidth
+Selectors with Dependent Errors. *The Annals of Statistics* **19**,
+1906--1918.
 
-Kriging predictions
-===================
+Cressie, N. (1993). *Statistics for Spatial Data*. Wiley, New York.
 
+Fernández-Casal, R. (2019). npsp: Nonparametric Spatial Statistics. R
+package version 0.7-5. *http://github.com/rubenfcasal/npsp*.
 
-Kriging system
----------------
+Fan, J. and Gijbels, I. (1996). *Local polynomial modelling and its
+applications*. Chapman & Hall, London.
 
-```{r kriging}
+Fernández-Casal, R. and Francisco-Fernández, M. (2014). Nonparametric
+bias-corrected variogram estimation under non-constant trend.
+*Stochastic Environmental Research and Risk Assessment* **28**,
+1247--1259.
 
-krig.grid <- np.kriging(lp.hd, svm2)
-cpu.time(total = FALSE)
-```
+Fernández-Casal, R., González Manteiga, W. and Febrero-Bande, M. (2003).
+Flexible Spatio-Temporal Stationary Variogram Models. *Statistics and
+Computing* **13**, 127--136.
 
+Francisco-Fernández, M. and Opsomer, J. D. (2005). Smoothing parameter
+selection methods for nonparametric regression with spatially correlated
+errors. *The Canadian Journal of Statistics* **33**, 279--295.
 
-Kriging maps
-------------
+Opsomer, J. D., Wang, Y. and Yang, Y. (2001). Nonparametric regression
+with correlated errors. *Statistical Science* **16**, 134--153.
 
-```{r kriging.maps}
-
-simage(krig.grid, 'kpred', main = 'Kriging predictions', slim = slim,
-                  xlab = labels$x[1], ylab = labels$x[2])
-plot(border, border = "darkgray", lwd = 2, add = TRUE)
-plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-
-simage(krig.grid, 'ksd', main = 'Kriging sd',
-                  xlab = labels$x[1], ylab = labels$x[2], col = col2)
-plot(border, border = "darkgray", lwd = 2, add = TRUE)
-plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-
-cpu.time()
-# save.image(".RData")
-```
-
+Shapiro, A. and Botha, J.D. (1991). Variogram fitting with a general
+class of conditionally non-negative definite functions. *Computational
+Statistics and Data Analysis* **11**, 87--96.

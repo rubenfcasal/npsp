@@ -8,7 +8,7 @@
       REAL(8)  A(N,N), AI(N,N), DET
 !     Variables locales
       INTEGER IPIV(N), LWORK, INFO, i
-      REAL(8) tmp
+      REAL(8) tmp(1)
       REAL(8), ALLOCATABLE ::  WORK(:)
 !     ------------------------------------------------------------------
       AI = A
@@ -21,7 +21,7 @@
 !          triangular part of A is not referenced.
       LWORK = -1    ! Determine the block size
       CALL DSYTRF( 'U', N, AI, N, IPIV, tmp, LWORK, INFO )
-      LWORK = NINT(tmp)
+      LWORK = NINT(tmp(1))
       ALLOCATE(WORK(LWORK), STAT=i)
       IF (i.NE.0) CALL Error(i, 'DSYTRFI: ALLOCATE')
       CALL DSYTRF( 'U', N, AI, N, IPIV, WORK, LWORK, INFO )
@@ -32,15 +32,14 @@
 !     If UPLO = 'U' and IPIV(k) = IPIV(k-1) < 0, then rows and
 !           columns k-1 and -IPIV(k) were interchanged and D(k-1:k,k-1:k)
 !           is a 2-by-2 diagonal block.
-      tmp = 1.0d0
+      DET = 1.0d0
       DO i = 1, N
          IF (IPIV(i).GT.0) THEN
-            tmp = tmp * AI(i,i)
+            DET = DET * AI(i,i)
          ELSE IF((i.GT.1).AND.(IPIV(i).LT.0).AND.(IPIV(i).EQ.IPIV(i-1))) THEN
-            tmp = tmp * ( AI(i,i) * AI(i-1,i-1) - AI(i-1,i) * AI(i,i-1) )
+            DET = DET * ( AI(i,i) * AI(i-1,i-1) - AI(i-1,i) * AI(i,i-1) )
          END IF
       END DO
-      DET = tmp
 !     Invertir la matriz
 !     DSYTRI computes the inverse of a real symmetric indefinite matrix
 !           A using the factorization computed by DSYTRF.

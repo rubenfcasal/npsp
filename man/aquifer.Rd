@@ -4,12 +4,14 @@
 \name{aquifer}
 \alias{aquifer}
 \title{Wolfcamp aquifer data}
-\format{A data frame with 85 observations on the following 3 variables:
+\format{
+A data frame with 85 observations on the following 3 variables:
 \describe{
   \item{lon}{relative longitude position (miles).}
   \item{lat}{relative latitude position (miles).}
   \item{head}{piezometric-head levels (feet above sea level).}
-}}
+}
+}
 \source{
 Harper, W.V. and Furr, J.M. (1986) Geostatistical analysis of
 potentiometric data in the Wolfcamp Aquifer of the Palo Duro Basin, Texas.

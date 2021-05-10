@@ -11,7 +11,7 @@
 #    Escriba 'license()' para detalles de distribucion.
 #
 #   (c) R. Fernandez-Casal
-#   Creation: Jul 2015                       Last revision: Aug 2015
+#   Creation: Jul 2015
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------

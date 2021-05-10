@@ -8,7 +8,7 @@
 #   residuals.locpol.bin(object, ...)
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Oct 2012                          Last changed: Jan 2016
+#   Created: Oct 2012
 #--------------------------------------------------------------------
 
 
@@ -118,8 +118,10 @@ predict.locpol.bin <- function(object, newx = NULL, hat.data = FALSE, ...) {
         stop("function only works for objects of class (or extending) 'locpol.bin'")
 #    if(any(is.na(object$est)))
 #        stop("binning estimates with missing values")
-    if (!is.null(object$mask) && with(object, any(index <- !mask & (binw > 0)))
-        && any(is.na(object$est[index]))) stop("data was masked.")
+    if (!is.null(object$mask)) {
+      index <- with(object, !mask & (binw > 0))
+      if(any(index) && any(is.na(object$est[index]))) stop("data was masked.")
+    }  
     hat.data <- as.logical(hat.data)
     if (!is.null(newx)) {
         if (hat.data) warning("argument 'hat.data' ignored ('newx != NULL')")

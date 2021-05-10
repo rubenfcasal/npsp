@@ -8,21 +8,29 @@
 
 <title>npsp: Nonparametric spatial (geo)statistics — npsp-package • npsp</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +38,12 @@
 
 
 
-<meta property="og:title" content="npsp: Nonparametric spatial (geo)statistics — npsp-package" />
 
+<meta property="og:title" content="npsp: Nonparametric spatial (geo)statistics — npsp-package" />
 <meta property="og:description" content="This package implements nonparametric methods 
 for inference on multidimensional spatial (or spatio-temporal) processes,
 which may be (especially) useful in (automatic) geostatistical modeling and interpolation." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +57,10 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +74,7 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-8</span>
       </span>
     </div>
 
@@ -73,7 +82,7 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -105,11 +114,10 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rubenfcasal/npsp">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="http://github.com/rubenfcasal/npsp/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -120,29 +128,30 @@ which may be (especially) useful in (automatic) geostatistical modeling and inte
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>npsp: Nonparametric spatial (geo)statistics</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rubenfcasal/npsp/blob/master/R/npsp-package.R'><code>R/npsp-package.R</code></a></small>
+    <small class="dont-index">Source: <a href='http://github.com/rubenfcasal/npsp/blob/master/R/npsp-package.R'><code>R/npsp-package.R</code></a></small>
     <div class="hidden name"><code>npsp-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>This package implements nonparametric methods 
 for inference on multidimensional spatial (or spatio-temporal) processes,
 which may be (especially) useful in (automatic) geostatistical modeling and interpolation.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="main-functions"><a class="anchor" href="#main-functions"></a>Main functions</h2>
 
     
-    <p><strong>Nonparametric methods for inference on both spatial trend 
+
+<p><strong>Nonparametric methods for inference on both spatial trend 
 and variogram functions</strong>:</p>
 <p><code><a href='np.fitgeo.html'>np.fitgeo</a></code> (automatically) fits an isotropic nonparametric geostatistical model
 by estimating the trend and the variogram (using a bias-corrected estimator) iteratively
@@ -171,13 +180,13 @@ model by WLS. Currently, only isotropic semivariogram estimation is supported.</
 (and the corresponding simple kriging standard errors).</p>
 <p><code>kriging.simple</code> computes simple kriging predictions, standard errors</p>
 <p>Currently, only global simple kriging is implemented in this package.  
-Users are encouraged to use <code><a href='https://www.rdocumentation.org/packages/gstat/topics/krige'>krige</a></code> (or <code><a href='https://www.rdocumentation.org/packages/gstat/topics/krige.cv'>krige.cv</a></code>) 
+Users are encouraged to use <code><a href='https://rdrr.io/pkg/gstat/man/krige.html'>krige</a></code> (or <code><a href='https://rdrr.io/pkg/gstat/man/krige.cv.html'>krige.cv</a></code>) 
 utilities in <span class="pkg">gstat</span> package together with <code><a href='npsp-gstat.html'>as.vgm</a></code> for local kriging.</p>
-    
     <h2 class="hasAnchor" id="other-functions"><a class="anchor" href="#other-functions"></a>Other functions</h2>
 
     
-    <p>Among the other functions intended for direct access by the user, the following 
+
+<p>Among the other functions intended for direct access by the user, the following 
 (methods for multidimensional linear binning, local polynomial kernel regression, 
 density or variogram estimation) could be emphasized: <code><a href='binning.html'>binning</a></code>, <code><a href='bin.den.html'>bin.den</a></code>,
 <code><a href='svar.bin.html'>svar.bin</a></code>, <code><a href='h.cv.html'>h.cv</a></code> and <code><a href='interp.html'>interp</a></code>.</p>
@@ -185,17 +194,16 @@ density or variogram estimation) could be emphasized: <code><a href='binning.htm
 continuous color scale. <code><a href='splot.html'>splot</a></code> allows to combine a standard R plot 
 with a legend. <code><a href='spoints.html'>spoints</a></code>, <code><a href='simage.html'>simage</a></code> and <code><a href='spersp.html'>spersp</a></code> 
 draw the corresponding high-level plot with a legend strip for the color scale.
-These functions are based on <code><a href='https://www.rdocumentation.org/packages/fields/topics/image.plot'>image.plot</a></code> of package <span class="pkg">fields</span>.</p>
+These functions are based on <code><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></code> of package <span class="pkg">fields</span>.</p>
 <p>There are also some functions which can be used to interact with other packages.
 For instance, <code><a href='npsp-geoR.html'>as.variogram</a></code> (<span class="pkg">geoR</span>) or <code><a href='npsp-gstat.html'>as.vgm</a></code> (<span class="pkg">gstat</span>).</p>
-    
     <h2 class="hasAnchor" id="acknowledgments"><a class="anchor" href="#acknowledgments"></a>Acknowledgments</h2>
 
     
-    <p>Important suggestions and contributions to some techniques included here were
+
+<p>Important suggestions and contributions to some techniques included here were
 made by Sergio Castillo-Paez (Universidad de las Fuerzas Armadas ESPE, Ecuador) 
 and Tomas Cotos-Ya\~nez (Dep. Statistics, University of Vigo, Spain).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2018)
@@ -218,27 +226,19 @@ Flexible Spatio-Temporal Stationary Variogram Models,
 <p>Wand M.P. (1994) Fast Computation of Multivariate Kernel Estimators.
   <em>Journal of Computational and Graphical Statistics</em>, <b>3</b>, 433-445.</p>
 <p>Wand M.P. and Jones M.C. (1995) <em>Kernel Smoothing</em>. Chapman and Hall, London.</p>
-    
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#main-functions">Main functions</a></li>
-
-      <li><a href="#other-functions">Other functions</a></li>
-
-      <li><a href="#acknowledgments">Acknowledgments</a></li>
-
-      <li><a href="#references">References</a></li>
-          </ul>
-
-    <h2>Author</h2>
     <p>Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~na, Spain).
 Please send comments, error reports or suggestions to <a href='mailto:rubenfcasal@gmail.com'>rubenfcasal@gmail.com</a>.</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -246,13 +246,16 @@ Please send comments, error reports or suggestions to <a href='mailto:rubenfcasa
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

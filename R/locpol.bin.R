@@ -9,7 +9,7 @@
 #   locpolhcv(x, y, nbin, objective, degree, drv, ncv, cov, ...)  
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Aug 2012                          Last changed: Aug 2015
+#   Created: Aug 2012
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - is.locpol.bin

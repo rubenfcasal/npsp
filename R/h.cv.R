@@ -22,7 +22,7 @@
 #   - opcion en binning() para obter cov binning a partir de cov datos?
 #   - optimizar calculos matriciais "GCV" e "MASE"
 #
-#   (c) R. Fernandez-Casal         Last revision: Jan Sep 2013
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
@@ -264,7 +264,7 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
 # NOTA: facer bin$binw[!mask] <- -1 despois de chamar  # masked nodes will be leaved out in local polynomial estimation
 # PENDENTE: incluir parametros: coords = FALSE,  corr = FALSE?
     if (tol.mask <= 0) stop("'tol.mask' must be > 0")
-    mask <- mask.bin.den(bin, mask.default(bin$binw, tol.mask), warn = FALSE)$mask # Coidado pode remaskear...
+    mask <- mask.bin.den(bin, mask = mask.default(bin$binw, tol.mask), warn = FALSE)$mask # Coidado pode remaskear...
     w <- bin$binw[mask]
     sw <- sum(w)
     res <- list(mask = mask, w = w, sw = sw)
@@ -334,7 +334,7 @@ h.cv.bin.den <- function(bin, h.start = NULL, h.lower = NULL, h.upper = NULL,
 
 
 #--------------------------------------------------------------------
-# h.cv.svar.bin(bin, loss = c("ARSE", "ARAE", "ASE", "AAE"),
+# h.cv.svar.bin(bin, loss = c("MRSE", "MRAE", "MSE", "MAE"),
 #             h.start = NULL, h.lower = NULL, h.upper = NULL,
 #             degree = 1, ncv = 1, DEalgorithm = FALSE, warn = FALSE, ...) {
 #--------------------------------------------------------------------
@@ -345,13 +345,13 @@ h.cv.bin.den <- function(bin, h.start = NULL, h.lower = NULL, h.upper = NULL,
 #' The different options for the argument \code{loss} in \code{h.cv.svar.bin()} define the CV error 
 #' considered in semivariogram estimation:
 #' \describe{
-#'  \item{\code{"ASE"}}{Averaged squared error}
-#'  \item{\code{"ARSE"}}{Averaged relative squared error}
-#'  \item{\code{"AAE"}}{Averaged absolute error}
-#'  \item{\code{"ARAE"}}{Averaged relative absolute error}
+#'  \item{\code{"MSE"}}{Mean squared error}
+#'  \item{\code{"MRSE"}}{Mean relative squared error}
+#'  \item{\code{"MAE"}}{Mean absolute error}
+#'  \item{\code{"MRAE"}}{Mean relative absolute error}
 #' }
 #' @export
-h.cv.svar.bin <- function(bin, loss = c("ARSE", "ARAE", "ASE", "AAE"),
+h.cv.svar.bin <- function(bin, loss = c("MRSE", "MRAE", "MSE", "MAE"),
             h.start = NULL, h.lower = NULL, h.upper = NULL,
             degree = 1, ncv = 1, DEalgorithm = FALSE, warn = FALSE, ...) {
 #--------------------------------------------------------------------
@@ -359,7 +359,7 @@ h.cv.svar.bin <- function(bin, loss = c("ARSE", "ARAE", "ASE", "AAE"),
         stop("function only works for objects of class 'svar.bin'")
     nd <- bin$grid$nd
     loss <- match.arg(loss)
-    # Se podria optimizar el calculo cuando loss = 'ASE'...
+    # Se podria optimizar el calculo cuando loss = 'MSE'...
     f.opt <- function(x) {
         esvar <- locpol.svar.bin(bin, h = diag(x, nrow = nd), degree = degree, ncv = ncv)
         return(with(esvar, .wloss(biny, est, binw, loss)))
@@ -391,19 +391,18 @@ h.cv.svar.bin <- function(bin, loss = c("ARSE", "ARAE", "ASE", "AAE"),
 # @param teor vector of theoretical/reference values.
 # @param w vector of weights (with the same length as \code{est}).
 #' @keywords internal
-.wloss <- function(est, teor, w, loss = c('ASE','ARSE','AAE','ARAE')) {
+.wloss <- function(est, teor, w, loss = c('MSE','MRSE','MAE','MRAE')) {
 #--------------------------------------------------------------------
-#' @rdname h.cv
     loss <- match.arg(loss)
     return(switch(loss,
-        # Averaged squared error
-        ASE = stats::weighted.mean((est - teor)^2, w, na.rm = TRUE),
-        # Averaged relative squared error
-        ARSE = stats::weighted.mean((est/pmax(teor, npsp.tolerance()) - 1)^2, w, na.rm = TRUE),
-        # Averaged absolute error
-        AAE = stats::weighted.mean(abs(est - teor), w, na.rm = TRUE),
-        # Averaged relative absolute error
-        ARAE = stats::weighted.mean(abs(est/pmax(teor, npsp.tolerance()) - 1), w, na.rm = TRUE)
+        # Mean squared error
+        MSE = stats::weighted.mean((est - teor)^2, w, na.rm = TRUE),
+        # Mean relative squared error
+        MRSE = stats::weighted.mean((est/pmax(teor, npsp.tolerance()) - 1)^2, w, na.rm = TRUE),
+        # Mean absolute error
+        MAE = stats::weighted.mean(abs(est - teor), w, na.rm = TRUE),
+        # Mean relative absolute error
+        MRAE = stats::weighted.mean(abs(est/pmax(teor, npsp.tolerance()) - 1), w, na.rm = TRUE)
 
     ))
 }

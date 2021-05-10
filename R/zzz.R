@@ -3,7 +3,7 @@
 #--------------------------------------------------------------------
 #   .onAttach(libname, pkgname)
 #
-#   (c) R. Fernandez-Casal         Last revision: Apr 2013
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 
@@ -16,7 +16,7 @@
     packageStartupMessage( 
       paste0(" Package npsp: ", pkg.info["Title"], ",\n"),
       paste0(" version ", pkg.info["Version"], " (built on ", pkg.info["Date"], ").\n"),
-      " Copyright (C) R. Fernandez-Casal 2012-2018.\n",
-      " Type `help(npsp)` for an overview of the package and\n",
-      ' `demo(package = "npsp")` for the list of available demos.\n')
+      " Copyright (C) R. Fernandez-Casal 2012-2021.\n",
+      " Type `help(npsp)` for an overview of the package or\n",
+      ' visit https://rubenfcasal.github.io/npsp.\n')
 }

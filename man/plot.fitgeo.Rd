@@ -4,8 +4,7 @@
 \alias{plot.fitgeo}
 \title{Plot a nonparametric geostatistical model}
 \usage{
-\method{plot}{fitgeo}(x, y = NULL, main.trend = "Trend estimates",
-  main.svar = NULL, ...)
+\method{plot}{fitgeo}(x, y = NULL, main.trend = "Trend estimates", main.svar = NULL, ...)
 }
 \arguments{
 \item{x}{a nonparametric geostatistical model object. 

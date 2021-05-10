@@ -14,8 +14,7 @@ interp(object, ...)
 
 \method{interp}{data.grid}(object, data.ind = 1, newx, ...)
 
-\method{predict}{locpol.bin}(object, newx = NULL, hat.data = FALSE,
-  ...)
+\method{predict}{locpol.bin}(object, newx = NULL, hat.data = FALSE, ...)
 
 \method{predict}{np.den}(object, newx = NULL, ...)
 }

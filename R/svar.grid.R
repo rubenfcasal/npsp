@@ -6,7 +6,7 @@
 #       svar.grid.svarmod(svar, n, min, max, log, ...)
 #
 #   (c) R. Fernandez-Casal
-#   Created: May 2017                          Last changed: 
+#   Created: May 2017
 #--------------------------------------------------------------------
 
 

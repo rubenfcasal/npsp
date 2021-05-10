@@ -10,8 +10,7 @@ as.sp(obj, ...)
 
 \method{as.sp}{grid.par}(obj, ...)
 
-\method{as.sp}{data.grid}(obj, data.ind = NULL,
-  proj4string = CRS(as.character(NA)), ...)
+\method{as.sp}{data.grid}(obj, data.ind = NULL, proj4string = CRS(as.character(NA)), ...)
 }
 \arguments{
 \item{obj}{a \code{\link{npsp}} object.}

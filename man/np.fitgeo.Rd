@@ -9,20 +9,55 @@
 \usage{
 np.fitgeo(x, ...)
 
-\method{np.fitgeo}{default}(x, y, nbin = NULL, iter = 2, h = NULL,
-  tol = 0.05, set.NA = FALSE, h.svar = NULL, corr.svar = TRUE,
-  maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,
-  hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...)
+\method{np.fitgeo}{default}(
+  x,
+  y,
+  nbin = NULL,
+  iter = 2,
+  h = NULL,
+  tol = 0.05,
+  set.NA = FALSE,
+  h.svar = NULL,
+  corr.svar = iter > 0,
+  maxlag = NULL,
+  nlags = NULL,
+  dk = 0,
+  svm.resid = FALSE,
+  hat.bin = corr.svar,
+  warn = FALSE,
+  plot = FALSE,
+  window = NULL,
+  ...
+)
 
-\method{np.fitgeo}{locpol.bin}(x, svm, iter = 1, tol = 0.05,
-  h.svar = svm$esv$locpol$h, dk = 0, corr.svar = TRUE,
-  svm.resid = FALSE, hat.bin = corr.svar, warn = FALSE,
-  plot = FALSE, ...)
+\method{np.fitgeo}{locpol.bin}(
+  x,
+  svm,
+  iter = 1,
+  tol = 0.05,
+  h.svar = svm$esv$locpol$h,
+  dk = 0,
+  corr.svar = TRUE,
+  svm.resid = FALSE,
+  hat.bin = corr.svar,
+  warn = FALSE,
+  plot = FALSE,
+  ...
+)
 
-\method{np.fitgeo}{fitgeo}(x, iter = 1, tol = 0.05,
-  h.svar = x$svm$esv$locpol$h, dk = x$svm$par$dk, corr.svar = TRUE,
-  svm.resid = FALSE, hat.bin = corr.svar, warn = FALSE,
-  plot = FALSE, ...)
+\method{np.fitgeo}{fitgeo}(
+  x,
+  iter = 1,
+  tol = 0.05,
+  h.svar = x$svm$esv$locpol$h,
+  dk = x$svm$par$dk,
+  corr.svar = TRUE,
+  svm.resid = FALSE,
+  hat.bin = corr.svar,
+  warn = FALSE,
+  plot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{a (data) object used to select a method.}
@@ -48,7 +83,7 @@ to cells without data to \code{NA}.}
 
 \item{corr.svar}{logical; if \code{TRUE} (default), a bias-corrected semivariogram estimate 
 is computed (see \code{\link{np.svariso.corr}}). 
-If code{FALSE} the (uncorrected) residual variogram is computed
+If \code{FALSE} the (uncorrected) residual variogram is computed
 (the traditional approach in geostatistics).}
 
 \item{maxlag}{maximum lag. Defaults to 55\% of largest lag.}
@@ -65,6 +100,9 @@ is computed and returned (this parameter has no effect when \code{corr.svar = FA
 \item{warn}{logical; sets the handling of warning messages in bandwith selection (\code{\link{h.cv}}).}
 
 \item{plot}{logical; if \code{TRUE}, semivariogram estimates obtained at each iteration are plotted.}
+
+\item{window}{spatial window (values outside this window will be masked), currently an sp-object of class 
+extending \code{\link[sp:SpatialPolygons-class]{SpatialPolygons}}.}
 
 \item{svm}{(fitted) variogram model (object of class 
 \code{\link{fitsvar}} or \code{\link{svarmod}}).}

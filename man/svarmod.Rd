@@ -7,8 +7,14 @@
 \alias{svarmodels}
 \title{Define a (semi)variogram model}
 \usage{
-svarmod(model, type = "isotropic", par, nugget = NULL, sill = NULL,
-  range = NULL)
+svarmod(
+  model,
+  type = "isotropic",
+  par,
+  nugget = NULL,
+  sill = NULL,
+  range = NULL
+)
 
 svarmod.sb.iso(dk, x, z, nu, range, sill = nu)
 

@@ -9,7 +9,7 @@
 #       varcov.np.svar(x, coords, sill = max(x$est), range.taper, ...) 
 #
 #   (c) R. Fernandez-Casal
-#   Created: Apr 2013                          Last changed: May 2017
+#   Created: Apr 2013
 #--------------------------------------------------------------------
 
 

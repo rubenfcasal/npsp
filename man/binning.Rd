@@ -10,17 +10,15 @@
 \alias{as.bin.data.SpatialGridDataFrame}
 \title{Linear binning}
 \usage{
-binning(x, y = NULL, nbin = NULL, set.NA = FALSE)
+binning(x, y = NULL, nbin = NULL, set.NA = FALSE, window = NULL, ...)
 
 as.bin.data(object, ...)
 
-\method{as.bin.data}{data.grid}(object, data.ind = 1,
-  weights.ind = NULL, ...)
+\method{as.bin.data}{data.grid}(object, data.ind = 1, weights.ind = NULL, ...)
 
 \method{as.bin.data}{bin.data}(object, ...)
 
-\method{as.bin.data}{SpatialGridDataFrame}(object, data.ind = 1,
-  weights.ind = NULL, ...)
+\method{as.bin.data}{SpatialGridDataFrame}(object, data.ind = 1, weights.ind = NULL, ...)
 }
 \arguments{
 \item{x}{vector or matrix of covariates (e.g. spatial coordinates). 
@@ -33,9 +31,12 @@ Columns correspond with covariates (coordinate dimension) and rows with data.}
 \item{set.NA}{logical. If \code{TRUE}, sets the bin averages corresponding
 to cells without data to \code{NA}.}
 
-\item{object}{(gridded data) used to select a method.}
+\item{window}{spatial window (values outside this window will be masked), currently an sp-object of class 
+extending \code{\link[sp:SpatialPolygons-class]{SpatialPolygons}}.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{further arguments passed to \code{\link{mask.bin.data}()}.}
+
+\item{object}{(gridded data) used to select a method.}
 
 \item{data.ind}{integer (or character) with the index (or name) of the component 
 containing the bin averages.}

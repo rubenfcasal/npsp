@@ -3,6 +3,7 @@
 \name{mask}
 \alias{mask}
 \alias{mask.default}
+\alias{mask.data.grid}
 \alias{mask.bin.den}
 \alias{mask.bin.data}
 \alias{mask.locpol.bin}
@@ -12,16 +13,36 @@ mask(x, ...)
 
 \method{mask}{default}(x, tol.mask = 0, ...)
 
-\method{mask}{bin.den}(x, mask = mask.default(x$binw, npsp.tolerance(2)),
-  warn = TRUE, ...)
+\method{mask}{data.grid}(x, mask = NULL, window = NULL, set.NA = FALSE, warn = FALSE, ...)
 
-\method{mask}{bin.data}(x, mask = mask.default(x$binw,
-  npsp.tolerance(2)), set.NA = TRUE, warn = TRUE, filter.lp = set.NA,
-  ...)
+\method{mask}{bin.den}(
+  x,
+  mask = mask.default(x$binw, npsp.tolerance(2)),
+  window = NULL,
+  set.NA = FALSE,
+  warn = TRUE,
+  ...
+)
 
-\method{mask}{locpol.bin}(x, mask = mask.default(x$binw,
-  npsp.tolerance(2)), set.NA = TRUE, warn = TRUE, filter.lp = set.NA,
-  ...)
+\method{mask}{bin.data}(
+  x,
+  mask = NULL,
+  window = NULL,
+  set.NA = FALSE,
+  warn = FALSE,
+  filter.lp = TRUE,
+  ...
+)
+
+\method{mask}{locpol.bin}(
+  x,
+  mask = mask.default(x$binw, npsp.tolerance(2)),
+  window = NULL,
+  set.NA = FALSE,
+  warn = TRUE,
+  filter.lp = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{object used to select a method (binned data, ...).}
@@ -30,12 +51,15 @@ mask(x, ...)
 
 \item{tol.mask}{tolerance.}
 
-\item{mask}{logical; vector indicating the selected values (not masked).}
+\item{mask}{logical; vector (or array) indicating the selected values (not masked).}
 
-\item{warn}{logical; If \code{TRUE} a warning message is generated when original data is masked.}
+\item{window}{spatial window (values outside this window will be masked), currently an sp-object of class 
+extending \code{\link[sp:SpatialPolygons-class]{SpatialPolygons}}.}
 
 \item{set.NA}{logical; If \code{TRUE}, the values corresponding
 to masked cells are set to \code{NA}.}
+
+\item{warn}{logical; If \code{TRUE} a warning message is generated when original data is masked.}
 
 \item{filter.lp}{logical; If \code{TRUE}, masked nodes will be leaved out
 in local polynomial estimation.}
@@ -44,7 +68,8 @@ in local polynomial estimation.}
 \code{mask.default} returns the logical vector \code{x > tol.mask}.
 
 \code{mask.bin.den}, \code{mask.bin.data} and \code{mask.locpol.bin}
-return an object of the same class as \code{x} with the additional component \code{$mask}.
+return an object of the same class as \code{x} with the additional component \code{$mask}
+and optionally \code{$window}.
 }
 \description{
 Filters the data that satisfy a condition.

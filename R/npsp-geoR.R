@@ -8,7 +8,7 @@
 #   as.variomodel()  S3 generic 
 #       as.variomodel.svarmod(m, ...)
 #
-#   (c) R. Fernandez-Casal         Last revision: Apr Aug 2013
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - @examples

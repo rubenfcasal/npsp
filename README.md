@@ -6,15 +6,12 @@ Please edit that file
 
 # npsp: Nonparametric spatial (geo)statistics
 
-### Version 0.7.5
+### Version 0.7.8
 
 This package implements nonparametric methods for inference on
 multidimensional spatial (or spatio-temporal) processes, which may be
 (especially) useful in (automatic) geostatistical modeling and
 interpolation.
-
-For more information visit the [web
-page](https://rubenfcasal.github.io/npsp) of the package.
 
 ## Main functions
 

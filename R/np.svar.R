@@ -13,7 +13,7 @@
 #   np.svariso.corr(lp, x, h, maxlag, nlags, minlag, degree, drv, hat.bin,
 #                   tol, max.iter, plot, ylim)   
 #
-#   (c) R. Fernandez-Casal         Last revision: Aug 2013
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - svarisohcv o final da documentacion
@@ -187,7 +187,7 @@ np.svariso <- np.svar.default
 #' @export
 np.svariso.hcv <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nlags, 
                   degree = 1, drv = FALSE, hat.bin = TRUE, 
-                  loss = c("ARSE", "ARAE", "ASE", "AAE"), ncv = 1, warn = FALSE, ...) { 
+                  loss = c("MRSE", "MRAE", "MSE", "MAE"), ncv = 1, warn = FALSE, ...) { 
 #--------------------------------------------------------------------
     loss <- match.arg(loss)
     if (is.null(maxlag)) 

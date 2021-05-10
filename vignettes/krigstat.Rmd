@@ -71,7 +71,7 @@ spdf <- SpatialPointsDataFrame(aquifer[,1:2],
             data.frame(y = aquifer$head, r = lp.resid))
 newdata <- SpatialPoints(coords(lp))
 krig <- krige(r ~ 1, locations = spdf, newdata = newdata, 
-              model = as.vgm(svm))
+              model = as.vgm(svm), beta = 0)
 krig.grid <- data.grid(kpred = lp$est + krig@data$var1.pred, 
                        ksd = sqrt(krig@data$var1.var), 
         grid = lp$grid)

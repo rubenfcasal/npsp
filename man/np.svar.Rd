@@ -13,25 +13,66 @@
 \usage{
 np.svar(x, ...)
 
-\method{np.svar}{default}(x, y, h = NULL, maxlag = NULL,
-  nlags = NULL, minlag = maxlag/nlags, degree = 1, drv = FALSE,
-  hat.bin = TRUE, ncv = 0, ...)
+\method{np.svar}{default}(
+  x,
+  y,
+  h = NULL,
+  maxlag = NULL,
+  nlags = NULL,
+  minlag = maxlag/nlags,
+  degree = 1,
+  drv = FALSE,
+  hat.bin = TRUE,
+  ncv = 0,
+  ...
+)
 
-\method{np.svar}{svar.bin}(x, h = NULL, degree = 1, drv = FALSE,
-  hat.bin = TRUE, ncv = 0, ...)
+\method{np.svar}{svar.bin}(x, h = NULL, degree = 1, drv = FALSE, hat.bin = TRUE, ncv = 0, ...)
 
-np.svariso(x, y, h = NULL, maxlag = NULL, nlags = NULL,
-  minlag = maxlag/nlags, degree = 1, drv = FALSE, hat.bin = TRUE,
-  ncv = 0, ...)
+np.svariso(
+  x,
+  y,
+  h = NULL,
+  maxlag = NULL,
+  nlags = NULL,
+  minlag = maxlag/nlags,
+  degree = 1,
+  drv = FALSE,
+  hat.bin = TRUE,
+  ncv = 0,
+  ...
+)
 
-np.svariso.hcv(x, y, maxlag = NULL, nlags = NULL,
-  minlag = maxlag/nlags, degree = 1, drv = FALSE, hat.bin = TRUE,
-  loss = c("ARSE", "ARAE", "ASE", "AAE"), ncv = 1, warn = FALSE, ...)
+np.svariso.hcv(
+  x,
+  y,
+  maxlag = NULL,
+  nlags = NULL,
+  minlag = maxlag/nlags,
+  degree = 1,
+  drv = FALSE,
+  hat.bin = TRUE,
+  loss = c("MRSE", "MRAE", "MSE", "MAE"),
+  ncv = 1,
+  warn = FALSE,
+  ...
+)
 
-np.svariso.corr(lp, x = lp$data$x, h = NULL, maxlag = NULL,
-  nlags = NULL, minlag = maxlag/nlags, degree = 1, drv = FALSE,
-  hat.bin = TRUE, tol = 0.05, max.iter = 10, plot = FALSE,
-  ylim = c(0, 2 * max(svar$biny, na.rm = TRUE)))
+np.svariso.corr(
+  lp,
+  x = lp$data$x,
+  h = NULL,
+  maxlag = NULL,
+  nlags = NULL,
+  minlag = maxlag/nlags,
+  degree = 1,
+  drv = FALSE,
+  hat.bin = TRUE,
+  tol = 0.05,
+  max.iter = 10,
+  plot = FALSE,
+  ylim = c(0, 2 * max(svar$biny, na.rm = TRUE))
+)
 }
 \arguments{
 \item{x}{object used to select a method. Usually a matrix with the 

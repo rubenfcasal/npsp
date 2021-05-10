@@ -7,8 +7,14 @@
 \usage{
 svar.grid(svar, log = TRUE, ...)
 
-\method{svar.grid}{svarmod}(svar, log = TRUE, n = 256, min = 10 *
-  .Machine$double.eps, max = 1.1 * svar$range, ...)
+\method{svar.grid}{svarmod}(
+  svar,
+  log = TRUE,
+  n = 256,
+  min = 10 * .Machine$double.eps,
+  max = 1.1 * svar$range,
+  ...
+)
 }
 \arguments{
 \item{svar}{(fitted) variogram model (a \code{\link{svarmod}} 

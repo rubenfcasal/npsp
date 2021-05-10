@@ -1,8 +1,8 @@
 Package: npsp
 Type: Package
 Title: Nonparametric Spatial Statistics
-Version: 0.7-5
-Date: 2019-06-29
+Version: 0.7-8
+Date: 2021-05-10
 Authors@R: person("Ruben", "Fernandez-Casal", , "rubenfcasal@gmail.com", role = c("aut", "cre"), 
     comment = c(ORCID = "0000-0002-5785-3739"))
 Maintainer: Ruben Fernandez-Casal <rubenfcasal@gmail.com>
@@ -20,9 +20,9 @@ Suggests:
     fields,
     DEoptim,
     knitr
-Description: Multidimensional nonparametric spatio-temporal (geo)statistics.
+Description: Multidimensional nonparametric spatial (spatio-temporal) geostatistics.
     S3 classes and methods for multidimensional: linear binning,
-    local polynomial kernel regression, density and variogram estimation.
+    local polynomial kernel regression (spatial trend estimation), density and variogram estimation.
     Nonparametric methods for simultaneous inference on both spatial trend
     and variogram functions (for spatial processes).
     Nonparametric residual kriging (spatial prediction).
@@ -32,4 +32,4 @@ BugReports: http://github.com/rubenfcasal/npsp/issues
 LazyData: yes
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

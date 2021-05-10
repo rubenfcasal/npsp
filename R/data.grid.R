@@ -18,7 +18,7 @@
 #   - exemplos
 #   - as.data.grid()
 #
-#   (c) R. Fernandez-Casal         Last revision: Mar 2018
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
@@ -30,6 +30,7 @@
 #' Defines data on a full regular (spatial) grid. 
 #' Constructor function of the \code{data.grid}-\code{\link{class}}.
 #' @aliases data.grid-class
+#' @inheritParams mask.data.grid
 #' @param  ... vectors or arrays of data with length equal to \code{prod(grid$n)}. 
 #' @param  grid a \code{\link{grid.par}}-\code{\link{class}} object (optional).
 #' @details If parameter \code{grid.par} is not specified it is set from first argument.
@@ -38,9 +39,11 @@
 #' of the \pkg{sp} package.
 #' @return Returns an object of \code{\link{class}} \code{data.grid}, a list with 
 #' the arguments as components.
-#' @seealso \code{\link{grid.par}}, \code{\link{binning}}, \code{\link{locpol}}.
+#' @seealso \code{\link{as.data.grid}}, \code{\link{grid.par}}, code{\link{mask}}, 
+#' \code{\link{binning}}, \code{\link{locpol}}.
 #' @export
-data.grid <- function(..., grid = NULL) {
+data.grid <- function(..., grid = NULL, window = NULL, mask = NULL,
+                      set.NA = FALSE, warn = FALSE) {
 #-------------------------------------------------------------------- 
     args <- list(...)
     nargs <- length(args)
@@ -69,6 +72,9 @@ data.grid <- function(..., grid = NULL) {
     # Rematar de construir o obxeto
     result$grid <- grid
     oldClass(result) <- "data.grid"
+    if(!is.null(window)||!is.null(mask)) 
+      result <- mask(result, mask = mask, window = window, 
+                             set.NA = set.NA, warn = warn)
     return(result)
 #--------------------------------------------------------------------
 } # data.grid
@@ -76,15 +82,18 @@ data.grid <- function(..., grid = NULL) {
 
 #--------------------------------------------------------------------
 # Converts a \link[sp:00sp]{sp} gridded objects to a npsp `data.grid` object
-#' @rdname data.grid 
+#' data.grid-class methods
+#' 
+#' S3 class \code{\link{data.grid}} methods. 
 #' @param object (gridded data) used to select a method.
-# @param ... further arguments passed to or from other methods.
+#' @param ... further arguments passed to \code{\link{data.grid}}.
+#' @seealso \code{\link{data.grid}}.
 #' @export
 as.data.grid <- function(object, ...) UseMethod("as.data.grid")
 # S3 generic function as.data.grid
 #--------------------------------------------------------------------
 
-#' @rdname data.grid 
+#' @rdname as.data.grid 
 #' @method as.data.grid SpatialGridDataFrame
 # @param data.ind integer or character vector with the indexes or names of the components.
 #' @export
@@ -96,13 +105,14 @@ as.data.grid.SpatialGridDataFrame <- function(object, data.ind = NULL, ...) {
   # result <- lapply(object@data[data.ind], function(x) matrix(x, nrow = n[1], ncol = n[2])[ , n[2]:1])
   result <- lapply(object@data[data.ind], function(d) revdim(array(d, dim = n), 2))  
   result$grid <- with(gridpar, grid.par(n = n, min = cellcentre.offset, lag = cellsize))
-  oldClass(result) <- "data.grid"
+  # oldClass(result) <- "data.grid"
+  result <- do.call(data.grid, c(result, ...))
   return(result)
 }
 
 
 #--------------------------------------------------------------------
-#' @rdname data.grid
+#' @rdname as.data.grid
 #' @method as.data.frame data.grid
 #' @param x a \code{data.grid} object.
 #' @param data.ind integer or character vector with the indexes or names of the components.
@@ -153,3 +163,4 @@ revdim <- function(a, d) {
                  })
   do.call(`[`, c(list(a), idxs))
 }
+

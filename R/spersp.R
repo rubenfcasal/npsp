@@ -12,7 +12,7 @@
 #   University Corporation for Atmospheric Research
 #   Licensed under the GPL -- www.gpl.org/licenses/gpl.html
 #
-#   (c) R. Fernandez-Casal         Last revision: Mar 2014
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 

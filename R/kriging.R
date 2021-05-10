@@ -1,11 +1,13 @@
 #--------------------------------------------------------------------
 #   kriging.R (npsp package)
 #--------------------------------------------------------------------
-#   np.kriging(lp, svm, lp.resid = residuals(lp))
+#   np.kriging(object, ...)
+#       np.kriging.default(object, svm, lp.resid, ngrid, ...)
+#       np.kriging.np.geo(object, ngrid, ...)
 #   kriging.simple(x, y, newx, svm)
 #   kriging.simple.solve(x, newx, svm)  
 #
-#   (c) R. Fernandez-Casal         Last revision: Sep 2017
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - spam = TRUE
@@ -43,21 +45,19 @@ np.kriging <- function(object, ...) UseMethod("np.kriging")
 #--------------------------------------------------------------------
 np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...) {
   stopifnot(inherits(object, "locpol.bin" ))
-  masked <- !is.null(object$mask)  # Interpolar mask?
-  if (lp.hd <- any(ngrid != object$grid$n))
-    object <- with(object, locpol(data$x, data$y, nbin = ngrid, h = locpol$h))
+  if (!is.null(object$mask) && is.null(object$window)) # Interpolar mask?
+      warning("A resized 'object' can not be masked (`ngrid != object$grid$n`).")
+  if (lp.hd <- any(ngrid != object$grid$n)) {
+    bin <- with(object$data, binning(x, y, nbin = ngrid, window = object$window))
+    object <- locpol(bin, h = object$locpol$h)
+    lp.resid <- residuals(object)
+  }  
   if (is.null(lp.resid))
     lp.resid <- if(inherits(svm, "fitsvar")) svm$esv$data$y else residuals(object)
   krig.grid <- kriging.simple(x = object$data$x, y = lp.resid, newx = object, svm = svm)
   krig.grid$kpred <- object$est + krig.grid$kpred
   krig.grid$trend <- object$est
-  # OJO: Si lp data is masked... 
-  if (masked) 
-    if (lp.hd) {
-      warning("A resized 'object' can not be masked (`ngrid != object$grid$n`).")
-      # Interpolar mask?
-    } else 
-      is.na(krig.grid$ksd) <- !object$mask
+  if (!is.null(object$mask)) is.na(krig.grid$ksd) <- !object$mask
   # krig.grid$lp <- object
   # krig.grid$residuals <- lp.resid
   return(krig.grid)

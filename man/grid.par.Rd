@@ -5,8 +5,13 @@
 \alias{grid.par-class}
 \title{Grid parameters (S3 class "grid.par")}
 \usage{
-grid.par(n, min, max = min + (n - 1) * lag, lag = (max - min)/(n - 1),
-  dimnames = names(min))
+grid.par(
+  n,
+  min,
+  max = min + (n - 1) * lag,
+  lag = (max - min)/(n - 1),
+  dimnames = names(min)
+)
 }
 \arguments{
 \item{n}{integer vector; number of nodes in each dimension.}

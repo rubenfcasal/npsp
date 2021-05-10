@@ -4,8 +4,7 @@
 \alias{cpu.time}
 \title{Total and partial CPU time used}
 \usage{
-cpu.time(..., reset = FALSE, total = TRUE, last = TRUE,
-  flush = FALSE)
+cpu.time(..., reset = FALSE, total = TRUE, last = TRUE, flush = FALSE)
 }
 \arguments{
 \item{...}{objects (describing the last operation) to be printed (using \code{\link{cat}}), 
@@ -35,9 +34,9 @@ real and CPU times.
  
  cpu.time(reset=TRUE)
  res <- median(runif(100000))
- cpu.time('\\nSample median of', 100000, 'values =', res)
+ cpu.time('\nSample median of', 100000, 'values =', res)
  res <- median(runif(1000))
- cpu.time('\\nSample median of', 1000, 'values =', res)
+ cpu.time('\nSample median of', 1000, 'values =', res)
 
 }
 }

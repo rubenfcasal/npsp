@@ -11,8 +11,7 @@
 \usage{
 np.kriging(object, ...)
 
-\method{np.kriging}{default}(object, svm, lp.resid = NULL,
-  ngrid = object$grid$n, ...)
+\method{np.kriging}{default}(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...)
 
 \method{np.kriging}{np.geo}(object, ngrid = object$grid$n, ...)
 

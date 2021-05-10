@@ -13,23 +13,46 @@
 \usage{
 locpol(x, ...)
 
-\method{locpol}{default}(x, y, h = NULL, nbin = NULL, degree = 1 +
-  as.numeric(drv), drv = FALSE, hat.bin = FALSE, ncv = 0,
-  set.NA = FALSE, ...)
+\method{locpol}{default}(
+  x,
+  y,
+  h = NULL,
+  nbin = NULL,
+  degree = 1 + as.numeric(drv),
+  drv = FALSE,
+  hat.bin = FALSE,
+  ncv = 0,
+  set.NA = FALSE,
+  ...
+)
 
-\method{locpol}{bin.data}(x, h = NULL, degree = 1 + as.numeric(drv),
-  drv = FALSE, hat.bin = FALSE, ncv = 0, ...)
+\method{locpol}{bin.data}(
+  x,
+  h = NULL,
+  degree = 1 + as.numeric(drv),
+  drv = FALSE,
+  hat.bin = FALSE,
+  ncv = 0,
+  ...
+)
 
-\method{locpol}{svar.bin}(x, h = NULL, degree = 1, drv = FALSE,
-  hat.bin = TRUE, ncv = 0, ...)
+\method{locpol}{svar.bin}(x, h = NULL, degree = 1, drv = FALSE, hat.bin = TRUE, ncv = 0, ...)
 
-\method{locpol}{bin.den}(x, h = NULL, degree = 1 + as.numeric(drv),
-  drv = FALSE, ncv = 0, ...)
+\method{locpol}{bin.den}(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, ncv = 0, ...)
 
-locpolhcv(x, y, nbin = NULL, objective = c("CV", "GCV", "MASE"),
-  degree = 1 + as.numeric(drv), drv = FALSE, hat.bin = FALSE,
-  set.NA = FALSE, ncv = ifelse(objective == "CV", 2, 0),
-  cov.dat = NULL, ...)
+locpolhcv(
+  x,
+  y,
+  nbin = NULL,
+  objective = c("CV", "GCV", "MASE"),
+  degree = 1 + as.numeric(drv),
+  drv = FALSE,
+  hat.bin = FALSE,
+  set.NA = FALSE,
+  ncv = ifelse(objective == "CV", 2, 0),
+  cov.dat = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{a (data) object used to select a method.}

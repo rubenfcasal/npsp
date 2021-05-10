@@ -8,18 +8,45 @@
 \usage{
 spersp(x, ...)
 
-\method{spersp}{default}(x = seq(0, 1, len = nrow(z)), y = seq(0, 1,
-  len = ncol(z)), z, s = z, slim = range(s, finite = TRUE),
-  col = jet.colors(128), breaks = NULL, legend = TRUE,
-  horizontal = FALSE, legend.shrink = 0.8, legend.width = 1.2,
-  legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
-  bigplot = NULL, smallplot = NULL, lab.breaks = NULL,
-  axis.args = NULL, legend.args = NULL, graphics.reset = FALSE,
-  xlab = NULL, ylab = NULL, zlab = NULL, theta = 40, phi = 20,
-  ticktype = "detailed", cex.axis = 0.75, ...)
+\method{spersp}{default}(
+  x = seq(0, 1, len = nrow(z)),
+  y = seq(0, 1, len = ncol(z)),
+  z,
+  s = z,
+  slim = range(s, finite = TRUE),
+  col = jet.colors(128),
+  breaks = NULL,
+  legend = TRUE,
+  horizontal = FALSE,
+  legend.shrink = 0.8,
+  legend.width = 1.2,
+  legend.mar = ifelse(horizontal, 3.1, 5.1),
+  legend.lab = NULL,
+  bigplot = NULL,
+  smallplot = NULL,
+  lab.breaks = NULL,
+  axis.args = NULL,
+  legend.args = NULL,
+  graphics.reset = FALSE,
+  xlab = NULL,
+  ylab = NULL,
+  zlab = NULL,
+  theta = 40,
+  phi = 20,
+  ticktype = "detailed",
+  cex.axis = 0.75,
+  ...
+)
 
-\method{spersp}{data.grid}(x, data.ind = 1, s = x[[data.ind]],
-  xlab = NULL, ylab = NULL, zlab = NULL, ...)
+\method{spersp}{data.grid}(
+  x,
+  data.ind = 1,
+  s = x[[data.ind]],
+  xlab = NULL,
+  ylab = NULL,
+  zlab = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{grid values for \code{x} coordinate. If \code{x} is a list, 

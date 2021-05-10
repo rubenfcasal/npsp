@@ -8,11 +8,16 @@
 \usage{
 varcov(x, coords, ...)
 
-\method{varcov}{isotropic}(x, coords, sill = x$sill, range.taper,
-  discretize = nrow(coords) > 256, ...)
+\method{varcov}{isotropic}(
+  x,
+  coords,
+  sill = x$sill,
+  range.taper,
+  discretize = nrow(coords) > 256,
+  ...
+)
 
-\method{varcov}{np.svar}(x, coords, sill = max(x$est),
-  range.taper = x$grid$max, ...)
+\method{varcov}{np.svar}(x, coords, sill = max(x$est), range.taper = x$grid$max, ...)
 }
 \arguments{
 \item{x}{variogram model (\code{\link{svarmod}} object) or semivariogram estimate.}

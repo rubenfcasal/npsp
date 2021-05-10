@@ -10,7 +10,7 @@
 #       sv.svarmod(x, h, ...)
 #       sv.sb.iso(x, h, ...)
 #
-#   (c) R. Fernandez-Casal         Last revision: Apr Sep 2013
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 # NOTA: para modelos isotropicos parametricos se toma (provisionalmente)
 #       como referencia geoR

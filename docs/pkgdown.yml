@@ -1,11 +1,12 @@
-pandoc: '2.6'
-pkgdown: 1.3.0
+pandoc: 2.7.3
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  aquifer: docs/aquifer.html
-  Introduccion: docs/Introduccion.html
+  docs/aquifer: aquifer.html
+  docs/Introduccion: Introduccion.html
   krigstat: krigstat.html
   npsp: npsp.html
+last_built: 2021-05-10T17:04Z
 urls:
   reference: http://rubenfcasal.github.io/npsp/reference
   article: http://rubenfcasal.github.io/npsp/articles

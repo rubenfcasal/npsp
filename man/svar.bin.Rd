@@ -10,11 +10,25 @@
 \usage{
 svar.bin(x, ...)
 
-\method{svar.bin}{default}(x, y, maxlag = NULL, nlags = NULL,
-  minlag = maxlag/nlags, estimator = c("classical", "modulus"), ...)
+\method{svar.bin}{default}(
+  x,
+  y,
+  maxlag = NULL,
+  nlags = NULL,
+  minlag = maxlag/nlags,
+  estimator = c("classical", "modulus"),
+  ...
+)
 
-svariso(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nlags,
-  estimator = c("classical", "modulus"), ...)
+svariso(
+  x,
+  y,
+  maxlag = NULL,
+  nlags = NULL,
+  minlag = maxlag/nlags,
+  estimator = c("classical", "modulus"),
+  ...
+)
 }
 \arguments{
 \item{x}{object used to select a method. Usually a matrix with the 

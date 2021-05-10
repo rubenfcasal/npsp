@@ -5,7 +5,7 @@
 #       svar.bin.default(x, y, maxlag, nlags, minlag, estimator, ...)   
 #   svariso(x, y, maxlag, nlags, minlag, estimator, ...)   
 #
-#   (c) R. Fernandez-Casal         Last revision: Aug 2012, Nov 2015
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - S3 generic ?

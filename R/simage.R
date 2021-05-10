@@ -13,7 +13,7 @@
 #   Licensed under the GPL -- www.gpl.org/licenses/gpl.html
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Mar 2014                          Last changed: Aug 2014
+#   Created: Mar 2014
 #--------------------------------------------------------------------
 
 

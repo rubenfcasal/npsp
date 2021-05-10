@@ -5,7 +5,7 @@
 #   binning(x, y, nbin, set.NA)
 #
 #   (c) R. Fernandez-Casal
-#   Created: Aug 2012                          Last changed: Aug 2015
+#   Created: Aug 2012
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - as.bin.data.data.grid, as.bin.data.default, ...
@@ -14,7 +14,7 @@
 
 
 #--------------------------------------------------------------------
-# binning <- function(x, y, nbin = NULL, set.NA = FALSE) {
+# binning <- function(x, y, nbin = NULL, set.NA = FALSE, window = NULL, ... ) {
 #--------------------------------------------------------------------
 #' Linear binning
 #' 
@@ -22,6 +22,7 @@
 #' using the multivariate linear binning technique described in Wand (1994).
 #'
 #' @aliases bin.data-class bin.data
+#' @inheritParams mask.data.grid
 # @inheritParams locpol.default
 #' @param  x vector or matrix of covariates (e.g. spatial coordinates). 
 #' Columns correspond with covariates (coordinate dimension) and rows with data.
@@ -29,6 +30,7 @@
 #' @param  nbin vector with the number of bins on each dimension.
 #' @param  set.NA logical. If \code{TRUE}, sets the bin averages corresponding
 #' to cells without data to \code{NA}.
+#' @param ... further arguments passed to \code{\link{mask.bin.data}()}.
 #' @details If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
 #' 
 #' Setting \code{set.NA = TRUE} (equivalent to \code{biny[binw == 0] <- NA}) 
@@ -62,7 +64,7 @@
 #' simage(bin, main = "Binning averages")
 #' with(earthquakes, points(lon, lat, pch = 20))
 #' @export
-binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE) {
+binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE, window = NULL, ... ) {
 #--------------------------------------------------------------------
 # Returns an S3 object of class "bin.data" (bin data + grid parameters)
 # Interface to the fortran routine "binning"
@@ -108,6 +110,8 @@ binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE) {
               dimnames = dimnames(x)[[2]])) )
     result$data <- list(x = x, y = y, med = ret$med)
     oldClass(result) <- c("bin.data", "bin.den", "data.grid")
+    if(!is.null(window)||length(list(...))) 
+      result <- mask.bin.data(result, window = window, set.NA = set.NA, ...)
     return(result)
 #--------------------------------------------------------------------
 } # binning.default
@@ -118,7 +122,7 @@ binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE) {
 #--------------------------------------------------------------------
 #' @rdname binning  
 #' @param object (gridded data) used to select a method.
-#' @param ... further arguments passed to or from other methods.
+# @param ... further arguments passed to or from other methods.
 #' @export
 as.bin.data <- function(object, ...) UseMethod("as.bin.data")
 # S3 generic function as.bin.den

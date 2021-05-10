@@ -6,7 +6,7 @@
 #   fitsvar.sb.iso(esv, dk, nx, rmax, min.contrib, method, iter, tol)
 #
 #   (c) R. Fernandez-Casal
-#   Created: Apr 2013                          Last changed: May 2017
+#   Created: Apr 2013
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - documentacion
@@ -115,6 +115,7 @@ kappasb <- function(x, dk = 0) {
 #' @export
 disc.sb <- function(nx, dk = 0, rmax = 1) {   
 #--------------------------------------------------------------------
+# NOTA: se llama primero a esta función
     if (dk == 0) 
         # OLLO: equiv. modelos gausianos, poden aparecer inestabilidades
         # Nodos de discretizacion "xeometricos"

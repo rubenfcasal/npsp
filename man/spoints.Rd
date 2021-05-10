@@ -9,20 +9,37 @@
 \usage{
 spoints(x, ...)
 
-\method{spoints}{default}(x, y = NULL, s, slim = range(s, finite =
-  TRUE), col = jet.colors(128), breaks = NULL, legend = TRUE,
-  horizontal = FALSE, legend.shrink = 1, legend.width = 1.2,
-  legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
-  bigplot = NULL, smallplot = NULL, lab.breaks = NULL,
-  axis.args = NULL, legend.args = NULL, add = FALSE,
-  graphics.reset = add, pch = 16, cex = 1.5, xlab = NULL,
-  ylab = NULL, asp = NA, ...)
+\method{spoints}{default}(
+  x,
+  y = NULL,
+  s,
+  slim = range(s, finite = TRUE),
+  col = jet.colors(128),
+  breaks = NULL,
+  legend = TRUE,
+  horizontal = FALSE,
+  legend.shrink = 1,
+  legend.width = 1.2,
+  legend.mar = ifelse(horizontal, 3.1, 5.1),
+  legend.lab = NULL,
+  bigplot = NULL,
+  smallplot = NULL,
+  lab.breaks = NULL,
+  axis.args = NULL,
+  legend.args = NULL,
+  add = FALSE,
+  graphics.reset = add,
+  pch = 16,
+  cex = 1.5,
+  xlab = NULL,
+  ylab = NULL,
+  asp = NA,
+  ...
+)
 
-\method{spoints}{data.grid}(x, s = x[[1]], xlab = NULL, ylab = NULL,
-  ...)
+\method{spoints}{data.grid}(x, s = x[[1]], xlab = NULL, ylab = NULL, ...)
 
-\method{spoints}{SpatialPointsDataFrame}(x, data.ind = 1, main, xlab,
-  ylab, legend.lab, ...)
+\method{spoints}{SpatialPointsDataFrame}(x, data.ind = 1, main, xlab, ylab, legend.lab, ...)
 }
 \arguments{
 \item{x}{object used to select a method. In the default method, it provides the \code{x} 

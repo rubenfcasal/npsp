@@ -4,7 +4,8 @@
 \name{earthquakes}
 \alias{earthquakes}
 \title{Earthquake data}
-\format{A data frame with 1859 observations on the following 6 variables:
+\format{
+A data frame with 1859 observations on the following 6 variables:
 \describe{
   \item{date}{Date and time (POSIXct format).}
   \item{time}{Time (years since first event).}
@@ -12,7 +13,8 @@
   \item{lat}{Latitude.}
   \item{depth}{Depth (km).}
   \item{mag}{Magnitude (Richter's scale).}
-}}
+}
+}
 \source{
 National Geographic Institute (IGN) of Spain: \cr
 \url{https://www.ign.es/web/ign/portal/sis-area-sismicidad}.

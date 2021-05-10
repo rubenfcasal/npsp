@@ -5,7 +5,7 @@
 #   earthquakes
 #   aquifer
 #
-#   (c) R. Fernandez-Casal         Last revision: Aug 2017
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 
@@ -91,7 +91,7 @@
 #' @import graphics
 #' @import sp
 #' @importFrom grDevices colorRamp colorRamp rainbow rgb
-#' @importFrom methods is hasArg
+#' @importFrom methods as is hasArg
 #' @importFrom stats approx complete.cases cov2cor dist optim predict residuals lowess density
 #' @importFrom utils flush.console
 #' @keywords nonparametric smooth

@@ -10,23 +10,58 @@
 \usage{
 h.cv(bin, ...)
 
-\method{h.cv}{bin.data}(bin, objective = c("CV", "GCV", "MASE"),
-  h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1,
-  ncv = ifelse(objective == "CV", 2, 0), cov.bin = NULL,
-  DEalgorithm = FALSE, warn = TRUE, tol.mask = npsp.tolerance(2),
-  ...)
+\method{h.cv}{bin.data}(
+  bin,
+  objective = c("CV", "GCV", "MASE"),
+  h.start = NULL,
+  h.lower = NULL,
+  h.upper = NULL,
+  degree = 1,
+  ncv = ifelse(objective == "CV", 2, 0),
+  cov.bin = NULL,
+  DEalgorithm = FALSE,
+  warn = TRUE,
+  tol.mask = npsp.tolerance(2),
+  ...
+)
 
-\method{h.cv}{bin.den}(bin, h.start = NULL, h.lower = NULL,
-  h.upper = NULL, degree = 1, ncv = 2, DEalgorithm = FALSE, ...)
+\method{h.cv}{bin.den}(
+  bin,
+  h.start = NULL,
+  h.lower = NULL,
+  h.upper = NULL,
+  degree = 1,
+  ncv = 2,
+  DEalgorithm = FALSE,
+  ...
+)
 
-\method{h.cv}{svar.bin}(bin, loss = c("ARSE", "ARAE", "ASE", "AAE"),
-  h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1,
-  ncv = 1, DEalgorithm = FALSE, warn = FALSE, ...)
+\method{h.cv}{svar.bin}(
+  bin,
+  loss = c("MRSE", "MRAE", "MSE", "MAE"),
+  h.start = NULL,
+  h.lower = NULL,
+  h.upper = NULL,
+  degree = 1,
+  ncv = 1,
+  DEalgorithm = FALSE,
+  warn = FALSE,
+  ...
+)
 
-hcv.data(bin, objective = c("CV", "GCV", "MASE"), h.start = NULL,
-  h.lower = NULL, h.upper = NULL, degree = 1,
-  ncv = ifelse(objective == "CV", 1, 0), cov.dat = NULL,
-  DEalgorithm = FALSE, warn = TRUE, ...)
+hcv.data(
+  bin,
+  objective = c("CV", "GCV", "MASE"),
+  h.start = NULL,
+  h.lower = NULL,
+  h.upper = NULL,
+  degree = 1,
+  ncv = ifelse(objective == "CV", 1, 0),
+  cov.dat = NULL,
+  DEalgorithm = FALSE,
+  warn = TRUE,
+  ...
+)
 }
 \arguments{
 \item{bin}{object used to select a method (binned data, binned density or binned semivariogram).}
@@ -99,10 +134,10 @@ If \code{DEalgorithm == FALSE}, the \code{"L-BFGS-B"} method in \code{\link{opti
 The different options for the argument \code{loss} in \code{h.cv.svar.bin()} define the CV error 
 considered in semivariogram estimation:
 \describe{
- \item{\code{"ASE"}}{Averaged squared error}
- \item{\code{"ARSE"}}{Averaged relative squared error}
- \item{\code{"AAE"}}{Averaged absolute error}
- \item{\code{"ARAE"}}{Averaged relative absolute error}
+ \item{\code{"MSE"}}{Mean squared error}
+ \item{\code{"MRSE"}}{Mean relative squared error}
+ \item{\code{"MAE"}}{Mean absolute error}
+ \item{\code{"MRAE"}}{Mean relative absolute error}
 }
 
 \code{hcv.data} evaluates the objective function at the original data

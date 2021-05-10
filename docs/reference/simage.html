@@ -8,21 +8,29 @@
 
 <title>Image plot with a color scale — simage • npsp</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,14 +38,14 @@
 
 
 
-<meta property="og:title" content="Image plot with a color scale — simage" />
 
+<meta property="og:title" content="Image plot with a color scale — simage" />
 <meta property="og:description" content="simage (generic function) draws an image (a grid of colored rectangles) 
 and (optionally) adds a legend strip with the color scale 
 (calls splot and image).
 plot.np.den calls simage.data.grid 
 (contour and points also by default)." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -51,9 +59,10 @@ plot.np.den calls simage.data.grid
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +76,7 @@ plot.np.den calls simage.data.grid
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-8</span>
       </span>
     </div>
 
@@ -75,7 +84,7 @@ plot.np.den calls simage.data.grid
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,11 +116,10 @@ plot.np.den calls simage.data.grid
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rubenfcasal/npsp">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="http://github.com/rubenfcasal/npsp/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -122,47 +130,68 @@ plot.np.den calls simage.data.grid
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Image plot with a color scale</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rubenfcasal/npsp/blob/master/R/simage.R'><code>R/simage.R</code></a></small>
+    <small class="dont-index">Source: <a href='http://github.com/rubenfcasal/npsp/blob/master/R/simage.R'><code>R/simage.R</code></a></small>
     <div class="hidden name"><code>simage.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p><code>simage</code> (generic function) draws an image (a grid of colored rectangles) 
 and (optionally) adds a legend strip with the color scale 
-(calls <code><a href='splot.html'>splot</a></code> and <code><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></code>).</p>
+(calls <code><a href='splot.html'>splot</a></code> and <code><a href='https://rdrr.io/r/graphics/image.html'>image</a></code>).</p>
 <p><code>plot.np.den</code> calls <code>simage.data.grid</code> 
-(<code><a href='https://www.rdocumentation.org/packages/graphics/topics/contour'>contour</a></code> and <code><a href='https://www.rdocumentation.org/packages/graphics/topics/points'>points</a></code> also by default).</p>
-    
+(<code><a href='https://rdrr.io/r/graphics/contour.html'>contour</a></code> and <code><a href='https://rdrr.io/r/graphics/points.html'>points</a></code> also by default).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simage</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>simage</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>simage</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>len</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>s</span>)), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>,
-  <span class='kw'>len</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>ncol</a></span>(<span class='no'>s</span>)), <span class='no'>s</span>, <span class='kw'>slim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/range'>range</a></span>(<span class='no'>s</span>, <span class='kw'>finite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='splot.html'>jet.colors</a></span>(<span class='fl'>128</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>horizontal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend.shrink</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>legend.width</span> <span class='kw'>=</span> <span class='fl'>1.2</span>,
-  <span class='kw'>legend.mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='no'>horizontal</span>, <span class='fl'>3.1</span>, <span class='fl'>5.1</span>), <span class='kw'>legend.lab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bigplot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smallplot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lab.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>axis.args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend.args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>graphics.reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>asp</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
+<span class='fu'>simage</span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, len <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, len <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>s</span>,
+  slim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>s</span>, finite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  col <span class='op'>=</span> <span class='fu'><a href='splot.html'>jet.colors</a></span><span class='op'>(</span><span class='fl'>128</span><span class='op'>)</span>,
+  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  legend <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  horizontal <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  legend.shrink <span class='op'>=</span> <span class='fl'>1</span>,
+  legend.width <span class='op'>=</span> <span class='fl'>1.2</span>,
+  legend.mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>horizontal</span>, <span class='fl'>3.1</span>, <span class='fl'>5.1</span><span class='op'>)</span>,
+  legend.lab <span class='op'>=</span> <span class='cn'>NULL</span>,
+  bigplot <span class='op'>=</span> <span class='cn'>NULL</span>,
+  smallplot <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lab.breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  axis.args <span class='op'>=</span> <span class='cn'>NULL</span>,
+  legend.args <span class='op'>=</span> <span class='cn'>NULL</span>,
+  graphics.reset <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  xlab <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
+  asp <span class='op'>=</span> <span class='cn'>NA</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for data.grid</span>
-<span class='fu'>simage</span>(<span class='no'>x</span>, <span class='kw'>data.ind</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>)
+<span class='fu'>simage</span><span class='op'>(</span><span class='va'>x</span>, data.ind <span class='op'>=</span> <span class='fl'>1</span>, xlab <span class='op'>=</span> <span class='cn'>NULL</span>, ylab <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for np.den</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='splot.html'>hot.colors</a></span>(<span class='fl'>128</span>), <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fu'><a href='npsp.tolerance.html'>npsp.tolerance</a></span>(),
-  <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  log <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  contour <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  points <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  col <span class='op'>=</span> <span class='fu'><a href='splot.html'>hot.colors</a></span><span class='op'>(</span><span class='fl'>128</span><span class='op'>)</span>,
+  tolerance <span class='op'>=</span> <span class='fu'><a href='npsp.tolerance.html'>npsp.tolerance</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -170,16 +199,16 @@ and (optionally) adds a legend strip with the color scale
       <th>x</th>
       <td><p>grid values for <code>x</code> coordinate. If <code>x</code> is a list, 
 its components <code>x$x</code> and <code>x$y</code> are used for <code>x</code>  
-and <code>y</code>, respectively. For compatibility with <code><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></code>, if the 
+and <code>y</code>, respectively. For compatibility with <code><a href='https://rdrr.io/r/graphics/image.html'>image</a></code>, if the 
 list has component <code>z</code> this is used for <code>s</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional graphical parameters (to be passed to <code><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></code> 
+      <td><p>additional graphical parameters (to be passed to <code><a href='https://rdrr.io/r/graphics/image.html'>image</a></code> 
 or <code>simage.default</code>; e.g. <code>xlim, ylim,</code> ...). NOTE:
 graphical arguments passed here will only have impact on the main plot. 
-To change the graphical defaults for the legend use the <code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></code> 
-function beforehand (e.g. <code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par(cex.lab = 2)</a></code> to increase colorbar labels).</p></td>
+To change the graphical defaults for the legend use the <code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code> 
+function beforehand (e.g. <code><a href='https://rdrr.io/r/graphics/par.html'>par(cex.lab = 2)</a></code> to increase colorbar labels).</p></td>
     </tr>
     <tr>
       <th>y</th>
@@ -196,7 +225,7 @@ Note that <code>x</code> can be used instead of <code>s</code> for convenience.<
     </tr>
     <tr>
       <th>col</th>
-      <td><p>color table used to set up the color scale (see <code><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></code> for
+      <td><p>color table used to set up the color scale (see <code><a href='https://rdrr.io/r/graphics/image.html'>image</a></code> for
 details).</p></td>
     </tr>
     <tr>
@@ -255,19 +284,19 @@ scale such as logs.</p></td>
     <tr>
       <th>axis.args</th>
       <td><p>additional arguments for the axis function used to create
-the legend axis (see <code><a href='https://www.rdocumentation.org/packages/fields/topics/image.plot'>image.plot</a></code> for details).</p></td>
+the legend axis (see <code><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></code> for details).</p></td>
     </tr>
     <tr>
       <th>legend.args</th>
       <td><p>arguments for a complete specification of the legend
-label. This is in the form of list and is just passed to the <code><a href='https://www.rdocumentation.org/packages/graphics/topics/mtext'>mtext</a></code>
-function. Usually this will not be needed (see <code><a href='https://www.rdocumentation.org/packages/fields/topics/image.plot'>image.plot</a></code> 
+label. This is in the form of list and is just passed to the <code><a href='https://rdrr.io/r/graphics/mtext.html'>mtext</a></code>
+function. Usually this will not be needed (see <code><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></code> 
 for details).</p></td>
     </tr>
     <tr>
       <th>graphics.reset</th>
       <td><p>logical; if <code>FALSE</code> (default) the plotting region
-(<code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a>("plt")</code>) will not be reset to make it possible to add more features
+(<code><a href='https://rdrr.io/r/graphics/par.html'>par</a>("plt")</code>) will not be reset to make it possible to add more features
 to the plot (e.g. using functions such as points or lines). If <code>TRUE</code> will
 reset plot parameters to the values before entering the function.</p></td>
     </tr>
@@ -281,7 +310,7 @@ reset plot parameters to the values before entering the function.</p></td>
     </tr>
     <tr>
       <th>asp</th>
-      <td><p>the y/x aspect ratio, see <code><a href='https://www.rdocumentation.org/packages/graphics/topics/plot.window'>plot.window</a></code>.</p></td>
+      <td><p>the y/x aspect ratio, see <code><a href='https://rdrr.io/r/graphics/plot.window.html'>plot.window</a></code>.</p></td>
     </tr>
     <tr>
       <th>data.ind</th>
@@ -290,7 +319,7 @@ containing the values to be used for coloring the rectangles.</p></td>
     </tr>
     <tr>
       <th>log</th>
-      <td><p>logical; if <code>TRUE</code> (default), <code><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log(x$est)</a></code> is ploted.</p></td>
+      <td><p>logical; if <code>TRUE</code> (default), <code><a href='https://rdrr.io/r/base/Log.html'>log(x$est)</a></code> is ploted.</p></td>
     </tr>
     <tr>
       <th>contour</th>
@@ -305,72 +334,64 @@ containing the values to be used for coloring the rectangles.</p></td>
       <td><p>tolerance value (lower values are masked).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Invisibly returns a list with the following 3 components:</p>
 <dt>bigplot</dt><dd><p>plot coordinates of the main plot. These values may be useful for 
 drawing a plot without the legend that is the same size as the plots with legends.</p></dd>
 <dt>smallplot</dt><dd><p>plot coordinates of the secondary plot (legend strip).</p></dd>
-<dt>old.par</dt><dd><p>previous graphical parameters (<code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par(old.par)</a></code> 
+<dt>old.par</dt><dd><p>previous graphical parameters (<code><a href='https://rdrr.io/r/graphics/par.html'>par(old.par)</a></code> 
 will reset plot parameters to the values before entering the function).</p></dd>
 
-    
     <h2 class="hasAnchor" id="side-effects"><a class="anchor" href="#side-effects"></a>Side Effects</h2>
 
     <p>After exiting, the plotting region may be changed 
-(<code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a>("plt")</code>) to make it possible to add more features to the plot
+(<code><a href='https://rdrr.io/r/graphics/par.html'>par</a>("plt")</code>) to make it possible to add more features to the plot
 (set <code>graphics.reset = FALSE</code> to avoid this).</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='splot.html'>splot</a></code>, <code><a href='spoints.html'>spoints</a></code>, <code><a href='spersp.html'>spersp</a></code>, 
-<code><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></code>, <code><a href='https://www.rdocumentation.org/packages/fields/topics/image.plot'>image.plot</a></code>, <code><a href='data.grid.html'>data.grid</a></code>.</p></div>
-    
+<code><a href='https://rdrr.io/r/graphics/image.html'>image</a></code>, <code><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></code>, <code><a href='data.grid.html'>data.grid</a></code>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Based on <code><a href='https://rdrr.io/pkg/fields/man/image.plot.html'>image.plot</a></code> function from package <span class="pkg">fields</span>:
+fields, Tools for spatial data. 
+Copyright 2004-2013, Institute for Mathematics Applied Geosciences. 
+University Corporation for Atmospheric Research.</p>
+<p>Modified by Ruben Fernandez-Casal &lt;rubenfcasal@gmail.com&gt;.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>#</span>
 <span class='co'># Regularly spaced 2D data</span>
-<span class='no'>nx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>40</span>) <span class='co'># ndata =  prod(nx)</span>
-<span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(-<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='no'>nx</span>[<span class='fl'>1</span>])
-<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(-<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='no'>nx</span>[<span class='fl'>2</span>])
-<span class='no'>trend</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/outer'>outer</a></span>(<span class='no'>x1</span>, <span class='no'>x2</span>, <span class='kw'>function</span>(<span class='no'>x</span>,<span class='no'>y</span>) <span class='no'>x</span>^<span class='fl'>2</span> - <span class='no'>y</span>^<span class='fl'>2</span>)
-<span class='fu'>simage</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>trend</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Trend'</span>)</div><div class='img'><img src='simage-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>nx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>40</span>, <span class='fl'>40</span><span class='op'>)</span> <span class='co'># ndata =  prod(nx)</span>
+<span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='va'>nx</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='va'>nx</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>trend</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>x2</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> 
+<span class='fu'>simage</span><span class='op'>(</span> <span class='va'>x1</span>, <span class='va'>x2</span>, <span class='va'>trend</span>, main <span class='op'>=</span> <span class='st'>'Trend'</span><span class='op'>)</span>
+</div><div class='img'><img src='simage-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#</span>
 <span class='co'># Multiple plots </span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>trend</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/prod'>prod</a></span>(<span class='no'>nx</span>), <span class='fl'>0</span>, <span class='fl'>0.1</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid</a></span>(<span class='kw'>x1</span> <span class='kw'>=</span> <span class='no'>x1</span>, <span class='kw'>x2</span> <span class='kw'>=</span> <span class='no'>x2</span>)) <span class='co'># two-dimensional grid</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>trend</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span><span class='op'>(</span><span class='va'>nx</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='fl'>0.1</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>x1 <span class='op'>=</span> <span class='va'>x1</span>, x2 <span class='op'>=</span> <span class='va'>x2</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># two-dimensional grid</span>
 <span class='co'># local polynomial kernel regression</span>
-<span class='no'>lp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='locpol.html'>locpol</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='no'>nx</span>, <span class='kw'>h</span> <span class='kw'>=</span>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.3</span>, <span class='fl'>0.3</span>)))
+<span class='va'>lp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='locpol.html'>locpol</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, nbin <span class='op'>=</span> <span class='va'>nx</span>, h <span class='op'>=</span>  <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># 1x2 plot</span>
-<span class='no'>old.par</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>))
-<span class='fu'>simage</span>( <span class='no'>x1</span>, <span class='no'>x2</span>, <span class='no'>y</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Data'</span>)
-<span class='fu'>simage</span>(<span class='no'>lp</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'Estimated trend'</span>)</div><div class='img'><img src='simage-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='no'>old.par</span>)</div></pre>
+<span class='va'>old.par</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>simage</span><span class='op'>(</span> <span class='va'>x1</span>, <span class='va'>x2</span>, <span class='va'>y</span>, main <span class='op'>=</span> <span class='st'>'Data'</span><span class='op'>)</span>
+<span class='fu'>simage</span><span class='op'>(</span><span class='va'>lp</span>, main <span class='op'>=</span> <span class='st'>'Estimated trend'</span><span class='op'>)</span>
+</div><div class='img'><img src='simage-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>old.par</span><span class='op'>)</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#side-effects">Side Effects</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Based on <code><a href='https://www.rdocumentation.org/packages/fields/topics/image.plot'>image.plot</a></code> function from package <span class="pkg">fields</span>:
-fields, Tools for spatial data. 
-Copyright 2004-2013, Institute for Mathematics Applied Geosciences. 
-University Corporation for Atmospheric Research.</p>
-<p>Modified by Ruben Fernandez-Casal &lt;rubenfcasal@gmail.com&gt;.</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -378,13 +399,16 @@ University Corporation for Atmospheric Research.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

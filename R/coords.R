@@ -9,7 +9,7 @@
 #           coordvalues.data.grid(x, ...)
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Aug 2012                          Last changed: Dec 2015
+#   Created: Aug 2012
 #--------------------------------------------------------------------
 
 

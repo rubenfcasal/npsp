@@ -15,7 +15,7 @@
 #     puede ser recomendable emplear MCV 
 #     si no se dispone de más información...
 #
-#   (c) R. Fernandez-Casal            Last revision: Feb 2018
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
@@ -48,15 +48,16 @@ np.geo <- function(lp, svm, svm0 = NULL, nbin = lp$grid$n) {
   stopifnot(inherits(svm, "svarmod"))
   result$svm <- svm
   if(!is.null(svm0)) {
-    stopifnot(inherits(svm0, "svarmod" ))
+    stopifnot(inherits(svm0, "svarmod"))
     result$svm0 <- svm0
   }
   result$residuals <- if(inherits(svm, "fitsvar") & !lp.hd) 
     svm$esv$data$y else residuals(lp)
   oldClass(result) <- c("np.geo", oldClass(result))
-  if(inherits(svm, "fitsvar"))
+  if(inherits(svm, "fitsvar")) {
+    result$svm$corr.svar <- svm$esv$svar$estimator == "bias-corrected (residuals based)"
     oldClass(result) <- c("fitgeo", oldClass(result))
-  else
+  } else
     warning("'svm' is not a fitted variogram model")
   return(result)
 }
@@ -111,6 +112,7 @@ np.fitgeo <- function(x, ...) UseMethod("np.fitgeo")
 #' @method np.fitgeo default
 #' @inheritParams locpol.default
 #' @inheritParams np.svariso.corr
+#' @inheritParams mask.data.grid
 #' @param iter maximum number of interations (of the whole algorithm).
 #' @param  h initial bandwidth matrix for trend estimation
 #' (final bandwith if \code{iter = 1}).
@@ -118,7 +120,7 @@ np.fitgeo <- function(x, ...) UseMethod("np.fitgeo")
 #' @param h.svar bandwidth matrix for variogram estimation.
 #' @param corr.svar logical; if \code{TRUE} (default), a bias-corrected semivariogram estimate 
 #' is computed (see \code{\link{np.svariso.corr}}). 
-#' If code{FALSE} the (uncorrected) residual variogram is computed
+#' If \code{FALSE} the (uncorrected) residual variogram is computed
 #' (the traditional approach in geostatistics).
 #' @param dk dimension of the Shapiro-Botha variogram model (see \code{\link{fitsvar.sb.iso}}).
 #' @param svm.resid logical; if \code{TRUE}, the fitted (uncorrected) residual semivariogram model
@@ -140,12 +142,12 @@ np.fitgeo <- function(x, ...) UseMethod("np.fitgeo")
 #' @export
 #--------------------------------------------------------------------
 np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05, set.NA = FALSE, 
-                              h.svar = NULL, corr.svar = TRUE, maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,  
-                              hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
+                              h.svar = NULL, corr.svar = iter > 0, maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,  
+                              hat.bin = corr.svar, warn = FALSE, plot = FALSE, window = NULL, ...) {
 #--------------------------------------------------------------------
   stopifnot(!missing(x), !missing(y)) # Solo para datos geoestadisticos
   # Binning
-  bin <- binning(x, y, nbin = nbin, set.NA = set.NA)
+  bin <- binning(x, y, nbin = nbin, set.NA = set.NA, window = window)
   # Trend estimation
   if(is.null(h)) 
     h <- h.cv(bin, warn = warn, ...)$h
@@ -187,7 +189,7 @@ np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05,
 #' @export
 #--------------------------------------------------------------------
 np.fitgeo.locpol.bin <- function(x, svm, iter = 1, tol = 0.05, h.svar = svm$esv$locpol$h,   
-                                 dk = 0,corr.svar = TRUE, svm.resid = FALSE,  
+                                 dk = 0, corr.svar = TRUE, svm.resid = FALSE,  
                                  hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
 #--------------------------------------------------------------------
   if(!inherits(svm, "fitsvar")) stop("'svm' is not a fitted variogram model")

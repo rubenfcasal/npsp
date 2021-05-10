@@ -11,17 +11,21 @@
 \usage{
 np.den(x, ...)
 
-\method{np.den}{default}(x, nbin = NULL, h = NULL, degree = 1 +
-  as.numeric(drv), drv = FALSE, ncv = 0, ...)
+\method{np.den}{default}(
+  x,
+  nbin = NULL,
+  h = NULL,
+  degree = 1 + as.numeric(drv),
+  drv = FALSE,
+  ncv = 0,
+  ...
+)
 
-\method{np.den}{bin.den}(x, h = NULL, degree = 1 + as.numeric(drv),
-  drv = FALSE, ncv = 0, ...)
+\method{np.den}{bin.den}(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, ncv = 0, ...)
 
-\method{np.den}{bin.data}(x, h = NULL, degree = 1 + as.numeric(drv),
-  drv = FALSE, ncv = 0, ...)
+\method{np.den}{bin.data}(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, ncv = 0, ...)
 
-\method{np.den}{svar.bin}(x, h = NULL, degree = 1 + as.numeric(drv),
-  drv = FALSE, ncv = 0, ...)
+\method{np.den}{svar.bin}(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, ncv = 0, ...)
 }
 \arguments{
 \item{x}{a (data) object used to select a method.}

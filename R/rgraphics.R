@@ -7,7 +7,7 @@
 #     contour.data.grid(x, data.ind, filled, xlab, ylab, ...)
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Mar 2014                          Last changed:
+#   Created: Mar 2014
 #--------------------------------------------------------------------
 # PENDENTE:
 #   - plot.data.grid

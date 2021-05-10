@@ -5,7 +5,7 @@
 #       scattersplot.default
 #       scattersplot.SpatialPointsDataFrame
 #
-#   (c) R. Fernandez-Casal         Last revision: Jul 2017
+#   (c) R. Fernandez-Casal
 #--------------------------------------------------------------------
 
 
@@ -44,7 +44,7 @@ scattersplot <- function(x, ...) UseMethod("scattersplot")
 #' is a matrix with the spatial coordinates (each row is a point).
 #' @export
 scattersplot.default <- function(x, z, main, xlab, ylab, zlab,
-                                 col = hot.colors(128), lowess = TRUE, density = TRUE,
+                                 col = hot.colors(128), lowess = TRUE, density = FALSE,
                                  omd = c(0.05, 0.95, 0.01, 0.95), ...) {
   #--------------------------------------------------------------------
   if (missing(xlab)) xlab <- paste0(deparse(substitute(x)), "[, 1]")
@@ -56,12 +56,12 @@ scattersplot.default <- function(x, z, main, xlab, ylab, zlab,
   spoints(x[, 1], x[, 2], z, xlab = xlab, ylab = ylab, 
           col = col, ...)
   # plot(z, x[, 2], z, xlab = main, ylab = xlab))
-  plot(x[, 2], z, xlab = xlab, ylab = zlab)
-  if (lowess) lines(lowess(x[, 2], z), lty = 2, lwd = 2, col = 'darkgray')
-  plot(x[, 1], z, xlab = ylab, ylab = zlab)
-  if (lowess) lines(lowess(x[, 1], z), lty = 2, lwd = 2, col = 'darkgray')
+  plot(x[, 2], z, xlab = ylab, ylab = zlab)
+  if (lowess) lines(lowess(x[, 2], z), lty = 2, lwd = 2, col = 'blue')
+  plot(x[, 1], z, xlab = xlab, ylab = zlab)
+  if (lowess) lines(lowess(x[, 1], z), lty = 2, lwd = 2, col = 'blue')
   hist(z, xlab = zlab, main = "", freq = !density)
-  if (density) lines(density(z), col = 'darkgray')
+  if (density) lines(density(z), col = 'blue')
   par(old.par)
   title(main = main)
 }
