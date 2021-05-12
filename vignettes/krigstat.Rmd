@@ -76,7 +76,7 @@ krig.grid <- data.grid(kpred = lp$est + krig@data$var1.pred,
                        ksd = sqrt(krig@data$var1.var), 
         grid = lp$grid)
 krig2 <- krige(r ~ 1, locations = spdf, newdata = newdata, 
-               model = as.vgm(svm2))
+               model = as.vgm(svm2), beta = 0)
 krig2.grid <- data.grid(kpred = lp$est + krig2@data$var1.pred, 
                         ksd = sqrt(krig2@data$var1.var), 
         grid = lp$grid)

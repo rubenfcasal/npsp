@@ -1,9 +1,11 @@
 # npsp 0.7-8 (2021-05-10)
 
-* Renamed `lost` parameter names in `h.cv.svar.bin()` and `np.svariso.hcv()`.
+* Renamed the admisible values of the `lost` parameter in `h.cv.svar.bin()`
+  and `np.svariso.hcv()`.
+  
+* Changed 'NEWS.md' formatting and suppressed the default addition of 
+  CRAN release dates (pkgdown).   
  
-* Changed 'NEWS.md' formatting (so that it can be properly rendered with pkgdown). 
-
 * Updated 'npsp.Rmd' vignette.
 
 

@@ -50,7 +50,7 @@ $\mathbf{Y}=( Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}$, the
 first step consists in estimate the trend $\mu(\mathbf{x})$ and the
 semivariogram $\gamma(\mathbf{h}) = C(\mathbf{0}) - C(\mathbf{u})$.
 
-There are several `R` packages, such as [`gstat`](https://r-spatial.github.io/gstat) or [`geoR`](http://www.leg.ufpr.br/geoR), which
+There are several `R` packages, such as [`gstat`](https://r-spatial.github.io/gstat/) or [`geoR`](http://www.leg.ufpr.br/geoR/), which
 implement the traditional geostatistical techniques to approximate
 these functions. Nevertheless, as these approaches usually assume
 parametric models, they can present misspecification problems.
@@ -197,7 +197,7 @@ lp0 <- locpol(bin, h = lp0.h, hat.bin = TRUE)
 
 
 An alternative is the corrected generalized cross-validation
-criterion (CGCV), proposed in (Francisco-Fernández and Opsomer, 2005), that takes the spatial
+criterion (CGCV), proposed in Francisco-Fernández and Opsomer (2005), that takes the spatial
 dependence into account. 
 To use this approach in practice (by setting `objective = "GCV"` and `cov.bin` in `h.cv`), 
 an estimate of the variogram is previously required.
@@ -281,7 +281,7 @@ is as follows:
     (function `h.cv()` with `objective = "GCV"` and 
     `cov.bin =` fitted variogram model).
 
-6.  Repeat steps 2-4 until convergence (in practice, only two
+6.  Repeat steps 2-5 until convergence (in practice, only two
     iterations are usually needed).
 
 
@@ -353,6 +353,7 @@ which will be implemented in the next version of the package
 
 This research has been supported by MINECO grant MTM2017-82724-R, and by the Xunta de Galicia (Grupos de Referencia Competitiva ED431C-2020-14 and Centro de Investigación del Sistema universitario de Galicia ED431G 2019/01), all of them through the ERDF.
 
+
 # References
 
 Castillo-Páez, S., Fernández-Casal, R., García-Soidán, P. (2019). A
@@ -366,7 +367,7 @@ Selectors with Dependent Errors. *The Annals of Statistics* **19**,
 Cressie, N. (1993). *Statistics for Spatial Data*. Wiley, New York.
 
 Fernández-Casal, R. (2019). npsp: Nonparametric Spatial Statistics. R
-package version 0.7-5. *http://github.com/rubenfcasal/npsp*.
+package version 0.7-5. *https://github.com/rubenfcasal/npsp*.
 
 Fan, J. and Gijbels, I. (1996). *Local polynomial modelling and its
 applications*. Chapman & Hall, London.

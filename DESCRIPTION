@@ -27,8 +27,8 @@ Description: Multidimensional nonparametric spatial (spatio-temporal) geostatist
     and variogram functions (for spatial processes).
     Nonparametric residual kriging (spatial prediction).
 License: GPL (>= 2)
-URL: http://github.com/rubenfcasal/npsp
-BugReports: http://github.com/rubenfcasal/npsp/issues
+URL: https://github.com/rubenfcasal/npsp
+BugReports: https://github.com/rubenfcasal/npsp/issues
 LazyData: yes
 Encoding: UTF-8
 VignetteBuilder: knitr

@@ -22,7 +22,7 @@ functions:
     geostatistical model by estimating the trend and the variogram
     (using a bias-corrected estimator) iteratively (by calling `h.cv()`,
     `locpol()`, `np.svariso.corr()` and `fitsvar.sb.iso()` at each
-    iteration)
+    iteration).
 
   - `locpol()`, `np.den()` and `np.svar()` use local polynomial kernel
     smoothing to compute nonparametric estimates of a multidimensional
@@ -86,6 +86,12 @@ version from github with:
 devtools::install_github("rubenfcasal/npsp")
 ```
 
+Note also that, as this package requires compilation, Windows users need
+to have previously installed the appropriate version of
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/), and OS X users
+need to have installed
+[Xcode](https://apps.apple.com/us/app/xcode/id497799835).
+
 ## Author
 
 [Ruben Fernandez-Casal](https://rubenfcasal.github.io) (Dep.
@@ -98,6 +104,11 @@ Important suggestions and contributions to some techniques included here
 were made by Sergio Castillo-Páez (Universidad de las Fuerzas Armadas
 ESPE, Ecuador) and Tomas Cotos-Yañez (Dep. Statistics, University of
 Vigo, Spain).
+
+This research has been supported by MINECO grant MTM2017-82724-R, and by
+the Xunta de Galicia (Grupos de Referencia Competitiva ED431C-2020-14
+and Centro de Investigación del Sistema universitario de Galicia ED431G
+2019/01), all of them through the ERDF.
 
 ## References
 
