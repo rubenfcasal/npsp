@@ -7,6 +7,9 @@ template:
 authors:
   Ruben Fernandez-Casal:
     href: https://rubenfcasal.github.io 
+    
+news:
+  cran_dates: false
 
 reference:
   - title: "Local polinomial estimation"

@@ -36,10 +36,10 @@ scattersplot(precipitation)
 \references{
 Fernandez-Casal R., Castillo-Paez S. and Francisco-Fernandez M. (2017)
 Nonparametric geostatistical risk mapping, \emph{Stoch. Environ. Res. Ris. Assess.}, 
-\url{https://doi.org/10.1007/s00477-017-1407-y}.
+\doi{10.1007/s00477-017-1407-y}.
 
 Fernandez-Casal R., Castillo-Paez S. and Garcia-Soidan P. (2017)
 Nonparametric estimation of the small-scale variability of heteroscedastic spatial processes, 
-\emph{Spa. Sta.}, \url{https://doi.org/10.1016/j.spasta.2017.04.001}.
+\emph{Spa. Sta.}, \doi{10.1016/j.spasta.2017.04.001}.
 }
 \keyword{datasets}

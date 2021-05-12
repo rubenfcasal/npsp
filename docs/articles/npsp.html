@@ -73,7 +73,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="http://github.com/rubenfcasal/npsp/">
+  <a href="https://github.com/rubenfcasal/npsp/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -96,7 +96,7 @@
             
             <h4 class="date">npsp 0.7.8</h4>
       
-      <small class="dont-index">Source: <a href="http://github.com/rubenfcasal/npsp/blob/master/vignettes/npsp.Rmd"><code>vignettes/npsp.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/npsp.Rmd"><code>vignettes/npsp.Rmd</code></a></small>
       <div class="hidden name"><code>npsp.Rmd</code></div>
 
     </div>
@@ -110,10 +110,10 @@
 <p>We will assume that <span class="math inline">\(\left\{ Y(\mathbf{x}),\mathbf{x}\in D \subset \mathbb{R}^{d}\right\}\)</span> is a spatial process that can be modeled as: <span class="math display">\[Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),\]</span></p>
 <p>where <span class="math inline">\(\mu(\cdot)\)</span> is the trend function (large-scale variation) and the error term <span class="math inline">\(\varepsilon\)</span> (small-scale variation), is a second order stationary process with zero mean and covariogram <span class="math inline">\(C(\mathbf{u}) = Cov(\varepsilon \left( \mathbf{x}\right) ,\varepsilon \left(\mathbf{x}+\mathbf{u}\right) )\)</span>, with <span class="math inline">\(\mathbf{u} \in D\)</span>.</p>
 <p>In this framework, given <span class="math inline">\(n\)</span> observed values <span class="math inline">\(\mathbf{Y}=( Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}\)</span>, the first step consists in estimate the trend <span class="math inline">\(\mu(\mathbf{x})\)</span> and the semivariogram <span class="math inline">\(\gamma(\mathbf{h}) = C(\mathbf{0}) - C(\mathbf{u})\)</span>.</p>
-<p>There are several <code>R</code> packages, such as <a href="https://r-spatial.github.io/gstat"><code>gstat</code></a> or <a href="http://www.leg.ufpr.br/geoR"><code>geoR</code></a>, which implement the traditional geostatistical techniques to approximate these functions. Nevertheless, as these approaches usually assume parametric models, they can present misspecification problems.</p>
+<p>There are several <code>R</code> packages, such as <a href="https://r-spatial.github.io/gstat/"><code>gstat</code></a> or <a href="http://www.leg.ufpr.br/geoR/"><code>geoR</code></a>, which implement the traditional geostatistical techniques to approximate these functions. Nevertheless, as these approaches usually assume parametric models, they can present misspecification problems.</p>
 <p>The aim of the <code>npsp</code> package is to provide nonparametric tools for geostatistical modeling and interpolation, under the general spatial model (large + small variation scales), and without assuming any specific form (parametric model) for the trend and the variogram of the process.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/rubenfcasal/npsp">npsp</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rubenfcasal/npsp">npsp</a></span><span class="op">)</span></code></pre></div>
 <pre><code>##  Package npsp: Nonparametric Spatial Statistics,
 ##  version 0.7-8 (built on 2021-05-10).
 ##  Copyright (C) R. Fernandez-Casal 2012-2021.
@@ -205,7 +205,7 @@
 <code class="sourceCode R"><span class="va">bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/binning.html">binning</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span>
 <span class="va">lp0.h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h.cv.html">h.cv</a></span><span class="op">(</span><span class="va">bin</span><span class="op">)</span><span class="op">$</span><span class="va">h</span>
 <span class="va">lp0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">bin</span>, h <span class="op">=</span> <span class="va">lp0.h</span>, hat.bin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </code></pre></div>
-<p>An alternative is the corrected generalized cross-validation criterion (CGCV), proposed in (Francisco-Fernández and Opsomer, 2005), that takes the spatial dependence into account. To use this approach in practice (by setting <code>objective = "GCV"</code> and <code>cov.bin</code> in <code>h.cv</code>), an estimate of the variogram is previously required.</p>
+<p>An alternative is the corrected generalized cross-validation criterion (CGCV), proposed in Francisco-Fernández and Opsomer (2005), that takes the spatial dependence into account. To use this approach in practice (by setting <code>objective = "GCV"</code> and <code>cov.bin</code> in <code>h.cv</code>), an estimate of the variogram is previously required.</p>
 </div>
 <div id="variogram-estimation" class="section level1">
 <h1 class="hasAnchor">
@@ -246,7 +246,7 @@
 <li><p>Obtain a bias-corrected pilot semivariogram estimate from the corresponding residuals (function <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code>).</p></li>
 <li><p>Fit a valid Shapiro-Botha model to the pilot semivariogram estimates (function <code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code>).</p></li>
 <li><p>Select a new bandwidth matrix for trend estimation with the CGCV criterion, using the fitted variogram model to approximate the data covariance matrix (function <code><a href="../reference/h.cv.html">h.cv()</a></code> with <code>objective = "GCV"</code> and <code>cov.bin =</code> fitted variogram model).</p></li>
-<li><p>Repeat steps 2-4 until convergence (in practice, only two iterations are usually needed).</p></li>
+<li><p>Repeat steps 2-5 until convergence (in practice, only two iterations are usually needed).</p></li>
 </ol>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">geomod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.fitgeo.html">np.fitgeo</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">30</span><span class="op">)</span>, maxlag <span class="op">=</span> <span class="fl">20</span>, svm.resid <span class="op">=</span> <span class="cn">TRUE</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span>
@@ -295,7 +295,7 @@
 <p>Castillo-Páez, S., Fernández-Casal, R., García-Soidán, P. (2019). A nonparametric bootstrap method for spatial data. <em>Comput. Stat. Data An.</em>, <strong>137</strong>, 1–15.</p>
 <p>Chu, C. K. and Marron, J. S. (1991). Comparison of Two Bandwidth Selectors with Dependent Errors. <em>The Annals of Statistics</em> <strong>19</strong>, 1906–1918.</p>
 <p>Cressie, N. (1993). <em>Statistics for Spatial Data</em>. Wiley, New York.</p>
-<p>Fernández-Casal, R. (2019). npsp: Nonparametric Spatial Statistics. R package version 0.7-5. <em><a href="http://github.com/rubenfcasal/npsp" class="uri">http://github.com/rubenfcasal/npsp</a></em>.</p>
+<p>Fernández-Casal, R. (2019). npsp: Nonparametric Spatial Statistics. R package version 0.7-5. <em><a href="https://github.com/rubenfcasal/npsp" class="uri">https://github.com/rubenfcasal/npsp</a></em>.</p>
 <p>Fan, J. and Gijbels, I. (1996). <em>Local polynomial modelling and its applications</em>. Chapman &amp; Hall, London.</p>
 <p>Fernández-Casal, R. and Francisco-Fernández, M. (2014). Nonparametric bias-corrected variogram estimation under non-constant trend. <em>Stochastic Environmental Research and Risk Assessment</em> <strong>28</strong>, 1247–1259.</p>
 <p>Fernández-Casal, R., González Manteiga, W. and Febrero-Bande, M. (2003). Flexible Spatio-Temporal Stationary Variogram Models. <em>Statistics and Computing</em> <strong>13</strong>, 127–136.</p>

@@ -78,7 +78,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="http://github.com/rubenfcasal/npsp/">
+  <a href="https://github.com/rubenfcasal/npsp/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -108,7 +108,7 @@
 <a href="#main-functions" class="anchor"></a>Main functions</h2>
 <p>Nonparametric methods for inference on both spatial trend and variogram functions:</p>
 <ul>
-<li><p><code><a href="reference/np.fitgeo.html">np.fitgeo()</a></code> (automatically) fits an isotropic nonparametric geostatistical model by estimating the trend and the variogram (using a bias-corrected estimator) iteratively (by calling <code><a href="reference/h.cv.html">h.cv()</a></code>, <code><a href="reference/locpol.html">locpol()</a></code>, <code><a href="reference/np.svar.html">np.svariso.corr()</a></code> and <code><a href="reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code> at each iteration)</p></li>
+<li><p><code><a href="reference/np.fitgeo.html">np.fitgeo()</a></code> (automatically) fits an isotropic nonparametric geostatistical model by estimating the trend and the variogram (using a bias-corrected estimator) iteratively (by calling <code><a href="reference/h.cv.html">h.cv()</a></code>, <code><a href="reference/locpol.html">locpol()</a></code>, <code><a href="reference/np.svar.html">np.svariso.corr()</a></code> and <code><a href="reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code> at each iteration).</p></li>
 <li><p><code><a href="reference/locpol.html">locpol()</a></code>, <code><a href="reference/np.den.html">np.den()</a></code> and <code><a href="reference/np.svar.html">np.svar()</a></code> use local polynomial kernel smoothing to compute nonparametric estimates of a multidimensional regression function (e.g. a spatial trend), a probability density function or a semivariogram (or their first derivatives), respectively. Estimates of these functions can be constructed for any dimension (depending on the amount of available memory).</p></li>
 <li><p><code><a href="reference/np.svar.html">np.svariso.corr()</a></code> computes a bias-corrected nonparametric semivariogram estimate using an iterative algorithm similar to that described in Fernandez-Casal and Francisco-Fernandez (2014). This procedure tries to correct the bias due to the direct use of residuals (obtained, in this case, from a nonparametric estimation of the trend function) in semivariogram estimation.</p></li>
 <li><p><code><a href="reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code> fits a ‘nonparametric’ isotropic Shapiro-Botha variogram model by WLS. Currently, only isotropic semivariogram estimation is supported.</p></li>
@@ -140,6 +140,7 @@ Users are encouraged to use <code><a href="https://rdrr.io/pkg/gstat/man/krige.h
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rubenfcasal/npsp"</span><span class="op">)</span></code></pre></div>
+<p>Note also that, as this package requires compilation, Windows users need to have previously installed the appropriate version of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, and OS X users need to have installed <a href="https://apps.apple.com/us/app/xcode/id497799835">Xcode</a>.</p>
 </div>
 <div id="author" class="section level2">
 <h2 class="hasAnchor">
@@ -150,6 +151,7 @@ Users are encouraged to use <code><a href="https://rdrr.io/pkg/gstat/man/krige.h
 <h2 class="hasAnchor">
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
 <p>Important suggestions and contributions to some techniques included here were made by Sergio Castillo-Páez (Universidad de las Fuerzas Armadas ESPE, Ecuador) and Tomas Cotos-Yañez (Dep. Statistics, University of Vigo, Spain).</p>
+<p>This research has been supported by MINECO grant MTM2017-82724-R, and by the Xunta de Galicia (Grupos de Referencia Competitiva ED431C-2020-14 and Centro de Investigación del Sistema universitario de Galicia ED431G 2019/01), all of them through the ERDF.</p>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
@@ -175,9 +177,9 @@ Users are encouraged to use <code><a href="https://rdrr.io/pkg/gstat/man/krige.h
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=npsp">https://​cloud.r-project.org/​package=npsp</a>
 </li>
-<li>Browse source code at <br><a href="http://github.com/rubenfcasal/npsp/">http://​github.com/​rubenfcasal/​npsp/​</a>
+<li>Browse source code at <br><a href="https://github.com/rubenfcasal/npsp/">https://​github.com/​rubenfcasal/​npsp/​</a>
 </li>
-<li>Report a bug at <br><a href="http://github.com/rubenfcasal/npsp/issues">http://​github.com/​rubenfcasal/​npsp/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/rubenfcasal/npsp/issues">https://​github.com/​rubenfcasal/​npsp/​issues</a>
 </li>
 </ul>
 </div>
