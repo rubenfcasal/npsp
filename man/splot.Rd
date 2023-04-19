@@ -128,17 +128,12 @@ The default value \code{rev = TRUE} may be adecuate to grayscale convertion.
 }
 
 \examples{
-
+# Plot equivalent to spoints():
 scale.range <- range(aquifer$head)
 splot(slim = scale.range)
 with( aquifer, plot(lon, lat, col = scolor(head, slim = scale.range), 
        pch = 16, cex = 1.5, main = "Wolfcamp aquifer data"))
-# equivalent to:
-# with( aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))
-
-#
 # Multiple plots with a common legend:
-#
 # regularly spaced 2D data...
 set.seed(1)
 nx <- c(40, 40) # ndata =  prod(nx)

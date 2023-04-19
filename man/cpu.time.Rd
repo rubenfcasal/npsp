@@ -30,15 +30,11 @@ Returns and (optionally) prints the total and/or partial (since the last call to
 real and CPU times.
 }
 \examples{
-\dontrun{
- 
- cpu.time(reset=TRUE)
- res <- median(runif(100000))
- cpu.time('\nSample median of', 100000, 'values =', res)
- res <- median(runif(1000))
- cpu.time('\nSample median of', 1000, 'values =', res)
-
-}
+cpu.time(reset=TRUE)
+res <- median(runif(100000))
+cpu.time('\nSample median of', 100000, 'values =', res)
+res <- median(runif(1000))
+cpu.time('\nSample median of', 1000, 'values =', res)
 }
 \seealso{
 \code{\link{proc.time}}, \code{\link{system.time}}, \code{\link{flush.console}}.

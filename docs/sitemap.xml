@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://rubenfcasal.github.io/npsp/404.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/articles/docs/aquifer.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/articles/docs/Introduccion.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/articles/docs/npsp2.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/articles/krigstat.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/articles/npsp.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/authors.html</loc>
+  </url>
+  <url>
     <loc>http://rubenfcasal.github.io/npsp/index.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/news/index.html</loc>
   </url>
   <url>
     <loc>http://rubenfcasal.github.io/npsp/reference/aquifer.html</loc>
@@ -47,6 +74,9 @@
   </url>
   <url>
     <loc>http://rubenfcasal.github.io/npsp/reference/h.cv.html</loc>
+  </url>
+  <url>
+    <loc>http://rubenfcasal.github.io/npsp/reference/index.html</loc>
   </url>
   <url>
     <loc>http://rubenfcasal.github.io/npsp/reference/interp.html</loc>
@@ -134,17 +164,5 @@
   </url>
   <url>
     <loc>http://rubenfcasal.github.io/npsp/reference/varcov.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/docs/aquifer.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/docs/Introduccion.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/krigstat.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/npsp.html</loc>
   </url>
 </urlset>

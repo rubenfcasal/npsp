@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/npsp.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/rubenfcasal/npsp/">
+  <a href="https://github.com/rubenfcasal/npsp/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -88,149 +84,153 @@
 
       
 
-      </header><script src="krigstat_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Kriging with gstat</h1>
-                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
+                        <h4 data-toc-skip class="author">Ruben
+Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.7.8</h4>
+            <h4 data-toc-skip class="date">npsp 0.7.10</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/krigstat.Rmd"><code>vignettes/krigstat.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/../../../../E:/OneDrive%20-%20Universidade%20da%20Coru%C3%B1a/__R_Machinery/__npsp/npsp/vignettes/krigstat.Rmd" class="external-link"><code>../../../../E:/OneDrive - Universidade da Coruña/__R_Machinery/__npsp/npsp/vignettes/krigstat.Rmd</code></a></small>
       <div class="hidden name"><code>krigstat.Rmd</code></div>
 
     </div>
 
     
     
-<div id="kriging-with-gstat" class="section level1">
-<h1 class="hasAnchor">
-<a href="#kriging-with-gstat" class="anchor"></a>Kriging with <strong><em>gstat</em></strong>
-</h1>
-<p>You can use the <code>krige</code> (or <code>krige.cv</code>) utilities in <code>gstat</code> package together with <code>as.vgm</code> for (global or local) kriging…</p>
-<div id="wolfcamp-aquifer-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#wolfcamp-aquifer-data" class="anchor"></a>Wolfcamp aquifer data:</h2>
+<div class="section level2">
+<h2 id="kriging-with-gstat">Kriging with <strong><em>gstat</em></strong><a class="anchor" aria-label="anchor" href="#kriging-with-gstat"></a>
+</h2>
+<p>You can use the <code>krige</code> (or <code>krige.cv</code>)
+utilities in <code>gstat</code> package together with
+<code>as.vgm</code> for (global or local) kriging…</p>
+<div class="section level3">
+<h3 id="wolfcamp-aquifer-data">Wolfcamp aquifer data:<a class="anchor" aria-label="anchor" href="#wolfcamp-aquifer-data"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rubenfcasal/npsp">npsp</a></span><span class="op">)</span></code></pre></div>
-<pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.7-8 (built on 2021-05-10).
-##  Copyright (C) R. Fernandez-Casal 2012-2021.
-##  Type `help(npsp)` for an overview of the package or
-##  visit https://rubenfcasal.github.io/npsp.</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rubenfcasal/npsp" class="external-link">npsp</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  Package npsp: Nonparametric Spatial Statistics,</span></span>
+<span><span class="co">##  version 0.7-10 (built on 2023-04-20).</span></span>
+<span><span class="co">##  Copyright (C) R. Fernandez-Casal 2012-2023.</span></span>
+<span><span class="co">##  Type `help(npsp)` for an overview of the package or</span></span>
+<span><span class="co">##  visit https://rubenfcasal.github.io/npsp.</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># ?aquifer; str(aquifer); summary(aquifer)</span>
-<span class="co"># Scatter plot with a color scale</span>
-<span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">aquifer</span>, <span class="fu"><a href="../reference/spoints.html">spoints</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, <span class="va">head</span>, main <span class="op">=</span> <span class="st">"Wolfcamp aquifer data"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># ?aquifer; str(aquifer); summary(aquifer)</span></span>
+<span><span class="co"># Scatter plot with a color scale</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">aquifer</span>, <span class="fu"><a href="../reference/spoints.html">spoints</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, <span class="va">head</span>, main <span class="op">=</span> <span class="st">"Wolfcamp aquifer data"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="kriging" class="section level2">
-<h2 class="hasAnchor">
-<a href="#kriging" class="anchor"></a>Kriging</h2>
-<div id="trend-estimation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#trend-estimation" class="anchor"></a>Trend estimation</h3>
+<div class="section level3">
+<h3 id="kriging">Kriging<a class="anchor" aria-label="anchor" href="#kriging"></a>
+</h3>
+<div class="section level4">
+<h4 id="trend-estimation">Trend estimation<a class="anchor" aria-label="anchor" href="#trend-estimation"></a>
+</h4>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">2</span><span class="op">)</span>, 
-             hat.bin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  
-            <span class="co"># np.svariso.corr: 'lp' must have a '$locpol$hat' component</span>
-
-<span class="co"># Mask grid nodes far from data</span>
-<span class="va">mask</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="../reference/np.den.html">np.den</a></span><span class="op">(</span><span class="va">lp</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">55</span>,<span class="fl">55</span><span class="op">)</span><span class="op">)</span>, degree <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">est</span><span class="op">)</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">15</span>
-<span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mask.html">mask</a></span><span class="op">(</span><span class="va">lp</span>, mask <span class="op">=</span> <span class="va">mask</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/spersp.html">spersp</a></span><span class="op">(</span><span class="va">lp</span>, main <span class="op">=</span> <span class="st">'Trend estimates'</span>, 
-       zlab <span class="op">=</span> <span class="st">'piezometric-head levels'</span>, theta <span class="op">=</span> <span class="fl">120</span><span class="op">)</span>   </code></pre></div>
+<code class="sourceCode R"><span><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">2</span><span class="op">)</span>, </span>
+<span>             hat.bin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  </span>
+<span>            <span class="co"># np.svariso.corr: 'lp' must have a '$locpol$hat' component</span></span>
+<span></span>
+<span><span class="co"># Mask grid nodes far from data</span></span>
+<span><span class="va">mask</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="../reference/np.den.html">np.den</a></span><span class="op">(</span><span class="va">lp</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">55</span>,<span class="fl">55</span><span class="op">)</span><span class="op">)</span>, degree <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">est</span><span class="op">)</span> <span class="op">&gt;</span> <span class="op">-</span><span class="fl">15</span></span>
+<span><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mask.html">mask</a></span><span class="op">(</span><span class="va">lp</span>, mask <span class="op">=</span> <span class="va">mask</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/spersp.html">spersp</a></span><span class="op">(</span><span class="va">lp</span>, main <span class="op">=</span> <span class="st">'Trend estimates'</span>, </span>
+<span>       zlab <span class="op">=</span> <span class="st">'piezometric-head levels'</span>, theta <span class="op">=</span> <span class="fl">120</span><span class="op">)</span>   </span></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    1.60    0.34    2.57</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Time of last operation: </span></span>
+<span><span class="co">##    user  system elapsed </span></span>
+<span><span class="co">##    0.89    0.10    1.57</span></span></code></pre>
 </div>
-<div id="variogram-estimation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#variogram-estimation" class="anchor"></a>Variogram estimation</h3>
+<div class="section level4">
+<h4 id="variogram-estimation">Variogram estimation<a class="anchor" aria-label="anchor" href="#variogram-estimation"></a>
+</h4>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lp.resid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">lp</span><span class="op">)</span>
-<span class="va">esvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svariso</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">lp.resid</span>, maxlag <span class="op">=</span> <span class="fl">150</span>, nlags <span class="op">=</span> <span class="fl">60</span>, h <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="va">svm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">esvar</span><span class="op">)</span>  <span class="co"># dk = 2</span>
-<span class="va">esvar2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svariso.corr</a></span><span class="op">(</span><span class="va">lp</span>, maxlag <span class="op">=</span> <span class="fl">150</span>, nlags <span class="op">=</span> <span class="fl">60</span>, h <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>
-<span class="va">svm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">esvar2</span>, dk <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># dk = Inf</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svm2</span>, main <span class="op">=</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, 
-     lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> 
-<span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">svm</span><span class="op">$</span><span class="va">fit</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">fitted.sv</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lp.resid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">lp</span><span class="op">)</span></span>
+<span><span class="va">esvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svariso</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">lp.resid</span>, maxlag <span class="op">=</span> <span class="fl">150</span>, nlags <span class="op">=</span> <span class="fl">60</span>, h <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="va">svm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">esvar</span><span class="op">)</span>  <span class="co"># dk = 2</span></span>
+<span><span class="va">esvar2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svariso.corr</a></span><span class="op">(</span><span class="va">lp</span>, maxlag <span class="op">=</span> <span class="fl">150</span>, nlags <span class="op">=</span> <span class="fl">60</span>, h <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span>
+<span><span class="va">svm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">esvar2</span>, dk <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># dk = Inf</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">svm2</span>, main <span class="op">=</span> <span class="st">"Nonparametric bias-corrected semivariogram and fitted models"</span>, </span>
+<span>     lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">svm</span><span class="op">$</span><span class="va">fit</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">u</span>, <span class="va">fitted.sv</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    0.35    0.01    0.36</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Time of last operation: </span></span>
+<span><span class="co">##    user  system elapsed </span></span>
+<span><span class="co">##    0.12    0.00    0.13</span></span></code></pre>
 </div>
 </div>
-<div id="residual-kriging" class="section level2">
-<h2 class="hasAnchor">
-<a href="#residual-kriging" class="anchor"></a>Residual Kriging</h2>
+<div class="section level3">
+<h3 id="residual-kriging">Residual Kriging<a class="anchor" aria-label="anchor" href="#residual-kriging"></a>
+</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edzer/sp/">sp</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/gstat/">gstat</a></span><span class="op">)</span>
-<span class="va">spdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html">SpatialPointsDataFrame</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, 
-            <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span>, r <span class="op">=</span> <span class="va">lp.resid</span><span class="op">)</span><span class="op">)</span>
-<span class="va">newdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html">SpatialPoints</a></span><span class="op">(</span><span class="fu"><a href="../reference/coords.html">coords</a></span><span class="op">(</span><span class="va">lp</span><span class="op">)</span><span class="op">)</span>
-<span class="va">krig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gstat/man/krige.html">krige</a></span><span class="op">(</span><span class="va">r</span> <span class="op">~</span> <span class="fl">1</span>, locations <span class="op">=</span> <span class="va">spdf</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, 
-              model <span class="op">=</span> <span class="fu"><a href="../reference/npsp-gstat.html">as.vgm</a></span><span class="op">(</span><span class="va">svm</span><span class="op">)</span>, beta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<pre><code>## [using simple kriging]</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edzer/sp/" class="external-link">sp</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/gstat/" class="external-link">gstat</a></span><span class="op">)</span></span>
+<span><span class="va">spdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html" class="external-link">SpatialPointsDataFrame</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, </span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span>, r <span class="op">=</span> <span class="va">lp.resid</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">newdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html" class="external-link">SpatialPoints</a></span><span class="op">(</span><span class="fu"><a href="../reference/coords.html">coords</a></span><span class="op">(</span><span class="va">lp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">krig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gstat/man/krige.html" class="external-link">krige</a></span><span class="op">(</span><span class="va">r</span> <span class="op">~</span> <span class="fl">1</span>, locations <span class="op">=</span> <span class="va">spdf</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, </span>
+<span>              model <span class="op">=</span> <span class="fu"><a href="../reference/npsp-gstat.html">as.vgm</a></span><span class="op">(</span><span class="va">svm</span><span class="op">)</span>, beta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [using simple kriging]</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">krig.grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data.grid.html">data.grid</a></span><span class="op">(</span>kpred <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">est</span> <span class="op">+</span> <span class="va">krig</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.pred</span>, 
-                       ksd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">krig</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.var</span><span class="op">)</span>, 
-        grid <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">grid</span><span class="op">)</span>
-<span class="va">krig2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gstat/man/krige.html">krige</a></span><span class="op">(</span><span class="va">r</span> <span class="op">~</span> <span class="fl">1</span>, locations <span class="op">=</span> <span class="va">spdf</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, 
-               model <span class="op">=</span> <span class="fu"><a href="../reference/npsp-gstat.html">as.vgm</a></span><span class="op">(</span><span class="va">svm2</span><span class="op">)</span>, beta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
-<pre><code>## [using simple kriging]</code></pre>
+<code class="sourceCode R"><span><span class="va">krig.grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data.grid.html">data.grid</a></span><span class="op">(</span>kpred <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">est</span> <span class="op">+</span> <span class="va">krig</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.pred</span>, </span>
+<span>                       ksd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">krig</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.var</span><span class="op">)</span>, </span>
+<span>        grid <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">grid</span><span class="op">)</span></span>
+<span><span class="va">krig2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gstat/man/krige.html" class="external-link">krige</a></span><span class="op">(</span><span class="va">r</span> <span class="op">~</span> <span class="fl">1</span>, locations <span class="op">=</span> <span class="va">spdf</span>, newdata <span class="op">=</span> <span class="va">newdata</span>, </span>
+<span>               model <span class="op">=</span> <span class="fu"><a href="../reference/npsp-gstat.html">as.vgm</a></span><span class="op">(</span><span class="va">svm2</span><span class="op">)</span>, beta <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [using simple kriging]</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">krig2.grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data.grid.html">data.grid</a></span><span class="op">(</span>kpred <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">est</span> <span class="op">+</span> <span class="va">krig2</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.pred</span>, 
-                        ksd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">krig2</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.var</span><span class="op">)</span>, 
-        grid <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">grid</span><span class="op">)</span>
-
-<span class="va">scale.color</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/splot.html">jet.colors</a></span><span class="op">(</span><span class="fl">64</span><span class="op">)</span>
-<span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1100</span>, <span class="fl">4100</span><span class="op">)</span>
-<span class="co"># 1x2 plot with some room for the legend...</span>
-<span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span>,
-               plt<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.94</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/spersp.html">spersp</a></span><span class="op">(</span><span class="va">krig.grid</span>, main <span class="op">=</span> <span class="st">'Kriging predictions'</span>, 
-       col <span class="op">=</span> <span class="va">scale.color</span>, legend <span class="op">=</span> <span class="cn">FALSE</span>, theta <span class="op">=</span> <span class="fl">120</span><span class="op">)</span>
-<span class="fu"><a href="../reference/spersp.html">spersp</a></span><span class="op">(</span><span class="va">krig2.grid</span>, main <span class="op">=</span> <span class="st">'Kriging predictions \n (bias-corrected)'</span>, 
-       col <span class="op">=</span> <span class="va">scale.color</span>, legend <span class="op">=</span> <span class="cn">FALSE</span>, theta <span class="op">=</span> <span class="fl">120</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span>
-<span class="fu"><a href="../reference/splot.html">splot</a></span><span class="op">(</span>slim <span class="op">=</span> <span class="va">scale.range</span>, col <span class="op">=</span> <span class="va">scale.color</span>, legend.shrink <span class="op">=</span> <span class="fl">0.6</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">krig2.grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/data.grid.html">data.grid</a></span><span class="op">(</span>kpred <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">est</span> <span class="op">+</span> <span class="va">krig2</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.pred</span>, </span>
+<span>                        ksd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">krig2</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">var1.var</span><span class="op">)</span>, </span>
+<span>        grid <span class="op">=</span> <span class="va">lp</span><span class="op">$</span><span class="va">grid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">scale.color</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/splot.html">jet.colors</a></span><span class="op">(</span><span class="fl">64</span><span class="op">)</span></span>
+<span><span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1100</span>, <span class="fl">4100</span><span class="op">)</span></span>
+<span><span class="co"># 1x2 plot with some room for the legend...</span></span>
+<span><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span>,</span>
+<span>               plt<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.94</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/spersp.html">spersp</a></span><span class="op">(</span><span class="va">krig.grid</span>, main <span class="op">=</span> <span class="st">'Kriging predictions'</span>, col <span class="op">=</span> <span class="va">scale.color</span>, </span>
+<span>       legend <span class="op">=</span> <span class="cn">FALSE</span>, theta <span class="op">=</span> <span class="fl">120</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/spersp.html">spersp</a></span><span class="op">(</span><span class="va">krig2.grid</span>, main <span class="op">=</span> <span class="st">'Kriging predictions \n (bias-corrected)'</span>, </span>
+<span>       col <span class="op">=</span> <span class="va">scale.color</span>, legend <span class="op">=</span> <span class="cn">FALSE</span>, theta <span class="op">=</span> <span class="fl">120</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/splot.html">splot</a></span><span class="op">(</span>slim <span class="op">=</span> <span class="va">scale.range</span>, col <span class="op">=</span> <span class="va">scale.color</span>, legend.shrink <span class="op">=</span> <span class="fl">0.6</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span>
-<span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">125</span>, <span class="fl">200</span><span class="op">)</span>
-<span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">krig.grid</span><span class="op">$</span><span class="va">ksd</span>, <span class="va">krig2.grid</span><span class="op">$</span><span class="va">ksd</span>, finite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/gstat/man/image.html">image</a></span><span class="op">(</span> <span class="va">krig.grid</span>, <span class="st">'ksd'</span>, zlim <span class="op">=</span> <span class="va">scale.range</span>, 
-       main <span class="op">=</span> <span class="st">'Kriging sd'</span>, col <span class="op">=</span> <span class="va">scale.color</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">aquifer</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, cex <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/gstat/man/image.html">image</a></span><span class="op">(</span> <span class="va">krig2.grid</span>, <span class="st">'ksd'</span>, zlim <span class="op">=</span> <span class="va">scale.range</span>, 
-       main <span class="op">=</span> <span class="st">'Kriging sd (bias-corrected)'</span>, col <span class="op">=</span> <span class="va">scale.color</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">aquifer</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, cex <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span>
-<span class="fu"><a href="../reference/splot.html">splot</a></span><span class="op">(</span>slim <span class="op">=</span> <span class="va">scale.range</span>, col <span class="op">=</span> <span class="va">scale.color</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.85</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">125</span>, <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">krig.grid</span><span class="op">$</span><span class="va">ksd</span>, <span class="va">krig2.grid</span><span class="op">$</span><span class="va">ksd</span>, finite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span> <span class="va">krig.grid</span>, <span class="st">'ksd'</span>, zlim <span class="op">=</span> <span class="va">scale.range</span>, </span>
+<span>       main <span class="op">=</span> <span class="st">'Kriging sd'</span>, col <span class="op">=</span> <span class="va">scale.color</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">aquifer</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, cex <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span> <span class="va">krig2.grid</span>, <span class="st">'ksd'</span>, zlim <span class="op">=</span> <span class="va">scale.range</span>, </span>
+<span>       main <span class="op">=</span> <span class="st">'Kriging sd (bias-corrected)'</span>, col <span class="op">=</span> <span class="va">scale.color</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">aquifer</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, cex <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/splot.html">splot</a></span><span class="op">(</span>slim <span class="op">=</span> <span class="va">scale.range</span>, col <span class="op">=</span> <span class="va">scale.color</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="krigstat_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## Time of last operation: 
-##    user  system elapsed 
-##    1.00    0.10    1.11 
-## Total time:
-##    user  system elapsed 
-##    2.95    0.45    4.04</code></pre>
-<div id="notes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#notes" class="anchor"></a>Notes:</h3>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Time of last operation: </span></span>
+<span><span class="co">##    user  system elapsed </span></span>
+<span><span class="co">##    0.36    0.07    0.42 </span></span>
+<span><span class="co">## Total time:</span></span>
+<span><span class="co">##    user  system elapsed </span></span>
+<span><span class="co">##    1.37    0.17    2.12</span></span></code></pre>
+<div class="section level4">
+<h4 id="notes">Notes:<a class="anchor" aria-label="anchor" href="#notes"></a>
+</h4>
 <ul>
-<li>To reproduce results in SERRA paper use <code><a href="https://rdrr.io/r/utils/data.html">data(wolfcamp)</a></code> in package <code>geoR</code>.</li>
-<li>Results obtained with <code>aquifer</code> data set are comparable with those in Cressie (1993, section 4.1).</li>
+<li>To reproduce results in SERRA paper use <code>data(wolfcamp)</code>
+in package <code>geoR</code>.</li>
+<li>Results obtained with <code>aquifer</code> data set are comparable
+with those in Cressie (1993, section 4.1).</li>
 </ul>
 </div>
 </div>
@@ -248,11 +248,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://rubenfcasal.github.io">Ruben Fernandez-Casal</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://rubenfcasal.github.io" class="external-link">Ruben Fernandez-Casal</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -260,6 +262,8 @@
 
   
 
+
+  
 
   </body>
 </html>

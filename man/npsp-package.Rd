@@ -74,7 +74,7 @@ For instance, \code{\link{as.variogram}} (\pkg{geoR}) or \code{\link{as.vgm}} (\
 
 Important suggestions and contributions to some techniques included here were
 made by Sergio Castillo-Paez (Universidad de las Fuerzas Armadas ESPE, Ecuador) 
-and Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
+and Tomas Cotos-Yañez (Dep. Statistics, University of Vigo, Spain).
 }
 
 \references{
@@ -111,7 +111,7 @@ Wand M.P. (1994) Fast Computation of Multivariate Kernel Estimators.
 Wand M.P. and Jones M.C. (1995) \emph{Kernel Smoothing}. Chapman and Hall, London.
 }
 \author{
-Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
+Ruben Fernandez-Casal (Dep. Mathematics, University of A Coruña, Spain).
 Please send comments, error reports or suggestions to \email{rubenfcasal@gmail.com}.
 }
 \keyword{nonparametric}

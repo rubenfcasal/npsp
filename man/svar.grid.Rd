@@ -31,7 +31,14 @@ in  (base 2) logarithmic scale.}
 
 \item{max}{maximum lag. Defaults to \code{1.1*svar$range}.}
 }
+\value{
+A \code{svar.grid-\link{class}} object extending \code{svarmod},
+\code{bin.den} and \code{data.grid} classes.
+}
 \description{
 Discretizes a variogram model (to speed up variogram evaluation). 
 Constructor function of the \code{svar.grid-\link{class}}.
+}
+\seealso{
+\code{\link{svarmod}}, \code{\link{bin.den}}, \code{\link{data.grid}}.
 }

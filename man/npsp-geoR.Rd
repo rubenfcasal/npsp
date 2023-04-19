@@ -28,6 +28,12 @@ as.variomodel(m, ...)
 
 \item{m}{variogram model (e.g. \code{\link{svarmod}} object).}
 }
+\value{
+\code{as.variogram()} returns an object of the (not fully documented) \pkg{geoR}-class 
+\code{variogram}.
+
+\code{as.variomodel()} returns an object of the \pkg{geoR}-class \code{variomodel}.
+}
 \description{
 Utilities to interact with the \pkg{geoR} package.
 }

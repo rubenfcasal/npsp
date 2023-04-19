@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/npsp.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/rubenfcasal/npsp/">
+  <a href="https://github.com/rubenfcasal/npsp/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -88,220 +84,361 @@
 
       
 
-      </header><script src="npsp_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to the npsp Package</h1>
-                        <h4 class="author">Ruben Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
+                        <h4 data-toc-skip class="author">Ruben
+Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 class="date">npsp 0.7.8</h4>
+            <h4 data-toc-skip class="date">npsp 0.7.10</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/master/vignettes/npsp.Rmd"><code>vignettes/npsp.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/../../../../E:/OneDrive%20-%20Universidade%20da%20Coru%C3%B1a/__R_Machinery/__npsp/npsp/vignettes/npsp.Rmd" class="external-link"><code>../../../../E:/OneDrive - Universidade da Coruña/__R_Machinery/__npsp/npsp/vignettes/npsp.Rmd</code></a></small>
       <div class="hidden name"><code>npsp.Rmd</code></div>
 
     </div>
 
     
     
-<p>This vignette (a working draft) tries to illustrate the use of the <code>npsp</code> (Nonparametric spatial statistics) package. This package implements nonparametric methods for inference on multidimensional geostatistical processes, avoiding the misspecification problems that may arise when using parametric models. The spatial process can be either stationary or show a non-constant trend. Joint estimation of the trend and the semivariogram can be performed automatically, by using the function <code><a href="../reference/np.fitgeo.html">np.fitgeo()</a></code>, or by a step-by-step approach.</p>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>We will assume that <span class="math inline">\(\left\{ Y(\mathbf{x}),\mathbf{x}\in D \subset \mathbb{R}^{d}\right\}\)</span> is a spatial process that can be modeled as: <span class="math display">\[Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),\]</span></p>
-<p>where <span class="math inline">\(\mu(\cdot)\)</span> is the trend function (large-scale variation) and the error term <span class="math inline">\(\varepsilon\)</span> (small-scale variation), is a second order stationary process with zero mean and covariogram <span class="math inline">\(C(\mathbf{u}) = Cov(\varepsilon \left( \mathbf{x}\right) ,\varepsilon \left(\mathbf{x}+\mathbf{u}\right) )\)</span>, with <span class="math inline">\(\mathbf{u} \in D\)</span>.</p>
-<p>In this framework, given <span class="math inline">\(n\)</span> observed values <span class="math inline">\(\mathbf{Y}=( Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}\)</span>, the first step consists in estimate the trend <span class="math inline">\(\mu(\mathbf{x})\)</span> and the semivariogram <span class="math inline">\(\gamma(\mathbf{h}) = C(\mathbf{0}) - C(\mathbf{u})\)</span>.</p>
-<p>There are several <code>R</code> packages, such as <a href="https://r-spatial.github.io/gstat/"><code>gstat</code></a> or <a href="http://www.leg.ufpr.br/geoR/"><code>geoR</code></a>, which implement the traditional geostatistical techniques to approximate these functions. Nevertheless, as these approaches usually assume parametric models, they can present misspecification problems.</p>
-<p>The aim of the <code>npsp</code> package is to provide nonparametric tools for geostatistical modeling and interpolation, under the general spatial model (large + small variation scales), and without assuming any specific form (parametric model) for the trend and the variogram of the process.</p>
+<p>This vignette (a working draft) tries to illustrate the use of the
+<code>npsp</code> (Nonparametric spatial statistics) package. This
+package implements nonparametric methods for inference on
+multidimensional geostatistical processes, avoiding the misspecification
+problems that may arise when using parametric models. The spatial
+process can be either stationary or show a non-constant trend. Joint
+estimation of the trend and the semivariogram can be performed
+automatically, by using the function <code><a href="../reference/np.fitgeo.html">np.fitgeo()</a></code>, or by a
+step-by-step approach.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>We will assume that <span class="math inline">\(\left\{
+Y(\mathbf{x}),\mathbf{x}\in D \subset \mathbb{R}^{d}\right\}\)</span> is
+a spatial process that can be modeled as: <span class="math display">\[Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),\]</span></p>
+<p>where <span class="math inline">\(\mu(\cdot)\)</span> is the trend
+function (large-scale variation) and the error term <span class="math inline">\(\varepsilon\)</span> (small-scale variation), is a
+second order stationary process with zero mean and covariogram <span class="math inline">\(C(\mathbf{u}) = Cov(\varepsilon \left(
+\mathbf{x}\right) ,\varepsilon \left(\mathbf{x}+\mathbf{u}\right)
+)\)</span>, with <span class="math inline">\(\mathbf{u} \in
+D\)</span>.</p>
+<p>In this framework, given <span class="math inline">\(n\)</span>
+observed values <span class="math inline">\(\mathbf{Y}=(
+Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}\)</span>, the first step
+consists in estimate the trend <span class="math inline">\(\mu(\mathbf{x})\)</span> and the semivariogram
+<span class="math inline">\(\gamma(\mathbf{h}) = C(\mathbf{0}) -
+C(\mathbf{u})\)</span>.</p>
+<p>There are several <code>R</code> packages, such as <a href="https://r-spatial.github.io/gstat/" class="external-link"><code>gstat</code></a> or <a href="http://www.leg.ufpr.br/geoR/" class="external-link"><code>geoR</code></a>, which
+implement the traditional geostatistical techniques to approximate these
+functions. Nevertheless, as these approaches usually assume parametric
+models, they can present misspecification problems.</p>
+<p>The aim of the <code>npsp</code> package is to provide nonparametric
+tools for geostatistical modeling and interpolation, under the general
+spatial model (large + small variation scales), and without assuming any
+specific form (parametric model) for the trend and the variogram of the
+process.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rubenfcasal/npsp">npsp</a></span><span class="op">)</span></code></pre></div>
-<pre><code>##  Package npsp: Nonparametric Spatial Statistics,
-##  version 0.7-8 (built on 2021-05-10).
-##  Copyright (C) R. Fernandez-Casal 2012-2021.
-##  Type `help(npsp)` for an overview of the package or
-##  visit https://rubenfcasal.github.io/npsp.</code></pre>
-<p>The <code>precipitation</code> data set (<code><a href="https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html">sp::SpatialGridDataFrame</a></code> class object), supplied with the <code>npsp</code> package, will be used in the examples in this work. The data consist of total precipitations (square-root of rainfall inches) during March 2016 recorded over 1053 locations on the continental part of USA.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rubenfcasal/npsp" class="external-link">npsp</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  Package npsp: Nonparametric Spatial Statistics,</span></span>
+<span><span class="co">##  version 0.7-10 (built on 2023-04-20).</span></span>
+<span><span class="co">##  Copyright (C) R. Fernandez-Casal 2012-2023.</span></span>
+<span><span class="co">##  Type `help(npsp)` for an overview of the package or</span></span>
+<span><span class="co">##  visit https://rubenfcasal.github.io/npsp.</span></span></code></pre>
+<p>The <code>precipitation</code> data set
+(<code><a href="https://rdrr.io/pkg/sp/man/SpatialGridDataFrame.html" class="external-link">sp::SpatialGridDataFrame</a></code> class object), supplied with the
+<code>npsp</code> package, will be used in the examples in this work.
+The data consist of total precipitations (square-root of rainfall
+inches) during March 2016 recorded over 1053 locations on the
+continental part of USA.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edzer/sp/">sp</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></code></pre></div>
-<pre><code>## Object of class SpatialPointsDataFrame
-## Coordinates:
-##         min      max
-## x1 -124.555 -67.7928
-## x2   24.555  48.9676
-## Is projected: FALSE 
-## proj4string : [+proj=longlat +ellps=WGS84]
-## Number of points: 1053
-## Data attributes:
-##        y              WBAN                 state     
-##  Min.   :0.000   Min.   :  166   USA          :1053  
-##  1st Qu.:1.100   1st Qu.:13733   Alaska       :   0  
-##  Median :1.539   Median :23254   Isla Hawai   :   0  
-##  Mean   :1.551   Mean   :39700   Isla Honolulu:   0  
-##  3rd Qu.:1.954   3rd Qu.:63895   Isla Kauai   :   0  
-##  Max.   :4.105   Max.   :94996   Isla Maui    :   0  
-##                                  (Other)      :   0</code></pre>
-<p>For instance, <code><a href="../reference/spoints.html">spoints()</a></code> function may be used to plot the data…</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/edzer/sp/" class="external-link">sp</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Object of class SpatialPointsDataFrame</span></span>
+<span><span class="co">## Coordinates:</span></span>
+<span><span class="co">##         min      max</span></span>
+<span><span class="co">## x1 -124.555 -67.7928</span></span>
+<span><span class="co">## x2   24.555  48.9676</span></span>
+<span><span class="co">## Is projected: FALSE </span></span>
+<span><span class="co">## proj4string : [+proj=longlat +ellps=WGS84]</span></span>
+<span><span class="co">## Number of points: 1053</span></span>
+<span><span class="co">## Data attributes:</span></span>
+<span><span class="co">##        y              WBAN                 state     </span></span>
+<span><span class="co">##  Min.   :0.000   Min.   :  166   USA          :1053  </span></span>
+<span><span class="co">##  1st Qu.:1.100   1st Qu.:13733   Alaska       :   0  </span></span>
+<span><span class="co">##  Median :1.539   Median :23254   Isla Hawai   :   0  </span></span>
+<span><span class="co">##  Mean   :1.551   Mean   :39700   Isla Honolulu:   0  </span></span>
+<span><span class="co">##  3rd Qu.:1.954   3rd Qu.:63895   Isla Kauai   :   0  </span></span>
+<span><span class="co">##  Max.   :4.105   Max.   :94996   Isla Maui    :   0  </span></span>
+<span><span class="co">##                                  (Other)      :   0</span></span></code></pre>
+<p>For instance, <code><a href="../reference/spoints.html">spoints()</a></code> function may be used to plot the
+data…</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/spoints.html">spoints</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spoints.html">spoints</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Function <code><a href="../reference/scattersplot.html">scattersplot()</a></code> may be used to detect the presence of a non-constant trend…</p>
+<p>Function <code><a href="../reference/scattersplot.html">scattersplot()</a></code> may be used to detect the
+presence of a non-constant trend…</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/scattersplot.html">scattersplot</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/scattersplot.html">scattersplot</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/scattersplot-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
-<div id="trend-estimation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#trend-estimation" class="anchor"></a>Trend estimation</h1>
-<p>The local polynomial trend estimator <span class="math inline">\(\hat{\mu}_{\mathbf{H}}(\mathbf{x})\)</span> (e.g. Fan and Gijbels, 1996), obtained by polynomial smoothing of <span class="math inline">\(\{(\mathbf{x}_{i},Y(\mathbf{x}_{i})):i=1,\ldots,n\}\)</span>, is the solution for <span class="math inline">\(\beta_0\)</span> to the least squares minimization problem <span class="math display">\[\begin{aligned}
+<div class="section level2">
+<h2 id="trend-estimation">Trend estimation<a class="anchor" aria-label="anchor" href="#trend-estimation"></a>
+</h2>
+<p>The local polynomial trend estimator <span class="math inline">\(\hat{\mu}_{\mathbf{H}}(\mathbf{x})\)</span>
+(e.g. Fan and Gijbels, 1996), obtained by polynomial smoothing of <span class="math inline">\(\{(\mathbf{x}_{i},Y(\mathbf{x}_{i})):i=1,\ldots,n\}\)</span>,
+is the solution for <span class="math inline">\(\beta_0\)</span> to the
+least squares minimization problem <span class="math display">\[\begin{aligned}
     \min_{\beta_0 ,\boldsymbol{\beta}_1, \ldots, \boldsymbol{\beta}_p}
-    \sum_{i=1}^{n}\left\{ Y(\mathbf{x}_{i})-\beta_0 
-    -\boldsymbol{\beta}_1^{t}(\mathbf{x}_{i}-\mathbf{x}) - \ldots \right. \nonumber \\
-    \left. -\boldsymbol{\beta}_p^{t}(\mathbf{x}_{i}-\mathbf{x})^p \right\}^{2}
+    \sum_{i=1}^{n}\left\{ Y(\mathbf{x}_{i})-\beta_0
+    -\boldsymbol{\beta}_1^{t}(\mathbf{x}_{i}-\mathbf{x}) - \ldots
+\right. \nonumber \\
+    \left. -\boldsymbol{\beta}_p^{t}(\mathbf{x}_{i}-\mathbf{x})^p
+\right\}^{2}
     K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),
-\end{aligned}\]</span> where <span class="math inline">\(\mathbf{H}\)</span> is a <span class="math inline">\(d\times d\)</span> symmetric positive definite matrix; <span class="math inline">\(K\)</span> is a <span class="math inline">\(d\)</span>-dimensional kernel and <span class="math inline">\(K_{\mathbf{H}}(\mathbf{u})=\left\vert  \mathbf{H}\right\vert ^{-1}K(\mathbf{H}^{-1}\mathbf{u})\)</span>.</p>
-<p>The bandwidth matrix <span class="math inline">\(\mathbf{H}\)</span> controls the shape and size of the local neighborhood used to estimate <span class="math inline">\(\mu(\mathbf{x})\)</span>.</p>
-<p>The local trend estimates can be computed in practice with the <code><a href="../reference/locpol.html">locpol()</a></code> function. A full bandwidth matrix and a multiplicative triweight kernel is used to compute the weights. Main calculations are performed in Fortran using the LAPACK library.</p>
+\end{aligned}\]</span> where <span class="math inline">\(\mathbf{H}\)</span> is a <span class="math inline">\(d\times d\)</span> symmetric positive definite
+matrix; <span class="math inline">\(K\)</span> is a <span class="math inline">\(d\)</span>-dimensional kernel and <span class="math inline">\(K_{\mathbf{H}}(\mathbf{u})=\left\vert  \mathbf{H}\right\vert
+^{-1}K(\mathbf{H}^{-1}\mathbf{u})\)</span>.</p>
+<p>The bandwidth matrix <span class="math inline">\(\mathbf{H}\)</span>
+controls the shape and size of the local neighborhood used to estimate
+<span class="math inline">\(\mu(\mathbf{x})\)</span>.</p>
+<p>The local trend estimates can be computed in practice with the
+<code><a href="../reference/locpol.html">locpol()</a></code> function. A full bandwidth matrix and a
+multiplicative triweight kernel is used to compute the weights. Main
+calculations are performed in Fortran using the LAPACK library.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/coordinates.html">coordinates</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">precipitation</span><span class="op">$</span><span class="va">y</span>
-<span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">120</span><span class="op">)</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>We can plot the trend estimates with function <code><a href="../reference/simage.html">simage()</a></code> (or <code><a href="../reference/spersp.html">spersp()</a></code>). Additionally, in this case the estimates outside of continental part of USA will be masked.</p>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/coordinates.html" class="external-link">coordinates</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">precipitation</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">120</span><span class="op">)</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We can plot the trend estimates with function <code><a href="../reference/simage.html">simage()</a></code>
+(or <code><a href="../reference/spersp.html">spersp()</a></code>). Additionally, in this case the estimates
+outside of continental part of USA will be masked.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">attr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span>
-<span class="va">border</span> <span class="op">&lt;-</span> <span class="va">attr</span><span class="op">$</span><span class="va">border</span> 
-<span class="co"># Mask grid points outside of continental part of USA</span>
-<span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mask.html">mask</a></span><span class="op">(</span><span class="va">lp</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in mask.locpol.bin(lp, window = border): 
-## some data will be masked...</code></pre>
+<code class="sourceCode R"><span><span class="va">attr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">precipitation</span><span class="op">)</span></span>
+<span><span class="va">border</span> <span class="op">&lt;-</span> <span class="va">attr</span><span class="op">$</span><span class="va">border</span> </span>
+<span><span class="co"># Mask grid points outside of continental part of USA</span></span>
+<span><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mask.html">mask</a></span><span class="op">(</span><span class="va">lp</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in mask.locpol.bin(lp, window = border): </span></span>
+<span><span class="co">## some data will be masked...</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">interior</span> <span class="op">&lt;-</span> <span class="va">attr</span><span class="op">$</span><span class="va">interior</span> 
-<span class="va">slim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/splot.html">jet.colors</a></span><span class="op">(</span><span class="fl">256</span><span class="op">)</span>
-<span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">lp</span>,  slim <span class="op">=</span> <span class="va">slim</span>, main <span class="op">=</span> <span class="st">"Trend estimates"</span>,
-       col <span class="op">=</span> <span class="va">col</span>, xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">interior</span> <span class="op">&lt;-</span> <span class="va">attr</span><span class="op">$</span><span class="va">interior</span> </span>
+<span><span class="va">slim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/splot.html">jet.colors</a></span><span class="op">(</span><span class="fl">256</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">lp</span>,  slim <span class="op">=</span> <span class="va">slim</span>, main <span class="op">=</span> <span class="st">"Trend estimates"</span>,</span>
+<span>       col <span class="op">=</span> <span class="va">col</span>, xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>The smoothing procedures in <code>npsp</code> use linear binning to discretize the data. For instance, instead of the previous code we can use:</p>
+<p>The smoothing procedures in <code>npsp</code> use linear binning to
+discretize the data. For instance, instead of the previous code we can
+use:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/binning.html">binning</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">120</span><span class="op">)</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span>
-<span class="co"># lp &lt;- locpol(bin, h = diag(c(5, 5)))</span>
-<span class="va">lp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">bin</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">lp2</span>, slim <span class="op">=</span> <span class="va">slim</span>, main <span class="op">=</span> <span class="st">"Trend estimates"</span>,
-       col <span class="op">=</span> <span class="va">col</span>, xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/binning.html">binning</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">120</span><span class="op">)</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span></span>
+<span><span class="co"># lp &lt;- locpol(bin, h = diag(c(5, 5)))</span></span>
+<span><span class="va">lp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">bin</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">lp2</span>, slim <span class="op">=</span> <span class="va">slim</span>, main <span class="op">=</span> <span class="st">"Trend estimates"</span>,</span>
+<span>       col <span class="op">=</span> <span class="va">col</span>, xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Usually two grids will be considered, a low resolution one to speed up computations during the modeling (e.g. by using the default values), and a higher resolution one to obtaing the final results.</p>
+<p>Usually two grids will be considered, a low resolution one to speed
+up computations during the modeling (e.g. by using the default values),
+and a higher resolution one to obtaing the final results.</p>
 </div>
-<div id="bandwidth-selection" class="section level1">
-<h1 class="hasAnchor">
-<a href="#bandwidth-selection" class="anchor"></a>Bandwidth selection</h1>
-<p>The trend estimates depends crucially on the bandwidth matrix <span class="math inline">\(H\)</span>. A small bandwith will produce undersmoothed estimates, whereas a big bandwith will oversmooth the data. Although it may be subjectively choosed by eye, it could be very beneficial to have automatic selection criteria from the data.</p>
-<p>Traditional bandwidth selectors, such as cross validation (CV) or generalized cross validation (GCV), do not have a good performance for dependent data (Opsomer et al, 2001), since they tend to undersmooth the trend function.</p>
-<p>The modified cross-validation criteria (MCV), proposed in (Chu and Marron, 1991) for time series, can be adapted for spatial data, by ignoring observations in a neighbourhood <span class="math inline">\(N(i)\)</span> around <span class="math inline">\(\mathbf{x}_{i}\)</span>. Note that the ordinary CV approach is a particular case with <span class="math inline">\(N(i)=\left\lbrace \mathbf{x}_{i} \right\rbrace\)</span>.</p>
-<p>In practice, the bandwidth can be selected through the <code><a href="../reference/h.cv.html">h.cv()</a></code> (or <code><a href="../reference/h.cv.html">hcv.data()</a></code>) function.</p>
+<div class="section level2">
+<h2 id="bandwidth-selection">Bandwidth selection<a class="anchor" aria-label="anchor" href="#bandwidth-selection"></a>
+</h2>
+<p>The trend estimates depends crucially on the bandwidth matrix <span class="math inline">\(H\)</span>. A small bandwith will produce
+undersmoothed estimates, whereas a big bandwith will oversmooth the
+data. Although it may be subjectively choosed by eye, it could be very
+beneficial to have automatic selection criteria from the data.</p>
+<p>Traditional bandwidth selectors, such as cross validation (CV) or
+generalized cross validation (GCV), do not have a good performance for
+dependent data (Opsomer et al, 2001), since they tend to undersmooth the
+trend function.</p>
+<p>The modified cross-validation criteria (MCV), proposed in (Chu and
+Marron, 1991) for time series, can be adapted for spatial data, by
+ignoring observations in a neighbourhood <span class="math inline">\(N(i)\)</span> around <span class="math inline">\(\mathbf{x}_{i}\)</span>. Note that the ordinary CV
+approach is a particular case with <span class="math inline">\(N(i)=\left\lbrace \mathbf{x}_{i}
+\right\rbrace\)</span>.</p>
+<p>In practice, the bandwidth can be selected through the
+<code><a href="../reference/h.cv.html">h.cv()</a></code> (or <code><a href="../reference/h.cv.html">hcv.data()</a></code>) function.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/binning.html">binning</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span>
-<span class="va">lp0.h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h.cv.html">h.cv</a></span><span class="op">(</span><span class="va">bin</span><span class="op">)</span><span class="op">$</span><span class="va">h</span>
-<span class="va">lp0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">bin</span>, h <span class="op">=</span> <span class="va">lp0.h</span>, hat.bin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </code></pre></div>
-<p>An alternative is the corrected generalized cross-validation criterion (CGCV), proposed in Francisco-Fernández and Opsomer (2005), that takes the spatial dependence into account. To use this approach in practice (by setting <code>objective = "GCV"</code> and <code>cov.bin</code> in <code>h.cv</code>), an estimate of the variogram is previously required.</p>
+<code class="sourceCode R"><span><span class="va">bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/binning.html">binning</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span></span>
+<span><span class="va">lp0.h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h.cv.html">h.cv</a></span><span class="op">(</span><span class="va">bin</span><span class="op">)</span><span class="op">$</span><span class="va">h</span></span>
+<span><span class="va">lp0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/locpol.html">locpol</a></span><span class="op">(</span><span class="va">bin</span>, h <span class="op">=</span> <span class="va">lp0.h</span>, hat.bin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<p>An alternative is the corrected generalized cross-validation
+criterion (CGCV), proposed in Francisco-Fernández and Opsomer (2005),
+that takes the spatial dependence into account. To use this approach in
+practice (by setting <code>objective = "GCV"</code> and
+<code>cov.bin</code> in <code>h.cv</code>), an estimate of the variogram
+is previously required.</p>
 </div>
-<div id="variogram-estimation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#variogram-estimation" class="anchor"></a>Variogram estimation</h1>
-<p>When the process is assumed stationary, the pilot local linear estimate <span class="math inline">\(\hat\gamma(\mathbf{u})\)</span> is obtained by the linear smoothing of <span class="math inline">\(\left(\mathbf{x}_{i}-\mathbf{x}_{j},(Y(\mathbf{x}_i)- Y(\mathbf{x}_j))^2/2 \right)\)</span>. The corresponding bandwidth can be selected, for instance, by minimizing the cross-validation relative squared error.</p>
-<p>In the general setting with a non constant trend, the natural approach consists in removing the trend and estimating the variogram from the residuals <span class="math inline">\(\mathbf{r}=\mathbf{Y}-\mathbf{SY}\)</span>. Nevertheless, the residuals variability may be very different to that of the true errors (see e.g. Cressie, 1993, Section 3.4.3, for the case of the linear trend estimator). As the bias due to the direct use of residuals in variogram estimation may have a significant impact on inference, a similar approach to that described in Fernández-Casal and Francisco-Fernández (2014) could be considered.</p>
-<p>In practice, the local linear variogram estimates can be computed with functions <code><a href="../reference/np.svar.html">np.svar()</a></code> and <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code>. The generic function <code><a href="../reference/h.cv.html">h.cv()</a></code> may be used to select the corresponding bandwidth.</p>
+<div class="section level2">
+<h2 id="variogram-estimation">Variogram estimation<a class="anchor" aria-label="anchor" href="#variogram-estimation"></a>
+</h2>
+<p>When the process is assumed stationary, the pilot local linear
+estimate <span class="math inline">\(\hat\gamma(\mathbf{u})\)</span> is
+obtained by the linear smoothing of <span class="math inline">\(\left(\mathbf{x}_{i}-\mathbf{x}_{j},(Y(\mathbf{x}_i)-
+Y(\mathbf{x}_j))^2/2 \right)\)</span>. The corresponding bandwidth can
+be selected, for instance, by minimizing the cross-validation relative
+squared error.</p>
+<p>In the general setting with a non constant trend, the natural
+approach consists in removing the trend and estimating the variogram
+from the residuals <span class="math inline">\(\mathbf{r}=\mathbf{Y}-\mathbf{SY}\)</span>.
+Nevertheless, the residuals variability may be very different to that of
+the true errors (see e.g. Cressie, 1993, Section 3.4.3, for the case of
+the linear trend estimator). As the bias due to the direct use of
+residuals in variogram estimation may have a significant impact on
+inference, a similar approach to that described in Fernández-Casal and
+Francisco-Fernández (2014) could be considered.</p>
+<p>In practice, the local linear variogram estimates can be computed
+with functions <code><a href="../reference/np.svar.html">np.svar()</a></code> and
+<code><a href="../reference/np.svar.html">np.svariso.corr()</a></code>. The generic function <code><a href="../reference/h.cv.html">h.cv()</a></code>
+may be used to select the corresponding bandwidth.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">svar.bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/svar.bin.html">svariso</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">lp0</span><span class="op">)</span>, nlags <span class="op">=</span> <span class="fl">60</span>, maxlag <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>  
-<span class="va">svar.h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h.cv.html">h.cv</a></span><span class="op">(</span><span class="va">svar.bin</span><span class="op">)</span><span class="op">$</span><span class="va">h</span>
-
-<span class="va">svar.np</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svar</a></span><span class="op">(</span><span class="va">svar.bin</span>, h <span class="op">=</span> <span class="va">svar.h</span><span class="op">)</span>
-<span class="va">svar.np2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svariso.corr</a></span><span class="op">(</span><span class="va">lp0</span>, nlags <span class="op">=</span> <span class="fl">60</span>, maxlag <span class="op">=</span> <span class="fl">20</span>, 
-                            h <span class="op">=</span> <span class="va">svar.h</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </code></pre></div>
-<p>The final variogram estimate is obtained by fitting a “nonparametric” isotropic Shapiro-Botha variogram model (Shapiro and Botha, 1991), to the nonparametric pilot estimate, by using the function <code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code>.</p>
+<code class="sourceCode R"><span><span class="va">svar.bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/svar.bin.html">svariso</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">lp0</span><span class="op">)</span>, nlags <span class="op">=</span> <span class="fl">60</span>, maxlag <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>  </span>
+<span><span class="va">svar.h</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/h.cv.html">h.cv</a></span><span class="op">(</span><span class="va">svar.bin</span><span class="op">)</span><span class="op">$</span><span class="va">h</span></span>
+<span></span>
+<span><span class="va">svar.np</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svar</a></span><span class="op">(</span><span class="va">svar.bin</span>, h <span class="op">=</span> <span class="va">svar.h</span><span class="op">)</span></span>
+<span><span class="va">svar.np2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.svar.html">np.svariso.corr</a></span><span class="op">(</span><span class="va">lp0</span>, nlags <span class="op">=</span> <span class="fl">60</span>, maxlag <span class="op">=</span> <span class="fl">20</span>, </span>
+<span>                            h <span class="op">=</span> <span class="va">svar.h</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
+<p>The final variogram estimate is obtained by fitting a “nonparametric”
+isotropic Shapiro-Botha variogram model (Shapiro and Botha, 1991), to
+the nonparametric pilot estimate, by using the function
+<code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">svm0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">svar.np</span>, dk <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> 
-<span class="va">svm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">svar.np2</span>, dk <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> 
-<span class="co"># plot...</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svm1</span>, main <span class="op">=</span> <span class="st">"Nonparametric bias-corrected semivariogram\nand fitted models"</span>, 
-     legend <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="../reference/coords.html">coords</a></span><span class="op">(</span><span class="va">svar.np2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, 
-     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">svar.np2</span><span class="op">$</span><span class="va">biny</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svm0</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">svar.np</span>, type <span class="op">=</span> <span class="st">"p"</span>, pch <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co"># abline(h = c(svm1$nugget, svm1$sill), lty = 3)</span>
-<span class="co"># abline(v = 0, lty = 3)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"corrected"</span>, <span class="st">'biased'</span><span class="op">)</span>,
-            lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">svm0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">svar.np</span>, dk <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> </span>
+<span><span class="va">svm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso</a></span><span class="op">(</span><span class="va">svar.np2</span>, dk <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> </span>
+<span><span class="co"># plot...</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">svm1</span>, main <span class="op">=</span> <span class="st">"Nonparametric bias-corrected semivariogram\nand fitted models"</span>, </span>
+<span>     legend <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="../reference/coords.html">coords</a></span><span class="op">(</span><span class="va">svar.np2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>     ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">svar.np2</span><span class="op">$</span><span class="va">biny</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">svm0</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">svar.np</span>, type <span class="op">=</span> <span class="st">"p"</span>, pch <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># abline(h = c(svm1$nugget, svm1$sill), lty = 3)</span></span>
+<span><span class="co"># abline(v = 0, lty = 3)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"corrected"</span>, <span class="st">'biased'</span><span class="op">)</span>,</span>
+<span>            lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
-<div id="automatic-modeling" class="section level1">
-<h1 class="hasAnchor">
-<a href="#automatic-modeling" class="anchor"></a>Automatic modeling</h1>
-<p>Function <code><a href="../reference/np.fitgeo.html">np.fitgeo()</a></code> implements an automatic procedure for the joint estimation of the trend and the semivariogram. The algorithm is as follows:</p>
+<div class="section level2">
+<h2 id="automatic-modeling">Automatic modeling<a class="anchor" aria-label="anchor" href="#automatic-modeling"></a>
+</h2>
+<p>Function <code><a href="../reference/np.fitgeo.html">np.fitgeo()</a></code> implements an automatic procedure
+for the joint estimation of the trend and the semivariogram. The
+algorithm is as follows:</p>
 <ol style="list-style-type: decimal">
-<li><p>Select an initial bandwidth to estimate the trend using the MCV criterion (function <code><a href="../reference/h.cv.html">h.cv()</a></code>).</p></li>
-<li><p>Compute the local linear trend estimate (function <code><a href="../reference/locpol.html">locpol()</a></code>).</p></li>
-<li><p>Obtain a bias-corrected pilot semivariogram estimate from the corresponding residuals (function <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code>).</p></li>
-<li><p>Fit a valid Shapiro-Botha model to the pilot semivariogram estimates (function <code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code>).</p></li>
-<li><p>Select a new bandwidth matrix for trend estimation with the CGCV criterion, using the fitted variogram model to approximate the data covariance matrix (function <code><a href="../reference/h.cv.html">h.cv()</a></code> with <code>objective = "GCV"</code> and <code>cov.bin =</code> fitted variogram model).</p></li>
-<li><p>Repeat steps 2-5 until convergence (in practice, only two iterations are usually needed).</p></li>
+<li><p>Select an initial bandwidth to estimate the trend using the MCV
+criterion (function <code><a href="../reference/h.cv.html">h.cv()</a></code>).</p></li>
+<li><p>Compute the local linear trend estimate (function
+<code><a href="../reference/locpol.html">locpol()</a></code>).</p></li>
+<li><p>Obtain a bias-corrected pilot semivariogram estimate from the
+corresponding residuals (function
+<code><a href="../reference/np.svar.html">np.svariso.corr()</a></code>).</p></li>
+<li><p>Fit a valid Shapiro-Botha model to the pilot semivariogram
+estimates (function <code><a href="../reference/fitsvar.sb.iso.html">fitsvar.sb.iso()</a></code>).</p></li>
+<li><p>Select a new bandwidth matrix for trend estimation with the CGCV
+criterion, using the fitted variogram model to approximate the data
+covariance matrix (function <code><a href="../reference/h.cv.html">h.cv()</a></code> with
+<code>objective = "GCV"</code> and <code>cov.bin =</code> fitted
+variogram model).</p></li>
+<li><p>Repeat steps 2-5 until convergence (in practice, only two
+iterations are usually needed).</p></li>
 </ol>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">geomod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.fitgeo.html">np.fitgeo</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">30</span><span class="op">)</span>, maxlag <span class="op">=</span> <span class="fl">20</span>, svm.resid <span class="op">=</span> <span class="cn">TRUE</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">geomod</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">geomod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.fitgeo.html">np.fitgeo</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, nbin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">30</span><span class="op">)</span>, maxlag <span class="op">=</span> <span class="fl">20</span>, svm.resid <span class="op">=</span> <span class="cn">TRUE</span>, window <span class="op">=</span> <span class="va">border</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">geomod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/geomod-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Setting <code>corr.svar = TRUE</code> may be very slow (and memory demanding) when the number of data is large (note also that the bias in the residual variogram decreases when the sample size increases).</p>
+<p>Setting <code>corr.svar = TRUE</code> may be very slow (and memory
+demanding) when the number of data is large (note also that the bias in
+the residual variogram decreases when the sample size increases).</p>
 </div>
-<div id="kriging" class="section level1">
-<h1 class="hasAnchor">
-<a href="#kriging" class="anchor"></a>Kriging</h1>
-<p>The final trend and variogram estimates could be employed for spatial prediction, by using method <code><a href="../reference/np.kriging.html">np.kriging()</a></code>.</p>
+<div class="section level2">
+<h2 id="kriging">Kriging<a class="anchor" aria-label="anchor" href="#kriging"></a>
+</h2>
+<p>The final trend and variogram estimates could be employed for spatial
+prediction, by using method <code><a href="../reference/np.kriging.html">np.kriging()</a></code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">krig.grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.kriging.html">np.kriging</a></span><span class="op">(</span><span class="va">geomod</span>, ngrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Plot kriging predictions and kriging standard deviations</span>
-<span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="fl">0.98</span>, <span class="fl">0.0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">krig.grid2</span> <span class="op">&lt;-</span> <span class="va">krig.grid</span>
-<span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">krig.grid2</span>, <span class="st">'kpred'</span>, main <span class="op">=</span> <span class="st">'Kriging predictions'</span>, slim <span class="op">=</span> <span class="va">slim</span>,
-      xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span> , col <span class="op">=</span> <span class="va">col</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">krig.grid2</span>, <span class="st">'ksd'</span>, main <span class="op">=</span> <span class="st">'Kriging sd'</span>,
-      xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span> , col <span class="op">=</span> <span class="fu"><a href="../reference/splot.html">hot.colors</a></span><span class="op">(</span><span class="fl">256</span><span class="op">)</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">krig.grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/np.kriging.html">np.kriging</a></span><span class="op">(</span><span class="va">geomod</span>, ngrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">120</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Plot kriging predictions and kriging standard deviations</span></span>
+<span><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="fl">0.98</span>, <span class="fl">0.0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">krig.grid2</span> <span class="op">&lt;-</span> <span class="va">krig.grid</span></span>
+<span><span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">krig.grid2</span>, <span class="st">'kpred'</span>, main <span class="op">=</span> <span class="st">'Kriging predictions'</span>, slim <span class="op">=</span> <span class="va">slim</span>,</span>
+<span>      xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span> , col <span class="op">=</span> <span class="va">col</span>, asp <span class="op">=</span> <span class="fl">1</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/simage.html">simage</a></span><span class="op">(</span><span class="va">krig.grid2</span>, <span class="st">'ksd'</span>, main <span class="op">=</span> <span class="st">'Kriging sd'</span>, xlab <span class="op">=</span> <span class="st">"Longitude"</span>, </span>
+<span>       ylab <span class="op">=</span> <span class="st">"Latitude"</span> , col <span class="op">=</span> <span class="fu"><a href="../reference/splot.html">hot.colors</a></span><span class="op">(</span><span class="fl">256</span><span class="op">)</span>, asp <span class="op">=</span> <span class="fl">1</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">border</span>, border <span class="op">=</span> <span class="st">"darkgray"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">interior</span>, border <span class="op">=</span> <span class="st">"lightgray"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="npsp_files/figure-html/kriging-1.png" width="100%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></code></pre></div>
-<p>Currently, only global residual kriging is implemented. Users are encouraged to use <code><a href="https://rdrr.io/pkg/gstat/man/krige.html">gstat::krige()</a></code> (or <code><a href="https://rdrr.io/pkg/gstat/man/krige.cv.html">krige.cv()</a></code>) together with <code><a href="../reference/npsp-gstat.html">as.vgm()</a></code> for local kriging (see e.g. <a href="https://rubenfcasal.github.io/npsp/articles/krigstat.html" class="uri">https://rubenfcasal.github.io/npsp/articles/krigstat.html</a>).</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></span></code></pre></div>
+<p>Currently, only global residual kriging is implemented. Users are
+encouraged to use <code><a href="https://rdrr.io/pkg/gstat/man/krige.html" class="external-link">gstat::krige()</a></code> (or
+<code><a href="https://rdrr.io/pkg/gstat/man/krige.cv.html" class="external-link">krige.cv()</a></code>) together with <code><a href="../reference/npsp-gstat.html">as.vgm()</a></code> for local
+kriging (see e.g. <a href="https://rubenfcasal.github.io/npsp/articles/krigstat.html" class="external-link uri">https://rubenfcasal.github.io/npsp/articles/krigstat.html</a>).</p>
 </div>
-<div id="conclusions-and-future-work" class="section level1">
-<h1 class="hasAnchor">
-<a href="#conclusions-and-future-work" class="anchor"></a>Conclusions and future work</h1>
-<p>Unlike traditional geostatistical methods, the nonparametric procedures avoid problems due to model misspecification.</p>
-<p>The bias due to the direct use of residuals, may have a significant impact on variogram estimation (and consequently on the selected bandwidth with the CGCV criterion). Therefore, the use of the bias-corrected nonparametric variogram estimator would be recommended.</p>
-<p>Currently, only isotropic semivariogram estimation is supported, but the intention is to extend this approach to anisotropy in two components (Fernández-Casal et al., 2003), which could be suitable for modeling spatio-temporal dependency.</p>
-<p>The nonparametric trend and variogram estimates also allow to perform inferences about other characteristics of interest of the process, for instance, by using the bootstrap algorithm described in (Castillo-Páez et al., 2019), which will be implemented in the next version of the package (<a href="https://github.com/rubenfcasal/npsp" class="uri">https://github.com/rubenfcasal/npsp</a>).</p>
+<div class="section level2">
+<h2 id="conclusions-and-future-work">Conclusions and future work<a class="anchor" aria-label="anchor" href="#conclusions-and-future-work"></a>
+</h2>
+<p>Unlike traditional geostatistical methods, the nonparametric
+procedures avoid problems due to model misspecification.</p>
+<p>The bias due to the direct use of residuals, may have a significant
+impact on variogram estimation (and consequently on the selected
+bandwidth with the CGCV criterion). Therefore, the use of the
+bias-corrected nonparametric variogram estimator would be
+recommended.</p>
+<p>Currently, only isotropic semivariogram estimation is supported, but
+the intention is to extend this approach to anisotropy in two components
+(Fernández-Casal et al., 2003), which could be suitable for modeling
+spatio-temporal dependency.</p>
+<p>The nonparametric trend and variogram estimates also allow to perform
+inferences about other characteristics of interest of the process, for
+instance, by using the bootstrap algorithm described in (Castillo-Páez
+et al., 2019), which will be implemented in the next version of the
+package (<a href="https://github.com/rubenfcasal/npsp" class="external-link uri">https://github.com/rubenfcasal/npsp</a>).</p>
 </div>
-<div id="acknowledgments" class="section level1">
-<h1 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h1>
-<p>This research has been supported by MINECO grant MTM2017-82724-R, and by the Xunta de Galicia (Grupos de Referencia Competitiva ED431C-2020-14 and Centro de Investigación del Sistema universitario de Galicia ED431G 2019/01), all of them through the ERDF.</p>
+<div class="section level2">
+<h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h2>
+<p>This research has been supported by MINECO grant MTM2017-82724-R, and
+by the Xunta de Galicia (Grupos de Referencia Competitiva ED431C-2020-14
+and Centro de Investigación del Sistema universitario de Galicia ED431G
+2019/01), all of them through the ERDF.</p>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
-<p>Castillo-Páez, S., Fernández-Casal, R., García-Soidán, P. (2019). A nonparametric bootstrap method for spatial data. <em>Comput. Stat. Data An.</em>, <strong>137</strong>, 1–15.</p>
-<p>Chu, C. K. and Marron, J. S. (1991). Comparison of Two Bandwidth Selectors with Dependent Errors. <em>The Annals of Statistics</em> <strong>19</strong>, 1906–1918.</p>
-<p>Cressie, N. (1993). <em>Statistics for Spatial Data</em>. Wiley, New York.</p>
-<p>Fernández-Casal, R. (2019). npsp: Nonparametric Spatial Statistics. R package version 0.7-5. <em><a href="https://github.com/rubenfcasal/npsp" class="uri">https://github.com/rubenfcasal/npsp</a></em>.</p>
-<p>Fan, J. and Gijbels, I. (1996). <em>Local polynomial modelling and its applications</em>. Chapman &amp; Hall, London.</p>
-<p>Fernández-Casal, R. and Francisco-Fernández, M. (2014). Nonparametric bias-corrected variogram estimation under non-constant trend. <em>Stochastic Environmental Research and Risk Assessment</em> <strong>28</strong>, 1247–1259.</p>
-<p>Fernández-Casal, R., González Manteiga, W. and Febrero-Bande, M. (2003). Flexible Spatio-Temporal Stationary Variogram Models. <em>Statistics and Computing</em> <strong>13</strong>, 127–136.</p>
-<p>Francisco-Fernández, M. and Opsomer, J. D. (2005). Smoothing parameter selection methods for nonparametric regression with spatially correlated errors. <em>The Canadian Journal of Statistics</em> <strong>33</strong>, 279–295.</p>
-<p>Opsomer, J. D., Wang, Y. and Yang, Y. (2001). Nonparametric regression with correlated errors. <em>Statistical Science</em> <strong>16</strong>, 134–153.</p>
-<p>Shapiro, A. and Botha, J.D. (1991). Variogram fitting with a general class of conditionally non-negative definite functions. <em>Computational Statistics and Data Analysis</em> <strong>11</strong>, 87–96.</p>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>Castillo-Páez, S., Fernández-Casal, R., García-Soidán, P. (2019). A
+nonparametric bootstrap method for spatial data. <em>Comput. Stat. Data
+An.</em>, <strong>137</strong>, 1–15.</p>
+<p>Chu, C. K. and Marron, J. S. (1991). Comparison of Two Bandwidth
+Selectors with Dependent Errors. <em>The Annals of Statistics</em>
+<strong>19</strong>, 1906–1918.</p>
+<p>Cressie, N. (1993). <em>Statistics for Spatial Data</em>. Wiley, New
+York.</p>
+<p>Fernández-Casal, R. (2019). npsp: Nonparametric Spatial Statistics. R
+package version 0.7-5. <em><a href="https://github.com/rubenfcasal/npsp" class="external-link uri">https://github.com/rubenfcasal/npsp</a></em>.</p>
+<p>Fan, J. and Gijbels, I. (1996). <em>Local polynomial modelling and
+its applications</em>. Chapman &amp; Hall, London.</p>
+<p>Fernández-Casal, R. and Francisco-Fernández, M. (2014). Nonparametric
+bias-corrected variogram estimation under non-constant trend.
+<em>Stochastic Environmental Research and Risk Assessment</em>
+<strong>28</strong>, 1247–1259.</p>
+<p>Fernández-Casal, R., González Manteiga, W. and Febrero-Bande, M.
+(2003). Flexible Spatio-Temporal Stationary Variogram Models.
+<em>Statistics and Computing</em> <strong>13</strong>, 127–136.</p>
+<p>Francisco-Fernández, M. and Opsomer, J. D. (2005). Smoothing
+parameter selection methods for nonparametric regression with spatially
+correlated errors. <em>The Canadian Journal of Statistics</em>
+<strong>33</strong>, 279–295.</p>
+<p>Opsomer, J. D., Wang, Y. and Yang, Y. (2001). Nonparametric
+regression with correlated errors. <em>Statistical Science</em>
+<strong>16</strong>, 134–153.</p>
+<p>Shapiro, A. and Botha, J.D. (1991). Variogram fitting with a general
+class of conditionally non-negative definite functions.
+<em>Computational Statistics and Data Analysis</em> <strong>11</strong>,
+87–96.</p>
 </div>
   </div>
 
@@ -316,11 +453,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://rubenfcasal.github.io">Ruben Fernandez-Casal</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://rubenfcasal.github.io" class="external-link">Ruben Fernandez-Casal</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -328,6 +467,8 @@
 
   
 
+
+  
 
   </body>
 </html>

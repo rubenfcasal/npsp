@@ -28,7 +28,7 @@ spoints(x, ...)
   axis.args = NULL,
   legend.args = NULL,
   add = FALSE,
-  graphics.reset = add,
+  reset = TRUE,
   pch = 16,
   cex = 1.5,
   xlab = NULL,
@@ -106,10 +106,10 @@ for details).}
 \item{add}{logical; if \code{TRUE} the scatter plot is just added 
 to the existing plot.}
 
-\item{graphics.reset}{logical; if \code{FALSE} (default) the plotting region
+\item{reset}{logical; if \code{FALSE} the plotting region
 (\code{\link{par}("plt")}) will not be reset to make it possible to add more features
-to the plot (e.g. using functions such as points or lines). If \code{TRUE} will
-reset plot parameters to the values before entering the function.}
+to the plot (e.g. using functions such as points or lines). If \code{TRUE} (default) 
+the plot parameters will be reset to the values before entering the function.}
 
 \item{pch}{vector of plotting characters or symbols: see \code{\link{points}}.}
 
@@ -147,14 +147,11 @@ from attributes of the object \code{x} (if present; see e.g. \code{precipitation
 \section{Side Effects}{
  After exiting, the plotting region may be changed 
 (\code{\link{par}("plt")}) to make it possible to add more features to the plot
-(set \code{graphics.reset = FALSE} to avoid this).
+(set \code{reset = FALSE} to avoid this).
 }
 
 \examples{
-
-#
 with( aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))
-
 }
 \seealso{
 \code{\link{splot}}, \code{\link{simage}}, \code{\link{spersp}}, 

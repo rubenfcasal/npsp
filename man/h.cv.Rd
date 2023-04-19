@@ -148,17 +148,17 @@ estimates are computed by leaving out binning cells with indexes within
 the intervals \eqn{[x_i - ncv + 1, x_i + ncv - 1]}.
 }
 \examples{
+# Trend estimation
 bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag)
 hcv <- h.cv(bin, ncv = 2)
 lp <- locpol(bin, h = hcv$h)
-## Alternatively:
-## lp <- locpolhcv(earthquakes[, c("lon", "lat")], earthquakes$mag, ncv = 2)
+# Alternatively, `locpolhcv()` could be called instead of the previous code. 
 
 simage(lp, main = 'Smoothed magnitude')
 contour(lp, add = TRUE)
 with(earthquakes, points(lon, lat, pch = 20))
 
-## Density estimation
+# Density estimation
 hden <- h.cv(as.bin.den(bin))
 den <- np.den(bin, h = hden$h)
 
@@ -174,5 +174,5 @@ Francisco-Fernandez M. and Opsomer J.D. (2005) Smoothing parameter selection
 }
 \seealso{
 \code{\link{locpol}}, \code{\link{locpolhcv}}, \code{\link{binning}}, 
-\code{\link{np.svar}}.
+\code{\link{np.den}}, \code{\link{np.svar}}.
 }

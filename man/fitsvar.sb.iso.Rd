@@ -80,7 +80,7 @@ The different options for the argument \code{method} define the WLS algorithm us
  (default fitting method in \pkg{gstat} package).} 
 } 
 Function \code{\link[quadprog]{solve.QP}} of \pkg{quadprog} package is used
-to solve a strictly convex quadratic program. To avoid problems, the Choleski decomposition
+to solve a strictly convex quadratic program. To avoid problems, the Cholesky decomposition
 of the matrix corresponding to the original problem is computed using \code{\link{chol}} with \code{pivot = TRUE}.
 If this matrix is only positive semi-definite (non-strictly convex QP),
 the number of discretization nodes will be less than \code{nx}.

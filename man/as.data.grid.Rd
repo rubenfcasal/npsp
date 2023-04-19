@@ -42,6 +42,11 @@ as.data.grid(object, ...)
 \item{check.names}{logical; if \code{TRUE}, the names of the variables in the data 
 frame are checked and adjusted if necessary.}
 }
+\value{
+\code{as.data.grid} returns a \code{\link{data.grid}} object.
+
+\code{as.data.frame} returns a data frame.
+}
 \description{
 S3 class \code{\link{data.grid}} methods.
 }

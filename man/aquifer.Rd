@@ -32,7 +32,6 @@ and Cressie (1993, section 4.1) gives a detailed description of the data
 and results of different geostatistical analyses.
 }
 \examples{
-str(aquifer)
 summary(aquifer)
 with(aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer"))
 }

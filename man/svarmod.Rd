@@ -43,7 +43,7 @@ svarmodels(type = "isotropic")
 \item{nu}{parameter \eqn{\nu_0} (can be thought of as the sill).}
 }
 \value{
-\code{svarmod} returns an \code{svarmod}-\code{\link{class}} object, a list 
+\code{svarmod} returns an \code{svarmod}-\code{\link{class}} object, a list
 with function arguments as components.
 
 \code{svarmod.sb.iso} returns an S3 object of \code{\link{class}} \code{sb.iso} 

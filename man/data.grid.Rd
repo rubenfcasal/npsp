@@ -43,7 +43,22 @@ If parameter \code{grid.par} is not specified it is set from first argument.
 S3 "version" of the \code{\link[sp]{SpatialGridDataFrame}}-\code{\link{class}} 
 of the \pkg{sp} package.
 }
+\examples{
+# Grid parameters
+grid <- grid.par(n = c(15,15), min = c(x = -1, y = -1), max = c(1, 1))
+coordinates <- coords(grid)
+plot(coordinates)
+coordvs <- coordvalues(grid)
+abline(v = coordvs[[1]], lty = 3)
+abline(h = coordvs[[2]], lty = 3)
+# Gridded data
+y <- apply(coordinates, 1, function(x) x[1]^2 - x[2]^2 )
+datgrid <- data.grid(y = y, grid = grid)
+spersp(datgrid, main = 'f(x,y) = x^2 - y^2')
+dim(datgrid)
+all.equal(coordinates, coords(datgrid))
+}
 \seealso{
-\code{\link{as.data.grid}}, \code{\link{grid.par}}, code{\link{mask}}, 
+\code{\link{as.data.grid}}, \code{\link{grid.par}}, \code{\link{mask}}, 
 \code{\link{binning}}, \code{\link{locpol}}.
 }

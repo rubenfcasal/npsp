@@ -1,6 +1,30 @@
+# npsp 0.7-10 (2023-04-19)
+
+* Changes in `h.cv.bin.data()` when `objective == "GCV"` to adapt it to the 
+  heteroscedastic case.
+  Warning: there may be differences with selected bandwidths in older versions.
+
+* Changes in `simage()`, `spersp()` and `spoints()`: former argument `graphics.reset` 
+  renamed as `reset`, and changed the default value to `TRUE` (to restore user's 
+  graphical options).
+
+
+# npsp 0.7-9 (2021-05-17)
+
+* Added some references in the description field of 'DESCRIPTION' file.
+
+* Avoided the use of `options(warn=-1)` in `h.cv()` methods (CRAN requirement).
+
+* Added `on.exit(par(old.par))` in `plot.fitgeo()` and `scattersplot.default()` 
+  to make sure that you the user's options are not changed (CRAN suggestion).
+
+* Improvements in documentation (added return values, added examples in `npden()`, 
+  removed `\dontrun{}` use and commented code lines in examples...).
+
+
 # npsp 0.7-8 (2021-05-10)
 
-* Renamed the admisible values of the `lost` parameter in `h.cv.svar.bin()`
+* Renamed the admissible values of the `lost` parameter in `h.cv.svar.bin()`
   and `np.svariso.hcv()`.
   
 * Changed 'NEWS.md' formatting and suppressed the default addition of 
@@ -49,7 +73,7 @@
 * Minor changes in FORTRAN code (related to `error(i, label)` function, 
   to avoid LTO warnings from gcc9, which does not detect Fortran optional arguments).
 
-* Changes in pkgdown documentation (NEWS.Rmd, README.Rmd,...).
+* Changes in pkgdown documentation ('NEWS.Rmd', 'README.Rmd'...).
  
 * Changes in 'npsp.Rmd' vignette.
  
@@ -123,7 +147,7 @@
 
 * Added a website for the package (with pkgdown).
  
-* Added 'NEWS.md' and 'index.Rmd'.
+* Added 'NEWS.md' and '_pkgdown.yml'.
  
 * Added some vignettes (pkgdown articles): 
   "npsp.Rmd", "precipitation.Rmd", "krigstat.Rmd", "docs/aquifer.Rmd", "docs/Introduccion.Rmd".
@@ -346,7 +370,7 @@
 
 * Minor changes on FORTRAN routines `set_bin_den`, set_grid_bin ('grid_module.f90')
   and `lp` ('lp_module.f90') to avoid problems with large covariate/coordinate values.
-  Warning: there may be differences with estimates computed with older npsps.
+  Warning: there may be differences with estimates computed with older versions.
 
 * Minor changes on FORTRAN routine `predict_locpol_bin` (in 'lp_module.f90')
   to allow for extrapolations (e.g. near the grid border).
@@ -511,7 +535,7 @@
     - Weighted linear regression allows for rank-deficient matrices 
       (`DGELSYR` fortran routine, a modification of LAPACK `DGELSY`). 
 
-    - New functionalities (degree, derivatives,...)
+    - New functionalities (degree, derivatives...)
     
     - Changes on Fortran-R interfaces.
    
@@ -600,7 +624,7 @@
   
 * Added `npsp-geoR.R` (interoperability with geoR).
 
-* Some minor changes (output `set_bin` and `locpolbin`, `onLoad`,...).
+* Some minor changes (output `set_bin` and `locpolbin`, `onLoad`...).
 
 
 # npsp 0.1-0 (2012-04-17) 

@@ -29,7 +29,6 @@ The data set consists of total precipitations during March 2016
 recorded over 1053 locations on the continental part of USA.
 }
 \examples{
-str(precipitation)
 summary(precipitation)
 scattersplot(precipitation)
 }

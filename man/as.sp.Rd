@@ -21,6 +21,11 @@ as.sp(obj, ...)
 
 \item{proj4string}{a \code{\link[sp]{CRS-class}} object.}
 }
+\value{
+\code{as.sp.grid.par} returns a \code{\link[sp]{GridTopology-class}} object.
+
+\code{as.sp.data.grid} returns a \code{\link[sp]{SpatialGridDataFrame-class}} object.
+}
 \description{
 Converts a npsp object to a \link[sp:00sp]{sp} object.
 }

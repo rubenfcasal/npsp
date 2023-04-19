@@ -13,6 +13,9 @@ disc.sb(nx, dk = 0, rmax = 1)
 
 \item{rmax}{maximum lag considered.}
 }
+\value{
+A vector with the discretization nodes.
+}
 \description{
 Computes the discretization nodes of a `nonparametric' extended Shapiro-Botha 
 variogram model, following Gorsich and Genton (2004), as the scaled roots of 

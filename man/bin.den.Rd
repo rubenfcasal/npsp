@@ -43,7 +43,12 @@ with linear binning counts.
 \details{
 If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
 }
+\examples{
+binden <- bin.den(earthquakes[, c("lon", "lat")], nbin = c(30,30))
+bindat <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30))
+all.equal(binden, as.bin.den(bindat))
+}
 \seealso{
-\code{\link{np.den}}, \code{\link{bin.data}}, \code{\link{bin.data}}, 
+\code{\link{np.den}}, \code{\link{h.cv}}, \code{\link{bin.data}}, 
 \code{\link{locpol}}, \code{\link{rule.binning}}.
 }

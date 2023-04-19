@@ -27,7 +27,7 @@ simage(x, ...)
   lab.breaks = NULL,
   axis.args = NULL,
   legend.args = NULL,
-  graphics.reset = FALSE,
+  reset = TRUE,
   xlab = NULL,
   ylab = NULL,
   asp = NA,
@@ -44,6 +44,7 @@ simage(x, ...)
   points = TRUE,
   col = hot.colors(128),
   tolerance = npsp.tolerance(),
+  reset = TRUE,
   ...
 )
 }
@@ -110,10 +111,10 @@ label. This is in the form of list and is just passed to the \code{\link{mtext}}
 function. Usually this will not be needed (see \code{\link[fields]{image.plot}} 
 for details).}
 
-\item{graphics.reset}{logical; if \code{FALSE} (default) the plotting region
+\item{reset}{logical; if \code{FALSE} the plotting region
 (\code{\link{par}("plt")}) will not be reset to make it possible to add more features
-to the plot (e.g. using functions such as points or lines). If \code{TRUE} will
-reset plot parameters to the values before entering the function.}
+to the plot (e.g. using functions such as points or lines). If \code{TRUE} (default) 
+the plot parameters will be reset to the values before entering the function.}
 
 \item{xlab}{label for the x axis, defaults to a description of \code{x}.}
 
@@ -151,20 +152,16 @@ and (optionally) adds a legend strip with the color scale
 \section{Side Effects}{
  After exiting, the plotting region may be changed 
 (\code{\link{par}("plt")}) to make it possible to add more features to the plot
-(set \code{graphics.reset = FALSE} to avoid this).
+(set \code{reset = FALSE} to avoid this).
 }
 
 \examples{
-
-#
 # Regularly spaced 2D data
 nx <- c(40, 40) # ndata =  prod(nx)
 x1 <- seq(-1, 1, length.out = nx[1])
 x2 <- seq(-1, 1, length.out = nx[2])
 trend <- outer(x1, x2, function(x,y) x^2 - y^2) 
 simage( x1, x2, trend, main = 'Trend')
-
-#
 # Multiple plots 
 set.seed(1)
 y <- trend + rnorm(prod(nx), 0, 0.1)
@@ -173,8 +170,8 @@ x <- as.matrix(expand.grid(x1 = x1, x2 = x2)) # two-dimensional grid
 lp <- locpol(x, y, nbin = nx, h =  diag(c(0.3, 0.3)))
 # 1x2 plot
 old.par <- par(mfrow = c(1,2))
-simage( x1, x2, y, main = 'Data')
-simage(lp, main = 'Estimated trend')
+simage( x1, x2, y, main = 'Data', reset = FALSE)
+simage(lp, main = 'Estimated trend', reset = FALSE)
 par(old.par)
 }
 \seealso{
