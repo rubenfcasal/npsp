@@ -5,6 +5,8 @@ output: github_document
 <!-- 
 README.md is generated from README.Rmd. 
 Please edit that file 
+
+devtools::check(getwd()) # Avoids problems with "Onedrive - Universidade da Coruña"
 -->
 
 npsp: Nonparametric spatial (geo)statistics
@@ -93,6 +95,8 @@ devtools::install_github("rubenfcasal/npsp")
 ```
 
 Note also that, as this package requires compilation, Windows users need to have previously installed the appropriate version of [Rtools](https://cran.r-project.org/bin/windows/Rtools/), and OS X users need to have installed [Xcode](https://apps.apple.com/us/app/xcode/id497799835).
+
+Alternatively, Windows users may install the corresponding *npsp_X.Y.Z.zip* file in the [releases section](https://github.com/rubenfcasal/npsp/releases/latest) of the github repository.
 
 
 Author

@@ -16,7 +16,7 @@
     packageStartupMessage( 
       paste0(" Package npsp: ", pkg.info["Title"], ",\n"),
       paste0(" version ", pkg.info["Version"], " (built on ", pkg.info["Date"], ").\n"),
-      " Copyright (C) R. Fernandez-Casal 2012-2021.\n",
+      " Copyright (C) R. Fernandez-Casal 2012-2023.\n",
       " Type `help(npsp)` for an overview of the package or\n",
       ' visit https://rubenfcasal.github.io/npsp.\n')
 }
