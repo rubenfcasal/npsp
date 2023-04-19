@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   h.cv.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   h.cv()    S3 generic
 #       h.cv.bin.data(bin, objective, h.start, h.lower, h.upper, degree, 
 #               ncv, cov.bin, DEalgorithm, warn, tol.mask, ...)
@@ -13,6 +13,11 @@
 #   hcv.data(bin, objective, h.start, h.lower, h.upper, degree, 
 #               ncv, cov.dat, DEalgorithm, ...)
 #
+#
+#   (c) R. Fernandez-Casal
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - Documentar diferencias entre h.cv.bin.data e hcv.data
 #     hcv.data(x, y, ...)?
@@ -21,13 +26,11 @@
 #     which(is.na(lp$est)) %in% which(is.na(bin$biny))
 #   - opcion en binning() para obter cov binning a partir de cov datos?
 #   - optimizar calculos matriciais "GCV" e "MASE"
-#
-#   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#····································································
 
-#--------------------------------------------------------------------
-# h.cv(bin, ...)
-#--------------------------------------------------------------------
+#····································································
+# h.cv(bin, ...) ----
+#····································································
 #' Cross-validation methods for bandwidth selection
 #'
 #' Selects the bandwidth of a local polynomial kernel (regression, density or
@@ -42,18 +45,20 @@
 #' \item{value}{the value of the objective function corresponding to \code{h}.}
 #' \item{objective}{the criterion used.}
 #' @seealso \code{\link{locpol}}, \code{\link{locpolhcv}}, \code{\link{binning}}, 
-#' \code{\link{np.svar}}.
+#' \code{\link{np.den}}, \code{\link{np.svar}}.
 #' @export
-h.cv <- function(bin, ...) UseMethod("h.cv")
-#--------------------------------------------------------------------
+#····································································
+h.cv <- function(bin, ...) {
+  UseMethod("h.cv")
+}
 
 
-#--------------------------------------------------------------------
+#····································································
 # h.cv.bin.data(bin, objective = c("CV", "GCV", "MASE"),
 #               h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1, 
 #               ncv = ifelse(objective == "CV", 2, 0), cov.bin = NULL, 
 #               DEalgorithm = FALSE, warn = FALSE, tol.mask = npsp.tolerance(2), ...)
-#--------------------------------------------------------------------
+#····································································
 #' @rdname h.cv  
 #' @method h.cv bin.data
 #' @inheritParams locpol.default
@@ -98,17 +103,17 @@ h.cv <- function(bin, ...) UseMethod("h.cv")
 #'  methods for nonparametric regression with spatially correlated errors. 
 #'  \emph{Canadian Journal of Statistics}, \bold{33}, 539-558.
 #' @examples 
+#' # Trend estimation
 #' bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag)
 #' hcv <- h.cv(bin, ncv = 2)
 #' lp <- locpol(bin, h = hcv$h)
-#' ## Alternatively:
-#' ## lp <- locpolhcv(earthquakes[, c("lon", "lat")], earthquakes$mag, ncv = 2)
+#' # Alternatively, `locpolhcv()` could be called instead of the previous code. 
 #' 
 #' simage(lp, main = 'Smoothed magnitude')
 #' contour(lp, add = TRUE)
 #' with(earthquakes, points(lon, lat, pch = 20))
 #' 
-#' ## Density estimation
+#' # Density estimation
 #' hden <- h.cv(as.bin.den(bin))
 #' den <- np.den(bin, h = hden$h)
 #' 
@@ -118,8 +123,7 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
             h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1,
             ncv = ifelse(objective == "CV", 2, 0), cov.bin = NULL,
             DEalgorithm = FALSE, warn = TRUE, tol.mask = npsp.tolerance(2), ...) {
-#--------------------------------------------------------------------
-# PENDENTE: CALCULO APROXIMADO DE tr(S %*% corr.dat) PARA CGCV
+#····································································
 # CRITERIO APROXIMADO A PARTIR DE BINNING
 # OLLO: cov.bin = MATRIZ DE COVARIANZAS DATOS BINNING OU MODELO DE VARIOGRAMA
 # ... parametros adicionales para la rutina de optimizacion
@@ -132,15 +136,15 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
 # Por defecto covarianza = identidad
 # Para ventana "teorica": y = trend.teor, cov.bin = cov.bin.teor, ncv = 0
 # Emplear DEalgorithm para asegurar convergencia al optimo global
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(bin, "bin.data") | inherits(bin, "svar.bin"))
         stop("function only works for objects of class 'bin.data'")
     objective <- match.arg(objective)
-    if  (!is.null(cov.bin) && (objective == "GCV"))
-        if ( inherits(cov.bin, "svarmod")) {
-            sill <- cov.bin$sill
-            if (is.na(sill)) stop("semivariogram model 'cov.bin' is not bounded.")
-        } else stop("'cov.bin' must be a semivariogram model when 'objective' == 'GCV'.")
+    # if  (!is.null(cov.bin) && (objective == "GCV"))
+    #     if ( inherits(cov.bin, "svarmod")) {
+    #         sill <- cov.bin$sill
+    #         if (is.na(sill)) stop("semivariogram model 'cov.bin' is not bounded.")
+    #     } else stop("'cov.bin' must be a semivariogram model when 'objective' == 'GCV'.")
     nd <- bin$grid$nd
     n <- bin$grid$n
     nt <- prod(n)
@@ -183,8 +187,8 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
         ) # switch
     else {
         # correlation matrix for "GCV"
-        # if  (objective == "GCV") cov.bin <- cov2cor(cov.bin)
-        if  (objective == "GCV") cov.bin <- cov.bin/sill  # Solo valido para el caso homocedastico
+        if  (objective == "GCV") cov.bin <- cov2cor(cov.bin)
+        # if  (objective == "GCV") cov.bin <- cov.bin/sill  # Solo valido para el caso homocedastico
         # Select objective function
         f.opt <- switch(objective,
             CV  = function(x) {
@@ -210,26 +214,22 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
         ) # switch
     } # if(is.null(cov.bin))
     # Minimization of the objective function
-    if(as.logical(warn)) {
-        lp.warn <- FALSE
-        w.handler <- function(w){ # warning handler
-            lp.warn <<- TRUE
-            invokeRestart("muffleWarning")
-        }
-        f.opt.bak <- f.opt
-        f.opt <- function(x) withCallingHandlers(f.opt.bak(x),  warning = w.handler)
-    } else {
-        ops <- options(warn = -1)
-        on.exit(options(ops))
-    }
+    warn <- as.logical(warn)
+    lp.warn <- FALSE
+    w.handler <- function(w) # warning handler
+      if (inherits(w, "warning")) { 
+        if(warn) lp.warn <<- TRUE
+        tryInvokeRestart("muffleWarning")
+      }    
+    f.opt.warn <- function(x) withCallingHandlers(f.opt(x),  warning = w.handler)
     if(!DEalgorithm) {
         if(is.null(h.start)) h.start <- (3+ncv)*lag
-        res <- stats::optim( h.start, f.opt, method = "L-BFGS-B",
+        res <- stats::optim( h.start, f.opt.warn, method = "L-BFGS-B",
                       lower = h.lower, upper = h.upper, ...)
         res <- list(h = diag(res$par, nrow = nd), value = res$value, objective = objective)
     } else {
         if (!requireNamespace("DEoptim")) stop("'DEalgorithm' requires 'DEoptim' package")
-        res <- DEoptim::DEoptim( f.opt, lower = h.lower, upper = h.upper, ...)
+        res <- DEoptim::DEoptim( f.opt.warn, lower = h.lower, upper = h.upper, ...)
         res <- list(h = diag(res$optim$bestmem, nrow = nd), value = res$optim$bestval, objective = objective)
     }
     if (warn && lp.warn) {
@@ -239,15 +239,15 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
             "  (try increasing h.lower = ", paste(round(h.lower,5), collapse =', '),").")
     }
     return(res)
-#--------------------------------------------------------------------
+#····································································
 } # h.cv.bin.data
 
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #   .compute.masked(bin, cov.bin = NULL, tol.mask = npsp.tolerance(2))
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-internals
 #' @param cov.bin (optional) covariance matrix of the binned data or semivariogram model
 #' (\code{\link{svarmod}}-class) of the (unbinned) data.
@@ -259,7 +259,7 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
 #' \item{cov.bin}{(optional) masked (aproximated) covariance matrix of the binned data.}
 #' @keywords internal
 .compute.masked <- function(bin, cov.bin = NULL, tol.mask = npsp.tolerance(2)){
-#--------------------------------------------------------------------
+#····································································
 # COIDADO: sw <- sum(w) # normalmente = length(x$data$y) salvo en semivariogramas
 # NOTA: facer bin$binw[!mask] <- -1 despois de chamar  # masked nodes will be leaved out in local polynomial estimation
 # PENDENTE: incluir parametros: coords = FALSE,  corr = FALSE?
@@ -292,23 +292,20 @@ h.cv.bin.data <- function(bin, objective = c("CV", "GCV", "MASE"),
         res$cov.bin <- cov.bin
     }
     return(res)
-} #------------------------------------------------------------------
+} # .compute.masked
 
 
 
-
-
-
-#--------------------------------------------------------------------
+#····································································
 # h.cv.bin.den(bin, h.start = NULL, h.lower = NULL, h.upper = NULL,
 #            degree = 1, ncv = 2, DEalgorithm = FALSE, warn = FALSE,...)
-#--------------------------------------------------------------------
+#····································································
 #' @rdname h.cv
 #' @method h.cv bin.den
 #' @export
 h.cv.bin.den <- function(bin, h.start = NULL, h.lower = NULL, h.upper = NULL,
             degree = 1, ncv = 2, DEalgorithm = FALSE, ...) {
-#--------------------------------------------------------------------
+#····································································
 # NOTA: MASK NON POSIBLE ACTUALMENTE (np.den -> locpol.bin.den -> lp_data_grid)
     # if (!inherits(bin, "bin.den") || inherits(bin, "bin.data"))
     if (!inherits(bin, "bin.den"))
@@ -333,11 +330,11 @@ h.cv.bin.den <- function(bin, h.start = NULL, h.lower = NULL, h.upper = NULL,
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 # h.cv.svar.bin(bin, loss = c("MRSE", "MRAE", "MSE", "MAE"),
 #             h.start = NULL, h.lower = NULL, h.upper = NULL,
 #             degree = 1, ncv = 1, DEalgorithm = FALSE, warn = FALSE, ...) {
-#--------------------------------------------------------------------
+#····································································
 #' @rdname h.cv
 #' @method h.cv svar.bin
 #' @param loss character; CV error. See "Details" bellow.
@@ -354,45 +351,43 @@ h.cv.bin.den <- function(bin, h.start = NULL, h.lower = NULL, h.upper = NULL,
 h.cv.svar.bin <- function(bin, loss = c("MRSE", "MRAE", "MSE", "MAE"),
             h.start = NULL, h.lower = NULL, h.upper = NULL,
             degree = 1, ncv = 1, DEalgorithm = FALSE, warn = FALSE, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(bin, "svar.bin"))
         stop("function only works for objects of class 'svar.bin'")
     nd <- bin$grid$nd
     loss <- match.arg(loss)
+    lag <- bin$grid$lag
+    if(is.null(h.lower)) h.lower <- (1.5 + ncv) * lag else stopifnot(length(h.lower) == nd)
+    if(is.null(h.upper)) h.upper <- 1.5 * bin$grid$n * lag else stopifnot(length(h.upper) == nd)
     # Se podria optimizar el calculo cuando loss = 'MSE'...
     f.opt <- function(x) {
         esvar <- locpol.svar.bin(bin, h = diag(x, nrow = nd), degree = degree, ncv = ncv)
         return(with(esvar, .wloss(biny, est, binw, loss)))
     }
     # Minimization of the objective function
-    lag <- bin$grid$lag
-    if(is.null(h.lower)) h.lower <- (1.5 + ncv) * lag else stopifnot(length(h.lower) == nd)
-    if(is.null(h.upper)) h.upper <- 1.5 * bin$grid$n * lag else stopifnot(length(h.upper) == nd)
-    if(!as.logical(warn)) {
-        ops <- options(warn = -1)
-        on.exit(options(ops))
-    }
+    f.opt.warn <- if (as.logical(warn)) f.opt else 
+      function(x) suppressWarnings(f.opt(x))    
     if(!DEalgorithm) {
         if(is.null(h.start)) h.start <- (3+ncv)*lag else stopifnot(length(h.start) == nd)
-        res <- optim( h.start, f.opt, method = "L-BFGS-B",
+        res <- optim( h.start, f.opt.warn, method = "L-BFGS-B",
                       lower = h.lower, upper = h.upper, ...)
         return(list(h = diag(res$par, nrow = nd), value = res$value, objective = "CV", loss = loss))
     } else {
         if (!requireNamespace("DEoptim")) stop("'DEalgorithm' requires 'DEoptim' package")
-        res <- DEoptim::DEoptim( f.opt, lower = h.lower, upper = h.upper, ...)
+        res <- DEoptim::DEoptim( f.opt.warn, lower = h.lower, upper = h.upper, ...)
         return(list(h = diag(res$optim$bestmem, nrow = nd), value = res$optim$bestval, objective = "CV", loss = loss))
     }
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-internals
 # @param est vector of estimates.
 # @param teor vector of theoretical/reference values.
 # @param w vector of weights (with the same length as \code{est}).
 #' @keywords internal
 .wloss <- function(est, teor, w, loss = c('MSE','MRSE','MAE','MRAE')) {
-#--------------------------------------------------------------------
+#····································································
     loss <- match.arg(loss)
     return(switch(loss,
         # Mean squared error
@@ -408,12 +403,12 @@ h.cv.svar.bin <- function(bin, loss = c("MRSE", "MRAE", "MSE", "MAE"),
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 # hcv.data(bin, objective = c("CV", "GCV", "MASE"),
 #         h.start = NULL, h.lower = NULL, h.upper = NULL, degree = 1,
 #         ncv = ifelse(objective == "GCV", 0, 1), cov = NULL,
 #         DEalgorithm = FALSE, warn = FALSE, ...)
-#--------------------------------------------------------------------
+#····································································
 #' @rdname h.cv
 #' @param cov.dat covariance matrix of the data or semivariogram model
 #' (of class extending \code{\link{svarmod}}). Defaults to the identity matrix
@@ -433,7 +428,7 @@ hcv.data <- function(bin, objective = c("CV", "GCV", "MASE"),
 # CRITERIO BINNING "EXACTO"
 # cov.dat = MATRIZ DE COVARIANZAS DOS DATOS ORIXINAIS OU MODELO DE SEMIVARIOGRAMA
 # COIDADO CO TEMPO DE CPU SE NUMERO DE DATOS GRANDE
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(bin, "bin.data"))
         stop("function only works for objects of class (or extending) 'bin.data'")
     if (inherits(bin, "svar.bin"))
@@ -533,28 +528,24 @@ hcv.data <- function(bin, objective = c("CV", "GCV", "MASE"),
     } # if(is.null(cov.dat))
 
     # Minimization of the objective function
-    if(as.logical(warn)) {
-        lp.warn <- FALSE
-        w.handler <- function(w){ # warning handler
-            lp.warn <<- TRUE
-            invokeRestart("muffleWarning")
-        }
-        f.opt.bak <- f.opt
-        f.opt <- function(x) withCallingHandlers(f.opt.bak(x),  warning = w.handler)
-    } else {
-        ops <- options(warn = -1)
-        on.exit(options(ops))
-    }
+    warn <- as.logical(warn)
+    lp.warn <- FALSE
+    w.handler <- function(w) # warning handler
+      if (inherits(w, "warning")) { 
+        if(warn) lp.warn <<- TRUE
+        tryInvokeRestart("muffleWarning")
+      }    
+    f.opt.warn <- function(x) withCallingHandlers(f.opt(x),  warning = w.handler)
     # dmax <- 1.1 * f.opt(h.upper)
     if(!DEalgorithm) {
         if(is.null(h.start)) h.start <- (3+ncv)*lag
             else stopifnot(length(h.start) == nd) # Verificar dentro de limites? en optim?
-        res <- stats::optim( h.start, f.opt, method = "L-BFGS-B",
+        res <- stats::optim( h.start, f.opt.warn, method = "L-BFGS-B",
                       lower = h.lower, upper = h.upper, ...)
         res <- list(h = diag(res$par, nrow = nd), value = res$value, objective = objective)
     } else {
         if (!requireNamespace("DEoptim")) stop("'DEalgorithm' requires 'DEoptim' package")
-        res <- DEoptim::DEoptim( f.opt, lower = h.lower, upper = h.upper, ...)
+        res <- DEoptim::DEoptim( f.opt.warn, lower = h.lower, upper = h.upper, ...)
         res <- list(h = diag(res$optim$bestmem, nrow = nd), value = res$optim$bestval, objective = objective)
     }
     if (warn && lp.warn) {
@@ -564,7 +555,7 @@ hcv.data <- function(bin, objective = c("CV", "GCV", "MASE"),
             "  (try increasing h.lower = ", paste(round(h.lower,5), collapse =', '),").")
     }
     return(res)
-#--------------------------------------------------------------------
+#····································································
 } # hcv.data
 
 
