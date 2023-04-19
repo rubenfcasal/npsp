@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   np.geo.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   np.geo and fitgeo S3 classes and methods
 #       plot.np.geo(x)
 #
@@ -16,11 +16,14 @@
 #     si no se dispone de más información...
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#   Created: Feb 2018, Modified: Apr 2023
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
-#--------------------------------------------------------------------
-# np.geo <- function(lp, svm, svm0 = NULL, nbin = lp$grid$n) {
-#--------------------------------------------------------------------
+#····································································
+# np.geo(lp, svm, svm0, nbin) ----
+#····································································
 #' Nonparametric geostatistical model (S3 class "np.geo")
 #' 
 #' Defines a nonparametric geostatistical model 
@@ -39,7 +42,7 @@
 #' the others and the vector of residuals as additional components.
 #' @seealso \code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{fitsvar.sb.iso}}.
 #' @export
-#--------------------------------------------------------------------
+#····································································
 np.geo <- function(lp, svm, svm0 = NULL, nbin = lp$grid$n) {
   stopifnot(inherits(lp, "locpol.bin" ))
   if (lp.hd <- any(nbin != lp$grid$n))
@@ -63,13 +66,15 @@ np.geo <- function(lp, svm, svm0 = NULL, nbin = lp$grid$n) {
 }
 
 
-#--------------------------------------------------------------------
+#····································································
+# np.geo S3 methods ----
+#····································································
 #' @rdname npsp-internals
 #' @method residuals np.geo
 #' @keywords internal
 #' @export
 residuals.np.geo <- function(object, ...) {
-  #--------------------------------------------------------------------
+  #····································································
   if (!inherits(object, "np.geo"))
     stop("function only works for objects of class (or extending) 'np.geo'")
   return(object$residuals)
@@ -77,9 +82,9 @@ residuals.np.geo <- function(object, ...) {
 
 
 
-#--------------------------------------------------------------------
-# np.fitgeo(x, ...)
-#--------------------------------------------------------------------
+#····································································
+# np.fitgeo(x, ...) ----
+#····································································
 #' Fit a nonparametric geostatistical model
 #'
 #' Fits a nonparametric (isotropic) geostatistical model 
@@ -103,8 +108,10 @@ residuals.np.geo <- function(object, ...) {
 #' @seealso \code{\link{locpol}}, \code{\link{fitsvar.sb.iso}}, \code{\link{np.svar}}, 
 #' \code{\link{np.svariso.corr}}, \code{\link{np.geo}}.
 #' @export
-#--------------------------------------------------------------------
-np.fitgeo <- function(x, ...) UseMethod("np.fitgeo")
+#····································································
+np.fitgeo <- function(x, ...) {
+  UseMethod("np.fitgeo")
+}
 
 
 
@@ -140,11 +147,11 @@ np.fitgeo <- function(x, ...) UseMethod("np.fitgeo")
 #' plot(geomod)
 #' 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05, set.NA = FALSE, 
                               h.svar = NULL, corr.svar = iter > 0, maxlag = NULL, nlags = NULL, dk = 0, svm.resid = FALSE,  
                               hat.bin = corr.svar, warn = FALSE, plot = FALSE, window = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
   stopifnot(!missing(x), !missing(y)) # Solo para datos geoestadisticos
   # Binning
   bin <- binning(x, y, nbin = nbin, set.NA = set.NA, window = window)
@@ -187,11 +194,11 @@ np.fitgeo.default <- function(x, y, nbin = NULL, iter = 2, h = NULL, tol = 0.05,
 #' @param  svm (fitted) variogram model (object of class 
 #'  \code{\link{fitsvar}} or \code{\link{svarmod}}).
 #' @export
-#--------------------------------------------------------------------
+#····································································
 np.fitgeo.locpol.bin <- function(x, svm, iter = 1, tol = 0.05, h.svar = svm$esv$locpol$h,   
                                  dk = 0, corr.svar = TRUE, svm.resid = FALSE,  
                                  hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
-#--------------------------------------------------------------------
+#····································································
   if(!inherits(svm, "fitsvar")) stop("'svm' is not a fitted variogram model")
   return(np.fitgeo.fitgeo(np.geo(x, svm), iter = iter, tol = tol, h.svar = h.svar,   
                           dk = dk, corr.svar = corr.svar, svm.resid = svm.resid, 
@@ -211,11 +218,11 @@ np.fitgeo.locpol.bin <- function(x, svm, iter = 1, tol = 0.05, h.svar = svm$esv$
 #' plot(geomod1)
 #' 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$h,   
                              dk = x$svm$par$dk, corr.svar = TRUE, svm.resid = FALSE,  
                              hat.bin = corr.svar, warn = FALSE, plot = FALSE, ...) {
-#--------------------------------------------------------------------
+#····································································
 # NOTA: No sería necesario recalcular en cada iteración si svm.resid = TRUE y corr.svar = TRUE   
   lp <- x
   svm <- x$svm
@@ -258,6 +265,9 @@ np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$
 
 
 
+#····································································
+# plot.fitgeo(x, y, main.trend, main.svar, ...) ----
+#····································································
 #' Plot a nonparametric geostatistical model
 #' 
 #' Plots the trend estimates and the fitted variogram model.
@@ -270,10 +280,13 @@ np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$
 #' @param ... additional graphical parameters 
 #' (to be passed to \code{\link{simage}} for trend plotting).
 #' @export
+#····································································
 plot.fitgeo <- function(x, y = NULL, main.trend = 'Trend estimates', 
                         main.svar = NULL, ...) {
+#····································································
   old.par <- par(mfrow = c(1,2)) #, omd = c(0.01, 0.9, 0.05, 0.95))
-  simage(x, main = main.trend, ...)
+  on.exit(par(old.par))
+  simage(x, main = main.trend, reset = FALSE, ...)
   main.svar <- if (is.null(main.svar)) 
     if (x$svm$corr.svar) "Semivariogram estimates \n (bias-corrected)" else 
       "Semivariogram estimates \n (uncorrected)"
@@ -297,5 +310,5 @@ plot.fitgeo <- function(x, y = NULL, main.trend = 'Trend estimates',
     lwd <- c(lwd, 2)
   }  
   legend("bottomright", legend = legend, lty = lty, pch = pch, lwd = lwd)
-  par(old.par)
+  # par(old.par)
 }

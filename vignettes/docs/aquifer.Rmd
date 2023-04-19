@@ -662,20 +662,20 @@ cpu.time(total = FALSE)
 ```{r, fig.height=5, fig.width=9}
 old.par <- par(mfrow = c(1,2), omd = c(0.01, 0.9, 0.05, 0.95))
 scale.range <- range(krig.grid0$trend, krig.grid$trend, finite = TRUE)
-simage( krig.grid0, 'trend', slim = scale.range, 
-        main = 'Trend estimates (residuals)', col = jet.colors(256), legend = FALSE)
-simage( krig.grid, 'trend', slim = scale.range, 
-        main = 'Trend estimates (iteration 2)', col = jet.colors(256), legend = FALSE)
+simage( krig.grid0, 'trend', slim = scale.range, main = 'Trend estimates (residuals)', 
+        col = jet.colors(256), legend = FALSE, reset = FALSE)
+simage( krig.grid, 'trend', slim = scale.range, main = 'Trend estimates (iteration 2)', 
+        col = jet.colors(256), legend = FALSE, reset = FALSE)
 par(old.par)
 splot(slim = scale.range, col = jet.colors(256), add = TRUE)
 
 
 old.par <- par(mfrow = c(1,2), omd = c(0.01, 0.9, 0.05, 0.95))
 scale.range <- range(krig.grid0$kpred, krig.grid$kpred, finite = TRUE)
-simage( krig.grid0, 'kpred', slim = scale.range, 
-       main = 'Kriging predictions (residuals)', col = jet.colors(256), legend = FALSE)
-simage( krig.grid, 'kpred', slim = scale.range, 
-       main = 'Kriging predictions (iteration 2)', col = jet.colors(256), legend = FALSE)
+simage( krig.grid0, 'kpred', slim = scale.range, main = 'Kriging predictions (residuals)', 
+        col = jet.colors(256), legend = FALSE, reset = FALSE)
+simage( krig.grid, 'kpred', slim = scale.range, main = 'Kriging predictions (iteration 2)', 
+        col = jet.colors(256), legend = FALSE, reset = FALSE)
 par(old.par)
 splot(slim = scale.range, col = jet.colors(256), add = TRUE)
 ```
@@ -691,11 +691,11 @@ modelos.
 ```{r, fig.height=5, fig.width=9}
 old.par <- par(mfrow = c(1,2), omd = c(0.01, 0.9, 0.05, 0.95))
 scale.range <- range(krig.grid0$ksd, krig.grid$ksd, finite = TRUE)
-simage( krig.grid0, 'ksd', slim = scale.range, 
-        main = 'Kriging sd (residuals)', col = hot.colors(256), legend = FALSE)
+simage( krig.grid0, 'ksd', slim = scale.range, main = 'Kriging sd (residuals)', 
+        col = hot.colors(256), legend = FALSE, reset = FALSE)
 with(aquifer, points(lon, lat, cex = 0.75))
-simage( krig.grid, 'ksd', slim = scale.range, 
-        main = 'Kriging sd (iteration 2)', col = hot.colors(256), legend = FALSE)
+simage( krig.grid, 'ksd', slim = scale.range, main = 'Kriging sd (iteration 2)', 
+        col = hot.colors(256), legend = FALSE, reset = FALSE)
 with(aquifer, points(lon, lat, cex = 0.75))
 par(old.par)
 splot(slim = scale.range, col = hot.colors(256), add = TRUE)

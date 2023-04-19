@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   simage.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   simage  S3 generic
 #       simage.default
 #       simage.data.grid
@@ -13,14 +13,16 @@
 #   Licensed under the GPL -- www.gpl.org/licenses/gpl.html
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Mar 2014
-#--------------------------------------------------------------------
+#   Created: Mar 2014, Modified: Apr 2023
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
 
-#--------------------------------------------------------------------
-# simage 
-#--------------------------------------------------------------------
+#····································································
+# simage ----
+#····································································
 #' Image plot with a color scale
 #'
 #' \code{simage} (generic function) draws an image (a grid of colored rectangles) 
@@ -31,7 +33,7 @@
 #' \code{\link{image}}, \code{\link[fields]{image.plot}}, \code{\link{data.grid}}.
 #' @section Side Effects: After exiting, the plotting region may be changed 
 #' (\code{\link{par}("plt")}) to make it possible to add more features to the plot
-#' (set \code{graphics.reset = FALSE} to avoid this).
+#' (set \code{reset = FALSE} to avoid this).
 #' @author
 #' Based on \code{\link[fields]{image.plot}} function from package \pkg{fields}:
 #' fields, Tools for spatial data. 
@@ -41,16 +43,16 @@
 #' Modified by Ruben Fernandez-Casal <rubenfcasal@@gmail.com>. 
 #' @keywords hplot
 #' @export
-#--------------------------------------------------------------------
-simage <- function(x, ...) UseMethod("simage")
-# S3 generic function simage
-#--------------------------------------------------------------------
+#····································································
+simage <- function(x, ...) {
+  UseMethod("simage")
+#····································································
+} # S3 generic function simage
 
 
-
-#--------------------------------------------------------------------
-# simage.default
-#--------------------------------------------------------------------
+#····································································
+# simage S3 methods ----
+#····································································
 #' @rdname simage  
 #' @method simage default
 #' @param x grid values for \code{x} coordinate. If \code{x} is a list, 
@@ -78,16 +80,12 @@ simage <- function(x, ...) UseMethod("simage")
 #' @inheritParams splot
 #' @inheritParams spoints
 #' @examples
-#' 
-#' #
 #' # Regularly spaced 2D data
 #' nx <- c(40, 40) # ndata =  prod(nx)
 #' x1 <- seq(-1, 1, length.out = nx[1])
 #' x2 <- seq(-1, 1, length.out = nx[2])
 #' trend <- outer(x1, x2, function(x,y) x^2 - y^2) 
 #' simage( x1, x2, trend, main = 'Trend')
-#' 
-#' #
 #' # Multiple plots 
 #' set.seed(1)
 #' y <- trend + rnorm(prod(nx), 0, 0.1)
@@ -96,27 +94,25 @@ simage <- function(x, ...) UseMethod("simage")
 #' lp <- locpol(x, y, nbin = nx, h =  diag(c(0.3, 0.3)))
 #' # 1x2 plot
 #' old.par <- par(mfrow = c(1,2))
-#' simage( x1, x2, y, main = 'Data')
-#' simage(lp, main = 'Estimated trend')
+#' simage( x1, x2, y, main = 'Data', reset = FALSE)
+#' simage(lp, main = 'Estimated trend', reset = FALSE)
 #' par(old.par)
 #' @export
-#--------------------------------------------------------------------
+#····································································
 simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1, 
     len = ncol(s)), s, slim = range(s, finite = TRUE), col = jet.colors(128), 
     breaks = NULL, legend = TRUE, horizontal = FALSE, legend.shrink = 1.0,
     legend.width = 1.2, legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
     bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL, 
-    legend.args = NULL, graphics.reset = FALSE, xlab = NULL, ylab = NULL,
-    asp = NA, ...) {
-#--------------------------------------------------------------------
+    legend.args = NULL, reset = TRUE, xlab = NULL, ylab = NULL, asp = NA, ...) {
+#····································································
     if (missing(s)) {
         if (!missing(x)) {
             if (is.list(x)) {
                 s <- x$z
                 y <- x$y
                 x <- x$x
-            }
-            else {
+            } else {
                 s <- x
                 if (!is.matrix(s)) 
                     stop("argument 's' must be a matrix")                
@@ -151,10 +147,15 @@ simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
             bigplot = bigplot, smallplot = smallplot, lab.breaks = lab.breaks,        
             axis.args = axis.args, legend.args = legend.args)
     else {
-        old.par <- par(no.readonly = TRUE)
+        if (missing(bigplot)) {
+          old.par <- par(no.readonly = TRUE)
+          bigplot <- old.par$plt
+        } else
+          old.par <- par(plt = bigplot, no.readonly = TRUE)
         # par(xpd = FALSE)
-        res <- list(bigplot = old.par$plt, smallplot = NA, old.par = old.par)    
-    }        
+        res <- list(bigplot = bigplot, smallplot = NA, old.par = old.par)    
+    }
+    if (reset) on.exit(par(res$old.par))
     if (is.null(breaks)) {
         # Compute breaks (in 'cut.default' style...)
         ds <- diff(slim)
@@ -163,21 +164,21 @@ simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
     }
     image(x, y, s, xlab = xlab, ylab = ylab, col = col, breaks = breaks, asp = asp, ...)
     box()   
-    if (graphics.reset) par(res$old.par)    
+    # if (reset) par(res$old.par)    
     return(invisible(res))        
-#--------------------------------------------------------------------
+#····································································
 }   # simage.default
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname simage  
 #' @method simage data.grid
 #' @param data.ind integer (or character) with the index (or name) of the component 
 #' containing the values to be used for coloring the rectangles.
 #' @export
 simage.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "data.grid") | x$grid$nd != 2L)
         stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
     coorvs <- coordvalues(x)
@@ -187,12 +188,12 @@ simage.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
     res <- simage.default(coorvs[[1]], coorvs[[2]], s = x[[data.ind]],  
         xlab = xlab, ylab = ylab, ...)  
     return(invisible(res))
-#--------------------------------------------------------------------
+#····································································
 } # simage.grid.par
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname simage 
 #' @method plot np.den 
 #' @description \code{plot.np.den} calls \code{simage.data.grid} 
@@ -202,15 +203,19 @@ simage.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
 #' @param points logical; if \code{TRUE} (default), points at \code{x$data$x} are drawn.
 #' @param tolerance tolerance value (lower values are masked).
 #' @export
+#····································································
 plot.np.den <- function(x, y = NULL, log = TRUE, contour = TRUE, points = TRUE, 
-                    col = hot.colors(128), tolerance = npsp.tolerance(), ...){
+                    col = hot.colors(128), tolerance = npsp.tolerance(), 
+                    reset = TRUE, ...){
+#····································································
 #    if (!inherits(x, "data.grid") | x$grid$nd != 2L)
 #        stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
     is.na(x$est) <- x$est < tolerance
     if (log) x$est <- log(x$est)
-    ret <- simage(x, col = col, ...)    # Comprueba x$grid$nd != 2L
+    res <- simage(x, col = col, reset = FALSE, ...)    # Comprueba x$grid$nd != 2L
+    if (reset) on.exit(par(res$old.par))
     if (contour) contour(x, add = TRUE)
     if (points) points(x$data$x, pch = 21, bg = 'black', col = 'darkgray' )
-    return(invisible(ret))
-#--------------------------------------------------------------------
+    return(invisible(res))
+#····································································
 } # plot.np.den

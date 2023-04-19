@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   spersp.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   spersp  S3 generic
 #       spersp.default
 #       spersp.data.grid
@@ -13,13 +13,16 @@
 #   Licensed under the GPL -- www.gpl.org/licenses/gpl.html
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#   Created: Mar 2014, Modified: Apr 2023
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
 
-#--------------------------------------------------------------------
-# spersp 
-#--------------------------------------------------------------------
+#····································································
+# spersp ----
+#····································································
 #' Perspective plot with a color scale
 #'
 #' \code{spersp} (generic function) draws a perspective plot of a surface over 
@@ -32,7 +35,7 @@
 #' \code{\link{persp}}.
 #' @section Side Effects: After exiting, the plotting region may be changed 
 #' (\code{\link{par}("plt")}) to make it possible to add more features to the plot
-#' (set \code{graphics.reset = FALSE} to avoid this).
+#' (set \code{reset = FALSE} to avoid this).
 #' @author
 #' Based on \code{\link[fields]{image.plot}} function from package \pkg{fields}:
 #' fields, Tools for spatial data. 
@@ -42,16 +45,16 @@
 #' Modified by Ruben Fernandez-Casal <rubenfcasal@@gmail.com>. 
 #' @keywords hplot
 #' @export
-#--------------------------------------------------------------------
+#····································································
 spersp <- function(x, ...) UseMethod("spersp")
 # S3 generic function spersp
-#--------------------------------------------------------------------
+#····································································
 
 
 
-#--------------------------------------------------------------------
-# spersp.default
-#--------------------------------------------------------------------
+#····································································
+# spersp S3 methods ----
+#····································································
 #' @rdname spersp  
 #' @method spersp default
 #' @param x grid values for \code{x} coordinate. If \code{x} is a list, 
@@ -90,16 +93,12 @@ spersp <- function(x, ...) UseMethod("spersp")
 #' @inheritParams splot
 #' @inheritParams spoints
 #' @examples
-#' 
-#' #
 #' # Regularly spaced 2D data
 #' nx <- c(40, 40) # ndata =  prod(nx)
 #' x1 <- seq(-1, 1, length.out = nx[1])
 #' x2 <- seq(-1, 1, length.out = nx[2])
 #' trend <- outer(x1, x2, function(x,y) x^2 - y^2) 
 #' spersp( x1, x2, trend, main = 'Trend', zlab = 'y')
-#' 
-#' #
 #' # Multiple plots 
 #' set.seed(1)
 #' y <- trend + rnorm(prod(nx), 0, 0.1)
@@ -108,22 +107,22 @@ spersp <- function(x, ...) UseMethod("spersp")
 #' lp <- locpol(x, y, nbin = nx, h =  diag(c(0.3, 0.3)))
 #' # 1x2 plot
 #' old.par <- par(mfrow = c(1,2))
-#' spersp( x1, x2, y, main = 'Data')
-#' spersp(lp, main = 'Estimated trend', zlab = 'y')
+#' spersp( x1, x2, y, main = 'Data', reset = FALSE)
+#' spersp(lp, main = 'Estimated trend', zlab = 'y', reset = FALSE)
 #' par(old.par)
 #' @export
-#--------------------------------------------------------------------
+#····································································
 spersp.default <- function(x = seq(0, 1, len = nrow(z)), y = seq(0, 1, 
     len = ncol(z)), z , s = z, slim = range(s, finite = TRUE), col = jet.colors(128), 
     breaks = NULL, legend = TRUE, horizontal = FALSE, legend.shrink = 0.8, 
     legend.width = 1.2, legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
     bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL, 
-    legend.args = NULL, graphics.reset = FALSE, xlab = NULL, ylab = NULL,
+    legend.args = NULL, reset = TRUE, xlab = NULL, ylab = NULL,
     zlab = NULL, theta = 40, phi = 20, ticktype = "detailed", cex.axis = 0.75, ...) {
 # if s is passed ( values for coloring facets ) use it
 # if not use the z matrix that is also used to draw the
 # perspective plot.
-#--------------------------------------------------------------------
+#····································································
     if (missing(z)) {
         if (!missing(x)) {
             if (is.list(x)) {
@@ -176,10 +175,15 @@ spersp.default <- function(x = seq(0, 1, len = nrow(z)), y = seq(0, 1,
             bigplot = bigplot, smallplot = smallplot, lab.breaks = lab.breaks,        
             axis.args = axis.args, legend.args = legend.args)
     else {
+      if (missing(bigplot)) {
         old.par <- par(no.readonly = TRUE)
-        # par(xpd = FALSE)
-        res <- list(bigplot = old.par$plt, smallplot = NA, old.par = old.par)    
-    }        
+        bigplot <- old.par$plt
+      } else
+        old.par <- par(plt = bigplot, no.readonly = TRUE)
+      # par(xpd = FALSE)
+      res <- list(bigplot = bigplot, smallplot = NA, old.par = old.par)    
+    }
+    if (reset) on.exit(par(res$old.par))      
     if (is.null(breaks)) {
         # Compute breaks (in 'cut.default' style...)
         ds <- diff(slim)
@@ -196,14 +200,14 @@ spersp.default <- function(x = seq(0, 1, len = nrow(z)), y = seq(0, 1,
     # call persp
     pm <- persp(x, y, z,  xlab = xlab, ylab = ylab, zlab = zlab, theta = theta, 
            phi = phi, col = col[icol], ticktype = ticktype, cex.axis = cex.axis, ...)   
-    if (graphics.reset) par(res$old.par)    
+    # if (reset) par(res$old.par)    
     return(invisible( c(list(pm = pm), res) ))        
-#--------------------------------------------------------------------
+#····································································
 }   # spersp.default
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname spersp  
 #' @method spersp data.grid
 #' @param data.ind integer (or character) with the index (or name) of the component 
@@ -211,7 +215,7 @@ spersp.default <- function(x = seq(0, 1, len = nrow(z)), y = seq(0, 1,
 #' @export
 spersp.data.grid <- function(x, data.ind = 1, s = x[[data.ind]], 
         xlab = NULL, ylab = NULL, zlab = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "data.grid") | x$grid$nd != 2L)
         stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
     coorvs <- coordvalues(x)
@@ -223,6 +227,6 @@ spersp.data.grid <- function(x, data.ind = 1, s = x[[data.ind]],
     res <- spersp.default(coorvs[[1]], coorvs[[2]], z = x[[data.ind]], s = s, 
         xlab = xlab, ylab = ylab, zlab = zlab, ...)  
     return(invisible(res))
-#--------------------------------------------------------------------
+#····································································
 } # spersp.grid.par
 

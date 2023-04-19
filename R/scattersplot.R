@@ -1,12 +1,15 @@
-#--------------------------------------------------------------------
+#····································································
 #   scattersplot.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   scattersplot  S3 generic
 #       scattersplot.default
 #       scattersplot.SpatialPointsDataFrame
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#   Created: Oct 2017; Modified: Apr 2023
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
 #' Exploratory scatter plots
@@ -20,12 +23,13 @@
 #' \code{\link[stats]{density}}
 #' @keywords hplot
 #' @export
-#--------------------------------------------------------------------
-scattersplot <- function(x, ...) UseMethod("scattersplot")
-# S3 generic function splot.scatter
-#--------------------------------------------------------------------
+#····································································
+scattersplot <- function(x, ...) { 
+  UseMethod("scattersplot")
+} # S3 generic function scattersplot
 
-#--------------------------------------------------------------------
+
+#····································································
 #' @rdname scattersplot  
 #' @method scattersplot default
 #' @param z vector of data (response variable).
@@ -46,15 +50,16 @@ scattersplot <- function(x, ...) UseMethod("scattersplot")
 scattersplot.default <- function(x, z, main, xlab, ylab, zlab,
                                  col = hot.colors(128), lowess = TRUE, density = FALSE,
                                  omd = c(0.05, 0.95, 0.01, 0.95), ...) {
-  #--------------------------------------------------------------------
+  #····································································
   if (missing(xlab)) xlab <- paste0(deparse(substitute(x)), "[, 1]")
   if (missing(ylab)) ylab <- paste0(deparse(substitute(x)), "[, 2]")
   if (missing(zlab)) zlab <- deparse(substitute(z))
   if (missing(main)) main <- paste("Exploratory plots of", zlab)
   old.par <- par(mfrow = c(2,2), omd = omd)
+  on.exit(par(old.par))
   # Scatter plot with a color scale
   spoints(x[, 1], x[, 2], z, xlab = xlab, ylab = ylab, 
-          col = col, ...)
+          col = col, reset = FALSE, ...)
   # plot(z, x[, 2], z, xlab = main, ylab = xlab))
   plot(x[, 2], z, xlab = ylab, ylab = zlab)
   if (lowess) lines(lowess(x[, 2], z), lty = 2, lwd = 2, col = 'blue')
@@ -67,7 +72,7 @@ scattersplot.default <- function(x, z, main, xlab, ylab, zlab,
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname scattersplot  
 #' @method scattersplot SpatialPointsDataFrame
 #' @param data.ind integer (or character) with the index (or name) of the data component.
@@ -78,7 +83,7 @@ scattersplot.default <- function(x, z, main, xlab, ylab, zlab,
 scattersplot.SpatialPointsDataFrame <- function(x, data.ind = 1, 
                                                 main, xlab, ylab, zlab, col = hot.colors(128), lowess = TRUE, density = FALSE,  
                                                 omd = c(0.05, 0.95, 0.01, 0.95), ...) {
-  #--------------------------------------------------------------------
+  #····································································
   if(dimensions(x) != 2) 
     stop("function only works for two-dimensional 'SpatialPointsDataFrame'")
   if(!is.null(labels <- attr(x, "labels"))) {

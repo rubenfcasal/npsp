@@ -86,10 +86,10 @@ scale.range <- c(1100, 4100)
 # 1x2 plot with some room for the legend...
 old.par <- par(mfrow = c(1,2), omd = c(0.01, 0.9, 0.05, 0.95),
                plt= c(0.08, 0.94, 0.1, 0.8))
-spersp(krig.grid, main = 'Kriging predictions', 
-       col = scale.color, legend = FALSE, theta = 120)
+spersp(krig.grid, main = 'Kriging predictions', col = scale.color, 
+       legend = FALSE, theta = 120, reset = FALSE)
 spersp(krig2.grid, main = 'Kriging predictions \n (bias-corrected)', 
-       col = scale.color, legend = FALSE, theta = 120)
+       col = scale.color, legend = FALSE, theta = 120, reset = FALSE)
 par(old.par)
 splot(slim = scale.range, col = scale.color, legend.shrink = 0.6, add = TRUE)
 ```

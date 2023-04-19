@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   splot.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   splot
 #       splot.plt
 #   scolor
@@ -15,8 +15,10 @@
 #   Licensed under the GPL -- www.gpl.org/licenses/gpl.html
 #
 #   (c) Ruben Fernandez-Casal
-#   Created: Mar 2014
-#--------------------------------------------------------------------
+#   Created: Mar 2014, Modified: Apr 2023
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
 #' Utilities for plotting with a color scale
@@ -79,17 +81,12 @@
 #' \code{\link{image}}, \code{\link[fields]{image.plot}}.
 #' @keywords hplot
 #' @examples
-#'
+#' # Plot equivalent to spoints():
 #' scale.range <- range(aquifer$head)
 #' splot(slim = scale.range)
 #' with( aquifer, plot(lon, lat, col = scolor(head, slim = scale.range), 
 #'        pch = 16, cex = 1.5, main = "Wolfcamp aquifer data"))
-#' # equivalent to:
-#' # with( aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer data"))
-#'
-#' #
 #' # Multiple plots with a common legend:
-#' #
 #' # regularly spaced 2D data...
 #' set.seed(1)
 #' nx <- c(40, 40) # ndata =  prod(nx)
@@ -115,13 +112,13 @@
 #' 
 #' Modified by Ruben Fernandez-Casal <rubenfcasal@@gmail.com>. 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 splot <- function(slim = c(0,1), col = jet.colors(128), breaks = NULL, 
     horizontal = FALSE, legend.shrink = 0.9, legend.width = 1.2,
     legend.mar = ifelse(horizontal, 3.1, 5.1), legend.lab = NULL,
     bigplot = NULL, smallplot = NULL, lab.breaks = NULL, axis.args = NULL, 
     legend.args = NULL, add = FALSE) {
-#--------------------------------------------------------------------
+#····································································
     #
     # save current graphics settings
     old.par <- par(no.readonly = TRUE)
@@ -237,13 +234,13 @@ splot <- function(slim = c(0,1), col = jet.colors(128), breaks = NULL,
         par(mfg = mfg.save, pty = "m", new = TRUE, err = -1)
     }
     return(invisible(list(bigplot = bigplot, smallplot = smallplot, old.par = old.par)))
-#--------------------------------------------------------------------
+#····································································
 }   # splot
 
 
 #' @rdname npsp-internals
 #' @keywords internal
-#--------------------------------------------------------------------
+#····································································
 # Based on image.plot.plt function from package fields:
 # fields, Tools for spatial data
 # Copyright 2004-2011, Institute for Mathematics Applied Geosciences
@@ -252,7 +249,7 @@ splot <- function(slim = c(0,1), col = jet.colors(128), breaks = NULL,
 # Modified by Ruben Fernandez-Casal <rubenfcasal@gmail.com>.
 splot.plt <- function( horizontal = FALSE, legend.shrink = 0.9, legend.width = 1,  
     legend.mar = ifelse(horizontal, 3.1, 5.1), bigplot = NULL, smallplot = NULL) {
-#--------------------------------------------------------------------
+#····································································
     old.par <- par(no.readonly = TRUE)
     if (is.null(smallplot))
         stick <- TRUE
@@ -301,7 +298,7 @@ splot.plt <- function( horizontal = FALSE, legend.shrink = 0.9, legend.width = 1
         smallplot[2] <- smallplot[1] + dp
     }
     return(list(smallplot = smallplot, bigplot = bigplot))
-#--------------------------------------------------------------------
+#····································································
 }   # splot.plt
 
 
@@ -316,10 +313,10 @@ splot.plt <- function( horizontal = FALSE, legend.shrink = 0.9, legend.width = 1
 #' \code{slim} is divided into \code{length(col) + 1} pieces of equal length.
 #' Values which fall outside the range of the scale are coded as \code{NA}. 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 # Based on 'color.scale' function from package \pkg{fields}
 scolor <- function(s, col = jet.colors(128), slim = range(s, finite = TRUE)){
-#--------------------------------------------------------------------
+#····································································
     # Compute breaks (in 'cut.default' style...)
     ds <- diff(slim)
     if (ds == 0) ds <- abs(slim[1L])
@@ -340,17 +337,20 @@ scolor <- function(s, col = jet.colors(128), slim = range(s, finite = TRUE)){
 #' \code{jet.colors} and \code{hot.colors} return a character vector of colors (similar to 
 #' \code{\link{heat.colors}} or \code{\link{terrain.colors}}; see \code{\link{rgb}}). 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 ## From 'colorRamp' documentation:
 ## 'jet.colors' is "as in Matlab" (and hurting the eyes by over-saturation)
 jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F",
                                   "yellow", "#FF7F00", "red", "#7F0000"))
-#--------------------------------------------------------------------
+#····································································
 
 
+#····································································
+# hot.colors(n, rev) ----
+#····································································
 #' @rdname npsp-internals
 #' @keywords internal
-#--------------------------------------------------------------------
+#····································································
 .rev.colorRampPalette <- function (colors, interpolate = "spline", ...) {
     ramp <- colorRamp(colors, interpolate = interpolate, ...)
     function(n, rev = TRUE) {
@@ -370,8 +370,8 @@ jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan", "#7FFF7F"
 #' ranging from 0 to some maximum level (e.g. density estimation). 
 #' The default value \code{rev = TRUE} may be adecuate to grayscale convertion. 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 ## http://cresspahl.blogspot.com.es/2012/03/expanded-control-of-octaves-colormap.html
 hot.colors <- .rev.colorRampPalette(c("#000000", "#900000", "#CF0000", "#EA0000", "#F60900", 
               "#FB5D00", "#FDBC00", "#FEED00", "#FFFC03", "#FFFF40", "#FFFF80", "#FFFFBF"))
-#--------------------------------------------------------------------
+#····································································
