@@ -1,23 +1,26 @@
-#--------------------------------------------------------------------
+#····································································
 #   cpu.time.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   .cpu.time.ini()
 #   cpu.time(..., reset, total, last, flush)
-#--------------------------------------------------------------------
+#····································································
 # CPU time utilities
 #   Call cpu.time(restart = TRUE) where you want to start counting.
 #   Call cpu.time() to print/get total and/or partial (since the last call 
 #   to this function) real and CPU times.
 #
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 #   PENDENTE:
 #   - cat solo de ... si presente?
-#--------------------------------------------------------------------
+#····································································
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-internals
 #' @keywords internal
 #' @export
 .cpu.time.ini <- function() {
+#····································································
     time.ini <- structure(rep(0, 5), .Names = c("user.self", "sys.self", "elapsed",  
         "user.child", "sys.child"), class = "proc_time")# proc.time()
     time.last <- time.ini
@@ -44,10 +47,12 @@
         }    
         return(invisible(res))
     }
-#--------------------------------------------------------------------
 }
 
-#--------------------------------------------------------------------
+
+#····································································
+# cpu.time(..., reset, total, last, flush) ----
+#····································································
 #' Total and partial CPU time used
 #' 
 #' Returns and (optionally) prints the total and/or partial (since the last call to this function) 
@@ -66,15 +71,11 @@
 #' @seealso
 #' \code{\link{proc.time}}, \code{\link{system.time}}, \code{\link{flush.console}}.
 #' @examples
-#' \dontrun{
-#'  
-#'  cpu.time(reset=TRUE)
-#'  res <- median(runif(100000))
-#'  cpu.time('\nSample median of', 100000, 'values =', res)
-#'  res <- median(runif(1000))
-#'  cpu.time('\nSample median of', 1000, 'values =', res)
-#' 
-#' }
+#' cpu.time(reset=TRUE)
+#' res <- median(runif(100000))
+#' cpu.time('\nSample median of', 100000, 'values =', res)
+#' res <- median(runif(1000))
+#' cpu.time('\nSample median of', 1000, 'values =', res)
 #' @export
 cpu.time <- .cpu.time.ini()
 

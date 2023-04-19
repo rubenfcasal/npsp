@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   svarmod.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   svarmod  S3 class and methods
 #       svarmod(model, type, par, nugget, sill, range)
 #       svarmod.sb.iso(dk, x, z, nu, range, sill)
@@ -11,7 +11,9 @@
 #       sv.sb.iso(x, h, ...)
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # NOTA: para modelos isotropicos parametricos se toma (provisionalmente)
 #       como referencia geoR
 #
@@ -19,12 +21,12 @@
 #   - @examples
 #   - S3 method
 #   - svar.vgm
-#--------------------------------------------------------------------
+#····································································
 
  
-#--------------------------------------------------------------------
+#····································································
 #   svarmod(model, type = "isotropic", par = NA, nugget = 0, sill = NA, range = NA)
-#--------------------------------------------------------------------
+#····································································
 #   @aliases mod.svar mod.svar-class svar.mod-class
 #   @aliases svarmod-class
 #' Define a (semi)variogram model
@@ -40,13 +42,13 @@
 #' @param  range range (practical range or scale parameter) of the variogram 
 #' (NA for unbounded variograms; maybe a vector for anisotropic variograms).
 #' @return
-#' \code{svarmod} returns an \code{svarmod}-\code{\link{class}} object, a list 
+#' \code{svarmod} returns an \code{svarmod}-\code{\link{class}} object, a list
 #' with function arguments as components.
 #' @note \code{svarmod} does not check the consistency of the parameter values.
 #' @seealso
 #' \code{\link{sv}}, \code{\link{covar}}.
 #' @export
-#--------------------------------------------------------------------
+#····································································
 svarmod <- function(model, type = "isotropic", par,
                       nugget = NULL, sill = NULL, range = NULL) {
 # Define a (semi)variogram model
@@ -54,7 +56,7 @@ svarmod <- function(model, type = "isotropic", par,
 #   names(par) <- c('psill', 'phi', 'nugget', 'kappa')
 #   phi = scale parameter
 # PENDENTE: ASIGNAR nugget, sill e range AUTOMATICAMENTE
-#--------------------------------------------------------------------
+#····································································
     model <- match.arg(model, svarmodels(type))
     if (missing(par)) stop("'par' argument must be provided.")
     if (model == "pure.nugget") sill <- nugget <- par[1]
@@ -76,11 +78,11 @@ svarmod <- function(model, type = "isotropic", par,
 # svar.mod <- svarmod
 
 
-#--------------------------------------------------------------------
+#····································································
 # svarmod.sb.iso( dk, x, z, nu, range, sill = nu) 
 # Define a Shapiro-Botha (semi)variogram model
 # Returns an S3 object of class \code{sb.iso} (extends \code{svarmod})
-#--------------------------------------------------------------------
+#····································································
 #' @rdname svarmod  
 #' @aliases sb.iso-class
 #' @param  dk dimension of the kappa function.
@@ -96,7 +98,7 @@ svarmod <- function(model, type = "isotropic", par,
 #'   and Data Analysis}, \bold{11}, 87-96. 
 #' @export
 svarmod.sb.iso <- function( dk, x, z, nu, range, sill = nu) {
-#--------------------------------------------------------------------
+#····································································
     result <- svarmod(model = svarmodels()["SB"], type = "isotropic",
           par = list(dk = dk, x = x, z = z, nu = nu),
           nugget = nu - sum(z), sill = sill, range = range)
@@ -104,15 +106,15 @@ svarmod.sb.iso <- function( dk, x, z, nu, range, sill = nu) {
     return(result)
 }
 
-#--------------------------------------------------------------------
+#····································································
 # sb.iso <- svarmod.sb.iso
 # svarmod.iso.default
 # svarmodsb.iso
 # svar.mod
-#--------------------------------------------------------------------
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname svarmod  
 #' @return
 #' \code{svarmodels} returns a named character vector with the available models 
@@ -122,7 +124,7 @@ svarmod.sb.iso <- function( dk, x, z, nu, range, sill = nu) {
 #' @export
 svarmodels <- function(type = "isotropic") {
 # match(model, svarmodels(type), nomatch = 0)
-#--------------------------------------------------------------------
+#····································································
     models <- switch(type,
         isotropic = c(Exp = "exponential", Sph = "spherical", Cir = "circular", 
                     Gau = "gaussian", Mat = "matern", Pow = "power", Nug = "pure.nugget", 
@@ -134,9 +136,9 @@ svarmodels <- function(type = "isotropic") {
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 #   sv(x, h, ...)
-#--------------------------------------------------------------------
+#····································································
 #' Evaluate a semivariogram model 
 #' 
 #' Evaluates an \code{svarmod} object \code{x} at lags \code{h} (S3 generic function).
@@ -149,33 +151,39 @@ svarmodels <- function(type = "isotropic") {
 #' @seealso
 #' \code{\link{covar}}
 #' @export
-#--------------------------------------------------------------------
-sv <- function(x, h, ...) UseMethod("sv")
+#····································································
+sv <- function(x, h, ...) {
+  UseMethod("sv")
+}
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname sv
 #' @method sv default
 #' @export
-sv.default <- function(x, h, ...) stop("Invalid variogram object")
-#--------------------------------------------------------------------
+sv.default <- function(x, h, ...) {
+  stop("Invalid variogram object")
+}
+#····································································
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname sv
 #' @method sv svarmod
 #' @export
-sv.svarmod <- function(x, h, ...) stop("Not implemented for parametric variogram models")
+sv.svarmod <- function(x, h, ...) {
+  stop("Not implemented for parametric variogram models")
+}
 # as.vgm.svarmod(x, h)$covtable
 # variogramLine(as.vgm.svarmod(x), dist_vector = h)[[2]]
-#--------------------------------------------------------------------
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname sv
 #' @method sv svar.grid
 #' @export
 sv.svar.grid <- function(x, h, ...) {
-  #------------------------------------------------------------------
+#····································································
   if(missing(h)) 
     stop("argument 'h' (spatial lags) must be provided")
   xx <- drop(coords(x))
@@ -184,14 +192,14 @@ sv.svar.grid <- function(x, h, ...) {
   return(stats::approx(xx, drop(x$sv), h, yleft = 0, yright = x$sill)$y)
 }
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname sv  
 #' @method sv sb.iso
 #' @param  discretize logical. If \code{TRUE} the variogram is previously discretized. 
 #' @export
 sv.sb.iso <- function(x, h, discretize = FALSE, ...) {
-  # CUIDADO SI DIMENSIONES DE h GRANDE y discretize = FALSE: outer(h, x)
-  #--------------------------------------------------------------------
+# CUIDADO SI DIMENSIONES DE h GRANDE y discretize = FALSE: outer(h, x)
+#····································································
   if (discretize) 
       return(sv.svar.grid(svar.grid(x, max = 1.1*max(h, na.rm = TRUE)), h))
       # Evitar problema con max = 1.1*svar$range

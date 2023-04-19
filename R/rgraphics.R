@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   rgraphics.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   data.grid S3 methods
 #     image.data.grid(x, data.ind, xlab, ylab, ...)
 #     persp.data.grid(x, data.ind, xlab, ylab, zlab, ...) 
@@ -8,10 +8,12 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Mar 2014
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - plot.data.grid
-#--------------------------------------------------------------------
+#····································································
 
 
 #' @name rgraphics
@@ -23,19 +25,15 @@
 #' @examples
 #' # Regularly spaced 2D data
 #' grid <- grid.par(n = c(50, 50), min = c(-1, -1), max = c(1, 1))
-#'
 #' f2d <- function(x) x[1]^2 - x[2]^2
 #' trend <- apply(coords(grid), 1, f2d)
 #' set.seed(1)
 #' y <- trend + rnorm(prod(dim(grid)), 0, 0.1)
 #' gdata <- data.grid(trend = trend, y = y, grid = grid)
-#'
 #' # perspective plot
 #' persp(gdata, main = 'Trend', theta = 40, phi = 20, ticktype = "detailed")
-#'
 #' # filled contour plot
 #' contour(gdata, main = 'Trend', filled = TRUE, color.palette = jet.colors)
-#'
 #' # Multiple plots with a common legend:
 #' scale.range <- c(-1.2, 1.2)
 #' scale.color <- jet.colors(64)
@@ -51,7 +49,7 @@
 NULL
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname rgraphics
 #' @method image data.grid
 #' @param x a "\code{\link{data.grid}}"-class object.
@@ -63,7 +61,7 @@ NULL
 #' @param ... additional graphical parameters (to be passed to main plot function).
 #' @export
 image.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "data.grid") | x$grid$nd != 2L)
         stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
     coorvs <- coordvalues(x)
@@ -73,18 +71,18 @@ image.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
     image(coorvs[[1]], coorvs[[2]], z = x[[data.ind]],
         xlab = xlab, ylab = ylab, ...)
     return(invisible())
-#--------------------------------------------------------------------
+#····································································
 } # simage.grid.par
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname rgraphics
 #' @method persp data.grid
 #' @export
 persp.data.grid <- function(x, data.ind = 1,
         xlab = NULL, ylab = NULL, zlab = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "data.grid") | x$grid$nd != 2L)
         stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
     coorvs <- coordvalues(x)
@@ -96,19 +94,19 @@ persp.data.grid <- function(x, data.ind = 1,
     res <- persp(coorvs[[1]], coorvs[[2]], z = x[[data.ind]],
         xlab = xlab, ylab = ylab, zlab = zlab, ...)
     return(invisible(res))
-#--------------------------------------------------------------------
+#····································································
 } # spersp.grid.par
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname rgraphics
 #' @method contour data.grid
 #' @param filled logical; if \code{FALSE} (default), function \code{\link{contour}}
 #' is called, otherwise \code{\link{filled.contour}}.
 #' @export
 contour.data.grid <- function(x, data.ind = 1, filled = FALSE, xlab = NULL, ylab = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "data.grid") | x$grid$nd != 2L)
         stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
     coorvs <- coordvalues(x)
@@ -122,7 +120,7 @@ contour.data.grid <- function(x, data.ind = 1, filled = FALSE, xlab = NULL, ylab
         contour(coorvs[[1]], coorvs[[2]], z = x[[data.ind]],
             xlab = xlab, ylab = ylab, ...)
     return(invisible())
-#--------------------------------------------------------------------
+#····································································
 } # contour.grid.par
 
 

@@ -1,7 +1,7 @@
-#--------------------------------------------------------------------
+#····································································
 #   npsp-geoR.R (npsp package)
 #   trying to KISS (keep it small and simple) geoR
-#--------------------------------------------------------------------
+#····································································
 #   as.variogram()  S3 generic 
 #       as.variogram.svar.bin(x, ...)
 #       as.variogram.np.svar(x, ...)
@@ -9,10 +9,12 @@
 #       as.variomodel.svarmod(m, ...)
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - @examples
-#--------------------------------------------------------------------
+#····································································
 
 
 #' @name npsp-geoR
@@ -28,14 +30,19 @@ NULL
 #' @aliases variogram
 #' @param  x  semivariogram estimate (e.g. \code{\link{svar.bin}} or \code{\link{np.svar}} object).
 #  @param  ... further arguments passed to or from other methods.
+#' @return 
+#' \code{as.variogram()} returns an object of the (not fully documented) \pkg{geoR}-class 
+#' \code{variogram}.
 #' @seealso \code{\link[geoR]{variog}}, \code{\link[geoR]{variofit}}, \code{\link{variomodel}}, 
 #' \code{\link{svar.bin}}, \code{\link{np.svar}}.
 #' @export
-as.variogram <- function(x, ...) UseMethod("as.variogram")
-#--------------------------------------------------------------------
+as.variogram <- function(x, ...) {
+  UseMethod("as.variogram")
+}
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-geoR
 #' @method as.variogram svar.bin
 #' @export
@@ -45,7 +52,7 @@ as.variogram.svar.bin <- function(x, ...) {
 #
 #   PENDENTE:
 #     - verificar missing values
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "svar.bin"))
       stop("function only works for objects of class (or extending) 'svar.bin'.")
     if (x$svar$type != "isotropic")
@@ -63,7 +70,7 @@ as.variogram.svar.bin <- function(x, ...) {
 } # as.variogram.svar.bin
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-geoR
 #' @method as.variogram np.svar
 #' @export
@@ -73,7 +80,7 @@ as.variogram.np.svar <- function(x, ...) {
 #
 #   PENDENTE:
 #     - verificar missing values
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "np.svar"))
       stop("function only works for objects of class (or extending) 'np.svar'.")
     result <- as.variogram.svar.bin(x, ...)
@@ -89,9 +96,9 @@ as.variogram.np.svar <- function(x, ...) {
 
 
 
-#--------------------------------------------------------------------
+#····································································
 # as.variomodel(m, ...)
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-geoR
 #' @aliases variomodel
 #' @details \code{as.variomodel} tries to convert a semivariogram model \eqn{\gamma(pars; h)} 
@@ -99,15 +106,19 @@ as.variogram.np.svar <- function(x, ...) {
 #' (see e.g. \code{\link[geoR]{variofit}}).
 #' @param  m  variogram model (e.g. \code{\link{svarmod}} object).
 #' @param  ... further arguments passed to or from other methods.
+#' @return 
+#' \code{as.variomodel()} returns an object of the \pkg{geoR}-class \code{variomodel}.
 #' @export
-as.variomodel <- function(m, ...) UseMethod("as.variomodel")
+as.variomodel <- function(m, ...) {
+  UseMethod("as.variomodel")
+}
 #   Convierte un modelo de variograma en un objeto
 #   (more or less) "compatible" con la clase "variomodel" de geoR.
-#--------------------------------------------------------------------
+#····································································
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-geoR
 #' @method as.variomodel svarmod
 #' @export
@@ -115,7 +126,7 @@ as.variomodel.svarmod <- function(m, ...){
 # Convierte el resultado de \code{\link{svarmod}} en un objeto
 # "compatible" con la clase "variomodel" de geoR.
 # @seealso \code{\link[geoR]{practicalRange}}
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(m, "svarmod"))
         stop("argument 'm' must be of class (or extending) 'svarmod'.")
     tmp <- match(m$model, svarmodels("isotropic"), nomatch = 0)
@@ -129,13 +140,13 @@ as.variomodel.svarmod <- function(m, ...){
 
 
 
-##--------------------------------------------------------------------
+##····································································
 ## @rdname as.variomodel
 ## @method as.variomodel vgm
 #as.variomodel.vgm <- function(x, ...) {
 ##   Convierte el resultado de \code{\link{vgm}} en un objeto
 ##   "compatible" con la clase "variomodel" de geoR.
-##--------------------------------------------------------------------
+##····································································
 #    res <- NULL 
 #    models <- c("exponential", "spherical", "circular", "gaussian", 
 #        "matern", "power", "nugget", "linear", "Shapiro-Botha", "extended Shapiro-Botha" ) 
@@ -195,5 +206,5 @@ as.variomodel.svarmod <- function(m, ...){
 #
 # gstat::vgm(psill, model, range, nugget, add.to, anis, kappa = 0.5, ..., covtable)
 #
-#--------------------------------------------------------------------
+#····································································
     

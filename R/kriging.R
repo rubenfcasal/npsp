@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   kriging.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   np.kriging(object, ...)
 #       np.kriging.default(object, svm, lp.resid, ngrid, ...)
 #       np.kriging.np.geo(object, ngrid, ...)
@@ -8,15 +8,17 @@
 #   kriging.simple.solve(x, newx, svm)  
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - spam = TRUE
 #   - newx = FALSE -> CV? chol2inv.spam
-#--------------------------------------------------------------------
+#····································································
 
-#--------------------------------------------------------------------
-# np.kriging(object, ...) S3 generic function
-#--------------------------------------------------------------------
+#····································································
+# np.kriging(object, ...) ---- 
+#····································································
 #' Nonparametric (residual) kriging
 #' 
 #' Compute simple kriging or residual kriging predictions 
@@ -29,8 +31,10 @@
 #' or nonparametric geostatistical model (class extending \code{\link{np.geo}}).
 #' @param ... further arguments passed to or from other methods.
 #' @export
-#--------------------------------------------------------------------
-np.kriging <- function(object, ...) UseMethod("np.kriging")
+#····································································
+np.kriging <- function(object, ...) {
+  UseMethod("np.kriging")
+} # S3 generic function np.kriging
 
 
 
@@ -42,7 +46,7 @@ np.kriging <- function(object, ...) UseMethod("np.kriging")
 #' @param lp.resid  residuals (defaults to \code{residuals(object)}).
 #' @seealso \code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{np.svar}}.
 #' @export
-#--------------------------------------------------------------------
+#····································································
 np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...) {
   stopifnot(inherits(object, "locpol.bin" ))
   if (!is.null(object$mask) && is.null(object$window)) # Interpolar mask?
@@ -67,7 +71,7 @@ np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid
 #' @rdname np.kriging  
 #' @method np.kriging np.geo
 #' @export
-#--------------------------------------------------------------------
+#····································································
 np.kriging.np.geo <- function(object, ngrid = object$grid$n, ...) {
   return(
     np.kriging.default(object, object$svm, object$residuals, ngrid = ngrid, ...)
@@ -81,7 +85,7 @@ np.kriging.np.geo <- function(object, ngrid = object$grid$n, ...) {
 #'    or an object extending \code{\link{grid.par}}-\code{\link{class}}
 #'    (\code{\link{data.grid}}).
 #' @export
-#--------------------------------------------------------------------
+#····································································
 kriging.simple <- function(x, y, newx, svm) {
   x <- as.matrix(x)
   if ( !identical(length(y), nrow(x)) )
@@ -110,7 +114,7 @@ kriging.simple <- function(x, y, newx, svm) {
 
 #' @rdname np.kriging
 #' @export
-#--------------------------------------------------------------------
+#····································································
 kriging.simple.solve <- function(x, newx, svm) {
 # Evitar recalcular matriz de covarianza y factorizacion
   # spam = TRUE

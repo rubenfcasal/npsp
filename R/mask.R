@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   mask.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   npsp.tolerance(level, warn)
 #   mask  S3 generic
 #           mask.default(x, tol.mask = 0, ...)
@@ -10,14 +10,16 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Jul 2015
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 #   PENDENTE:
 #       - Exemplos mask
 #       - MASK DE MASKED LOCPOL?
-#--------------------------------------------------------------------
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #' npsp Tolerances
 #'
 #' Returns a (convergence, taper, approximation,...) tolerance.
@@ -32,17 +34,19 @@
 #' curve(npsp.tolerance, 1, 1000)
 #' abline(h = npsp.tolerance(0, FALSE), lty = 2)
 #' @export
-npsp.tolerance <- function(level = 2, warn = TRUE)
+npsp.tolerance <- function(level = 2, warn = TRUE){
+#····································································
     if (any(index <- level < 1)) {
         if (warn) warning("'level' should be >= 1")
         ifelse(index, 1 - .Machine$double.eps, .Machine$double.eps^(1/level))
-    } else return(.Machine$double.eps^(1/level))
-#--------------------------------------------------------------------
+    } else 
+        .Machine$double.eps^(1/level)
+}
 
 
-#--------------------------------------------------------------------
-# mask(x, ...)
-#--------------------------------------------------------------------
+#····································································
+# mask(x, ...) ----
+#····································································
 #' Mask methods
 #'
 #' Filters the data that satisfy a condition.
@@ -52,11 +56,13 @@ npsp.tolerance <- function(level = 2, warn = TRUE)
 #' @seealso \code{\link{locpol}}, \code{\link{locpolhcv}}, \code{\link{binning}},
 #' \code{\link{np.svar}}, \code{\link{npsp.tolerance}}.
 #' @export
-mask <- function(x, ...) UseMethod("mask")
-#--------------------------------------------------------------------
+#····································································
+mask <- function(x, ...) {
+  UseMethod("mask")
+}
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname mask
 #' @method mask default
 #' @param tol.mask tolerance.
@@ -64,12 +70,14 @@ mask <- function(x, ...) UseMethod("mask")
 #' @examples
 #' mask(1:10, 5)
 #' @export
-mask.default <- function(x, tol.mask = 0, ...)  as.numeric(x) > tol.mask
+#····································································
+mask.default <- function(x, tol.mask = 0, ...)  {
+  as.numeric(x) > tol.mask
+}
 # NOTA: E importante que mask sexa vector...
-#--------------------------------------------------------------------
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname mask
 #' @method mask data.grid
 #' @param  set.NA logical; If \code{TRUE}, the values corresponding
@@ -78,10 +86,10 @@ mask.default <- function(x, tol.mask = 0, ...)  as.numeric(x) > tol.mask
 #' extending \code{\link[sp:SpatialPolygons-class]{SpatialPolygons}}.
 #' @export
 mask.data.grid <- function(x, mask = NULL, window = NULL,
-                          set.NA = FALSE, warn = FALSE, ...) 
-{ #--------------------------------------------------------------------
+                          set.NA = FALSE, warn = FALSE, ...) { 
+#····································································
   if(!is.null(window)){
-    # if (!is.null(mask)) warning("'mask' argument is ignored.")
+    # if (!is.null(mask)) warning("'mask' argument ignored ('window != NULL').")
     spp.grid <- SpatialPoints(coords(x))
     proj4string(spp.grid) <- proj4string(window) # CRS("+init=epsg:28992 +units=km")
     mask <- array(!is.na(over(spp.grid, as(window, 'SpatialPolygons'))), 
@@ -105,11 +113,11 @@ mask.data.grid <- function(x, mask = NULL, window = NULL,
     sapply(x[index], function(d) is.na(d) <- !mask)
   x$mask <- mask
   return(x)
-} #------------------------------------------------------------------
+} 
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname mask
 #' @method mask bin.den
 #' @param mask logical; vector (or array) indicating the selected values (not masked).
@@ -123,8 +131,8 @@ mask.data.grid <- function(x, mask = NULL, window = NULL,
 #' str(mask(bin, mask(bin$binw, 1)))
 #' @export
 mask.bin.den <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)), window = NULL,
-                         set.NA = FALSE, warn = TRUE, ...) 
-{ #------------------------------------------------------------------
+                         set.NA = FALSE, warn = TRUE, ...) { 
+#····································································
 # PENDENTE: establecer binw[mask] <- -1 en estimacion locpol
 # PENDENTE: Ollo con binw = -1
 # COIDADO: mask <- as.numeric(x$binw) > 0    # hcv.data => predict
@@ -141,10 +149,10 @@ mask.bin.den <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)), wind
       # if (warn) warning("some data will not be masked...")
     }  
     return(res)
-} #------------------------------------------------------------------
+} 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname mask
 #' @method mask bin.data
 #' @param  filter.lp logical; If \code{TRUE}, masked nodes will be leaved out
@@ -152,8 +160,8 @@ mask.bin.den <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)), wind
 #' @export
 # mask.bin.data <- function(x, window = NULL, mask = mask.default(x$binw, npsp.tolerance(2)),
 mask.bin.data <- function(x, mask = NULL, window = NULL,
-                          set.NA = FALSE, warn = FALSE, filter.lp = TRUE, ...) 
-{ #------------------------------------------------------------------
+                          set.NA = FALSE, warn = FALSE, filter.lp = TRUE, ...) { 
+#····································································
     # if (filter.lp) warn <- TRUE
     if (is.null(window) & is.null(mask)) mask <- mask.default(x$binw, npsp.tolerance(2))
     res <- mask.bin.den(x, mask = mask, window = window, warn = warn, set.NA = set.NA)
@@ -165,17 +173,17 @@ mask.bin.data <- function(x, mask = NULL, window = NULL,
       res$binw[!mask] <- -1
     }  
     return(res)
-} #------------------------------------------------------------------
+} 
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname mask
 #' @method mask locpol.bin
 #' @export
 mask.locpol.bin <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)), window = NULL,
-                          set.NA = FALSE, warn = TRUE, filter.lp = TRUE, ...) 
-{ #------------------------------------------------------------------
+                          set.NA = FALSE, warn = TRUE, filter.lp = TRUE, ...) { 
+#····································································
     res <- mask.bin.data(x, mask = mask, window = window, 
                          set.NA = set.NA, warn = FALSE, filter.lp = filter.lp)
     if (set.NA | filter.lp) {
@@ -184,4 +192,4 @@ mask.locpol.bin <- function(x, mask = mask.default(x$binw, npsp.tolerance(2)), w
       res$est[res$nomask] <- NA
     }  
     return(res)
-} #------------------------------------------------------------------
+} 

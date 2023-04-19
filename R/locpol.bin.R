@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   locpol.bin.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   locpol.bin  S3 class and methods
 #       locpol.default(x, y, h, nbin, degree, drv,  hat.bin, ncv, set.NA, ...)
 #       locpol.bin.data(x, h, degree, drv, hat.bin, ncv, ...) 
@@ -10,7 +10,9 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Aug 2012
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - is.locpol.bin
 #   - update.locpol.bin
@@ -18,12 +20,12 @@
 #   - revisar h, opcion multiplo espaciado/dimension rejilla units.h=, h(i,i) < 0 ?)
 #   - DUP = FALSE en FORTRAN  (o .C y pasar interfaces a C?)
 #   - opcion de ncv vector
-#--------------------------------------------------------------------
+#····································································
 
 
-#--------------------------------------------------------------------
-# locpol(x, ...)
-#--------------------------------------------------------------------
+#····································································
+# locpol(x, ...) ----
+#····································································
 #' Local polynomial estimation
 #' 
 #' Estimates a multidimensional regression function (and its first derivatives) 
@@ -52,15 +54,15 @@
 #' \code{\link{np.den}}, \code{\link{bin.den}}, \code{\link{hcv.data}},
 #' \code{\link{rule.binning}}.
 #' @export
-locpol <- function(x, ...) UseMethod("locpol")
-# S3 generic function locpol
+#····································································
+locpol <- function(x, ...) {
+  UseMethod("locpol")
+} # S3 generic function locpol
 # Returns an S3 object of class "locpol.bin" (extends "bin.data")
-#--------------------------------------------------------------------
 
-#--------------------------------------------------------------------
-# locpol.default(x, y, h = NULL, nbin = NULL, degree = 1,
-#               drv = FALSE, hat.bin = FALSE, ncv = 0, set.NA = FALSE)
-#--------------------------------------------------------------------
+#····································································
+# locpol.default(x, y, h, nbin, degree, drv, hat.bin, ncv, set.NA) ----
+#····································································
 #' @rdname locpol
 #' @method locpol default
 #' @param  y vector of data (response variable).
@@ -107,9 +109,6 @@ locpol <- function(x, ...) UseMethod("locpol")
 #' lp2 <- locpol(bin, h = diag(2, 2))
 #' all.equal(lp, lp2)
 #' 
-#' ## Alternatively:
-#' ## lp <- locpolhcv(earthquakes[, c("lon", "lat")], earthquakes$mag, ncv = 4)
-#' 
 #' den <- locpol(as.bin.den(bin), h = diag(1, 2))
 #' plot(den, log = FALSE, main = 'Estimated density')
 #' @export
@@ -124,7 +123,7 @@ locpol.default <- function(x, y, h = NULL, nbin = NULL, degree = 1 + as.numeric(
 #   - revisar h, opcion multiplo espaciado/dimension rejilla
 #     (defecto en fortran con valor negativo h(1,1)??)
 #   - eliminar (*) de fortran, fortran 2003
-#--------------------------------------------------------------------
+#····································································
     y <- as.numeric(y)
     ny <- length(y)                              # number of data
     x <- as.matrix(x)
@@ -199,15 +198,15 @@ locpol.default <- function(x, y, h = NULL, nbin = NULL, degree = 1 + as.numeric(
     }
     oldClass(result) <- c("locpol.bin", "bin.data", "bin.den", "data.grid")
     return(result)
-#--------------------------------------------------------------------
+#····································································
 } # locpol.default
 
 
 
-#--------------------------------------------------------------------
+#····································································
 # locpol.bin.data(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, 
 #                 hat.bin = FALSE, ncv = 0, ...) {    
-#--------------------------------------------------------------------
+#····································································
 #' @rdname locpol
 #' @method locpol bin.data
 #' @export
@@ -216,7 +215,7 @@ locpol.bin.data <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FAL
 # Returns an object of class "locpol.bin" (from a "bin.data"-class object x)
 # Interface to the fortran routine "lp_bin" (lp_module.f90)
 # Cuidado x puede ser un objeto locpol.bin (con componentes opcionales)
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "bin.data"))
       stop("function only works for objects of class (or extending) 'bin.data'")
     nd <- x$grid$nd
@@ -273,12 +272,12 @@ locpol.bin.data <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FAL
     } else result$deriv <- NULL
     oldClass(result) <- c("locpol.bin", "bin.data", "bin.den", "data.grid")
     return(result)
-#--------------------------------------------------------------------
+#····································································
 } # locpol.bin.data
     
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname locpol
 #' @method locpol svar.bin
 #' @return \code{locpol.svar.bin} returns an S3 object of class \code{\link{np.svar}} 
@@ -287,7 +286,7 @@ locpol.bin.data <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FAL
 locpol.svar.bin <- function(x, h = NULL, degree = 1, drv = FALSE, 
                                         hat.bin = TRUE, ncv = 0, ...){
 # @seealso \code{\link{np.svariso}}, \code{\link{svar.bin}}.
-#--------------------------------------------------------------------
+#····································································
     result <- locpol.bin.data(x, h = h, degree = degree, drv = drv, 
                   hat.bin = hat.bin, ncv = ncv, ...)
     oldClass(result) <- c("np.svar", "svar.bin", "bin.data", "bin.den", "data.grid")
@@ -296,7 +295,7 @@ locpol.svar.bin <- function(x, h = NULL, degree = 1, drv = FALSE,
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname locpol
 #' @method locpol bin.den
 #' @return \code{locpol.bin.den} returns an S3 object of class \code{\link{np.den}} 
@@ -304,7 +303,7 @@ locpol.svar.bin <- function(x, h = NULL, degree = 1, drv = FALSE,
 #' @export
 locpol.bin.den <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, 
                               ncv = 0, ...) {    
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "bin.den"))
       stop("function only works for objects of class (or extending) 'bin.den'")
     nd <- x$grid$nd
@@ -362,16 +361,16 @@ locpol.bin.den <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALS
     } else result$deriv <- NULL
     oldClass(result) <- c("np.den", "bin.den", "data.grid")
     return(result)
-#--------------------------------------------------------------------
+#····································································
 } # locpol.bin.den
 
 
 
-#--------------------------------------------------------------------
+#····································································
 # locpolhcv(x, y, nbin = NULL, objective = c("CV", "GCV", "MASE"),  
 #           degree = 1 + as.numeric(drv), drv = FALSE,
 #           ncv = ifelse(objective == "CV", 2, 0), cov.dat = NULL, ...)  
-#--------------------------------------------------------------------
+#····································································
 #' @rdname locpol  
 #' @inheritParams hcv.data
 #' @details  \code{locpolhcv} calls \code{\link{hcv.data}} to obtain an "optimal" 
@@ -383,7 +382,7 @@ locpolhcv <- function(x, y, nbin = NULL, objective = c("CV", "GCV", "MASE"),
                       degree = 1 + as.numeric(drv), drv = FALSE,
                       hat.bin = FALSE, set.NA = FALSE, 
                       ncv = ifelse(objective == "CV", 2, 0), cov.dat = NULL, ...) {
-#--------------------------------------------------------------------
+#····································································
     objective <- match.arg(objective)
     bin <- binning(x, y, nbin = nbin, set.NA = set.NA)
     if(is.null(cov.dat))

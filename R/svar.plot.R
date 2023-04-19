@@ -1,7 +1,7 @@
-#--------------------------------------------------------------------
+#····································································
 #   svar.plot.R (npsp package)
 #   S3 and S4 plot methods for npsp-objects
-#--------------------------------------------------------------------
+#····································································
 #   svar.plot S3 plot methods
 #     plot.fitsvar(x, y, legend, xlab, ylab, ylim, lwd, add, ...)
 #     plot.svar.bin(x, y, xlab, ylab, ylim, add, ...)
@@ -9,13 +9,18 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Aug 2014
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - @examples
 #   - curve(sv(svm, x), add = TRUE)
-#--------------------------------------------------------------------
+#····································································
 
 
+#····································································
+# svar.plot ----
+#····································································
 #' @name svar.plot
 #' @title Plot a semivariogram object
 #' @description Utilities for plotting pilot semivariograms or fitted models.
@@ -24,7 +29,7 @@
 NULL
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname svar.plot
 #' @method plot fitsvar
 #' @description \code{plot.fitsvar} plots a fitted variogram model.
@@ -54,11 +59,11 @@ plot.fitsvar <- function(x, y = NULL, legend = TRUE, xlab = "distance", ylab = "
             lty = c(NA, 1), pch = c(1, NA), lwd = lwd)
     } 
     invisible(NULL)       
-#--------------------------------------------------------------------
+#····································································
 } # plot.fitsvar
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname svar.plot
 #' @method plot svar.bin
 #' @description \code{plot.svar.bin} plots the binned semivariances.
@@ -75,12 +80,12 @@ plot.svar.bin <- function(x, y = NULL, xlab = "distance", ylab = "semivariance",
       if(is.null(xlim)) xlim <- c(0, x$grid$max)
       plot(coords(x), x$biny, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim, ... )
     }
-#--------------------------------------------------------------------
+#····································································
 } # plot.svar.bin
         
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname svar.plot
 #' @method plot np.svar
 #' @description \code{plot.np.svar} plots a local polynomial estimate of the semivariogram.
@@ -95,5 +100,5 @@ plot.np.svar <- function(x, y = NULL, xlab = "distance", ylab = "semivariance",
         plot.svar.bin(x, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim, ... )
         lines(coords(x), x$est, lwd = 2 )
     }    
-#--------------------------------------------------------------------
+#····································································
 } # plot.svar.bin

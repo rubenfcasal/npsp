@@ -1,23 +1,25 @@
-#--------------------------------------------------------------------
+#····································································
 #   svarmod.sb.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   kappasb(x, dk)
 #   disc.sb(nx, dk, rmax)
 #   fitsvar.sb.iso(esv, dk, nx, rmax, min.contrib, method, iter, tol)
 #
 #   (c) R. Fernandez-Casal
 #   Created: Apr 2013
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - documentacion
 #   - @examples
-#--------------------------------------------------------------------
+#····································································
 
 
 
-#--------------------------------------------------------------------
-#   kappasb(x, dk = 0)
-#--------------------------------------------------------------------
+#····································································
+# kappasb(x, dk) ----
+#····································································
 #' Coefficients of an extended Shapiro-Botha variogram model 
 #' 
 #' Computes the coefficients of an extended Shapiro-Botha variogram model. 
@@ -47,7 +49,7 @@
 #' abline(h = 0, lty = 3)
 #' @export
 kappasb <- function(x, dk = 0) {
-#--------------------------------------------------------------------
+#····································································
   if ( zeros <- any(index <- x < sqrt(.Machine$double.eps)) ) {
       dx <- dim(x)
       x <- x[!index]
@@ -70,9 +72,9 @@ kappasb <- function(x, dk = 0) {
 
 
 
-#--------------------------------------------------------------------
-#   disc.sb(nx, dk = 0, rmax = 1)
-#--------------------------------------------------------------------
+#····································································
+# disc.sb(nx, dk, rmax) ----
+#····································································
 #' Discretization nodes of a Shapiro-Botha variogram model
 #' 
 #' Computes the discretization nodes of a `nonparametric' extended Shapiro-Botha 
@@ -94,6 +96,8 @@ kappasb <- function(x, dk = 0) {
 #' practical ranges: 
 #    \deqn{r_i = ( 1 + 1.2(i-1))rmax/nx; i = 1,\ldots, nx.}
 #'    \deqn{r_i = 2 ( 1 + (i-1) ) rmax/nx; i = 1,\ldots, nx.}
+#' @return 
+#' A vector with the discretization nodes.    
 #' @references
 #' Ball, J.S. (2000) Automatic computation of zeros of Bessel functions and other
 #'   special functions. \emph{SIAM Journal on Scientific Computing}, \bold{21}, 
@@ -114,7 +118,7 @@ kappasb <- function(x, dk = 0) {
 #' abline(h = 0.05, lty = 2)
 #' @export
 disc.sb <- function(nx, dk = 0, rmax = 1) {   
-#--------------------------------------------------------------------
+#····································································
 # NOTA: se llama primero a esta función
     if (dk == 0) 
         # OLLO: equiv. modelos gausianos, poden aparecer inestabilidades
@@ -133,11 +137,9 @@ disc.sb <- function(nx, dk = 0, rmax = 1) {
 
 
 
-#--------------------------------------------------------------------
-#   fitsvar.sb.iso(esv, dk = ncol(esv$data$x), nx = NULL, rmax = esv$grid$max, 
-#        min.contrib = 10, method = c("cressie", "equal", "npairs", "linear"), 
-#        iter = 10, tol = sqrt(.Machine$double.eps)) {
-#--------------------------------------------------------------------
+#····································································
+# fitsvar.sb.iso(esv, dk, nx, rmax, min.contrib, method, iter, tol) ----
+#····································································
 #' Fit an isotropic Shapiro-Botha variogram model
 #' 
 #' Fits a `nonparametric' isotropic Shapiro-Botha variogram model by WLS through
@@ -182,7 +184,7 @@ disc.sb <- function(nx, dk = 0, rmax = 1) {
 #'  (default fitting method in \pkg{gstat} package).} 
 #' } 
 #' Function \code{\link[quadprog]{solve.QP}} of \pkg{quadprog} package is used
-#' to solve a strictly convex quadratic program. To avoid problems, the Choleski decomposition
+#' to solve a strictly convex quadratic program. To avoid problems, the Cholesky decomposition
 #' of the matrix corresponding to the original problem is computed using \code{\link{chol}} with \code{pivot = TRUE}.
 #' If this matrix is only positive semi-definite (non-strictly convex QP),
 #' the number of discretization nodes will be less than \code{nx}.
@@ -241,7 +243,7 @@ disc.sb <- function(nx, dk = 0, rmax = 1) {
 #' legend("bottomright", legend = c("NP estimates", "fitted model (dk = 10)", "dk = 0", "dk = 2"),
 #'             lty = c(NA, 1, 1, 3), pch = c(1, NA, NA, NA), lwd = c(1, 2, 1, 1))
 #' @export
-#--------------------------------------------------------------------
+#····································································
 fitsvar.sb.iso <- function(esv, dk = 4*ncol(esv$data$x), nx = NULL, rmax = esv$grid$max, 
                             min.contrib = 10, method = c("cressie", "equal", "npairs", "linear"), 
                             iter = 10, tol = sqrt(.Machine$double.eps)) {
@@ -251,7 +253,7 @@ fitsvar.sb.iso <- function(esv, dk = 4*ncol(esv$data$x), nx = NULL, rmax = esv$g
   #     - Version preliminar, final 'fit.svar.sb' valida para modelos anisotropicos
   #     - verificar missing values
   #     - nodes un vector de ptos de discretizacion
-  #--------------------------------------------------------------------
+  #····································································
   if (!inherits(esv, "svar.bin"))
     stop("function only works for objects of class (or extending) 'svar.bin'.")
   # if (esv$svar$type != "isotropic")
@@ -368,7 +370,7 @@ fitsvar.sb.iso <- function(esv, dk = 4*ncol(esv$data$x), nx = NULL, rmax = esv$g
   result$esv <- esv
   oldClass(result) <- c("fitsvar", oldClass(result))
   return(result)
-  #--------------------------------------------------------------------
+  #····································································
 } # fitsvar.sb.iso
 
 

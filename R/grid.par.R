@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   grid.par.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   grid.par    S3 class and methods
 #       as.data.frame.grid.par(x, row.names = names(x$min), optional = FALSE)
 #       print.grid.par(x)
@@ -18,12 +18,14 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Aug 2012
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
-#--------------------------------------------------------------------
-# grid.par(n, min, max = min + (n-1)*lag, lag = (max-min)/(n-1)) 
+#····································································
+# grid.par(n, min, max, lag) ----
 # 'Based' on GridTopology-class of sp package
-#--------------------------------------------------------------------
+#····································································
 #' Grid parameters (S3 class "grid.par")
 #'
 #' Defines a full regular (spatial) grid. 
@@ -50,7 +52,7 @@ grid.par <- function(n, min, max = min + (n-1)*lag, lag = (max-min)/(n-1), dimna
 # PENDENTE:
 #   - pasar a metodo S3 y esta a default
 #   - ns <- names(x$min)
-#--------------------------------------------------------------------
+#····································································
     if ( !missing(lag) && !missing(max) ) {
         warning("argument 'lag' ignored (set to default value)")
         lag <- (max-min)/(n-1)
@@ -63,7 +65,7 @@ grid.par <- function(n, min, max = min + (n-1)*lag, lag = (max-min)/(n-1), dimna
     result <- list(nd = nd, n = n, min = min, max = max, lag = lag, dimnames = dimnames)
     oldClass(result) <- "grid.par"
     return(result)
-#--------------------------------------------------------------------
+#····································································
 } # grid.par
 
 

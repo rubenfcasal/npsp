@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   np.den.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   bin.den  S3 class and methods
 #       bin.den(x, nbin)
 #   as.bin.den()
@@ -14,12 +14,14 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Oct 2013
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 # bin.den(x, nbin = NULL) {
-#--------------------------------------------------------------------
+#····································································
 #' Linear binning for density estimation
 #' 
 #' Creates a \code{bin.den}-\code{\link{class}} (gridded binned density) object 
@@ -34,12 +36,16 @@
 #' \item{binw}{vector or array (dimension \code{nbin}) with the bin counts (weights).}
 #' \item{grid}{a \code{\link{grid.par}}-\code{\link{class}} object with the grid parameters.}
 #' \item{data}{a list with a component \code{$x} with argument \code{x}.}
-#' @seealso \code{\link{np.den}}, \code{\link{bin.data}}, \code{\link{bin.data}}, 
+#' @seealso \code{\link{np.den}}, \code{\link{h.cv}}, \code{\link{bin.data}}, 
 #' \code{\link{locpol}}, \code{\link{rule.binning}}.
+#' @examples 
+#' binden <- bin.den(earthquakes[, c("lon", "lat")], nbin = c(30,30))
+#' bindat <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30))
+#' all.equal(binden, as.bin.den(bindat))
 #' @export
-# Interface to the fortran routine "bin_den"
+# Interface to the Fortran routine "bin_den"
 bin.den <- function(x, nbin = NULL) {
-#--------------------------------------------------------------------
+#····································································
     x <- as.matrix(x)
     ny <- nrow(x)               # number of data
     # Remove missing values  
@@ -66,28 +72,29 @@ bin.den <- function(x, nbin = NULL) {
     result$data <- list(x = x)
     oldClass(result) <- c("bin.den", "data.grid")
     return(result)
-#--------------------------------------------------------------------
+#····································································
 } # bin.den
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname bin.den  
 #' @param object (gridded data) used to select a method.
 #' @param ... further arguments passed to or from other methods.
 #' @export
-as.bin.den <- function(object, ...) UseMethod("as.bin.den")
-# S3 generic function as.bin.den
-#--------------------------------------------------------------------
+#····································································
+as.bin.den <- function(object, ...) {
+  UseMethod("as.bin.den")
+} # S3 generic function as.bin.den
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname bin.den 
 #' @method as.bin.den data.grid
 #' @param weights.ind integer or character with the index or name of the component 
 #'  containing the bin counts/weights.
 #' @export
 as.bin.den.data.grid <- function(object, weights.ind = 1, ...) {
-  #--------------------------------------------------------------------
+#····································································
   if (!inherits(object, "data.grid"))
     stop("function only works for objects of class (or extending) 'data.grid'")
   x <- coords(object$grid)   
@@ -102,12 +109,12 @@ as.bin.den.data.grid <- function(object, weights.ind = 1, ...) {
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname bin.den  
 #' @method as.bin.den bin.den
 #' @export
 as.bin.den.bin.den <- function(object, ...) {
-#--------------------------------------------------------------------
+#····································································
   if (inherits(object, "svar.bin")) {
     warning("Conversion not yet implemented; using 'as.bin.den.data.grid()'...")
     return(as.bin.den.data.grid(object, weights.ind = 'binw'))
@@ -120,9 +127,9 @@ as.bin.den.bin.den <- function(object, ...) {
 
 
 
-#--------------------------------------------------------------------
+#····································································
 # np.den(x, ...)
-#--------------------------------------------------------------------
+#····································································
 #' Local polynomial density estimation 
 #' 
 #' Estimates a multidimensional probability density function (and its first derivatives) 
@@ -142,23 +149,23 @@ as.bin.den.bin.den <- function(object, ...) {
 #'    \item{\code{ncv} number of cells ignored (in each dimension).}
 #' }}
 #' \item{deriv}{(if requested) matrix of first derivatives.} 
-#' @seealso \code{\link{bin.den}}, \code{\link{binning}}, \code{\link{data.grid}}.
-#' @examples 
-#' bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30))
-#' hden <- h.cv(as.bin.den(bin)) 
-#' den <- np.den(bin, h = hden$h)
-#' ## Equivalent to:
-#' ## den <- np.den(earthquakes[, c("lon", "lat")], h = hden$h, nbin = c(30,30))
-#'
+#' @seealso \code{\link{bin.den}}, \code{\link{binning}}, \code{\link{h.cv}}, 
+#' \code{\link{data.grid}}.
+#' @examples
+#' bin.den <- binning(earthquakes[, c("lon", "lat")], nbin = c(30,30))
+#' h.den <- h.cv(bin.den) 
+#' den <- np.den(bin.den, h = h.den$h)
 #' plot(den, main = 'Estimated log(density)')
 #' @export
-np.den <- function(x, ...) UseMethod("np.den")
-#--------------------------------------------------------------------
+#····································································
+np.den <- function(x, ...) {
+  UseMethod("np.den")
+}
 
 
-#--------------------------------------------------------------------
+#····································································
 # np.den.default(x, nbin = NULL, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, ncv = 0, ...) {    
-#--------------------------------------------------------------------
+#····································································
 #' @rdname np.den
 #' @method np.den default
 #' @inheritParams locpol.default
@@ -185,9 +192,9 @@ np.den.default <- function(x, nbin = NULL, h = NULL, degree = 1 + as.numeric(drv
 }
 
 
-#--------------------------------------------------------------------
-# np.den.bin.den(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, ncv = 0, ...) {    
-#--------------------------------------------------------------------
+#····································································
+# np.den.bin.den(x, h, degree, drv, ncv, ...) ----    
+#····································································
 #' @rdname np.den
 #' @method np.den bin.den
 #' @export
@@ -195,26 +202,26 @@ np.den.bin.den <- locpol.bin.den
 
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname np.den
 #' @method np.den bin.data
 #' @export
 np.den.bin.data <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, 
                               ncv = 0, ...) {    
-#--------------------------------------------------------------------
+#····································································
     result <- np.den.bin.den(x, h = h, degree = degree, drv = drv, ncv = ncv, ...)
     oldClass(result) <- c("np.den", "bin.data", "bin.den", "data.grid")
     return(result)
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname np.den
 #' @method np.den svar.bin
 #' @export
 np.den.svar.bin <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALSE, 
                               ncv = 0, ...) {    
-#--------------------------------------------------------------------
+#····································································
     result <- np.den.bin.den(x, h = h, degree = degree, drv = drv, ncv = ncv, ...)
     oldClass(result) <- c("np.den", "svar.bin", "bin.data", "bin.den", "data.grid")
     return(result)

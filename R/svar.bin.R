@@ -1,20 +1,22 @@
-#--------------------------------------------------------------------
+#····································································
 #   svar.bin.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   svar.bin        S3 class and methods
 #       svar.bin.default(x, y, maxlag, nlags, minlag, estimator, ...)   
 #   svariso(x, y, maxlag, nlags, minlag, estimator, ...)   
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - S3 generic ?
-#--------------------------------------------------------------------
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 # svar.bin(x, ...)
-#--------------------------------------------------------------------
+#····································································
 #' Linear binning of semivariances
 #' 
 #' Creates a \code{svar.bin} (binned semivar. + grid parameters) object with 
@@ -49,11 +51,12 @@
 #' \code{\link{data.grid}}, \code{\link{binning}}, \code{\link{locpol}},
 #' \code{\link{rule.svar}}.
 #' @export
-svar.bin <- function(x, ...) UseMethod("svar.bin")
-# S3 generic function svar.bin
+svar.bin <- function(x, ...) {
+  UseMethod("svar.bin")
+} # S3 generic function svar.bin
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname svar.bin
 #' @aliases svar.bin.default iso.svar svariso
 #' @inheritParams np.svar.default
@@ -68,7 +71,7 @@ svar.bin.default <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/
 #
 #   Devuelve la rejilla binning (lineal) para la estimacion np de un semivariograma isotropico
 #   Se puede emplear para estimacion clasica/robusta
-#--------------------------------------------------------------------
+#····································································
     y <- as.numeric(y)
     ny <- length(y)                       # number of data
     x <- as.matrix(x)
@@ -110,15 +113,17 @@ svar.bin.default <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/
     result$svar <- list(type = "isotropic", estimator = estimator)
     oldClass(result) <- c("svar.bin", "bin.data", "bin.den", "data.grid")
     return(result)
-#--------------------------------------------------------------------
+#····································································
 } # svariso, svar.bin.default
 
 
 
-#--------------------------------------------------------------------
+#····································································
+# svariso(x, y, maxlag, nlags, minlag, estimator, ...) ----
+#····································································
 #' @rdname svar.bin
 #' @export
 svariso <- svar.bin.default
-#--------------------------------------------------------------------
+#····································································
 
 

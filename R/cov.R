@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   cov.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   covar(x, h, ...)  S3 generic
 #       covar.svarmod(x, h, sill = x$sill, ...)
 #       covar.np.svar(x, h, sill = NULL, ...)
@@ -10,12 +10,14 @@
 #
 #   (c) R. Fernandez-Casal
 #   Created: Apr 2013
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
-#--------------------------------------------------------------------
-#   covar(x, h, ...)
-#--------------------------------------------------------------------
+#····································································
+#   covar(x, h, ...) ----
+#····································································
 #' Covariance values 
 #' 
 #' Computes covariance values (or pseudo-covariances) given a variogram model
@@ -30,17 +32,18 @@
 #' @seealso
 #' \code{\link{sv}}, \code{\link{varcov}}.
 #' @export
-#--------------------------------------------------------------------
-covar  <- function(x, h, ...) UseMethod("covar")
+#····································································
+covar  <- function(x, h, ...) {
+  UseMethod("covar")
+}
 
 
-
-#--------------------------------------------------------------------
+#····································································
 #' @rdname covar  
 #' @method covar svarmod
 #' @param  discretize logical. If \code{TRUE} the variogram is previously discretized. 
 #' @export
-#--------------------------------------------------------------------
+#····································································
 covar.svarmod  <- function(x, h, sill = x$sill, discretize = FALSE, ...) {
     if (!inherits(x, "svarmod"))
         stop("argument 'x' must be of class (or extending) 'svarmod'.")
@@ -53,11 +56,11 @@ covar.svarmod  <- function(x, h, sill = x$sill, discretize = FALSE, ...) {
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname covar  
 #' @method covar np.svar
 #' @export
-#--------------------------------------------------------------------
+#····································································
 covar.np.svar  <- function(x, h, sill = NULL, ...) {
     if (!inherits(x, "np.svar"))
         stop("argument 'x' must be of class (or extending) 'np.svar'.")
@@ -72,9 +75,9 @@ covar.np.svar  <- function(x, h, sill = NULL, ...) {
 
 
 
-#--------------------------------------------------------------------
-#   varcov(x, coords, ...)
-#--------------------------------------------------------------------
+#····································································
+#   varcov(x, coords, ...) ----
+#····································································
 #' Covariance matrix 
 #' 
 #' Computes the covariance matrix a corresponding to a set of spatial locations 
@@ -88,11 +91,13 @@ covar.np.svar  <- function(x, h, sill = NULL, ...) {
 #' @seealso
 #' \code{\link{sv}}, \code{\link{covar}}.
 #' @export
-#--------------------------------------------------------------------
-varcov <- function(x, coords, ...)  UseMethod("varcov")
+#····································································
+varcov <- function(x, coords, ...)  {
+  UseMethod("varcov")
+}
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname varcov
 #' @method varcov isotropic
 #' @param  sill  (theoretical or estimated) variance \eqn{C(0) = \sigma^2} or pseudo-sill (unbounded variograms).
@@ -102,7 +107,7 @@ varcov <- function(x, coords, ...)  UseMethod("varcov")
 #' @export
 varcov.isotropic <- function(x, coords, sill = x$sill, range.taper, 
                              discretize = nrow(coords) > 256, ...) {
-  #--------------------------------------------------------------------
+  #····································································
   if(missing(coords)) 
     stop("argument 'coords' (spatial coordinates) must be provided")
   coords <- as.matrix(coords)
@@ -122,12 +127,12 @@ varcov.isotropic <- function(x, coords, sill = x$sill, range.taper,
 }  
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname varcov
 #' @method varcov np.svar
 #' @export
 varcov.np.svar <- function(x, coords, sill = max(x$est), range.taper = x$grid$max, ...) {
-#-------------------------------------------------------------------- 
+#···································································· 
     n <- nrow(coords)
     dists <- as.vector(dist(coords))   # lower triangle of the distance matrix    
     if(range.taper > 0) {

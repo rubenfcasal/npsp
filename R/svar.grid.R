@@ -1,18 +1,20 @@
-#--------------------------------------------------------------------
+#····································································
 #   svar.grid (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   svar.grid(svar, log, ...)  S3 generic
 #       svar.grid.fitsvar(svar, log, ...)
 #       svar.grid.svarmod(svar, n, min, max, log, ...)
 #
 #   (c) R. Fernandez-Casal
 #   Created: May 2017
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #   svar.grid(svar, log, ...)
-#--------------------------------------------------------------------
+#····································································
 #' Discretize a (semi)variogram model
 #' 
 #' Discretizes a variogram model (to speed up variogram evaluation). 
@@ -23,18 +25,24 @@
 #' @param  log logical. If \code{TRUE}, the variogram is discretized
 #' in  (base 2) logarithmic scale.
 #' @param  ... further arguments passed to or from other methods.
+#' @return 
+#' A \code{svar.grid-\link{class}} object extending \code{svarmod},
+#' \code{bin.den} and \code{data.grid} classes.
+#' @seealso \code{\link{svarmod}}, \code{\link{bin.den}}, \code{\link{data.grid}}.
 #' @export
-#----------------------------------------------------------------------
-svar.grid  <- function(svar, log = TRUE, ...) UseMethod("svar.grid")
-#----------------------------------------------------------------------
+#····································································
+svar.grid  <- function(svar, log = TRUE, ...) {
+  UseMethod("svar.grid")
+}
+#····································································
 
 
-#----------------------------------------------------------------------
+#····································································
 # @rdname svar.grid
 # @method svar.grid fitsvar
 # @export
 # svar.grid.fitsvar <- function(svar, log = TRUE, ...){
-#   #----------------------------------------------------------------------
+#   #····································································
 #   if (!inherits(svar, "fitsvar"))
 #     stop("function only works for objects of class (or extending) 'fitsvar'.")
 #   # if (esv$svar$type != "isotropic")
@@ -57,7 +65,7 @@ svar.grid  <- function(svar, log = TRUE, ...) UseMethod("svar.grid")
 # }
 
 
-#----------------------------------------------------------------------
+#····································································
 #' @rdname svar.grid  
 #' @method svar.grid svarmod
 #' @param  n number of lags. Defaults to 256. 
@@ -66,7 +74,7 @@ svar.grid  <- function(svar, log = TRUE, ...) UseMethod("svar.grid")
 #' @export
 svar.grid.svarmod <- function(svar, log = TRUE, n = 256, min = 10*.Machine$double.eps, 
                               max = 1.1*svar$range, ...){
-  #----------------------------------------------------------------------
+  #····································································
   if (!inherits(svar, "svarmod"))
     stop("function only works for objects of class (or extending) 'svarmod'.")
   if (!inherits(svar,"isotropic"))

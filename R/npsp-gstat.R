@@ -1,7 +1,7 @@
-#--------------------------------------------------------------------
+#····································································
 #   npsp-gstat.R (npsp package)
 #   trying to KISS (keep it small and simple) gstat
-#--------------------------------------------------------------------
+#····································································
 #   as.vgm()  S3 generic
 #       as.vgm.variomodel(x, ...)
 #       as.vgm.svarmod(x, ...)
@@ -9,10 +9,12 @@
 #   vgm.tab.svarmod(x, h, sill, ...)
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 # PENDENTE:
 #   - @examples
-#--------------------------------------------------------------------
+#····································································
 
 
 #' @name npsp-gstat
@@ -31,15 +33,19 @@ NULL
 #' defined in \pkg{gstat}).
 #' @param  x   variogram model object (used to select a method).
 #' @param  ... further arguments passed to or from other methods.
+#' @return 
+#' A \code{variogramModel}-\code{\link{class}} object of the \pkg{gstat} package.
 #' @seealso
 #' \code{\link[gstat]{vgm}}, \code{\link{svarmod}}.
 #' @export
-#--------------------------------------------------------------------
-as.vgm <- function(x, ...) UseMethod("as.vgm")
+#····································································
+as.vgm <- function(x, ...) {
+  UseMethod("as.vgm")
+}
 # PENDENTE: @examples
-#--------------------------------------------------------------------
+#····································································
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-gstat
 #' @method as.vgm variomodel
 #' @export
@@ -73,20 +79,22 @@ as.vgm.variomodel <- function(x, ...) {
 #
 # gstat::vgm(psill, model, range, nugget, add.to, anis, kappa = 0.5, ..., covtable)
 #
-#--------------------------------------------------------------------
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-gstat
 #' @method as.vgm svarmod
 #' @export
-as.vgm.svarmod <- function(x, ...)  as.vgm.variomodel(as.variomodel.svarmod(x))
-#--------------------------------------------------------------------
+as.vgm.svarmod <- function(x, ...)  {
+  as.vgm.variomodel(as.variomodel.svarmod(x))
+}
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 # vgm.tab.svarmod(x, h = seq(0, x$range, length = 1000), sill = x$sill, ...)
-#--------------------------------------------------------------------
+#····································································
 #' @rdname npsp-gstat
 #' @param  h vector of lags at which the covariogram is evaluated.
 #' @param  sill  sill of the covariogram (or pseudo-sill).
@@ -95,7 +103,7 @@ as.vgm.svarmod <- function(x, ...)  as.vgm.variomodel(as.variomodel.svarmod(x))
 #' (one-dimensional covariance table). 
 #' @export
 vgm.tab.svarmod <- function(x, h = seq(0, x$range, length = 1000), sill = x$sill, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!requireNamespace("gstat")) stop("'gstat' package required.")
     if (!inherits(x, "svarmod"))
         stop("argument 'x' must be of class (or extending) 'svarmod'.")
@@ -117,7 +125,9 @@ vgm.tab.svarmod <- function(x, h = seq(0, x$range, length = 1000), sill = x$sill
 #}
 
 
-#--------------------------------------------------------------------
+#····································································
+# as.vgm.sb.iso ----
+#····································································
 #' @rdname npsp-gstat
 #' @method as.vgm sb.iso
 #' @details \code{as.vgm.sb.iso} is an alias of \code{vgm.tab.svarmod}.
@@ -127,4 +137,4 @@ as.vgm.sb.iso <- vgm.tab.svarmod
 #     as.vgm.svarmod(x, length.table = 1000, max = x$range, sill = x$sill, ...)
 #     @param  length.table  number of discretization points.
 #     @param  max   maximum lag at which the covariogram is evaluated.
-#--------------------------------------------------------------------
+#····································································

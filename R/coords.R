@@ -1,6 +1,6 @@
-#--------------------------------------------------------------------
+#····································································
 #   coords.R (npsp package)
-#--------------------------------------------------------------------
+#····································································
 #   coords  S3 generic
 #           coords.grid.par(x, ...)
 #           coords.data.grid(x, ...)
@@ -10,10 +10,12 @@
 #
 #   (c) Ruben Fernandez-Casal
 #   Created: Aug 2012
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
-#--------------------------------------------------------------------
+#····································································
 #' (spatial) coordinates
 #'
 #' Retrieves the (spatial) coordinates of the object.
@@ -23,12 +25,13 @@
 #' @return A matrix of coordinates (columns correspond with dimensions and rows with data).
 #' @seealso \code{\link{coordvalues}}.
 #' @export
-coords <- function(x, ...) UseMethod("coords")
-# S3 generic function coordinates
+#····································································
+coords <- function(x, ...) {
+  UseMethod("coords")
+} # S3 generic function coords
 # PENDENTE: renomear, deberia funcionar como 'coordinates' dentro do NAMESPACE
-#--------------------------------------------------------------------
 
-#--------------------------------------------------------------------
+#····································································
 #' Coordinate values
 #'
 #' Returns the coordinate values in each dimension.
@@ -37,22 +40,23 @@ coords <- function(x, ...) UseMethod("coords")
 #' @return A list with the (unique) coordinates along each axis.
 #' @seealso \code{\link{coords}}.
 #' @export
-coordvalues <- function(x, ...) UseMethod("coordvalues")
-# S3 generic function coordsvalues
+#····································································
+coordvalues <- function(x, ...) {
+  UseMethod("coordvalues")
+} # S3 generic function coordsvalues
 # PENDENTE: renombrar 'coordinatevalues'?
-#--------------------------------------------------------------------
 
 
-#--------------------------------------------------------------------
-# grid.par
-#--------------------------------------------------------------------
+#····································································
+# grid.par ----
+#····································································
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname coords
 #' @method coords grid.par
 #' @export
 coords.grid.par <- function(x, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "grid.par"))
       stop("function only works for objects of class (or extending) 'grid.par'")
     co <- coordvalues.grid.par(x)
@@ -62,12 +66,12 @@ coords.grid.par <- function(x, ...) {
 }
 
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname coordvalues
 #' @method coordvalues grid.par
 #' @export
 coordvalues.grid.par <- function(x, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!inherits(x, "grid.par"))
       stop("function only works for objects of class (or extending) 'grid.par'")
     result <- list()
@@ -77,18 +81,18 @@ coordvalues.grid.par <- function(x, ...) {
 }
 
 
-#--------------------------------------------------------------------
-# data.grid
-#--------------------------------------------------------------------
+#····································································
+# data.grid ----
+#····································································
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname coords
 #' @method coords data.grid
 #' @param  masked logical; If \code{TRUE}, only the coordinates corresponding
 #' to unmasked cells are returned (see \code{\link{mask}}).
 #' @export
 coords.data.grid <- function(x, masked = FALSE, ...) {
-#--------------------------------------------------------------------
+#····································································
 # COIDADO: variable mask en data grid
     if (!is(x, "data.grid"))
       stop("function only works for objects of class (or extending) 'data.grid'")
@@ -97,12 +101,12 @@ coords.data.grid <- function(x, masked = FALSE, ...) {
     return(res)
 }
 
-#--------------------------------------------------------------------
+#····································································
 #' @rdname coordvalues
 #' @method coordvalues data.grid
 #' @export
 coordvalues.data.grid <- function(x, ...) {
-#--------------------------------------------------------------------
+#····································································
     if (!is(x, "data.grid"))
       stop("function only works for objects of class (or extending) 'data.grid'")
     return( coordvalues.grid.par(x$grid) )

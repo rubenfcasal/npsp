@@ -1,14 +1,19 @@
-#--------------------------------------------------------------------
+#····································································
 #   npsp-package.R
-#--------------------------------------------------------------------
+#····································································
 #   npsp-package
 #   earthquakes
 #   aquifer
 #
 #   (c) R. Fernandez-Casal
-#--------------------------------------------------------------------
+#
+#   NOTE: Press Ctrl + Shift + O to show document outline in RStudio
+#····································································
 
 
+#····································································
+# npsp-package ----
+#····································································
 #' npsp: Nonparametric spatial (geo)statistics
 #'
 #' This package implements nonparametric methods 
@@ -72,13 +77,13 @@
 #' There are also some functions which can be used to interact with other packages.
 #' For instance, \code{\link{as.variogram}} (\pkg{geoR}) or \code{\link{as.vgm}} (\pkg{gstat}).
 #'
-#' @author Ruben Fernandez-Casal (Dep. Mathematics, University of A Coru\~{n}a, Spain).
+#' @author Ruben Fernandez-Casal (Dep. Mathematics, University of A Coruña, Spain).
 #' Please send comments, error reports or suggestions to \email{rubenfcasal@@gmail.com}.
 #' 
 #' @section Acknowledgments:
 #' Important suggestions and contributions to some techniques included here were
 #' made by Sergio Castillo-Paez (Universidad de las Fuerzas Armadas ESPE, Ecuador) 
-#' and Tomas Cotos-Ya\~{n}ez (Dep. Statistics, University of Vigo, Spain).
+#' and Tomas Cotos-Yañez (Dep. Statistics, University of Vigo, Spain).
 #' @name npsp-package
 #' @aliases npsp
 #' @docType package
@@ -131,6 +136,9 @@ NULL
 
 
 
+#····································································
+# earthquakes ----
+#····································································
 #' Earthquake data
 #'
 #' The data set consists of 1859 earthquakes (with magnitude above or equal to
@@ -164,6 +172,9 @@ NULL
 
 
 
+#····································································
+# aquifer ----
+#····································································
 #' Wolfcamp aquifer data
 #'
 #' @description 
@@ -197,12 +208,15 @@ NULL
 #' Cressie, N. (1993) \emph{Statistics for Spatial Data}. New York. Wiley.
 #' @keywords datasets
 #' @examples
-#' str(aquifer)
+# str(aquifer)
 #' summary(aquifer)
 #' with(aquifer, spoints(lon, lat, head, main = "Wolfcamp aquifer"))
 NULL
 
 
+#····································································
+# precipitation ----
+#····································································
 #' Precipitation data
 #'
 #' The data set consists of total precipitations during March 2016
@@ -235,7 +249,7 @@ NULL
 #' \emph{Spa. Sta.}, \doi{10.1016/j.spasta.2017.04.001}.
 #' @keywords datasets
 #' @examples
-#' str(precipitation)
+# str(precipitation)
 #' summary(precipitation)
 #' scattersplot(precipitation)
 NULL
