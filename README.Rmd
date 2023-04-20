@@ -7,7 +7,12 @@ README.md is generated from README.Rmd.
 Please edit that file 
 
 devtools::check(getwd()) # Avoids problems with "Onedrive - Universidade da Coruña"
+
 -->
+```{r include=FALSE}
+# Create .nojekyll file in the /docs folder
+file.create('docs/.nojekyll')
+```
 
 npsp: Nonparametric spatial (geo)statistics
 ============================================
