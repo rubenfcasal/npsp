@@ -41,13 +41,45 @@ np.kriging <- function(object, ...) {
 #' @rdname np.kriging  
 #' @method np.kriging default
 #' @param svm semivariogram model (of class extending \code{\link{svarmod}}).
-# or covariance matrix of the data.
+#  or covariance matrix of the data.
 #' @param  ngrid number of grid nodes in each dimension. 
 #' @param lp.resid  residuals (defaults to \code{residuals(object)}).
+#' @param intermediate logical, determines whether the intermediate computations 
+#' are included in the output (component \code{kriging}; see Value). 
+#' These calculations can be reused, e.g. for bootstrap.
+#' @return 
+#' \code{np.kriging()}, and \code{kriging.simple()} when \code{newx} defines 
+#' gridded data (extends \code{grid.par} or \code{data.grid} classes),
+#' returns an S3 object of class \code{krig.grid} (kriging results + grid par.). 
+#' A \code{\link{data.grid}} object with the additional (some optional) components:
+#' \item{kpred}{vector or array (dimension \code{$grid$n}) with the kriging predictions. }
+#' \item{ksd}{vector or array with the kriging standard deviations. }
+#' \item{kriging}{(if requested) a list with 4 components:
+#' \itemize{
+#'    \item{\code{lambda} matrix of kriging weights (columns correspond with predictions 
+#'    and rows with data)).}
+#'    \item{\code{cov.est} (estimated) covariance matrix of the data.}
+#'    \item{\code{chol} Cholesky factorization of \code{cov.est}.}
+#'    \item{\code{cov.pred} matrix of (estimated) covariances between data (rows) 
+#'    and predictions (columns).}
+#' }}
+#' When \code{newx} is a matrix of coordinates (where each row is a prediction location),
+#' \code{kriging.simple()} returns a list with the previous components (\code{kpred}, \code{ksd} 
+#' and, if requested, \code{kriging}).
+#' @examples 
+#' geomod <- np.fitgeo(aquifer[,1:2], aquifer$head)
+#' krig.grid <- np.kriging(geomod, ngrid = c(96, 96)) # 9216 locations
+#' old.par <- par(mfrow = c(1,2))
+#' simage(krig.grid, 'kpred', main = 'Kriging predictions', 
+#'        xlab = "Longitude", ylab = "Latitude", reset = FALSE )
+#' simage(krig.grid, 'ksd', main = 'Kriging sd', xlab = "Longitude", 
+#'        ylab = "Latitude" , col = hot.colors(256), reset = FALSE)
+#' par(old.par)
 #' @seealso \code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{np.svar}}.
 #' @export
 #····································································
-np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...) {
+np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid$n, 
+                               intermediate = FALSE, ...) {
   stopifnot(inherits(object, "locpol.bin" ))
   if (!is.null(object$mask) && is.null(object$window)) # Interpolar mask?
       warning("A resized 'object' can not be masked (`ngrid != object$grid$n`).")
@@ -58,7 +90,8 @@ np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid
   }  
   if (is.null(lp.resid))
     lp.resid <- if(inherits(svm, "fitsvar")) svm$esv$data$y else residuals(object)
-  krig.grid <- kriging.simple(x = object$data$x, y = lp.resid, newx = object, svm = svm)
+  krig.grid <- kriging.simple(x = object$data$x, y = lp.resid, newx = object, 
+                              svm = svm, intermediate = intermediate)
   krig.grid$kpred <- object$est + krig.grid$kpred
   krig.grid$trend <- object$est
   if (!is.null(object$mask)) is.na(krig.grid$ksd) <- !object$mask
@@ -72,21 +105,25 @@ np.kriging.default <- function(object, svm, lp.resid = NULL, ngrid = object$grid
 #' @method np.kriging np.geo
 #' @export
 #····································································
-np.kriging.np.geo <- function(object, ngrid = object$grid$n, ...) {
-  return(
-    np.kriging.default(object, object$svm, object$residuals, ngrid = ngrid, ...)
-  )}
+np.kriging.np.geo <- function(object, ngrid = object$grid$n, 
+                              intermediate = FALSE, ...) {
+  np.kriging.default(object, object$svm, object$residuals, ngrid = ngrid, 
+                       intermediate = intermediate, ...)
+}
 
 
 #' @rdname np.kriging
 #' @inheritParams locpol.default
+#' @param x vector/matrix with data locations
+#'    (each component/row is an observation location). 
 #' @param newx vector/matrix with the (irregular) locations to predict 
-#'    (columns correspond with dimensions and rows with locations) 
+#'    (each component/row is a prediction location). 
 #'    or an object extending \code{\link{grid.par}}-\code{\link{class}}
 #'    (\code{\link{data.grid}}).
 #' @export
 #····································································
-kriging.simple <- function(x, y, newx, svm) {
+# res <- krig.grid$kriging
+kriging.simple <- function(x, y, newx, svm, intermediate = FALSE) {
   x <- as.matrix(x)
   if ( !identical(length(y), nrow(x)) )
     stop("arguments 'y' and 'x' do not have the same length.")  
@@ -95,27 +132,28 @@ kriging.simple <- function(x, y, newx, svm) {
     grid <- if(inherits(newx, "grid.par")) newx else newx$grid
     newx <- coords(newx)
   }
-  res <- kriging.simple.solve(x = x, newx = newx, svm = svm)
+  res <- .kriging.simple.solve(x = x, newx = newx, svm = svm)
   kpred <- drop(y %*% res$lambda)
   ksd2 <- with(res, cov.est[1,1] - colSums( lambda * cov.pred ))
+  # ksd2 <- with(res, cov.est[1,1] - spam::colSums.spam( lambda * cov.pred ))
+  # ksd2 <- with(res, spam::diag(cov.est) - spam::colSums.spam( lambda * cov.pred ))
   if (gridded) {
-    krig.grid <- data.grid(kpred = kpred, ksd = sqrt(ksd2), grid = grid)
-    # krig.grid$kpred <- kpred
-    # krig.grid$ksd <- sqrt(ksd2)
-    krig.grid$kriging <- res
-    oldClass(krig.grid) <- c("krig.grid", oldClass(krig.grid))
-    return(krig.grid)    
+    result <- data.grid(kpred = kpred, ksd = sqrt(ksd2), grid = grid)
+    oldClass(result) <- c("krig.grid", oldClass(result))
   } else {
-    return(list(kpred = kpred, ksd = sqrt(ksd2), 
-                kriging = res)) 
+    result <- list(kpred = kpred, ksd = sqrt(ksd2)) 
   }
+  if (intermediate) result$kriging <- res
+  return(result)
 }
 
 
-#' @rdname np.kriging
-#' @export
+#' @rdname npsp-internals
+#' @inheritParams kriging.simple
+#' @keywords internal
 #····································································
-kriging.simple.solve <- function(x, newx, svm) {
+.kriging.simple.solve <- function(x, newx, svm) {
+# .DNRM2_R <- npsp:::.DNRM2_R  
 # Evitar recalcular matriz de covarianza y factorizacion
   # spam = TRUE
   # newx = FALSE -> CV? chol2inv.spam
@@ -126,39 +164,21 @@ kriging.simple.solve <- function(x, newx, svm) {
   if(ncol(x) != ncol(newx))
     stop("arguments 'x' and 'newx' have incompatible dimensions")
   # Covariance matrix of the data
-  cov.est <-  varcov(svm, coords = x)
+  # cov.est <-  varcov(svm, coords = x)
+  cov.est <-  spam::as.spam(varcov(svm, coords = x))
   # Covariances between prediction grid points and data
   dist2 <- as.numeric(.DNRM2_R(newx, x))
   cov.pred <- matrix(covar(svm, dist2, discretize = TRUE), nrow = nrow(x))
+  # cov.pred <- spam::as.spam(matrix(covar(svm, dist2, discretize = TRUE), nrow = nrow(x)))
   # Kriging system
-  # U.est <- chol(cov.est) # Interface to the LAPACK routines DPOTRF and DPSTRF,
-  ## Time of last operation: 
-  ##    user  system elapsed 
-  ##   20.00    1.03   22.10
-  # cov.inv.est <- chol2inv(U.est) # Interface to the LAPACK routine DPOTRI.
-  # lambda <- cov.inv.est %*% cov.pred
-  ## Time of last operation: 
-  ##    user  system elapsed 
-  ##   16.03    0.12   16.25
-  # L.est <- t(U.est)
-  # lambda.pred2 <- backsolve(U.est,
-  #                forwardsolve(L.est, cov.pred))
-  ## Time of last operation: backsolve
-  ##    user  system elapsed
-  ##   20.57    0.08   20.65
-  # lambda <- .DPOSV_R(cov.est, cov.pred)
-  # # Time of last operation:
-  # #  user  system elapsed
-  # # 29.50    0.02   44.99
-  # library(Matrix)
-  # lambda <- solve(as(cov.est, "dpoMatrix"), cov.pred)
-  ## Time of last operation: 
-  ##  user  system elapsed 
-  ## 28.72    0.14   37.75
   # library(spam)
   if (!requireNamespace("spam")) stop("'spam' package must be installed...")
-  chol <- spam::chol.spam(spam::as.spam(cov.est))
-  lambda <- spam::solve.spam(chol, cov.pred)
+  # chol <- spam::chol.spam(spam::as.spam(cov.est))
+  chol <- spam::chol.spam(cov.est)
+  lambda <- spam::solve.spam(chol, spam::as.spam(cov.pred))
+  # lambda <- spam::solve.spam(chol, cov.pred)
   # res <- solve.spam(chol, as.spam(cov.pred))
   return(list(lambda = lambda, cov.est = cov.est, chol = chol, cov.pred = cov.pred))
 }
+
+
