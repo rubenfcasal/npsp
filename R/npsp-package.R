@@ -90,9 +90,8 @@
 # @useDynLib npsp
 #' @useDynLib npsp, .registration = TRUE
 #' @importFrom quadprog solve.QP
-#' @importFrom spam as.spam
-#' @importFrom spam chol.spam
-#' @importFrom spam solve.spam
+#' @importFrom spam as.spam chol.spam solve.spam colSums.spam
+#' @importMethodsFrom spam * %*%
 #' @import graphics
 #' @import sp
 #' @importFrom grDevices colorRamp colorRamp rainbow rgb
