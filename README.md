@@ -2,13 +2,11 @@
 <!-- 
 README.md is generated from README.Rmd. 
 Please edit that file 
-
-devtools::check(getwd()) # Avoids problems with "Onedrive - Universidade da Coruña"
 -->
 
 # npsp: Nonparametric spatial (geo)statistics
 
-### Version 0.7.10
+### Version 0.7.11
 
 This package implements nonparametric methods for inference on
 multidimensional spatial (or spatio-temporal) processes, which may be
@@ -98,6 +96,13 @@ Alternatively, Windows users may install the corresponding
 *npsp_X.Y.Z.zip* file in the [releases
 section](https://github.com/rubenfcasal/npsp/releases/latest) of the
 github repository.
+
+For R versions 4.2.x under Windows:
+
+``` r
+install.packages('https://github.com/rubenfcasal/npsp/releases/download/v0.7-10/npsp_0.7-10.zip',
+                 repos = NULL)
+```
 
 ## Author
 
