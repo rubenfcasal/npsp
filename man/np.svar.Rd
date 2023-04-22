@@ -71,6 +71,7 @@ np.svariso.corr(
   tol = 0.05,
   max.iter = 10,
   plot = FALSE,
+  verbose = plot,
   ylim = c(0, 2 * max(svar$biny, na.rm = TRUE))
 )
 }
@@ -116,7 +117,11 @@ relative squared diferences is less than \code{tol}. Defaults to 0.04.}
 
 \item{max.iter}{maximum number of iterations. Defaults to 10.}
 
-\item{plot}{logical; if \code{TRUE}, the estimates obtained at each iteration are plotted.}
+\item{plot}{logical; if \code{TRUE}, the estimates obtained at each iteration 
+are plotted.}
+
+\item{verbose}{logical; if \code{TRUE}, the errors (averages of the 
+relative squared diferences) at each iteration are printed.}
 
 \item{ylim}{y-limits of the plot (if \code{plot == TRUE}).}
 }
