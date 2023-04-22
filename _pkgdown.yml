@@ -67,7 +67,6 @@ reference:
     contents:
       - np.kriging 
       - kriging.simple 
-      - kriging.simple.solve 
   - title: "Gridded data"
     desc: "S3 class `data.grid` and methods."
     contents:
@@ -119,4 +118,5 @@ reference:
       - rule.binning 
       - rule.svar 
       - cpu.time 
+      - internals
 

@@ -21,6 +21,7 @@
 # grid.par ----
 #····································································
 #' @name npsp-internals
+#' @aliases internals
 #' @aliases print.grid.par
 #' @title npsp internal and secondary functions
 #' @description Listed below are supporting functions for the major methods in npsp.
