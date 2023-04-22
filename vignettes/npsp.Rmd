@@ -302,16 +302,14 @@ spatial prediction, by using method `np.kriging()`.
 
 
 ```{r kriging, fig.height=4, fig.width=12}
-
 krig.grid <- np.kriging(geomod, ngrid = c(120, 120))
 # Plot kriging predictions and kriging standard deviations
 old.par <- par(mfrow = c(1,2), omd = c(0.0, 0.98, 0.0, 1))
-krig.grid2 <- krig.grid
-simage(krig.grid2, 'kpred', main = 'Kriging predictions', slim = slim,
+simage(krig.grid, 'kpred', main = 'Kriging predictions', slim = slim,
       xlab = "Longitude", ylab = "Latitude" , col = col, asp = 1, reset = FALSE)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
-simage(krig.grid2, 'ksd', main = 'Kriging sd', xlab = "Longitude", 
+simage(krig.grid, 'ksd', main = 'Kriging sd', xlab = "Longitude", 
        ylab = "Latitude" , col = hot.colors(256), asp = 1, reset = FALSE)
 plot(border, border = "darkgray", lwd = 2, add = TRUE)
 plot(interior, border = "lightgray", lwd = 1, add = TRUE)
