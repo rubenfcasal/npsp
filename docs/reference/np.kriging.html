@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
       </span>
     </div>
 
@@ -79,14 +79,19 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">np.kriging</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">np.kriging</span><span class="op">(</span><span class="va">object</span>, <span class="va">svm</span>, lp.resid <span class="op">=</span> <span class="cn">NULL</span>, ngrid <span class="op">=</span> <span class="va">object</span><span class="op">$</span><span class="va">grid</span><span class="op">$</span><span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">np.kriging</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">svm</span>,</span>
+<span>  lp.resid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ngrid <span class="op">=</span> <span class="va">object</span><span class="op">$</span><span class="va">grid</span><span class="op">$</span><span class="va">n</span>,</span>
+<span>  intermediate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for np.geo</span></span>
-<span><span class="fu">np.kriging</span><span class="op">(</span><span class="va">object</span>, ngrid <span class="op">=</span> <span class="va">object</span><span class="op">$</span><span class="va">grid</span><span class="op">$</span><span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">np.kriging</span><span class="op">(</span><span class="va">object</span>, ngrid <span class="op">=</span> <span class="va">object</span><span class="op">$</span><span class="va">grid</span><span class="op">$</span><span class="va">n</span>, intermediate <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">kriging.simple</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">newx</span>, <span class="va">svm</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">kriging.simple.solve</span><span class="op">(</span><span class="va">x</span>, <span class="va">newx</span>, <span class="va">svm</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">kriging.simple</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">newx</span>, <span class="va">svm</span>, intermediate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -113,8 +118,15 @@ or nonparametric geostatistical model (class extending <code><a href="np.geo.htm
 <dd><p>number of grid nodes in each dimension.</p></dd>
 
 
+<dt>intermediate</dt>
+<dd><p>logical, determines whether the intermediate computations 
+are included in the output (component <code>kriging</code>; see Value). 
+These calculations can be reused, e.g. for bootstrap.</p></dd>
+
+
 <dt>x</dt>
-<dd><p>a (data) object used to select a method.</p></dd>
+<dd><p>vector/matrix with data locations
+(each component/row is an observation location).</p></dd>
 
 
 <dt>y</dt>
@@ -123,16 +135,58 @@ or nonparametric geostatistical model (class extending <code><a href="np.geo.htm
 
 <dt>newx</dt>
 <dd><p>vector/matrix with the (irregular) locations to predict 
-(columns correspond with dimensions and rows with locations) 
+(each component/row is a prediction location). 
 or an object extending <code><a href="grid.par.html">grid.par</a></code>-<code><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></code>
 (<code><a href="data.grid.html">data.grid</a></code>).</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p><code>np.kriging()</code>, and <code>kriging.simple()</code> when <code>newx</code> defines 
+gridded data (extends <code>grid.par</code> or <code>data.grid</code> classes),
+returns an S3 object of class <code>krig.grid</code> (kriging results + grid par.). 
+A <code><a href="data.grid.html">data.grid</a></code> object with the additional (some optional) components:</p>
+<dl><dt>kpred</dt>
+<dd><p>vector or array (dimension <code>$grid$n</code>) with the kriging predictions.</p></dd>
+
+<dt>ksd</dt>
+<dd><p>vector or array with the kriging standard deviations.</p></dd>
+
+<dt>kriging</dt>
+<dd><p>(if requested) a list with 4 components:</p><ul><li><p><code>lambda</code> matrix of kriging weights (columns correspond with predictions 
+   and rows with data)).</p></li>
+<li><p><code>cov.est</code> (estimated) covariance matrix of the data.</p></li>
+<li><p><code>chol</code> Cholesky factorization of <code>cov.est</code>.</p></li>
+<li><p><code>cov.pred</code> matrix of (estimated) covariances between data (rows) 
+   and predictions (columns).</p></li>
+</ul></dd>
+
+</dl><p>When <code>newx</code> is a matrix of coordinates (where each row is a prediction location),
+<code>kriging.simple()</code> returns a list with the previous components (<code>kpred</code>, <code>ksd</code></p>
+ 
+
+<p>and, if requested, <code>kriging</code>).</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="np.fitgeo.html">np.fitgeo</a></code>, <code><a href="locpol.html">locpol</a></code>, <code><a href="np.svar.html">np.svar</a></code>.</p></div>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">geomod</span> <span class="op">&lt;-</span> <span class="fu"><a href="np.fitgeo.html">np.fitgeo</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">krig.grid</span> <span class="op">&lt;-</span> <span class="fu">np.kriging</span><span class="op">(</span><span class="va">geomod</span>, ngrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">96</span>, <span class="fl">96</span><span class="op">)</span><span class="op">)</span> <span class="co"># 9216 locations</span></span></span>
+<span class="r-in"><span><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="simage.html">simage</a></span><span class="op">(</span><span class="va">krig.grid</span>, <span class="st">'kpred'</span>, main <span class="op">=</span> <span class="st">'Kriging predictions'</span>, </span></span>
+<span class="r-in"><span>       xlab <span class="op">=</span> <span class="st">"Longitude"</span>, ylab <span class="op">=</span> <span class="st">"Latitude"</span>, reset <span class="op">=</span> <span class="cn">FALSE</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="simage.html">simage</a></span><span class="op">(</span><span class="va">krig.grid</span>, <span class="st">'ksd'</span>, main <span class="op">=</span> <span class="st">'Kriging sd'</span>, xlab <span class="op">=</span> <span class="st">"Longitude"</span>, </span></span>
+<span class="r-in"><span>       ylab <span class="op">=</span> <span class="st">"Latitude"</span> , col <span class="op">=</span> <span class="fu"><a href="splot.html">hot.colors</a></span><span class="op">(</span><span class="fl">256</span><span class="op">)</span>, reset <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="np.kriging-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

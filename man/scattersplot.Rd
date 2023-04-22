@@ -64,6 +64,9 @@ in normalized device coordinates (i.e. fractions of the device region).}
 
 \item{data.ind}{integer (or character) with the index (or name) of the data component.}
 }
+\value{
+No return value, called for side effects (generate the plot).
+}
 \description{
 Draws (in a 2 by 2 layout) the following plots: 
 a scatter plot with a color scale, the scatter plots of the response against the (first two) 

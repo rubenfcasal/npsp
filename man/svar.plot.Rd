@@ -65,6 +65,9 @@ to the existing plot.}
 
 \item{...}{additional graphical parameters (see \code{\link{par}}).}
 }
+\value{
+No return value, called for side effects (generate the plot).
+}
 \description{
 Utilities for plotting pilot semivariograms or fitted models.
 

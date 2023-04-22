@@ -6,18 +6,22 @@
 \alias{np.kriging.default}
 \alias{np.kriging.np.geo}
 \alias{kriging.simple}
-\alias{kriging.simple.solve}
 \title{Nonparametric (residual) kriging}
 \usage{
 np.kriging(object, ...)
 
-\method{np.kriging}{default}(object, svm, lp.resid = NULL, ngrid = object$grid$n, ...)
+\method{np.kriging}{default}(
+  object,
+  svm,
+  lp.resid = NULL,
+  ngrid = object$grid$n,
+  intermediate = FALSE,
+  ...
+)
 
-\method{np.kriging}{np.geo}(object, ngrid = object$grid$n, ...)
+\method{np.kriging}{np.geo}(object, ngrid = object$grid$n, intermediate = FALSE, ...)
 
-kriging.simple(x, y, newx, svm)
-
-kriging.simple.solve(x, newx, svm)
+kriging.simple(x, y, newx, svm, intermediate = FALSE)
 }
 \arguments{
 \item{object}{object used to select a method: 
@@ -32,19 +36,54 @@ or nonparametric geostatistical model (class extending \code{\link{np.geo}}).}
 
 \item{ngrid}{number of grid nodes in each dimension.}
 
-\item{x}{a (data) object used to select a method.}
+\item{intermediate}{logical, determines whether the intermediate computations 
+are included in the output (component \code{kriging}; see Value). 
+These calculations can be reused, e.g. for bootstrap.}
+
+\item{x}{vector/matrix with data locations
+(each component/row is an observation location).}
 
 \item{y}{vector of data (response variable).}
 
 \item{newx}{vector/matrix with the (irregular) locations to predict 
-(columns correspond with dimensions and rows with locations) 
+(each component/row is a prediction location). 
 or an object extending \code{\link{grid.par}}-\code{\link{class}}
 (\code{\link{data.grid}}).}
+}
+\value{
+\code{np.kriging()}, and \code{kriging.simple()} when \code{newx} defines 
+gridded data (extends \code{grid.par} or \code{data.grid} classes),
+returns an S3 object of class \code{krig.grid} (kriging results + grid par.). 
+A \code{\link{data.grid}} object with the additional (some optional) components:
+\item{kpred}{vector or array (dimension \code{$grid$n}) with the kriging predictions. }
+\item{ksd}{vector or array with the kriging standard deviations. }
+\item{kriging}{(if requested) a list with 4 components:
+\itemize{
+   \item{\code{lambda} matrix of kriging weights (columns correspond with predictions 
+   and rows with data)).}
+   \item{\code{cov.est} (estimated) covariance matrix of the data.}
+   \item{\code{chol} Cholesky factorization of \code{cov.est}.}
+   \item{\code{cov.pred} matrix of (estimated) covariances between data (rows) 
+   and predictions (columns).}
+}}
+When \code{newx} is a matrix of coordinates (where each row is a prediction location),
+\code{kriging.simple()} returns a list with the previous components (\code{kpred}, \code{ksd} 
+and, if requested, \code{kriging}).
 }
 \description{
 Compute simple kriging or residual kriging predictions 
 (and also the corresponding simple kriging standard errors  
 ). Currently, only global (residual) simple kriging is implemented.
+}
+\examples{
+geomod <- np.fitgeo(aquifer[,1:2], aquifer$head)
+krig.grid <- np.kriging(geomod, ngrid = c(96, 96)) # 9216 locations
+old.par <- par(mfrow = c(1,2))
+simage(krig.grid, 'kpred', main = 'Kriging predictions', 
+       xlab = "Longitude", ylab = "Latitude", reset = FALSE )
+simage(krig.grid, 'ksd', main = 'Kriging sd', xlab = "Longitude", 
+       ylab = "Latitude" , col = hot.colors(256), reset = FALSE)
+par(old.par)
 }
 \seealso{
 \code{\link{np.fitgeo}}, \code{\link{locpol}}, \code{\link{np.svar}}.

@@ -19,6 +19,16 @@ Typically an output of \code{\link{np.fitgeo}}.}
 \item{...}{additional graphical parameters 
 (to be passed to \code{\link{simage}} for trend plotting).}
 }
+\value{
+No return value, called for side effects (generate the plot).
+}
 \description{
 Plots the trend estimates and the fitted variogram model.
+}
+\examples{
+geomod <- np.fitgeo(aquifer[,1:2], aquifer$head)
+plot(geomod)
+}
+\seealso{
+\code{\link{np.fitgeo}}.
 }

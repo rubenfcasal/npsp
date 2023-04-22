@@ -18,7 +18,7 @@ using local polynomial kernel smoothing of linearly binned semivariances."><!-- 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
       </span>
     </div>
 
@@ -136,6 +136,7 @@ using local polynomial kernel smoothing of linearly binned semivariances.</p>
 <span>  tol <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  max.iter <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="va">plot</span>,</span>
 <span>  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">svar</span><span class="op">$</span><span class="va">biny</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -216,7 +217,13 @@ relative squared diferences is less than <code>tol</code>. Defaults to 0.04.</p>
 
 
 <dt>plot</dt>
-<dd><p>logical; if <code>TRUE</code>, the estimates obtained at each iteration are plotted.</p></dd>
+<dd><p>logical; if <code>TRUE</code>, the estimates obtained at each iteration 
+are plotted.</p></dd>
+
+
+<dt>verbose</dt>
+<dd><p>logical; if <code>TRUE</code>, the errors (averages of the 
+relative squared diferences) at each iteration are printed.</p></dd>
 
 
 <dt>ylim</dt>

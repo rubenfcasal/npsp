@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
       </span>
     </div>
 
@@ -67,7 +67,12 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7-10" id="npsp-07-10-2023-04-19">npsp 0.7-10 (2023-04-19)<a class="anchor" aria-label="anchor" href="#npsp-07-10-2023-04-19"></a></h2>
+<h2 class="page-header" data-toc-text="0.7-11" id="npsp-07-11-2023-04-22">npsp 0.7-11 (2023-04-22)<a class="anchor" aria-label="anchor" href="#npsp-07-11-2023-04-22"></a></h2>
+<ul><li><p>Added <code>intermediate</code> argument to <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code> which allows to return intermediate computations in <code>$kriging</code> output component (these calculations can be reused, e.g. for bootstrap).</p></li>
+<li><p>Added <code>verbose</code> argument to <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code> to avoid writing info messages to the console (it can be disabled even if <code>plot = TRUE</code>).</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7-10" id="npsp-07-10-2023-04-22">npsp 0.7-10 (2023-04-22)<a class="anchor" aria-label="anchor" href="#npsp-07-10-2023-04-22"></a></h2>
 <ul><li><p>Changes in <code><a href="../reference/h.cv.html">h.cv.bin.data()</a></code> when <code>objective == "GCV"</code> to adapt it to the heteroscedastic case. Warning: there may be differences with selected bandwidths in older versions.</p></li>
 <li><p>Changes in <code><a href="../reference/simage.html">simage()</a></code>, <code><a href="../reference/spersp.html">spersp()</a></code> and <code><a href="../reference/spoints.html">spoints()</a></code>: former argument <code>graphics.reset</code> renamed as <code>reset</code>, and changed the default value to <code>TRUE</code> (to restore user’s graphical options).</p></li>
 </ul></div>
@@ -176,7 +181,7 @@ constructor function and methods.</p>
 <h2 class="page-header" data-toc-text="0.6-0" id="npsp-06-0-2017-05-29">npsp 0.6-0 (2017-05-29)<a class="anchor" aria-label="anchor" href="#npsp-06-0-2017-05-29"></a></h2>
 <ul><li>
 <p>Added <code>kriging.np()</code> and <code><a href="../reference/np.kriging.html">kriging.simple()</a></code> functions.</p>
-<ul><li><p>Added <code><a href="../reference/np.kriging.html">kriging.simple.solve()</a></code> internal function.</p></li>
+<ul><li><p>Added <code>kriging.simple.solve()</code> internal function.</p></li>
 <li><p>Methods <code>as.spam()</code>, <code>chol.spam()</code> and <code>solve.spam()</code> imported from package <code>spam</code>.</p></li>
 <li><p>Added <code>.DPOSV_R()</code> interface to LAPACK routine <code>DPOSV</code>.</p></li>
 </ul></li>

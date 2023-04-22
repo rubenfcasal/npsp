@@ -22,7 +22,7 @@ by a call to h.cv."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
       </span>
     </div>
 
@@ -273,7 +273,7 @@ is set to <code>1.5*h.cv.svar.bin()$h</code>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Uncorrected variogram estimator</span></span></span>
-<span class="r-in"><span><span class="va">geomod0</span> <span class="op">&lt;-</span> <span class="fu">np.fitgeo</span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span>, iter <span class="op">=</span> <span class="fl">1</span>, corr.svar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">geomod0</span> <span class="op">&lt;-</span> <span class="fu">np.fitgeo</span><span class="op">(</span><span class="va">aquifer</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">aquifer</span><span class="op">$</span><span class="va">head</span>, iter <span class="op">=</span> <span class="fl">0</span>, corr.svar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">geomod0</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="np.fitgeo-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

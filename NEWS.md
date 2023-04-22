@@ -1,4 +1,14 @@
-# npsp 0.7-10 (2023-04-19)
+# npsp 0.7-11 (2023-04-22)
+
+* Added `intermediate` argument to `np.svariso.corr()` which allows
+  to return intermediate computations in `$kriging` output component 
+  (these calculations can be reused, e.g. for bootstrap).
+
+* Added `verbose` argument to `np.svariso.corr()` to avoid writing info messages 
+  to the console (it can be disabled even if `plot = TRUE`).
+  
+
+# npsp 0.7-10 (2023-04-22)
 
 * Changes in `h.cv.bin.data()` when `objective == "GCV"` to adapt it to the 
   heteroscedastic case.

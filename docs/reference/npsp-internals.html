@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
       </span>
     </div>
 
@@ -63,7 +63,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>npsp internal and secondary functions</h1>
-    <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/R/cpu.time.R" class="external-link"><code>R/cpu.time.R</code></a>, <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/R/data.grid.R" class="external-link"><code>R/data.grid.R</code></a>, <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/R/h.cv.R" class="external-link"><code>R/h.cv.R</code></a>, and 5 more</small>
+    <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/R/cpu.time.R" class="external-link"><code>R/cpu.time.R</code></a>, <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/R/data.grid.R" class="external-link"><code>R/data.grid.R</code></a>, <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/R/h.cv.R" class="external-link"><code>R/h.cv.R</code></a>, and 6 more</small>
     <div class="hidden name"><code>npsp-internals.Rd</code></div>
     </div>
 
@@ -82,6 +82,8 @@
 <span></span>
 <span><span class="co"># S3 method for locpol.bin</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">.kriging.simple.solve</span><span class="op">(</span><span class="va">x</span>, <span class="va">newx</span>, <span class="va">svm</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for np.geo</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -129,6 +131,32 @@
 <dt>cov.bin</dt>
 <dd><p>(optional) covariance matrix of the binned data or semivariogram model
 (<code><a href="svarmod.html">svarmod</a></code>-class) of the (unbinned) data.</p></dd>
+
+
+<dt>object</dt>
+<dd><p>object used to select a method: 
+local polynomial estimate of the trend (class <code><a href="locpol.html">locpol.bin</a></code>) 
+or nonparametric geostatistical model (class extending <code><a href="np.geo.html">np.geo</a></code>).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further arguments passed to or from other methods.</p></dd>
+
+
+<dt>x</dt>
+<dd><p>vector/matrix with data locations
+(each component/row is an observation location).</p></dd>
+
+
+<dt>newx</dt>
+<dd><p>vector/matrix with the (irregular) locations to predict 
+(each component/row is a prediction location). 
+or an object extending <code><a href="grid.par.html">grid.par</a></code>-<code><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></code>
+(<code><a href="data.grid.html">data.grid</a></code>).</p></dd>
+
+
+<dt>svm</dt>
+<dd><p>semivariogram model (of class extending <code><a href="svarmod.html">svarmod</a></code>).</p></dd>
 
 
 <dt>b</dt>

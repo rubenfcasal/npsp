@@ -143,7 +143,7 @@ plot(geomod)
 
 
 # Uncorrected variogram estimator
-geomod0 <- np.fitgeo(aquifer[,1:2], aquifer$head, iter = 1, corr.svar = FALSE)
+geomod0 <- np.fitgeo(aquifer[,1:2], aquifer$head, iter = 0, corr.svar = FALSE)
 plot(geomod0)
 
 # Additional iteration with bias-corrected variogram estimator
