@@ -210,7 +210,7 @@ np.fitgeo.locpol.bin <- function(x, svm, iter = 1, tol = 0.05, h.svar = svm$esv$
 #' @examples
 #' 
 #' # Uncorrected variogram estimator
-#' geomod0 <- np.fitgeo(aquifer[,1:2], aquifer$head, iter = 1, corr.svar = FALSE)
+#' geomod0 <- np.fitgeo(aquifer[,1:2], aquifer$head, iter = 0, corr.svar = FALSE)
 #' plot(geomod0)
 #' 
 #' # Additional iteration with bias-corrected variogram estimator
@@ -279,6 +279,11 @@ np.fitgeo.fitgeo <- function(x, iter = 1, tol = 0.05, h.svar = x$svm$esv$locpol$
 #' @param main.svar	title for the semivariogram plot.
 #' @param ... additional graphical parameters 
 #' (to be passed to \code{\link{simage}} for trend plotting).
+#' @return No return value, called for side effects (generate the plot).
+#' @examples 
+#' geomod <- np.fitgeo(aquifer[,1:2], aquifer$head)
+#' plot(geomod)
+#' @seealso \code{\link{np.fitgeo}}.
 #' @export
 #····································································
 plot.fitgeo <- function(x, y = NULL, main.trend = 'Trend estimates', 

@@ -20,6 +20,12 @@
 #' @title R Graphics for gridded data
 #' @description Draw an image, perspective, contour or filled contour plot for data
 #' on a bidimensional regular grid (S3 methods for class "\code{\link{data.grid}}").
+#' @returns 
+#' \code{image()} and \code{contour()} do not return any value, call for secondary 
+#' effects (generate the corresponding plot).
+#' \code{persp()} invisibly returns the viewing transformation matrix (see 
+#' \code{\link{persp}} for details), a 4 x 4 matrix that can be used to superimpose 
+#' additional graphical elements using the function \code{\link{trans3d}}. 
 #' @seealso \code{\link{image}}, \code{\link{persp}}, \code{\link{contour}},
 #' \code{\link{filled.contour}}, \code{\link{data.grid}}.
 #' @examples

@@ -217,7 +217,10 @@ np.svariso.hcv <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nl
 #' @param tol convergence tolerance. The algorithm stops if the average of the 
 #' relative squared diferences is less than \code{tol}. Defaults to 0.04. 
 #' @param max.iter maximum number of iterations. Defaults to 10.
-#' @param plot logical; if \code{TRUE}, the estimates obtained at each iteration are plotted.
+#' @param plot logical; if \code{TRUE}, the estimates obtained at each iteration 
+#' are plotted.
+#' @param verbose logical; if \code{TRUE}, the errors (averages of the 
+#' relative squared diferences) at each iteration are printed.
 #' @param ylim y-limits of the plot (if \code{plot == TRUE}).
 ## @param col colors for lines and points if \code{plot == TRUE}. 
 #' @details  
@@ -234,7 +237,7 @@ np.svariso.hcv <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nl
 #' @export
 np.svariso.corr <- function(lp, x = lp$data$x, h = NULL, maxlag = NULL, nlags = NULL,
                       minlag = maxlag/nlags, degree = 1, drv = FALSE, hat.bin = TRUE, 
-                      tol = 0.05, max.iter = 10, plot = FALSE, 
+                      tol = 0.05, max.iter = 10, plot = FALSE, verbose = plot,
                       ylim = c(0,2*max(svar$biny, na.rm = TRUE))) {
 #····································································
     if (!inherits(lp, "locpol.bin"))
@@ -295,9 +298,8 @@ np.svariso.corr <- function(lp, x = lp$data$x, h = NULL, maxlag = NULL, nlags = 
         if(plot) {
             lines(sv.lags, svar$est, col =  col[iter])
             points(sv.lags, svar$biny, col =  col[iter]) 
-            cat('Iteration ', iter, ': ', error, '\n')
         }    
-    
+        if (verbose) cat('Iteration ', iter, ': ', error, '\n')
         if (error < tol) break
         svarold <- svar$est
     } # for (iter in 2:sv.niter) 

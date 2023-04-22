@@ -43,6 +43,7 @@ NULL
 #' @param ylim y-limits.
 #' @param lwd line widths for points (estimates) and lines (fitted model) respectively.
 #' @param ...  additional graphical parameters (see \code{\link{par}}).
+#' @return No return value, called for side effects (generate the plot).
 #' @export
 plot.fitsvar <- function(x, y = NULL, legend = TRUE, xlab = "distance", ylab = "semivariance",
                           xlim = NULL, ylim = c(0, 1.25*max(x$fit$sv, na.rm = TRUE)), lwd = c(1, 2), add = FALSE, ...) {

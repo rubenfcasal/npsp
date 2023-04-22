@@ -19,6 +19,7 @@
 #' coordinates and the histogram of the response values.
 #' @param  x 	object used to select a method.
 #' @param ... additional graphical parameters (to be passed to \code{\link{spoints}}).
+#' @return No return value, called for side effects (generate the plot).
 #' @seealso \code{\link{splot}}, \code{\link{spoints}}, \code{\link[stats]{lowess}}, 
 #' \code{\link[stats]{density}}
 #' @keywords hplot
