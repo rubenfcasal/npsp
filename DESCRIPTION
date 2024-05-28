@@ -1,8 +1,8 @@
 Package: npsp
 Type: Package
 Title: Nonparametric Spatial Statistics
-Version: 0.7-11
-Date: 2023-04-22
+Version: 0.7-13
+Date: 2024-02-17
 Authors@R: person("Ruben", "Fernandez-Casal", , "rubenfcasal@gmail.com", role = c("aut", "cre"), 
     comment = c(ORCID = "0000-0002-5785-3739"))
 Maintainer: Ruben Fernandez-Casal <rubenfcasal@gmail.com>
@@ -29,8 +29,8 @@ Description: Multidimensional nonparametric spatial (spatio-temporal) geostatist
     For details on these methods see, for example, Fernandez-Casal and Francisco-Fernandez (2014) 
     <doi:10.1007/s00477-013-0817-8> or Castillo-Paez et al. (2019) <doi:10.1016/j.csda.2019.01.017>.
 License: GPL (>= 2)
-URL: https://github.com/rubenfcasal/npsp
-BugReports: https://github.com/rubenfcasal/npsp/issues
+URL: https://rubenfcasal.github.io/npsp/, https://github.com/rubenfcasal/npsp/
+BugReports: https://github.com/rubenfcasal/npsp/issues/
 LazyData: yes
 Encoding: UTF-8
 VignetteBuilder: knitr

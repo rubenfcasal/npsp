@@ -64,9 +64,12 @@ NULL
 #' @param xlab label for the x axis, defaults to \code{dimnames(x)[1]}.
 #' @param ylab label for the y axis, defaults to \code{dimnames(x)[2]}.
 #' @param zlab label for the z axis, defaults to \code{names(x)[data.ind]}.
+#' @param useRaster logical; if \code{TRUE} a bitmap raster is used to plot the 
+#' image instead of polygons. 
 #' @param ... additional graphical parameters (to be passed to main plot function).
 #' @export
-image.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
+image.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, 
+                            useRaster = all(dim(x) > dev.size("px")), ...) {
 #····································································
     if (!inherits(x, "data.grid") | x$grid$nd != 2L)
         stop("function only works for two-dimensional gridded data ('data.grid'-class objects)")
@@ -75,11 +78,10 @@ image.data.grid <- function(x, data.ind = 1, xlab = NULL, ylab = NULL, ...) {
     if (is.null(xlab)) xlab <- ns[1]
     if (is.null(ylab)) ylab <- ns[2]
     image(coorvs[[1]], coorvs[[2]], z = x[[data.ind]],
-        xlab = xlab, ylab = ylab, ...)
+        xlab = xlab, ylab = ylab, useRaster = useRaster, ...)
     return(invisible())
 #····································································
 } # simage.grid.par
-
 
 
 #····································································

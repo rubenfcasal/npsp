@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-13</span>
       </span>
     </div>
 
@@ -67,9 +67,15 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.7-11" id="npsp-07-11-2023-04-22">npsp 0.7-11 (2023-04-22)<a class="anchor" aria-label="anchor" href="#npsp-07-11-2023-04-22"></a></h2>
+<h2 class="page-header" data-toc-text="0.7-12" id="npsp-07-12-2023-06-20">npsp 0.7-12 (2023-06-20)<a class="anchor" aria-label="anchor" href="#npsp-07-12-2023-06-20"></a></h2>
+<ul><li><p>Minor changes in <code><a href="../reference/locpol.html">locpol()</a></code> S3 methods (for <code>bin.data</code>, <code>bin.den</code> and <code>svar.bin</code> classes) so that the result extends the class of its main argument (previously assumed fixed).</p></li>
+<li><p>Small changes in FORTRAN routine <code>besselzeros()</code> (DFLOAT replaced by the standard DBLE; CRAN requirement).</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.7-11" id="npsp-07-11-2023-05-01">npsp 0.7-11 (2023-05-01)<a class="anchor" aria-label="anchor" href="#npsp-07-11-2023-05-01"></a></h2>
 <ul><li><p>Added <code>intermediate</code> argument to <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code> which allows to return intermediate computations in <code>$kriging</code> output component (these calculations can be reused, e.g. for bootstrap).</p></li>
 <li><p>Added <code>verbose</code> argument to <code><a href="../reference/np.svar.html">np.svariso.corr()</a></code> to avoid writing info messages to the console (it can be disabled even if <code>plot = TRUE</code>).</p></li>
+<li><p>Improved documentation of <code><a href="../reference/splot.html">splot()</a></code>.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7-10" id="npsp-07-10-2023-04-22">npsp 0.7-10 (2023-04-22)<a class="anchor" aria-label="anchor" href="#npsp-07-10-2023-04-22"></a></h2>

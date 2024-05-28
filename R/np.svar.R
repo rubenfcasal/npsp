@@ -63,7 +63,7 @@
 #' Fernandez Casal R., Gonzalez Manteiga W. and  Febrero Bande M. (2003) 
 #' Space-time dependency modeling using general classes of flexible stationary 
 #' variogram models, \emph{J. Geophys. Res.}, \bold{108}, 8779, 
-#' doi:10.1029/2002JD002909.
+#' \doi{10.1029/2002JD002909}.
 #'
 #' Garcia-Soidan P.H., Gonzalez-Manteiga W. and Febrero-Bande M. (2003) 
 #' Local linear regression estimation of the variogram, 
@@ -220,7 +220,7 @@ np.svariso.hcv <- function(x, y, maxlag = NULL, nlags = NULL, minlag = maxlag/nl
 #' @param plot logical; if \code{TRUE}, the estimates obtained at each iteration 
 #' are plotted.
 #' @param verbose logical; if \code{TRUE}, the errors (averages of the 
-#' relative squared diferences) at each iteration are printed.
+#' relative squared differences) at each iteration are printed.
 #' @param ylim y-limits of the plot (if \code{plot == TRUE}).
 ## @param col colors for lines and points if \code{plot == TRUE}. 
 #' @details  

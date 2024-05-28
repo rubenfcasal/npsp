@@ -34,7 +34,7 @@
 #' Cross-validation methods for bandwidth selection
 #'
 #' Selects the bandwidth of a local polynomial kernel (regression, density or
-#' variogram) estimator using (standart or modified) CV, GCV or MASE criteria.
+#' variogram) estimator using (standard or modified) CV, GCV or MASE criteria.
 #'
 #' @param bin object used to select a method (binned data, binned density or binned semivariogram).
 #' @param ... further arguments passed to or from other methods

@@ -270,7 +270,7 @@ locpol.bin.data <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FAL
         result$deriv <- ret$deriv
         if (nd > 1) dim(result$deriv) <- c(nbin, nd)
     } else result$deriv <- NULL
-    oldClass(result) <- c("locpol.bin", "bin.data", "bin.den", "data.grid")
+    oldClass(result) <- unique(c("locpol.bin", oldClass(x)))
     return(result)
 #····································································
 } # locpol.bin.data
@@ -289,7 +289,7 @@ locpol.svar.bin <- function(x, h = NULL, degree = 1, drv = FALSE,
 #····································································
     result <- locpol.bin.data(x, h = h, degree = degree, drv = drv, 
                   hat.bin = hat.bin, ncv = ncv, ...)
-    oldClass(result) <- c("np.svar", "svar.bin", "bin.data", "bin.den", "data.grid")
+    oldClass(result) <- unique(c("np.svar", oldClass(x))) 
     return(result)
 }
 
@@ -359,7 +359,7 @@ locpol.bin.den <- function(x, h = NULL, degree = 1 + as.numeric(drv), drv = FALS
         result$deriv <- ret$deriv
         if (nd > 1) dim(result$deriv) <- c(nbin, nd)
     } else result$deriv <- NULL
-    oldClass(result) <- c("np.den", "bin.den", "data.grid")
+    oldClass(result) <- unique(c("np.den", oldClass(x))) 
     return(result)
 #····································································
 } # locpol.bin.den

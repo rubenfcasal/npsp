@@ -94,7 +94,7 @@
 #' @importMethodsFrom spam * %*%
 #' @import graphics
 #' @import sp
-#' @importFrom grDevices colorRamp colorRamp rainbow rgb
+#' @importFrom grDevices colorRamp colorRamp rainbow rgb dev.size
 #' @importFrom methods as is hasArg
 #' @importFrom stats approx complete.cases cov2cor dist optim predict residuals lowess density
 #' @importFrom utils flush.console

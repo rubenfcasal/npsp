@@ -10,6 +10,9 @@ authors:
     
 news:
   cran_dates: false
+  
+deploy:
+  install_metadata: true  
 
 reference:
   - title: "Local polinomial estimation"

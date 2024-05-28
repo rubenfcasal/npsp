@@ -63,16 +63,16 @@ np.fitgeo(x, ...)
 \item{x}{a (data) object used to select a method.}
 
 \item{...}{further arguments passed to \code{\link{h.cv}}
-(trend bandwith selection parameters).}
+(trend bandwidth selection parameters).}
 
 \item{y}{vector of data (response variable).}
 
 \item{nbin}{vector with the number of bins on each dimension.}
 
-\item{iter}{maximum number of interations (of the whole algorithm).}
+\item{iter}{maximum number of iterations (of the whole algorithm).}
 
 \item{h}{initial bandwidth matrix for trend estimation
-(final bandwith if \code{iter = 1}).}
+(final bandwidth if \code{iter = 1}).}
 
 \item{tol}{relative convergence tolerance (semivariogram).}
 
@@ -97,7 +97,7 @@ is computed and returned (this parameter has no effect when \code{corr.svar = FA
 
 \item{hat.bin}{logical; if \code{TRUE}, the hat matrix of the binned data is returned.}
 
-\item{warn}{logical; sets the handling of warning messages in bandwith selection (\code{\link{h.cv}}).}
+\item{warn}{logical; sets the handling of warning messages in bandwidth selection (\code{\link{h.cv}}).}
 
 \item{plot}{logical; if \code{TRUE}, semivariogram estimates obtained at each iteration are plotted.}
 
@@ -108,9 +108,9 @@ extending \code{\link[sp:SpatialPolygons-class]{SpatialPolygons}}.}
 \code{\link{fitsvar}} or \code{\link{svarmod}}).}
 }
 \value{
-Returns an object of \code{\link{class}} \code{fitgeo} 
-(extends \code{\link{np.geo}}). A \code{\link{locpol.bin}} object
-with the additional (some optional) 3 components:
+Returns an object of \code{\link{class}} \code{fitgeo} (extends 
+\code{\link{np.geo}}). A \code{\link{locpol.bin}} object with the additional 
+(some optional) 3 components:
 \item{svm}{fitted variogram model (object of class 
  \code{\link{fitsvar}}).}
 \item{svm0}{(if requested) fitted residual variogram model (object of class 

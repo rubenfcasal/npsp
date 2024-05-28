@@ -5,6 +5,7 @@ PKG_LIBS = ${LAPACK_LIBS} $(BLAS_LIBS) ${FLIBS}
 #PKG_CXXFLAGS = -g -O0 -std=gnu99 -Wall -pedantic
 #PKG_FCFLAGS = -g -O0 -Wall
 #PKG_FFLAGS = ${FFLAGS} -Wall -pedantic
+#PKG_FFLAGS = ${FFLAGS} -std=f2018
 #PKG_FCFLAGS = ${FCFLAGS} -Wall -pedantic
 #COPTFLAG=-O0
 #CXXOPTFLAG=-O0

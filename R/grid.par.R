@@ -32,8 +32,8 @@
 #' Constructor function of the \code{grid.par}-\code{\link{class}}.
 #' @aliases grid.par-class
 #' @param  n integer vector; number of nodes in each dimension. 
-#' @param  min vector; minimun coordinates values.
-#' @param  max vector; maximum coordinates values (optional).
+#' @param  min vector; minimum values of the coordinates.
+#' @param  max vector; maximum values of the coordinates (optional).
 #' @param  lag vector; lag in each dimension (optional). 
 #' @param  dimnames character vector; names used to label the dimensions.
 #' @details All parameters must have the same length. 
@@ -51,7 +51,6 @@ grid.par <- function(n, min, max = min + (n-1)*lag, lag = (max-min)/(n-1), dimna
 #
 # PENDENTE:
 #   - pasar a metodo S3 y esta a default
-#   - ns <- names(x$min)
 #····································································
     if ( !missing(lag) && !missing(max) ) {
         warning("argument 'lag' ignored (set to default value)")

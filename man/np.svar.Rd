@@ -121,7 +121,7 @@ relative squared diferences is less than \code{tol}. Defaults to 0.04.}
 are plotted.}
 
 \item{verbose}{logical; if \code{TRUE}, the errors (averages of the 
-relative squared diferences) at each iteration are printed.}
+relative squared differences) at each iteration are printed.}
 
 \item{ylim}{y-limits of the plot (if \code{plot == TRUE}).}
 }

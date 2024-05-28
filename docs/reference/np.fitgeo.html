@@ -22,7 +22,7 @@ by a call to h.cv."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-13</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@ by a call to <code><a href="h.cv.html">h.cv</a></code>.</p>
 
 <dt>...</dt>
 <dd><p>further arguments passed to <code><a href="h.cv.html">h.cv</a></code>
-(trend bandwith selection parameters).</p></dd>
+(trend bandwidth selection parameters).</p></dd>
 
 
 <dt>y</dt>
@@ -158,12 +158,12 @@ by a call to <code><a href="h.cv.html">h.cv</a></code>.</p>
 
 
 <dt>iter</dt>
-<dd><p>maximum number of interations (of the whole algorithm).</p></dd>
+<dd><p>maximum number of iterations (of the whole algorithm).</p></dd>
 
 
 <dt>h</dt>
 <dd><p>initial bandwidth matrix for trend estimation
-(final bandwith if <code>iter = 1</code>).</p></dd>
+(final bandwidth if <code>iter = 1</code>).</p></dd>
 
 
 <dt>tol</dt>
@@ -208,7 +208,7 @@ is computed and returned (this parameter has no effect when <code>corr.svar = FA
 
 
 <dt>warn</dt>
-<dd><p>logical; sets the handling of warning messages in bandwith selection (<code><a href="h.cv.html">h.cv</a></code>).</p></dd>
+<dd><p>logical; sets the handling of warning messages in bandwidth selection (<code><a href="h.cv.html">h.cv</a></code>).</p></dd>
 
 
 <dt>plot</dt>
@@ -231,11 +231,9 @@ extending <code><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons-class.html" 
 
 <p>Returns an object of <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></code></p>
 <p></p>
-<p><code>fitgeo</code></p>
- 
-
-<p>(extends <code><a href="np.geo.html">np.geo</a></code>). A <code><a href="locpol.html">locpol.bin</a></code> object
-with the additional (some optional) 3 components:</p>
+<p><code>fitgeo</code> (extends 
+<code><a href="np.geo.html">np.geo</a></code>). A <code><a href="locpol.html">locpol.bin</a></code> object with the additional 
+(some optional) 3 components:</p>
 <dl><dt>svm</dt>
 <dd><p>fitted variogram model (object of class 
  <code><a href="fitsvar.sb.iso.html">fitsvar</a></code>).</p></dd>

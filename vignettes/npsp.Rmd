@@ -166,13 +166,13 @@ plot(interior, border = "lightgray", lwd = 1, add = TRUE)
 
 Usually two grids will be considered, a low resolution one
 to speed up computations during the modeling (e.g. by using the
-default values), and a higher resolution one to obtaing the final
+default values), and a higher resolution one to obtain the final
 results.
 
 # Bandwidth selection
 
 The trend estimates depends crucially on the bandwidth matrix $H$. 
-A small bandwith will produce undersmoothed estimates, whereas a big bandwith will oversmooth the data. Although it may be subjectively choosed by eye, it could be very beneficial to have automatic selection criteria from the data.
+A small bandwidth will produce undersmoothed estimates, whereas a big bandwidth will oversmooth the data. Although it may be subjectively choosed by eye, it could be very beneficial to have automatic selection criteria from the data.
 
 Traditional bandwidth selectors, such as cross validation (CV) or
 generalized cross validation (GCV), do not have a good performance

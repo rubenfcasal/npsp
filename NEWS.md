@@ -1,4 +1,27 @@
-# npsp 0.7-11 (2023-04-22)
+# Development version
+
+
+
+# npsp 0.7-13 (2024-02-17)
+
+* Added `useRaster = all(dim(x) > dev.size("px"))` argument to `image()` 
+  (and `simage()`) methods for gridded data.
+
+* Small changes in *scr/tql2.f90* (preliminary translation to Fortran 90 of the 
+  former *scr/tql2.f*).
+
+
+# npsp 0.7-12 (2023-06-20)
+
+* Minor changes in `locpol()` S3 methods (for `bin.data`, `bin.den` and `svar.bin` 
+  classes) so that the result extends the class of its main argument 
+  (previously assumed fixed).
+  
+* Small changes in FORTRAN routine `besselzeros()` 
+  (DFLOAT replaced by the standard DBLE; CRAN requirement). 
+
+
+# npsp 0.7-11 (2023-05-01)
 
 * Added `intermediate` argument to `np.svariso.corr()` which allows
   to return intermediate computations in `$kriging` output component 
@@ -6,6 +29,8 @@
 
 * Added `verbose` argument to `np.svariso.corr()` to avoid writing info messages 
   to the console (it can be disabled even if `plot = TRUE`).
+  
+* Improved documentation of `splot()`.  
   
 
 # npsp 0.7-10 (2023-04-22)

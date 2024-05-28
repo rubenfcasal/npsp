@@ -6,7 +6,7 @@ Please edit that file
 
 # npsp: Nonparametric spatial (geo)statistics
 
-### Version 0.7.11
+### Version 0.7.13
 
 This package implements nonparametric methods for inference on
 multidimensional spatial (or spatio-temporal) processes, which may be
@@ -124,40 +124,46 @@ and Centro de Investigación del Sistema universitario de Galicia ED431G
 
 ## References
 
-- Castillo-Páez S., Fernández-Casal R. and García-Soidán P. (2019), A
-  nonparametric bootstrap method for spatial data, **137**, *Comput.
-  Stat. Data Anal.*, 1-15,
-  [DOI](https://doi.org/10.1016/j.csda.2019.01.017).
+- Castillo-Páez S., Fernández-Casal R. and García-Soidán P. (2019). [A
+  nonparametric bootstrap method for spatial
+  data](https://doi.org/10.1016/j.csda.2019.01.017), **137**, *Comput.
+  Stat. Data Anal.*, 1-15.
+
+- Fernández-Casal, R., Castillo-Páez, S. and Francisco-Fernandez, M.
+  (2024). [Nonparametric Conditional Risk Mapping Under
+  Heteroscedasticity](https://doi.org/10.1007/s13253-023-00555-0),
+  *JABES*, **29**, 56-72.
 
 - Fernández-Casal R., Castillo-Páez S. and Francisco-Fernández M.
-  (2018), Nonparametric geostatistical risk mapping, *Stoch. Environ.
-  Res. Ris. Assess.*, **32**, 675-684,
-  [DOI](https://doi.org/10.1007/s00477-017-1407-y).
+  (2018). [Nonparametric geostatistical risk
+  mapping](https://doi.org/10.1007/s00477-017-1407-y), *Stoch. Environ.
+  Res. Ris. Assess.*, **32**, 675-684.
 
-- Fernández-Casal R., Castillo-Páez S. and García-Soidán P. (2017),
-  Nonparametric estimation of the small-scale variability of
-  heteroscedastic spatial processes, *Spa. Sta.*, **22**, 358-370,
-  [DOI](https://doi.org/10.1016/j.spasta.2017.04.001).
+- Fernández-Casal R., Castillo-Páez S. and García-Soidán P. (2017).
+  [Nonparametric estimation of the small-scale variability of
+  heteroscedastic spatial
+  processes](https://doi.org/10.1016/j.spasta.2017.04.001), *Spa. Sta.*,
+  **22**, 358-370.
 
-- Fernandez-Casal R. and Francisco-Fernandez M. (2014) Nonparametric
-  bias-corrected variogram estimation under non-constant trend, *Stoch.
-  Environ. Res. Ris. Assess.*, **28**, 1247-1259,
-  [DOI](https://doi.org/10.1007/s00477-013-0817-8).
+- Fernandez-Casal R. and Francisco-Fernandez M. (2014). [Nonparametric
+  bias-corrected variogram estimation under non-constant
+  trend](https://doi.org/10.1007/s00477-013-0817-8), *Stoch. Environ.
+  Res. Ris. Assess.*, **28**, 1247-1259.
 
-- Fernandez-Casal R., Gonzalez-Manteiga W. and Febrero-Bande M. (2003)
-  Flexible Spatio-Temporal Stationary Variogram Models, *Statistics and
-  Computing*, **13**, 127-136,
-  [DOI](https://doi.org/10.1023/A:1023204525046).
+- Fernandez-Casal R., Gonzalez-Manteiga W. and Febrero-Bande M. (2003).
+  [Flexible Spatio-Temporal Stationary Variogram
+  Models](https://doi.org/10.1023/A:1023204525046), *Statistics and
+  Computing*, **13**, 127-136.
 
-- Rupert D. and Wand M.P. (1994) Multivariate locally weighted least
+- Rupert D. and Wand M.P. (1994). Multivariate locally weighted least
   squares regression. *The Annals of Statistics*, **22**, 1346-1370.
 
-- Shapiro A. and Botha J.D. (1991) Variogram fitting with a general
+- Shapiro A. and Botha J.D. (1991). Variogram fitting with a general
   class of conditionally non-negative definite functions. *Computational
   Statistics and Data Analysis*, **11**, 87-96.
 
-- Wand M.P. (1994) Fast Computation of Multivariate Kernel Estimators.
+- Wand M.P. (1994). Fast Computation of Multivariate Kernel Estimators.
   *Journal of Computational and Graphical Statistics*, **3**, 433-445.
 
-- Wand M.P. and Jones M.C. (1995) *Kernel Smoothing*. Chapman and Hall,
+- Wand M.P. and Jones M.C. (1995). *Kernel Smoothing*. Chapman and Hall,
   London.

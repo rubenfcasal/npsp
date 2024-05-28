@@ -7,7 +7,7 @@
 !                     Shapiro-Botha (R "disc_sbv")
 !
 !   Autor: (c) Ruben Fernandez-Casal                Creacion: Abr 2002
-!   Revisiones: Mar 2013
+!   Revisiones: Mar 2013, Jun 2023
 !-----------------------------------------------------------------------
 
 !     ------------------------------------------------------------------
@@ -71,38 +71,38 @@
       ALLOCATE (e(nmax+1), d(nmax), z(nmax, nmax),STAT=i)
       IF (i.NE.0) CALL Error(i,'besselzeros: ALLOCATE')
 !     Valores iniciales
-      z=0.0D0
-      do 10 i=1,nmax
-          fl=dfloat(i)+.5d0*a+.5d0
-          d(i)=.125d0/fl/(fl-1.d0)
-          e(i+1)=.125d0/fl/dsqrt(4.d0*fl**2-1.d0)
-          z(i,i)=1.0D0
-   10 continue
+      z = 0.0D0
+      DO i = 1, nmax
+          fl = dble(i) + .5d0*a + .5d0
+          d(i) = .125d0/fl/(fl-1.d0)
+          e(i+1) = .125d0/fl/dsqrt(4.d0*fl**2-1.d0)
+          z(i,i) = 1.0D0
+      END DO
 !     input e(i)=alpha, d(i)= beta; tql2 returns eigenvalues
 !     of symmetric tridiagonal matrix in d(i); unsorted
-      call tql2(nmax,nmax,d,e,z,ierr)
+      call tql2(nmax, nmax, d, e, z, ierr)
 !     form zeros by inverse of g(x)
-      do 20 i=1,nmax
-          d(i)=1.d0/dsqrt(d(i))
-   20 continue
+      DO i = 1, nmax
+          d(i) = 1.d0/dsqrt(d(i))
+      END DO
 !     sort zeros
-      do 30 i=1,nmax
-          a1=d(i)
-          do 25 j=i+1,nmax
-              if(d(j).lt.a1)then
-              aa=d(j)
-              d(j)=a1
-              a1=aa
+      DO i = 1, nmax
+          a1 = d(i)
+          DO j = i+1, nmax
+              if(d(j).lt.a1) then
+              aa = d(j)
+              d(j) = a1
+              a1 = aa
               endif
-   25     continue
-          d(i)=a1
-   30 continue
-      do 40 i=1,nt
+          END DO
+          d(i) = a1
+      END DO
+      DO i = 1, nt
           c(i) = d(i)
-   40 continue
+      END DO
 !     Liberar memoria de variables locales
-      DEALLOCATE (e,d,z,STAT=i)
-      IF (i.NE.0) CALL Error(i,'besselzeros: DEALLOCATE')
+      DEALLOCATE (e, d, z, STAT=i)
+      IF (i.NE.0) CALL Error(i, 'besselzeros: DEALLOCATE')
       RETURN
       END SUBROUTINE Besselzeros
 

@@ -95,11 +95,11 @@ residuals.np.geo <- function(object, ...) {
 #' by a call to \code{\link{h.cv}}.
 #' @param x a (data) object used to select a method.
 #' @param ... further arguments passed to \code{\link{h.cv}}
-#' (trend bandwith selection parameters).
+#' (trend bandwidth selection parameters).
 #' @details Currently, only isotropic semivariogram estimation is supported.
-#' @return Returns an object of \code{\link{class}} \code{fitgeo} 
-#' (extends \code{\link{np.geo}}). A \code{\link{locpol.bin}} object
-#' with the additional (some optional) 3 components:
+#' @return Returns an object of \code{\link{class}} \code{fitgeo} (extends 
+#' \code{\link{np.geo}}). A \code{\link{locpol.bin}} object with the additional 
+#' (some optional) 3 components:
 #' \item{svm}{fitted variogram model (object of class 
 #'  \code{\link{fitsvar}}).}
 #' \item{svm0}{(if requested) fitted residual variogram model (object of class 
@@ -120,9 +120,9 @@ np.fitgeo <- function(x, ...) {
 #' @inheritParams locpol.default
 #' @inheritParams np.svariso.corr
 #' @inheritParams mask.data.grid
-#' @param iter maximum number of interations (of the whole algorithm).
+#' @param iter maximum number of iterations (of the whole algorithm).
 #' @param  h initial bandwidth matrix for trend estimation
-#' (final bandwith if \code{iter = 1}).
+#' (final bandwidth if \code{iter = 1}).
 #' @param tol relative convergence tolerance (semivariogram).
 #' @param h.svar bandwidth matrix for variogram estimation.
 #' @param corr.svar logical; if \code{TRUE} (default), a bias-corrected semivariogram estimate 
@@ -132,7 +132,7 @@ np.fitgeo <- function(x, ...) {
 #' @param dk dimension of the Shapiro-Botha variogram model (see \code{\link{fitsvar.sb.iso}}).
 #' @param svm.resid logical; if \code{TRUE}, the fitted (uncorrected) residual semivariogram model
 #' is computed and returned (this parameter has no effect when \code{corr.svar = FALSE}).
-#' @param warn logical; sets the handling of warning messages in bandwith selection (\code{\link{h.cv}}).
+#' @param warn logical; sets the handling of warning messages in bandwidth selection (\code{\link{h.cv}}).
 #' @param plot logical; if \code{TRUE}, semivariogram estimates obtained at each iteration are plotted.
 #' @details If parameter \code{h} is not specified,
 #' \code{\link{h.cv}} is called with the default values (modified CV) to set it.

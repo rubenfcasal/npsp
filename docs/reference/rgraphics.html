@@ -18,7 +18,7 @@ on a bidimensional regular grid (S3 methods for class "data.grid").'><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-13</span>
       </span>
     </div>
 
@@ -75,7 +75,14 @@ on a bidimensional regular grid (S3 methods for class "<code><a href="data.grid.
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for data.grid</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">x</span>, data.ind <span class="op">=</span> <span class="fl">1</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, ylab <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  data.ind <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  useRaster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.size.html" class="external-link">dev.size</a></span><span class="op">(</span><span class="st">"px"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for data.grid</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">x</span>, data.ind <span class="op">=</span> <span class="fl">1</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, ylab <span class="op">=</span> <span class="cn">NULL</span>, zlab <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -101,6 +108,11 @@ containing the values to be used for coloring the rectangles.</p></dd>
 
 <dt>ylab</dt>
 <dd><p>label for the y axis, defaults to <code>dimnames(x)[2]</code>.</p></dd>
+
+
+<dt>useRaster</dt>
+<dd><p>logical; if <code>TRUE</code> a bitmap raster is used to plot the 
+image instead of polygons.</p></dd>
 
 
 <dt>...</dt>

@@ -86,7 +86,7 @@ Default is 5.1 for a vertical legend and 3.1 for a horizontal legend.}
 label as this is usual evident from the plot title.}
 
 \item{bigplot}{plot coordinates for main plot. If not passed, and \code{legend}
-is TRUE, these will bedetermined within the function.}
+is TRUE, these will be determined within the function.}
 
 \item{smallplot}{plot coordinates for legend strip. If not passed, and \code{legend}
 is TRUE, these will be determined within the function.}

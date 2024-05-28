@@ -52,7 +52,7 @@
 *
 *  This routine is basically identical to the original xGELSX except
 *  three differences:
-*    o The call to the subroutine xGEQPF has been substituted by the
+*    o The call to the subroutine xGEQPF has been substituted by 
 *      the call to the subroutine xGEQP3. This subroutine is a Blas-3
 *      version of the QR factorization with column pivoting.
 *    o Matrix B (the right hand side) is updated with Blas-3.

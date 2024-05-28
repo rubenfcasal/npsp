@@ -16,9 +16,9 @@ grid.par(
 \arguments{
 \item{n}{integer vector; number of nodes in each dimension.}
 
-\item{min}{vector; minimun coordinates values.}
+\item{min}{vector; minimum values of the coordinates.}
 
-\item{max}{vector; maximum coordinates values (optional).}
+\item{max}{vector; maximum values of the coordinates (optional).}
 
 \item{lag}{vector; lag in each dimension (optional).}
 

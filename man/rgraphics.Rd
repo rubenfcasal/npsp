@@ -7,7 +7,14 @@
 \alias{contour.data.grid}
 \title{R Graphics for gridded data}
 \usage{
-\method{image}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL, ...)
+\method{image}{data.grid}(
+  x,
+  data.ind = 1,
+  xlab = NULL,
+  ylab = NULL,
+  useRaster = all(dim(x) > dev.size("px")),
+  ...
+)
 
 \method{persp}{data.grid}(x, data.ind = 1, xlab = NULL, ylab = NULL, zlab = NULL, ...)
 
@@ -22,6 +29,9 @@ containing the values to be used for coloring the rectangles.}
 \item{xlab}{label for the x axis, defaults to \code{dimnames(x)[1]}.}
 
 \item{ylab}{label for the y axis, defaults to \code{dimnames(x)[2]}.}
+
+\item{useRaster}{logical; if \code{TRUE} a bitmap raster is used to plot the 
+image instead of polygons.}
 
 \item{...}{additional graphical parameters (to be passed to main plot function).}
 

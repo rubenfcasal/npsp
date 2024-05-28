@@ -69,7 +69,7 @@ spoints <- function(x, ...) UseMethod("spoints")
 #' If \code{FALSE} only the (coloured) main plot is drawn and the arguments related
 #' to the legend are ignored (\code{\link{splot}} is not called).
 #' @param bigplot plot coordinates for main plot. If not passed, and \code{legend}
-#' is TRUE, these will bedetermined within the function.
+#' is TRUE, these will be determined within the function.
 #' @param smallplot plot coordinates for legend strip. If not passed, and \code{legend}
 #' is TRUE, these will be determined within the function.
 #' @param add logical; if \code{TRUE} the scatter plot is just added 
@@ -115,7 +115,8 @@ spoints.default <- function(x, y = NULL, s, slim = range(s, finite = TRUE), col 
           old.par <- par(no.readonly = TRUE)
           bigplot <- old.par$plt
         } else
-          old.par <- par(plt = bigplot, no.readonly = TRUE)
+          old.par <- par(plt = bigplot)
+          # old.par <- par(plt = bigplot, no.readonly = TRUE)
         # par(xpd = FALSE)
         res <- list(bigplot = bigplot, smallplot = NA, old.par = old.par)    
     }

@@ -4,7 +4,7 @@ author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
 date: '`r paste("npsp", packageVersion("npsp"))`'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Geoestadística no paramétrica con el paquete *npsp*}
+  %\VignetteIndexEntry{Geoestadistica no parametrica con el paquete *npsp*}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

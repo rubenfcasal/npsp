@@ -151,7 +151,8 @@ simage.default <- function(x = seq(0, 1, len = nrow(s)), y = seq(0, 1,
           old.par <- par(no.readonly = TRUE)
           bigplot <- old.par$plt
         } else
-          old.par <- par(plt = bigplot, no.readonly = TRUE)
+          old.par <- par(plt = bigplot)
+          # old.par <- par(plt = bigplot, no.readonly = TRUE)
         # par(xpd = FALSE)
         res <- list(bigplot = bigplot, smallplot = NA, old.par = old.par)    
     }

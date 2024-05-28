@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">npsp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7-13</span>
       </span>
     </div>
 
@@ -91,9 +91,9 @@
                         <h4 data-toc-skip class="author">Ruben
 Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal@udc.es</a>)</h4>
             
-            <h4 data-toc-skip class="date">npsp 0.7.11</h4>
+            <h4 data-toc-skip class="date">npsp 0.7.13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/vignettes/npsp.Rmd" class="external-link"><code>vignettes/npsp.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rubenfcasal/npsp/blob/HEAD/../../../../E:/OneDrive%20-%20Universidade%20da%20Coru%C3%B1a/__R_Machinery/__npsp/npsp/vignettes/npsp.Rmd" class="external-link"><code>../../../../E:/OneDrive - Universidade da Coruña/__R_Machinery/__npsp/npsp/vignettes/npsp.Rmd</code></a></small>
       <div class="hidden name"><code>npsp.Rmd</code></div>
 
     </div>
@@ -137,10 +137,10 @@ spatial model (large + small variation scales), and without assuming any
 specific form (parametric model) for the trend and the variogram of the
 process.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rubenfcasal/npsp" class="external-link">npsp</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rubenfcasal.github.io/npsp/" class="external-link">npsp</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  Package npsp: Nonparametric Spatial Statistics,</span></span>
-<span><span class="co">##  version 0.7-11 (built on 2023-04-22).</span></span>
-<span><span class="co">##  Copyright (C) R. Fernandez-Casal 2012-2023.</span></span>
+<span><span class="co">##  version 0.7-13 (built on 2024-02-17).</span></span>
+<span><span class="co">##  Copyright (C) R. Fernandez-Casal 2012-2024.</span></span>
 <span><span class="co">##  Type `help(npsp)` for an overview of the package or</span></span>
 <span><span class="co">##  visit https://rubenfcasal.github.io/npsp.</span></span></code></pre>
 <p>The <code>precipitation</code> data set
@@ -241,13 +241,13 @@ use:</p>
 <p><img src="npsp_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>Usually two grids will be considered, a low resolution one to speed
 up computations during the modeling (e.g. by using the default values),
-and a higher resolution one to obtaing the final results.</p>
+and a higher resolution one to obtain the final results.</p>
 </div>
 <div class="section level2">
 <h2 id="bandwidth-selection">Bandwidth selection<a class="anchor" aria-label="anchor" href="#bandwidth-selection"></a>
 </h2>
-<p>The trend estimates depends crucially on the bandwidth matrix <span class="math inline">\(H\)</span>. A small bandwith will produce
-undersmoothed estimates, whereas a big bandwith will oversmooth the
+<p>The trend estimates depends crucially on the bandwidth matrix <span class="math inline">\(H\)</span>. A small bandwidth will produce
+undersmoothed estimates, whereas a big bandwidth will oversmooth the
 data. Although it may be subjectively choosed by eye, it could be very
 beneficial to have automatic selection criteria from the data.</p>
 <p>Traditional bandwidth selectors, such as cross validation (CV) or

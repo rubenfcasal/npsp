@@ -64,7 +64,7 @@ cpu.time(total = FALSE)
 
 ## Residual Kriging
 
-```{r}
+```{r fig.height=8, fig.width=12, out.width="100%"}
 library(sp)
 library(gstat)
 spdf <- SpatialPointsDataFrame(aquifer[,1:2], 
@@ -80,7 +80,6 @@ krig2 <- krige(r ~ 1, locations = spdf, newdata = newdata,
 krig2.grid <- data.grid(kpred = lp$est + krig2@data$var1.pred, 
                         ksd = sqrt(krig2@data$var1.var), 
         grid = lp$grid)
-
 scale.color <- jet.colors(64)
 scale.range <- c(1100, 4100)
 # 1x2 plot with some room for the legend...
@@ -92,15 +91,16 @@ spersp(krig2.grid, main = 'Kriging predictions \n (bias-corrected)',
        col = scale.color, legend = FALSE, theta = 120, reset = FALSE)
 par(old.par)
 splot(slim = scale.range, col = scale.color, legend.shrink = 0.6, add = TRUE)
+
 ```
-```{r fig.height=4, fig.width=7}
+```{r fig.height=6, fig.width=12, out.width="100%"}
 old.par <- par(mfrow = c(1,2), omd = c(0.05, 0.85, 0.05, 0.95))
 scale.range <- c(125, 200)
 scale.range <- range(krig.grid$ksd, krig2.grid$ksd, finite = TRUE)
-image( krig.grid, 'ksd', zlim = scale.range, 
+image( krig.grid, 'ksd', zlim = scale.range, # asp = 1, 
        main = 'Kriging sd', col = scale.color)
 with(aquifer, points(lon, lat, cex = 0.75))
-image( krig2.grid, 'ksd', zlim = scale.range, 
+image( krig2.grid, 'ksd', zlim = scale.range, # asp = 1, 
        main = 'Kriging sd (bias-corrected)', col = scale.color)
 with(aquifer, points(lon, lat, cex = 0.75))
 par(old.par)

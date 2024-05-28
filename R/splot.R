@@ -28,10 +28,9 @@
 #' a legend representing a (continuous) color scale. This is done by splitting 
 #' the plotting region into two parts. Keeping one for the main chart and 
 #' putting the legend in the other.  
-#' 
-#' \code{sxxxx} functions (\code{\link{spoints}}, \code{\link{simage}} 
-#' and \code{\link{spersp}}) draw the corresponding high-level plot (\code{xxxx}) 
-#' with a legend strip for the color scale.  
+#' For instance, \code{sxxxx} functions (\code{\link{spoints}}, \code{\link{simage}} 
+#' and \code{\link{spersp}}) draw the corresponding high-level plot (\code{xxxx}),
+#' after calling \code{splot}, to include a legend strip for the color scale. 
 #' 
 #' These functions are based on function \code{\link[fields]{image.plot}} of package
 #' \pkg{fields}, see its documentation for additional information.
@@ -68,8 +67,8 @@
 #' function. Usually this will not be needed (see \code{\link[fields]{image.plot}} 
 #' for details).
 #' @param add logical; if \code{TRUE} the legend strip is just added 
-#' to the existing plot.
-#' @section Side Effects: After exiting, the plotting region may be changed 
+#' to the existing plot (the graphical parameters are not changed).
+#' @section Side Effects: After exiting \code{splot}, the plotting region may be changed 
 #' (\code{\link{par}("plt")}) to make it possible to add more features to the plot.
 #' @return \code{splot} invisibly returns a list with the following 3 components:
 #' \item{bigplot}{plot coordinates of the main plot. These values may be useful for 
@@ -83,9 +82,10 @@
 #' @examples
 #' # Plot equivalent to spoints():
 #' scale.range <- range(aquifer$head)
-#' splot(slim = scale.range)
+#' res <- splot(slim = scale.range)
 #' with( aquifer, plot(lon, lat, col = scolor(head, slim = scale.range), 
 #'        pch = 16, cex = 1.5, main = "Wolfcamp aquifer data"))
+#' par(res$old.par) # restore graphical parameters       
 #' # Multiple plots with a common legend:
 #' # regularly spaced 2D data...
 #' set.seed(1)
