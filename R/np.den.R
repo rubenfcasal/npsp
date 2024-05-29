@@ -30,6 +30,7 @@
 #' @param  x vector or matrix of covariates (e.g. spatial coordinates). 
 #'    Columns correspond with dimensions and rows with observations.
 #' @param  nbin vector with the number of bins on each dimension.
+#' @param type character, binning method: \code{"linear"} (default) or \code{"simple"}.
 #' @details If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
 #' @return Returns an S3 object of \code{\link{class}} \code{bin.den} (extends \code{\link{data.grid}}). 
 #'    A list with the following 3 components:
@@ -44,7 +45,7 @@
 #' all.equal(binden, as.bin.den(bindat))
 #' @export
 # Interface to the Fortran routine "bin_den"
-bin.den <- function(x, nbin = NULL) {
+bin.den <- function(x, nbin = NULL, type = c("linear", "simple")) {
 #····································································
     x <- as.matrix(x)
     ny <- nrow(x)               # number of data
@@ -59,12 +60,14 @@ bin.den <- function(x, nbin = NULL) {
     if(is.null(nbin)) nbin <- pmax(25L, rule.binning(x)) else   # dimensions of the binning grid
       if (nd != length(nbin)) stop("arguments 'x' and 'nbin' have incompatible dimensions.")
     nt <- prod(nbin)
+    type <- match.arg(type)
+    itype <- ifelse(type == "simple", 1, 0)
     # Let's go FORTRAN!
     # subroutine bin_den(nd, nbin, x, ny, bin_min, bin_max, bin_w)
     ret <-.Fortran( "bin_den", nd = as.integer(nd), nbin = as.integer(nbin),
                   xt = as.double(t(x)), ny = as.integer(ny),
                   min = double(nd), max = double(nd), 
-                  binw = double(nt), PACKAGE = "npsp")
+                  binw = double(nt), itype = as.integer(itype), PACKAGE = "npsp")
     # Construir o resultado
     result <- with( ret, data.grid( binw = binw,
               grid = grid.par(n = nbin, min = min, max = max, 

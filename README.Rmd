@@ -10,10 +10,9 @@ Please edit that file
 ```{r include=FALSE}
 # Create .nojekyll file in the /docs folder
 file.create('docs/.nojekyll')
-# Avoid problems with "Onedrive - Universidade da Coruña" 
-# devtools::check(getwd()) 
-# pkgdown::build_site(getwd())
-# # pkgdown::build_articles(getwd())
+# devtools::check() 
+# pkgdown::build_site()
+# pkgdown::build_articles()
 ```
 
 npsp: Nonparametric spatial (geo)statistics
@@ -105,9 +104,9 @@ Note also that, as this package requires compilation, Windows users need to have
 
 Alternatively, Windows users may install the corresponding *npsp_X.Y.Z.zip* file in the [releases section](https://github.com/rubenfcasal/npsp/releases/latest) of the github repository.
 
-For R versions 4.2.x under Windows:
+For R versions 4.3.x under Windows:
 ```{r install-win, eval=FALSE}
-install.packages('https://github.com/rubenfcasal/npsp/releases/download/v0.7-10/npsp_0.7-10.zip',
+install.packages('https://github.com/rubenfcasal/npsp/releases/download/v0.7-14/npsp_0.7-14.zip',
                  repos = NULL)
 ``` 
 

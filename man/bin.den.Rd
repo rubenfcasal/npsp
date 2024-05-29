@@ -8,7 +8,7 @@
 \alias{as.bin.den.bin.den}
 \title{Linear binning for density estimation}
 \usage{
-bin.den(x, nbin = NULL)
+bin.den(x, nbin = NULL, type = c("linear", "simple"))
 
 as.bin.den(object, ...)
 
@@ -21,6 +21,8 @@ as.bin.den(object, ...)
 Columns correspond with dimensions and rows with observations.}
 
 \item{nbin}{vector with the number of bins on each dimension.}
+
+\item{type}{character, binning method: \code{"linear"} (default) or \code{"simple"}.}
 
 \item{object}{(gridded data) used to select a method.}
 

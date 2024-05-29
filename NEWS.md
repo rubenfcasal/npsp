@@ -1,5 +1,7 @@
-# Development version
+# Development version (2024-05-28)
 
+* Added `type` argument to `bin.den()`  which allows the computation of 
+  simple binning weights.
 
 
 # npsp 0.7-13 (2024-02-17)

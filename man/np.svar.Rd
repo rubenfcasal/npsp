@@ -172,7 +172,7 @@ nonparametric estimation of the trend function) in semivariogram estimation.
 Fernandez Casal R., Gonzalez Manteiga W. and  Febrero Bande M. (2003) 
 Space-time dependency modeling using general classes of flexible stationary 
 variogram models, \emph{J. Geophys. Res.}, \bold{108}, 8779, 
-doi:10.1029/2002JD002909.
+\doi{10.1029/2002JD002909}.
 
 Garcia-Soidan P.H., Gonzalez-Manteiga W. and Febrero-Bande M. (2003) 
 Local linear regression estimation of the variogram, 

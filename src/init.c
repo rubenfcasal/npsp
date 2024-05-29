@@ -7,7 +7,7 @@
 #include <R_ext/Rdynload.h>
 /* .Fortran calls */
 extern void F77_NAME(bin_den)(int *nd, int *nbin, double *x, int *ny, 
-    double *bin_min, double *bin_max, double *bin_w);
+    double *bin_min, double *bin_max, double *bin_w, int *itype);
 extern void F77_NAME(binning_r)(int *nd, int *nbin, double *x, int *ny, 
     double *y, double *bin_min, double *bin_max, double *bin_med, 
     double *bin_y, double *bin_w);
@@ -44,7 +44,7 @@ extern void F77_NAME(svar_iso_np)(int *nd, double *x, int *ny, double *y,
     int *ndelcv, double *rm, double *rss, int *nrl0);
 
 static const R_FortranMethodDef FortranEntries[] = {
-  {"bin_den",          (DL_FUNC) &F77_NAME(bin_den),           7},
+  {"bin_den",          (DL_FUNC) &F77_NAME(bin_den),           8},
   {"binning_r",        (DL_FUNC) &F77_NAME(binning_r),        10},
   {"disc_sbv",         (DL_FUNC) &F77_NAME(disc_sbv),          4},
   {"dnrm2_r",          (DL_FUNC) &F77_NAME(dnrm2_r),           6},

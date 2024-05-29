@@ -253,6 +253,55 @@
 
 
 !       ----------------------------------------------------------------
+        subroutine set_sbin_den(g, nd, nbin, x, ny)
+!       Establece la rejilla binning simple (para densidad)
+!       ----------------------------------------------------------------
+        implicit none
+        type(grid_bin) :: g
+        integer nd, nbin(nd), ny
+        real(8)  x(nd,ny)
+!
+        integer iib(nd), ib, i, j
+        real(8)  minx(nd), maxx(nd), tmp
+!       real(8), external :: dmach
+!           ------------------------------------------------------------
+!           Calcular dimensiones rejilla binning
+            minx = x(1:nd, 1)
+            maxx = minx
+            do j = 1, nd
+                do i = 2, ny
+                    if (minx(j) > x(j, i)) then
+                        minx(j) = x(j, i)
+                    else if (maxx(j) < x(j, i)) then
+                        maxx(j) = x(j, i)
+                    end if
+                end do
+!               Expandir un poco                
+                tmp = MAX(maxx(j)-minx(j), DABS(minx(j)))* (1.0d2*epsilon(1.0d0)) 
+                minx(j) = minx(j) - tmp
+                maxx(j) = maxx(j) + tmp
+            end do
+!           Establecer rejilla
+            call set_grid(g, nd, nbin, minx, maxx)
+!           Asignar memoria rejilla binning
+            allocate(g%w(g%ngrid))
+            g%ny = ny
+            g%w = 0.0d0
+!           Recorrer datos
+            do i = 1, ny
+                do j = 1, nd
+                    iib(j) = 1 + NINT((x(j, i) - g%min(j)) / g%lag(j))
+                end do
+!               Actualizar valor
+!               ib = g%ind(iib)
+                ib = ind(g, iib)
+                g%w(ib) = g%w(ib) + 1
+            end do
+        return
+        end subroutine set_sbin_den
+
+
+!       ----------------------------------------------------------------
         subroutine end_bin_den(g)
 !       Libera memoria
 !       ----------------------------------------------------------------
@@ -397,21 +446,26 @@
 
 
 !   --------------------------------------------------------------------
-    subroutine bin_den(nd, nbin, x, ny, bin_min, bin_max, bin_w)
+    subroutine bin_den(nd, nbin, x, ny, bin_min, bin_max, bin_w, itype)
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "bin.den"
 !       Devuelve la rejilla binning type(grid_den)%set_bin_den(nd, nbin, x, ny, y)
 !
-!   Autor: (c) Ruben Fernandez-Casal    Ultima revision: Nov 2013
+!   Autor: (c) Ruben Fernandez-Casal    Ultima revision: May 2024 (Nov 2013)
 !   --------------------------------------------------------------------
     use grid_module
     implicit none
-    integer nd, nbin(nd), ny
+    integer nd, nbin(nd), ny, itype
     real(8)  x(nd,ny)
     real(8)  bin_min(nd), bin_max(nd), bin_w(*)
     type(grid_bin) :: bin
-!       call bin%set_bin_den(nd, nbin, x, ny) ! Establece la rejilla binning (lineal)
-        call set_bin_den(bin, nd, nbin, x, ny)
+!       ----------------------------------------------------------------
+        if (itype == 0) then
+!           call bin%set_bin_den(nd, nbin, x, ny)   ! Establece la rejilla binning (lineal)
+            call set_bin_den(bin, nd, nbin, x, ny)
+        else
+            call set_sbin_den(bin, nd, nbin, x, ny)  ! Binning simple
+        end if
         bin_min = bin%min
         bin_max = bin%max
         bin_w(1:bin%ngrid) = bin%w
