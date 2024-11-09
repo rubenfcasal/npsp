@@ -10,7 +10,15 @@
 \alias{as.bin.data.SpatialGridDataFrame}
 \title{Linear binning}
 \usage{
-binning(x, y = NULL, nbin = NULL, set.NA = FALSE, window = NULL, ...)
+binning(
+  x,
+  y = NULL,
+  nbin = NULL,
+  type = c("linear", "simple"),
+  set.NA = FALSE,
+  window = NULL,
+  ...
+)
 
 as.bin.data(object, ...)
 
@@ -27,6 +35,8 @@ Columns correspond with covariates (coordinate dimension) and rows with data.}
 \item{y}{vector of data (response variable).}
 
 \item{nbin}{vector with the number of bins on each dimension.}
+
+\item{type}{character, binning method: \code{"linear"} (default) or \code{"simple"}.}
 
 \item{set.NA}{logical. If \code{TRUE}, sets the bin averages corresponding
 to cells without data to \code{NA}.}
@@ -46,8 +56,8 @@ containing the bin counts/weights (if not specified, they are set to
 \code{as.numeric( is.finite( object[[data.ind]] ))}).}
 }
 \value{
-If \code{y != NULL}, an S3 object of \code{\link{class}} \code{bin.data} 
-(gridded binned data; extends \code{\link{bin.den}}) is returned. 
+If \code{y != NULL}, an S3 object of \code{\link{class} bin.data} (gridded 
+binned data; extends \code{\link{bin.den}}) is returned. 
 A \code{\link{data.grid}} object with the following 4 components:
 \item{biny}{vector or array (dimension \code{nbin}) with the bin averages. }
 \item{binw}{vector or array (dimension \code{nbin}) with the bin counts (weights).}
@@ -64,7 +74,7 @@ If \code{y == NULL}, \code{\link{bin.den}} is called and a
 }
 \description{
 Discretizes the data into a regular grid (computes a binned approximation) 
-using the multivariate linear binning technique described in Wand (1994).
+using the simple and linear multivariate binning techniques described in Wand (1994).
 }
 \details{
 If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
@@ -78,7 +88,7 @@ with(earthquakes, spoints(lon, lat, mag, main = "Earthquake data"))
 
 bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30), set.NA = TRUE)
 
-simage(bin, main = "Binning averages")
+simage(bin, main = "Binning averages", reset = FALSE)
 with(earthquakes, points(lon, lat, pch = 20))
 }
 \references{

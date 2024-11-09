@@ -10,7 +10,7 @@ extern void F77_NAME(bin_den)(int *nd, int *nbin, double *x, int *ny,
     double *bin_min, double *bin_max, double *bin_w, int *itype);
 extern void F77_NAME(binning_r)(int *nd, int *nbin, double *x, int *ny, 
     double *y, double *bin_min, double *bin_max, double *bin_med, 
-    double *bin_y, double *bin_w);
+    double *bin_y, double *bin_w, int *itype);
 extern void F77_NAME(disc_sbv)(int *nx, double *x, int *dim, double *rango);
 extern void F77_NAME(dnrm2_r)(int *nd, double *x, int *nx, double *z, int *nz, 
     double *dist);
@@ -27,7 +27,7 @@ extern void F77_NAME(lp_data_grid)(int *nd, int *nbin, int *ntbin, double *bin_m
     int *ncv, double *rm, double *rss, int *nrl0);
 extern void F77_NAME(lp_raw)(int *nd, int *nbin, int *ntbin, double *x, int *ny, 
     double *y, double *bin_min, double *bin_max, double *bin_med, double *bin_y, 
-    double *bin_w, double *h, double *lpe, int *degree, int *ideriv, 
+    double *bin_w, int *itype, double *h, double *lpe, int *degree, int *ideriv, 
     double *deriv, int *ihat, double *hatlp, int *ncv, double *rm, 
     double *rss, int *nrl0);
 extern void F77_NAME(predict_locpol)(int *nd, int *nbin, double *bin_min, 
@@ -45,14 +45,14 @@ extern void F77_NAME(svar_iso_np)(int *nd, double *x, int *ny, double *y,
 
 static const R_FortranMethodDef FortranEntries[] = {
   {"bin_den",          (DL_FUNC) &F77_NAME(bin_den),           8},
-  {"binning_r",        (DL_FUNC) &F77_NAME(binning_r),        10},
+  {"binning_r",        (DL_FUNC) &F77_NAME(binning_r),        11},
   {"disc_sbv",         (DL_FUNC) &F77_NAME(disc_sbv),          4},
   {"dnrm2_r",          (DL_FUNC) &F77_NAME(dnrm2_r),           6},
   {"dposv_r",          (DL_FUNC) &F77_NAME(dposv_r),           5},
   {"interp_data_grid", (DL_FUNC) &F77_NAME(interp_data_grid),  9},
   {"lp_bin",           (DL_FUNC) &F77_NAME(lp_bin),           19},
   {"lp_data_grid",     (DL_FUNC) &F77_NAME(lp_data_grid),     18},
-  {"lp_raw",           (DL_FUNC) &F77_NAME(lp_raw),           22},
+  {"lp_raw",           (DL_FUNC) &F77_NAME(lp_raw),           23},
   {"predict_locpol",   (DL_FUNC) &F77_NAME(predict_locpol),   15},
   {"svar_iso_bin",     (DL_FUNC) &F77_NAME(svar_iso_bin),     12},
   {"svar_iso_np",      (DL_FUNC) &F77_NAME(svar_iso_np),      22},

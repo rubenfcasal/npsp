@@ -18,6 +18,7 @@ locpol(x, ...)
   y,
   h = NULL,
   nbin = NULL,
+  type = c("linear", "simple"),
   degree = 1 + as.numeric(drv),
   drv = FALSE,
   hat.bin = FALSE,
@@ -65,6 +66,8 @@ locpolhcv(
 only the upper triangular part of h is used).}
 
 \item{nbin}{vector with the number of bins on each dimension.}
+
+\item{type}{character, binning method: \code{"linear"} (default) or \code{"simple"}.}
 
 \item{degree}{degree of the local polynomial used. Defaults to 1 (local linear estimation).}
 
@@ -138,7 +141,7 @@ selection stage (estimation is done with all the data).
 }
 \examples{
 lp <- locpol(earthquakes[, c("lon", "lat")], earthquakes$mag, h = diag(2, 2), nbin = c(41,41))
-simage(lp, main = "Smoothed magnitude")
+simage(lp, main = "Smoothed magnitude", reset = FALSE)
 contour(lp, add = TRUE)
 
 bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(41,41))

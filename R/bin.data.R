@@ -21,7 +21,7 @@
 #' Linear binning
 #' 
 #' Discretizes the data into a regular grid (computes a binned approximation) 
-#' using the multivariate linear binning technique described in Wand (1994).
+#' using the simple and linear multivariate binning techniques described in Wand (1994).
 #'
 #' @aliases bin.data-class bin.data
 #' @inheritParams mask.data.grid
@@ -30,16 +30,19 @@
 #' Columns correspond with covariates (coordinate dimension) and rows with data.
 #' @param  y vector of data (response variable).
 #' @param  nbin vector with the number of bins on each dimension.
+#' @param  type character, binning method: \code{"linear"} (default) or \code{"simple"}.
 #' @param  set.NA logical. If \code{TRUE}, sets the bin averages corresponding
 #' to cells without data to \code{NA}.
 #' @param ... further arguments passed to \code{\link{mask.bin.data}()}.
-#' @details If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
+#' @details 
+#' If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
 #' 
 #' Setting \code{set.NA = TRUE} (equivalent to \code{biny[binw == 0] <- NA}) 
 #' may be useful for plotting the binned averages \code{$biny}
 #' (the hat matrix should be handled with care when using \code{\link{locpol}}).
-#' @return If \code{y != NULL}, an S3 object of \code{\link{class}} \code{bin.data} 
-#' (gridded binned data; extends \code{\link{bin.den}}) is returned. 
+#' @return 
+#' If \code{y != NULL}, an S3 object of \code{\link{class} bin.data} (gridded 
+#' binned data; extends \code{\link{bin.den}}) is returned. 
 #' A \code{\link{data.grid}} object with the following 4 components:
 #' \item{biny}{vector or array (dimension \code{nbin}) with the bin averages. }
 #' \item{binw}{vector or array (dimension \code{nbin}) with the bin counts (weights).}
@@ -63,10 +66,11 @@
 #'
 #' bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,30), set.NA = TRUE)
 #'
-#' simage(bin, main = "Binning averages")
+#' simage(bin, main = "Binning averages", reset = FALSE)
 #' with(earthquakes, points(lon, lat, pch = 20))
 #' @export
-binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE, window = NULL, ... ) {
+binning <- function(x, y = NULL, nbin = NULL, type = c("linear", "simple"), 
+                    set.NA = FALSE, window = NULL, ... ) {
 #····································································
 # Returns an S3 object of class "bin.data" (bin data + grid parameters)
 # Interface to the fortran routine "binning"
@@ -98,12 +102,15 @@ binning <- function(x, y = NULL, nbin = NULL, set.NA = FALSE, window = NULL, ...
         #  if (!identical(nd, length(nbin)))      # Cuidado con double e integer (nd <- 1L)
 
     nt <- prod(nbin)
+    type <- match.arg(type)
+    itype <- ifelse(type == "simple", 1, 0)
     # Let's go FORTRAN!
     #   subroutine binning_r( nd, nbin, x, ny, y, bin_min, bin_max, bin_med, bin_y, bin_w)
     ret <-.Fortran( "binning_r", nd = as.integer(nd), nbin = as.integer(nbin),
                   xt = as.double(t(x)), ny = as.integer(ny), y = as.double(y),
                   min = double(nd), max = double(nd), med = double(1),
-                  biny = double(nt), binw = double(nt), PACKAGE = "npsp")
+                  biny = double(nt), binw = double(nt), itype = as.integer(itype), 
+                  PACKAGE = "npsp")
     # Construir o resultado
     if (set.NA) is.na(ret$biny) <- ret$binw == 0  # biny[binw == 0] <- NA
     result <- with( ret,

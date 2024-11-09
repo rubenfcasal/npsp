@@ -69,6 +69,7 @@ locpol <- function(x, ...) {
 #' @param  h (full) bandwidth matrix (controls the degree of smoothing;
 #' only the upper triangular part of h is used).
 #' @param  nbin vector with the number of bins on each dimension.
+#' @param  type character, binning method: \code{"linear"} (default) or \code{"simple"}.
 #' @param  degree degree of the local polynomial used. Defaults to 1 (local linear estimation).
 #' @param  drv logical; if \code{TRUE}, the matrix of estimated first derivatives is returned.
 #' @param  hat.bin logical; if \code{TRUE}, the hat matrix of the binned data is returned.
@@ -102,7 +103,7 @@ locpol <- function(x, ...) {
 #'   \emph{The Annals of Statistics}, \bold{22}, 1346-1370.
 #' @examples 
 #' lp <- locpol(earthquakes[, c("lon", "lat")], earthquakes$mag, h = diag(2, 2), nbin = c(41,41))
-#' simage(lp, main = "Smoothed magnitude")
+#' simage(lp, main = "Smoothed magnitude", reset = FALSE)
 #' contour(lp, add = TRUE)
 #' 
 #' bin <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(41,41))
@@ -112,8 +113,8 @@ locpol <- function(x, ...) {
 #' den <- locpol(as.bin.den(bin), h = diag(1, 2))
 #' plot(den, log = FALSE, main = 'Estimated density')
 #' @export
-locpol.default <- function(x, y, h = NULL, nbin = NULL, degree = 1 + as.numeric(drv), 
-          drv = FALSE, hat.bin = FALSE, ncv = 0, set.NA = FALSE, ...) {    
+locpol.default <- function(x, y, h = NULL, nbin = NULL, type = c("linear", "simple"), 
+      degree = 1 + as.numeric(drv), drv = FALSE, hat.bin = FALSE, ncv = 0, set.NA = FALSE, ...) {    
 # Returns an S3 object of class "locpol.bin" (locpol + bin data + grid parameters)
 # Interface to the fortran routine "lp_raw" (lp_module.f90)
 #
@@ -162,6 +163,8 @@ locpol.default <- function(x, y, h = NULL, nbin = NULL, degree = 1 + as.numeric(
           stop("bandwith 'h' is not a square numeric matrix of appropriate order")   
     }      
     nt <- prod(nbin)   
+    type <- match.arg(type)
+    itype <- ifelse(type == "simple", 1, 0)    
     hat.bin <- as.logical(hat.bin)
     hat <- if (hat.bin) double(nt*nt) else NA_real_
     deriv <- if (drv) rep(NA_real_, nt*nd) else NA_real_ 
@@ -173,7 +176,7 @@ locpol.default <- function(x, y, h = NULL, nbin = NULL, degree = 1 + as.numeric(
     ret <-.Fortran("lp_raw", nd = as.integer(nd), nbin = as.integer(nbin),
               nt = as.integer(nt), xt = as.double(t(x)), ny = as.integer(ny), 
               y = as.double(y), min = double(nd), max = double(nd), med = double(1),
-              biny = double(nt), binw = double(nt), h = as.double(h), 
+              biny = double(nt), binw = double(nt), itype = as.integer(itype), h = as.double(h), 
               elp = as.double(rep(NA_real_, nt)), degree = as.integer(degree),  
               ideriv = as.integer(drv), deriv = deriv, ihat = as.integer(hat.bin), 
               hat = hat, ncv = as.integer(ncv), rm = double(1), rss = double(1), 

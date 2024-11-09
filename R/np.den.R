@@ -25,7 +25,7 @@
 #' Linear binning for density estimation
 #' 
 #' Creates a \code{bin.den}-\code{\link{class}} (gridded binned density) object 
-#' with linear binning counts.
+#' with simple or linear binning counts.
 #' @aliases bin.den-class
 #' @param  x vector or matrix of covariates (e.g. spatial coordinates). 
 #'    Columns correspond with dimensions and rows with observations.
@@ -37,7 +37,7 @@
 #' \item{binw}{vector or array (dimension \code{nbin}) with the bin counts (weights).}
 #' \item{grid}{a \code{\link{grid.par}}-\code{\link{class}} object with the grid parameters.}
 #' \item{data}{a list with a component \code{$x} with argument \code{x}.}
-#' @seealso \code{\link{np.den}}, \code{\link{h.cv}}, \code{\link{bin.data}}, 
+#' @seealso \code{\link{binning}},\code{\link{np.den}}, \code{\link{h.cv}}, \code{\link{bin.data}}, 
 #' \code{\link{locpol}}, \code{\link{rule.binning}}.
 #' @examples 
 #' binden <- bin.den(earthquakes[, c("lon", "lat")], nbin = c(30,30))

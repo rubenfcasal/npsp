@@ -1,9 +1,12 @@
-# Development version (2024-05-28)
+# npsp 0.7-14 (2024-07-09)
 
-* Added `type` argument to `bin.den()`  which allows the computation of 
+* Added `type` argument to `bin.den()` which allows the computation of 
   simple binning weights.
 
-
+* Added `type` argument to `binning()` and `locpol.default`()`, which allows the computation of 
+  simple binning weights and averages.
+  
+  
 # npsp 0.7-13 (2024-02-17)
 
 * Added `useRaster = all(dim(x) > dev.size("px"))` argument to `image()` 

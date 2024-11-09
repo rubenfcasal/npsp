@@ -40,8 +40,8 @@ reference:
     contents:
       - h.cv
       - hcv.data
-  - title: "Linear binning"
-    desc: "Methods for multidimensional linear binning."
+  - title: "Binning"
+    desc: "Methods for multidimensional (simple and linear) binning."
     contents:
       - binning 
       - bin.den

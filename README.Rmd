@@ -12,6 +12,7 @@ Please edit that file
 file.create('docs/.nojekyll')
 # devtools::check() 
 # pkgdown::build_site()
+# pkgdown::build_reference()
 # pkgdown::build_articles()
 ```
 

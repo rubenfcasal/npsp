@@ -40,7 +40,7 @@ Returns an S3 object of \code{\link{class}} \code{bin.den} (extends \code{\link{
 }
 \description{
 Creates a \code{bin.den}-\code{\link{class}} (gridded binned density) object 
-with linear binning counts.
+with simple or linear binning counts.
 }
 \details{
 If parameter \code{nbin} is not specified is set to \code{pmax(25, rule.binning(x))}.
@@ -51,6 +51,6 @@ bindat <- binning(earthquakes[, c("lon", "lat")], earthquakes$mag, nbin = c(30,3
 all.equal(binden, as.bin.den(bindat))
 }
 \seealso{
-\code{\link{np.den}}, \code{\link{h.cv}}, \code{\link{bin.data}}, 
+\code{\link{binning}},\code{\link{np.den}}, \code{\link{h.cv}}, \code{\link{bin.data}}, 
 \code{\link{locpol}}, \code{\link{rule.binning}}.
 }

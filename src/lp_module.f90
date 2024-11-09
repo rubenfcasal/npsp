@@ -18,7 +18,7 @@
 
 !   --------------------------------------------------------------------
     subroutine lp_raw( nd, nbin, ntbin, x, ny, y,                               &
-   &                    bin_min, bin_max, bin_med, bin_y, bin_w,                &
+   &                    bin_min, bin_max, bin_med, bin_y, bin_w, itype,         &
    &                    h, lpe, degree, ideriv, deriv, ihat, hatlp,             &
    &                    ncv, rm, rss, nrl0)
 !   --------------------------------------------------------------------
@@ -31,7 +31,7 @@
 !   --------------------------------------------------------------------
     use grid_module
     implicit none
-    integer nd, nbin(nd), ntbin, ny
+    integer nd, nbin(nd), ntbin, ny, itype
     real(8)  x(nd,ny), y(ny)
     real(8)  bin_min(nd),  bin_max(nd), bin_med, bin_y(ntbin), bin_w(ntbin)
     type(grid_bin) :: bin
@@ -40,8 +40,12 @@
     integer NDelCV(ND)
     real(8), external :: KTWMD
 !   --------------------------------------------------------------------
-!       call bin%set_bin(nd, nbin, x, ny, y) ! Establece la rejilla binning (lineal)
-        call set_grid_bin(bin, nd, nbin, x, ny, y)
+        if (itype == 0) then
+!           call bin%set_bin(nd, nbin, x, ny, y) ! Establece la rejilla binning (lineal)
+            call set_grid_bin(bin, nd, nbin, x, ny, y)
+        else
+            call set_grid_sbin(bin, nd, nbin, x, ny, y)  ! Binning simple
+        end if
 !       Estimacion y obtencion matriz Hat
         NDelCV = ncv
 !       SUBROUTINE lp(bin, h, FNucMD, GetE, lpe, degree, GetDERIV, deriv, ldderiv,  &

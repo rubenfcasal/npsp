@@ -401,6 +401,67 @@
 
 
 !       ----------------------------------------------------------------
+        subroutine set_grid_sbin(g, nd, nbin, x, ny, y)
+!       Establece la rejilla binning simple
+!       ----------------------------------------------------------------
+        implicit none
+        type(grid_bin) :: g
+        integer nd, nbin(nd), ny
+        real(8)  x(nd,ny), y(ny)
+!
+        integer iib(nd), ib, i, j
+        real(8)  minx(nd), maxx(nd), tmp
+        integer niinc, iinc(nd, 2**nd)
+!       real(8), external :: dmach
+!           ------------------------------------------------------------
+!           Calcular dimensiones rejilla binning
+            minx = x(1:nd, 1)
+            maxx = minx
+            do j = 1, nd
+                do i = 2, ny
+                    if (minx(j) > x(j, i)) then
+                        minx(j) = x(j, i)
+                    else if (maxx(j) < x(j, i)) then
+                        maxx(j) = x(j, i)
+                    end if
+                end do
+!               Expandir un poco                
+                tmp = MAX(maxx(j)-minx(j), DABS(minx(j)))* (1.0d2*epsilon(1.0d0)) 
+                minx(j) = minx(j) - tmp
+                maxx(j) = maxx(j) + tmp
+            end do
+!           Establecer rejilla
+            call set_grid(g, nd, nbin, minx, maxx)
+!           Asignar memoria rejilla binning
+            allocate(g%y(g%ngrid), g%w(g%ngrid))
+            g%ny = ny
+            g%y = 0.0d0
+            g%w = 0.0d0
+!           Recorrer datos
+            do i = 1, ny
+                do j = 1, nd
+                    iib(j) = 1 + NINT((x(j, i) - g%min(j)) / g%lag(j))
+                end do
+!               Actualizar valor
+!               ib = g%ind(iib)
+                ib = ind(g, iib)
+                g%w(ib) = g%w(ib) + 1
+                g%y(ib) = g%y(ib) + y(i)
+            end do
+!           promediar y calcular valor medio
+            g%med = 0.0d0
+            do i = 1, g%ngrid
+                if (g%w(i) > 0.d0) then
+                    g%med = g%med + g%y(i)/dble(g%ny)
+                    g%y(i) = g%y(i) / g%w(i)
+                end if
+            end do
+        return
+        end subroutine set_grid_sbin
+
+
+
+!       ----------------------------------------------------------------
         subroutine end_grid_bin(g)
 !       Libera memoria
 !       ----------------------------------------------------------------
@@ -419,7 +480,8 @@
 
 
 !   --------------------------------------------------------------------
-    subroutine binning_r(nd, nbin, x, ny, y, bin_min, bin_max, bin_med, bin_y, bin_w)
+    subroutine binning_r(nd, nbin, x, ny, y, bin_min, bin_max, bin_med,  &
+   &                     bin_y, bin_w, itype)
 !   --------------------------------------------------------------------
 !       Interfaz para la rutina de R "binning"
 !       Devuelve la rejilla binning type(grid_bin)%set_bin(nd, nbin, x, ny, y)
@@ -428,12 +490,18 @@
 !   --------------------------------------------------------------------
     use grid_module
     implicit none
-    integer nd, nbin(nd), ny
+    integer nd, nbin(nd), ny, itype
     real(8)  x(nd,ny), y(ny)
     real(8)  bin_min(nd), bin_max(nd), bin_med, bin_y(*), bin_w(*)
     type(grid_bin) :: bin
-!       call bin%set_bin(nd, nbin, x, ny, y) ! Establece la rejilla binning (lineal)
-        call set_grid_bin(bin, nd, nbin, x, ny, y)
+
+!       ----------------------------------------------------------------
+        if (itype == 0) then
+!           call bin%set_bin(nd, nbin, x, ny, y) ! Establece la rejilla binning (lineal)
+            call set_grid_bin(bin, nd, nbin, x, ny, y)
+        else
+            call set_grid_sbin(bin, nd, nbin, x, ny, y)  ! Binning simple
+        end if
         bin_min = bin%min
         bin_max = bin%max
         bin_med = bin%med
