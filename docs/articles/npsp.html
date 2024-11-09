@@ -6,20 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to the npsp Package • npsp</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to the npsp Package">
-<meta property="og:description" content="npsp">
+<meta property="og:description" content="Learn how to get started with the basics of npsp.
+">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -48,7 +49,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -71,7 +72,7 @@
 <li>
   <a href="https://github.com/rubenfcasal/npsp/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -82,7 +83,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -112,21 +113,27 @@ step-by-step approach.</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>We will assume that <span class="math inline">\(\left\{
-Y(\mathbf{x}),\mathbf{x}\in D \subset \mathbb{R}^{d}\right\}\)</span> is
-a spatial process that can be modeled as: <span class="math display">\[Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),\]</span></p>
-<p>where <span class="math inline">\(\mu(\cdot)\)</span> is the trend
-function (large-scale variation) and the error term <span class="math inline">\(\varepsilon\)</span> (small-scale variation), is a
-second order stationary process with zero mean and covariogram <span class="math inline">\(C(\mathbf{u}) = Cov(\varepsilon \left(
-\mathbf{x}\right) ,\varepsilon \left(\mathbf{x}+\mathbf{u}\right)
-)\)</span>, with <span class="math inline">\(\mathbf{u} \in
-D\)</span>.</p>
-<p>In this framework, given <span class="math inline">\(n\)</span>
-observed values <span class="math inline">\(\mathbf{Y}=(
-Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}\)</span>, the first step
-consists in estimate the trend <span class="math inline">\(\mu(\mathbf{x})\)</span> and the semivariogram
-<span class="math inline">\(\gamma(\mathbf{h}) = C(\mathbf{0}) -
-C(\mathbf{u})\)</span>.</p>
+<p>We will assume that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">{</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>𝐱</mi><mo>∈</mo><mi>D</mi><mo>⊂</mo><msup><mi>ℝ</mi><mi>d</mi></msup><mo stretchy="true" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\left\{ Y(\mathbf{x}),\mathbf{x}\in D \subset \mathbb{R}^{d}\right\}</annotation></semantics></math>
+is a spatial process that can be modeled as:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu(\cdot)</annotation></semantics></math>
+is the trend function (large-scale variation) and the error term
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+(small-scale variation), is a second order stationary process with zero
+mean and covariogram
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>C</mi><mi>o</mi><mi>v</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo>+</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">C(\mathbf{u}) = Cov(\varepsilon \left( \mathbf{x}\right) ,\varepsilon \left(\mathbf{x}+\mathbf{u}\right) )</annotation></semantics></math>,
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐮</mi><mo>∈</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">\mathbf{u} \in D</annotation></semantics></math>.</p>
+<p>In this framework, given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+observed values
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐘</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{Y}=( Y(\mathbf{x}_{1}),...,Y(\mathbf{x}_{n}))^{t}</annotation></semantics></math>,
+the first step consists in estimate the trend
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu(\mathbf{x})</annotation></semantics></math>
+and the semivariogram
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐡</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>𝟎</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\gamma(\mathbf{h}) = C(\mathbf{0}) - C(\mathbf{u})</annotation></semantics></math>.</p>
 <p>There are several <code>R</code> packages, such as <a href="https://r-spatial.github.io/gstat/" class="external-link"><code>gstat</code></a> or <a href="http://www.leg.ufpr.br/geoR/" class="external-link"><code>geoR</code></a>, which
 implement the traditional geostatistical techniques to approximate these
 functions. Nevertheless, as these approaches usually assume parametric
@@ -137,7 +144,7 @@ spatial model (large + small variation scales), and without assuming any
 specific form (parametric model) for the trend and the variogram of the
 process.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rubenfcasal.github.io/npsp/" class="external-link">npsp</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rubenfcasal.github.io/npsp/">npsp</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  Package npsp: Nonparametric Spatial Statistics,</span></span>
 <span><span class="co">##  version 0.7-14 (built on 2024-07-09).</span></span>
 <span><span class="co">##  Copyright (C) R. Fernandez-Casal 2012-2024.</span></span>
@@ -183,23 +190,34 @@ presence of a non-constant trend…</p>
 <div class="section level2">
 <h2 id="trend-estimation">Trend estimation<a class="anchor" aria-label="anchor" href="#trend-estimation"></a>
 </h2>
-<p>The local polynomial trend estimator <span class="math inline">\(\hat{\mu}_{\mathbf{H}}(\mathbf{x})\)</span>
-(e.g. Fan and Gijbels, 1996), obtained by polynomial smoothing of <span class="math inline">\(\{(\mathbf{x}_{i},Y(\mathbf{x}_{i})):i=1,\ldots,n\}\)</span>,
-is the solution for <span class="math inline">\(\beta_0\)</span> to the
-least squares minimization problem <span class="math display">\[\begin{aligned}
+<p>The local polynomial trend estimator
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{\mu}_{\mathbf{H}}(\mathbf{x})</annotation></semantics></math>
+(e.g. Fan and Gijbels, 1996), obtained by polynomial smoothing of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>,</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>:</mo><mi>i</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{(\mathbf{x}_{i},Y(\mathbf{x}_{i})):i=1,\ldots,n\}</annotation></semantics></math>,
+is the solution for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\beta_0</annotation></semantics></math>
+to the least squares minimization problem
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><munder><mo>min</mo><mrow><msub><mi>β</mi><mn>0</mn></msub><mo>,</mo><msub><mi>𝛃</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>𝛃</mi><mi>p</mi></msub></mrow></munder><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">{</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mi>β</mi><mn>0</mn></msub><mo>−</mo><msubsup><mi>𝛃</mi><mn>1</mn><mi>t</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>…</mi></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msup><mrow><mi>−</mi><msubsup><mi>𝛃</mi><mi>p</mi><mi>t</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>p</mi></msup><mo stretchy="true" form="postfix">}</mo></mrow><mn>2</mn></msup><msub><mi>K</mi><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
     \min_{\beta_0 ,\boldsymbol{\beta}_1, \ldots, \boldsymbol{\beta}_p}
-    \sum_{i=1}^{n}\left\{ Y(\mathbf{x}_{i})-\beta_0
-    -\boldsymbol{\beta}_1^{t}(\mathbf{x}_{i}-\mathbf{x}) - \ldots
-\right. \nonumber \\
-    \left. -\boldsymbol{\beta}_p^{t}(\mathbf{x}_{i}-\mathbf{x})^p
-\right\}^{2}
+    \sum_{i=1}^{n}\left\{ Y(\mathbf{x}_{i})-\beta_0 
+    -\boldsymbol{\beta}_1^{t}(\mathbf{x}_{i}-\mathbf{x}) - \ldots \right. \nonumber \\
+    \left. -\boldsymbol{\beta}_p^{t}(\mathbf{x}_{i}-\mathbf{x})^p \right\}^{2}
     K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),
-\end{aligned}\]</span> where <span class="math inline">\(\mathbf{H}\)</span> is a <span class="math inline">\(d\times d\)</span> symmetric positive definite
-matrix; <span class="math inline">\(K\)</span> is a <span class="math inline">\(d\)</span>-dimensional kernel and <span class="math inline">\(K_{\mathbf{H}}(\mathbf{u})=\left\vert  \mathbf{H}\right\vert
-^{-1}K(\mathbf{H}^{-1}\mathbf{u})\)</span>.</p>
-<p>The bandwidth matrix <span class="math inline">\(\mathbf{H}\)</span>
+\end{aligned}</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐇</mi><annotation encoding="application/x-tex">\mathbf{H}</annotation></semantics></math>
+is a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>×</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">d\times d</annotation></semantics></math>
+symmetric positive definite matrix;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+is a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>-dimensional
+kernel and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">|</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>𝐇</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathbf{H}}(\mathbf{u})=\left\vert
+    \mathbf{H}\right\vert ^{-1}K(\mathbf{H}^{-1}\mathbf{u})</annotation></semantics></math>.</p>
+<p>The bandwidth matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐇</mi><annotation encoding="application/x-tex">\mathbf{H}</annotation></semantics></math>
 controls the shape and size of the local neighborhood used to estimate
-<span class="math inline">\(\mu(\mathbf{x})\)</span>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu(\mathbf{x})</annotation></semantics></math>.</p>
 <p>The local trend estimates can be computed in practice with the
 <code><a href="../reference/locpol.html">locpol()</a></code> function. A full bandwidth matrix and a
 multiplicative triweight kernel is used to compute the weights. Main
@@ -246,19 +264,24 @@ and a higher resolution one to obtain the final results.</p>
 <div class="section level2">
 <h2 id="bandwidth-selection">Bandwidth selection<a class="anchor" aria-label="anchor" href="#bandwidth-selection"></a>
 </h2>
-<p>The trend estimates depends crucially on the bandwidth matrix <span class="math inline">\(H\)</span>. A small bandwidth will produce
-undersmoothed estimates, whereas a big bandwidth will oversmooth the
-data. Although it may be subjectively choosed by eye, it could be very
-beneficial to have automatic selection criteria from the data.</p>
+<p>The trend estimates depends crucially on the bandwidth matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>.
+A small bandwidth will produce undersmoothed estimates, whereas a big
+bandwidth will oversmooth the data. Although it may be subjectively
+choosed by eye, it could be very beneficial to have automatic selection
+criteria from the data.</p>
 <p>Traditional bandwidth selectors, such as cross validation (CV) or
 generalized cross validation (GCV), do not have a good performance for
 dependent data (Opsomer et al, 2001), since they tend to undersmooth the
 trend function.</p>
 <p>The modified cross-validation criteria (MCV), proposed in (Chu and
 Marron, 1991) for time series, can be adapted for spatial data, by
-ignoring observations in a neighbourhood <span class="math inline">\(N(i)\)</span> around <span class="math inline">\(\mathbf{x}_{i}\)</span>. Note that the ordinary CV
-approach is a particular case with <span class="math inline">\(N(i)=\left\lbrace \mathbf{x}_{i}
-\right\rbrace\)</span>.</p>
+ignoring observations in a neighbourhood
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">N(i)</annotation></semantics></math>
+around
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐱</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mathbf{x}_{i}</annotation></semantics></math>.
+Note that the ordinary CV approach is a particular case with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">}</mo></mrow></mrow><annotation encoding="application/x-tex">N(i)=\left\lbrace \mathbf{x}_{i} \right\rbrace</annotation></semantics></math>.</p>
 <p>In practice, the bandwidth can be selected through the
 <code><a href="../reference/h.cv.html">h.cv()</a></code> (or <code><a href="../reference/h.cv.html">hcv.data()</a></code>) function.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -276,14 +299,16 @@ is previously required.</p>
 <h2 id="variogram-estimation">Variogram estimation<a class="anchor" aria-label="anchor" href="#variogram-estimation"></a>
 </h2>
 <p>When the process is assumed stationary, the pilot local linear
-estimate <span class="math inline">\(\hat\gamma(\mathbf{u})\)</span> is
-obtained by the linear smoothing of <span class="math inline">\(\left(\mathbf{x}_{i}-\mathbf{x}_{j},(Y(\mathbf{x}_i)-
-Y(\mathbf{x}_j))^2/2 \right)\)</span>. The corresponding bandwidth can
-be selected, for instance, by minimizing the cross-validation relative
-squared error.</p>
+estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>γ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat\gamma(\mathbf{u})</annotation></semantics></math>
+is obtained by the linear smoothing of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo>,</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\left(\mathbf{x}_{i}-\mathbf{x}_{j},(Y(\mathbf{x}_i)- Y(\mathbf{x}_j))^2/2 \right)</annotation></semantics></math>.
+The corresponding bandwidth can be selected, for instance, by minimizing
+the cross-validation relative squared error.</p>
 <p>In the general setting with a non constant trend, the natural
 approach consists in removing the trend and estimating the variogram
-from the residuals <span class="math inline">\(\mathbf{r}=\mathbf{Y}-\mathbf{SY}\)</span>.
+from the residuals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐫</mi><mo>=</mo><mi>𝐘</mi><mo>−</mo><mrow><mi>𝐒</mi><mi>𝐘</mi></mrow></mrow><annotation encoding="application/x-tex">\mathbf{r}=\mathbf{Y}-\mathbf{SY}</annotation></semantics></math>.
 Nevertheless, the residuals variability may be very different to that of
 the true errors (see e.g. Cressie, 1993, Section 3.4.3, for the case of
 the linear trend estimator). As the bias due to the direct use of
@@ -373,9 +398,9 @@ prediction, by using method <code><a href="../reference/np.kriging.html">np.krig
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></span></code></pre></div>
 <p>Currently, only global residual kriging is implemented. Users are
-encouraged to use <code><a href="https://rdrr.io/pkg/gstat/man/krige.html" class="external-link">gstat::krige()</a></code> (or
-<code><a href="https://rdrr.io/pkg/gstat/man/krige.cv.html" class="external-link">krige.cv()</a></code>) together with <code><a href="../reference/npsp-gstat.html">as.vgm()</a></code> for local
-kriging (see e.g. <a href="https://rubenfcasal.github.io/npsp/articles/krigstat.html" class="external-link uri">https://rubenfcasal.github.io/npsp/articles/krigstat.html</a>).</p>
+encouraged to use <code><a href="https://r-spatial.github.io/gstat/reference/krige.html" class="external-link">gstat::krige()</a></code> (or
+<code><a href="https://r-spatial.github.io/gstat/reference/krige.cv.html" class="external-link">krige.cv()</a></code>) together with <code><a href="../reference/npsp-gstat.html">as.vgm()</a></code> for local
+kriging (see e.g. <a href="https://rubenfcasal.github.io/npsp/articles/krigstat.html" class="uri">https://rubenfcasal.github.io/npsp/articles/krigstat.html</a>).</p>
 </div>
 <div class="section level2">
 <h2 id="conclusions-and-future-work">Conclusions and future work<a class="anchor" aria-label="anchor" href="#conclusions-and-future-work"></a>
@@ -443,9 +468,7 @@ class of conditionally non-negative definite functions.
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -458,16 +481,16 @@ class of conditionally non-negative definite functions.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

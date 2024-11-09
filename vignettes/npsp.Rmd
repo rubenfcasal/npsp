@@ -2,6 +2,8 @@
 title: 'Introduction to the npsp Package'
 author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
 date: '`r paste("npsp", packageVersion("npsp"))`'
+description: >
+  Learn how to get started with the basics of npsp.
 output: 
   html_document:
     toc: yes

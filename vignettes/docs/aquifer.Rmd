@@ -2,6 +2,8 @@
 title: 'Geoestadistica no parametrica con el paquete *npsp*'
 author: 'Ruben Fernandez-Casal (ruben.fcasal@udc.es)'
 date: '`r paste("npsp", packageVersion("npsp"))`'
+description: >
+  Conceptos básicos y primeros pasos con el paquete npsp.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Geoestadistica no parametrica con el paquete *npsp*}

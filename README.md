@@ -97,7 +97,7 @@ Alternatively, Windows users may install the corresponding
 section](https://github.com/rubenfcasal/npsp/releases/latest) of the
 github repository.
 
-For R versions 4.3.x under Windows:
+For R versions 4.4.x under Windows:
 
 ``` r
 install.packages('https://github.com/rubenfcasal/npsp/releases/download/v0.7-14/npsp_0.7-14.zip',

@@ -86,7 +86,7 @@
 #' and Tomas Cotos-Yañez (Dep. Statistics, University of Vigo, Spain).
 #' @name npsp-package
 #' @aliases npsp
-#' @docType package
+# @docType package
 # @useDynLib npsp
 #' @useDynLib npsp, .registration = TRUE
 #' @importFrom quadprog solve.QP
@@ -131,7 +131,7 @@
 #'   \emph{Journal of Computational and Graphical Statistics}, \bold{3}, 433-445.
 #'
 #' Wand M.P. and Jones M.C. (1995) \emph{Kernel Smoothing}. Chapman and Hall, London.
-NULL
+"_PACKAGE"
 
 
 

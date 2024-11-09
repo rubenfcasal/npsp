@@ -34,4 +34,4 @@ BugReports: https://github.com/rubenfcasal/npsp/issues/
 LazyData: yes
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2

@@ -1,168 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/404.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/docs/aquifer.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/docs/Introduccion.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/docs/npsp2.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/krigstat.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/articles/npsp.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/index.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/aquifer.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/as.data.grid.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/as.sp.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/bin.den.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/binning.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/coords.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/coordvalues.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/covar.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/cpu.time.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/data.grid.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/disc.sb.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/earthquakes.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/fitsvar.sb.iso.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/grid.par.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/h.cv.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/interp.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/kappasb.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/locpol.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/mask.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/np.den.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/np.fitgeo.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/np.geo.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/np.kriging.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/np.svar.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/npsp-geoR.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/npsp-gstat.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/npsp-internals.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/npsp-package.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/npsp.tolerance.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/plot.fitgeo.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/precipitation.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/rgraphics.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/rule.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/scattersplot.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/simage.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/spersp.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/splot.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/spoints.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/sv.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/svar.bin.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/svar.grid.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/svar.plot.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/svarmod.html</loc>
-  </url>
-  <url>
-    <loc>http://rubenfcasal.github.io/npsp/reference/varcov.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://rubenfcasal.github.io/npsp/404.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/articles/docs/aquifer.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/articles/docs/Introduccion.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/articles/docs/npsp2.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/articles/index.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/articles/krigstat.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/articles/npsp.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/authors.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/index.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/news/index.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/aquifer.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/as.data.grid.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/as.sp.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/bin.den.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/binning.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/coords.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/coordvalues.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/covar.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/cpu.time.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/data.grid.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/disc.sb.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/earthquakes.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/fitsvar.sb.iso.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/grid.par.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/h.cv.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/index.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/interp.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/kappasb.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/locpol.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/mask.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/np.den.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/np.fitgeo.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/np.geo.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/np.kriging.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/np.svar.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/npsp-geoR.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/npsp-gstat.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/npsp-internals.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/npsp-package.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/npsp.tolerance.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/plot.fitgeo.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/precipitation.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/rgraphics.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/rule.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/scattersplot.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/simage.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/spersp.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/splot.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/spoints.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/sv.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/svar.bin.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/svar.grid.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/svar.plot.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/svarmod.html</loc></url>
+<url><loc>https://rubenfcasal.github.io/npsp/reference/varcov.html</loc></url>
 </urlset>
+

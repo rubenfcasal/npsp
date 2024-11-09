@@ -6,20 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Geoestadistica no parametrica con el paquete *npsp* • npsp</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
 <script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><meta property="og:title" content="Geoestadistica no parametrica con el paquete *npsp*">
-<meta property="og:description" content="npsp">
+<meta property="og:description" content="Conceptos básicos y primeros pasos con el paquete npsp.
+">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -48,7 +49,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -71,7 +72,7 @@
 <li>
   <a href="https://github.com/rubenfcasal/npsp/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -82,7 +83,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -103,7 +104,7 @@ Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rubenfcasal.github.io/npsp/" class="external-link">npsp</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rubenfcasal.github.io/npsp/">npsp</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code> Package npsp: Nonparametric Spatial Statistics,
  version 0.7-14 (built on 2024-07-09).
  Copyright (C) R. Fernandez-Casal 2012-2024.
@@ -112,21 +113,26 @@ Fernandez-Casal (<a href="mailto:ruben.fcasal@udc.es" class="email">ruben.fcasal
 <div class="section level2">
 <h2 id="geoestadística-no-paramétrica">Geoestadística no paramétrica<a class="anchor" aria-label="anchor" href="#geoestad%C3%ADstica-no-param%C3%A9trica"></a>
 </h2>
-<p>Nos centraremos en el caso de procesos espaciales <span class="math inline">\(\left\lbrace Y(\mathbf{x}), \mathbf{x} \in
-D\subset \mathbb{R}^{d} \right\rbrace\)</span>, con dominio <span class="math inline">\(D\)</span> continuo fijo: proceso
-geoestadístico.</p>
+<p>Nos centraremos en el caso de procesos espaciales
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">{</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>𝐱</mi><mo>∈</mo><mi>D</mi><mo>⊂</mo><msup><mi>ℝ</mi><mi>d</mi></msup><mo stretchy="true" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\left\lbrace
+Y(\mathbf{x}), \mathbf{x}  \in D\subset \mathbb{R}^{d}
+\right\rbrace</annotation></semantics></math>, con dominio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+continuo fijo: proceso geoestadístico.</p>
 <ul>
 <li>El objetivo en el futuro es considerar procesos puntuales marcados:
-<span class="math inline">\(D\)</span> es un proceso puntual en <span class="math inline">\(\mathbb{R}^{d}.\)</span>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+es un proceso puntual en
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>ℝ</mi><mi>d</mi></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathbb{R}^{d}.</annotation></semantics></math>
 </li>
 </ul>
-<p>Normalmente sólo se observa un conjunto de valores <span class="math inline">\(\left\{
-y(\mathbf{x}_{1}),\ldots,y(\mathbf{x}_{n})\right\}\)</span>
+<p>Normalmente sólo se observa un conjunto de valores
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">{</mo><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>…</mi><mo>,</mo><mi>y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\left\{  y(\mathbf{x}_{1}),\ldots,y(\mathbf{x}_{n})\right\}</annotation></semantics></math>
 (<strong>realización parcial</strong>).</p>
 <div class="section level3">
 <h3 id="ejemplo">Ejemplo<a class="anchor" aria-label="anchor" href="#ejemplo"></a>
 </h3>
-<p>Se utilizará como ejemplo el conjunto de datos <a href="https://rubenfcasal.github.io/npsp/reference/aquifer.html" class="external-link"><code>aquifer</code></a>:
+<p>Se utilizará como ejemplo el conjunto de datos <a href="https://rubenfcasal.github.io/npsp/reference/aquifer.html"><code>aquifer</code></a>:
 nivel del agua subterránea en el acuífero Wolfcamp.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">aquifer</span><span class="op">)</span></span></code></pre></div>
@@ -143,26 +149,32 @@ nivel del agua subterránea en el acuífero Wolfcamp.</p>
 <h3 id="modelo-general">Modelo general<a class="anchor" aria-label="anchor" href="#modelo-general"></a>
 </h3>
 <p>Se supone que el proceso se descompone en <em>variabilidad de gran
-escala</em> y <em>variabilidad de pequeña escala</em>: <span class="math display">\[Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),\]</span>
+escala</em> y <em>variabilidad de pequeña escala</em>:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">Y(\mathbf{x})=\mu(\mathbf{x})+\varepsilon(\mathbf{x}),</annotation></semantics></math>
 donde:</p>
 <ul>
-<li><p><span class="math inline">\(\mu(\cdot)\)</span> es la tendencia
-(función determinística).</p></li>
-<li><p><span class="math inline">\(\varepsilon(\cdot)\)</span> es un
-proceso de error estacionario de segundo orden, de media cero y
-covariograma: <span class="math display">\[C(\mathbf{u}) =
-Cov(\varepsilon(\mathbf{x}),
-\varepsilon(\mathbf{x}+\mathbf{u} ))\]</span> (varianza <span class="math inline">\(\sigma^2 = C(\mathbf{0})\)</span>).</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu(\cdot)</annotation></semantics></math>
+es la tendencia (función determinística).</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\varepsilon(\cdot)</annotation></semantics></math>
+es un proceso de error estacionario de segundo orden, de media cero y
+covariograma:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>C</mi><mi>o</mi><mi>v</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo>+</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">C(\mathbf{u}) = Cov(\varepsilon(\mathbf{x}),
+\varepsilon(\mathbf{x}+\mathbf{u} ))</annotation></semantics></math>
+(varianza
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>𝟎</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma^2 = C(\mathbf{0})</annotation></semantics></math>).</p></li>
 </ul>
 <p>La dependencia espacial se modela normalmente a través del
-variograma: <span class="math display">\[2\gamma(\mathbf{u}) =
-Var(\varepsilon \left( \mathbf{x}\right)
--\varepsilon \left(\mathbf{x}+\mathbf{u}\right) ),\]</span> verificando
-<span class="math inline">\(\gamma(\mathbf{u}) = C(0) -
-C(\mathbf{u})\)</span>.</p>
+variograma:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>V</mi><mi>a</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo>+</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">2\gamma(\mathbf{u}) = Var(\varepsilon \left( \mathbf{x}\right)
+-\varepsilon \left(\mathbf{x}+\mathbf{u}\right) ),</annotation></semantics></math>
+verificando
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>C</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\gamma(\mathbf{u}) = C(0) - C(\mathbf{u})</annotation></semantics></math>.</p>
 <p>Se empleará un modelo <strong>no paramétrico</strong>: no se supone
-ninguna forma concreta para <span class="math inline">\(\mu(\mathbf{\cdot})\)</span> y <span class="math inline">\(\gamma(\mathbf{\cdot})\)</span> (funciones
-suaves).</p>
+ninguna forma concreta para
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi mathvariant="bold">⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu(\mathbf{\cdot})</annotation></semantics></math>
+y
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi mathvariant="bold">⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\gamma(\mathbf{\cdot})</annotation></semantics></math>
+(funciones suaves).</p>
 <ul>
 <li><p>Evitan problemas debidos a una mala especificación del
 modelo.</p></li>
@@ -186,13 +198,18 @@ para la tendencia parece ser adecuado.</p>
 <div class="section level3">
 <h3 id="inferencia-no-paramétrica-en-procesos-geoestadísticos">Inferencia (no paramétrica) en procesos geoestadísticos<a class="anchor" aria-label="anchor" href="#inferencia-no-param%C3%A9trica-en-procesos-geoestad%C3%ADsticos"></a>
 </h3>
-<p>A partir de los valores observados <span class="math inline">\(\mathbf{Y}=(Y(\mathbf{x}_1),\ldots,Y(\mathbf{x}_n))^{t}\)</span>
+<p>A partir de los valores observados
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐘</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>…</mi><mo>,</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{Y}=(Y(\mathbf{x}_1),\ldots,Y(\mathbf{x}_n))^{t}</annotation></semantics></math>
 puede interesar:</p>
 <ul>
-<li><p>Obtener predicciones (kriging): <span class="math inline">\(\hat{Y}(\mathbf{x}_0)\)</span>.</p></li>
+<li><p>Obtener predicciones (kriging):
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>Y</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{Y}(\mathbf{x}_0)</annotation></semantics></math>.</p></li>
 <li><p>Realizar inferencias (estimación, contrastes) sobre las
-componentes del modelo <span class="math inline">\(\hat{\mu}(\cdot)\)</span>, <span class="math inline">\(\hat{\gamma}(\cdot)\)</span>.</p></li>
-<li><p>Obtención de mapas de riesgo <span class="math inline">\(P({Y}(\mathbf{x}_0)\geq c)\)</span></p></li>
+componentes del modelo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{\mu}(\cdot)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>γ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{\gamma}(\cdot)</annotation></semantics></math>.</p></li>
+<li><p>Obtención de mapas de riesgo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≥</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">P({Y}(\mathbf{x}_0)\geq c)</annotation></semantics></math></p></li>
 <li><p>…</p></li>
 </ul>
 <p>Aunque hay una gran cantidad de paquetes de R con herramientas de
@@ -203,7 +220,7 @@ mayoría presentan una funcionalidad muy limitada para estadística
 espacial no paramétrica o resulta difícil emplearlos para implementar
 nuevos métodos (además de otras limitaciones, como su eficiencia
 computacional o el número de dimensiones que soportan). Por este motivo
-se decidió desarrollar el paquete <a href="https://rubenfcasal.github.io/npsp" class="external-link"><code>npsp</code></a>:</p>
+se decidió desarrollar el paquete <a href="https://rubenfcasal.github.io/npsp"><code>npsp</code></a>:</p>
 <ul>
 <li><p>CRAN: <a href="https://cran.r-project.org/package=npsp" class="external-link uri">https://cran.r-project.org/package=npsp</a></p></li>
 <li><p>Github: <a href="http://github.com/rubenfcasal/npsp" class="external-link uri">http://github.com/rubenfcasal/npsp</a></p></li>
@@ -230,9 +247,12 @@ métodos.</p></li>
 <p>Para acelerar los cálculos se emplea binning (WARPing; e.g. Wand and
 Jones, 1995):</p>
 <ul>
-<li>datos <span class="math inline">\(\Longrightarrow\)</span>
-discretización <span class="math inline">\(\Longrightarrow\)</span>
-suavizado <span class="math inline">\(\Longrightarrow\)</span>
+<li>datos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Longrightarrow</annotation></semantics></math>
+discretización
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Longrightarrow</annotation></semantics></math>
+suavizado
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>⇒</mo><annotation encoding="application/x-tex">\Longrightarrow</annotation></semantics></math>
 interpolación</li>
 </ul>
 <p>Normalmente el resultado final del análisis es una rejilla y el
@@ -248,8 +268,8 @@ and Hall.</li>
 </ul>
 <p>Las principales funciones son:</p>
 <ul>
-<li><p>Tendencia (y densidad): <a href="https://rubenfcasal.github.io/npsp/reference/binning.html" class="external-link"><code>binning</code></a>.</p></li>
-<li><p>Variograma: <a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html" class="external-link"><code>svar.bin</code></a></p></li>
+<li><p>Tendencia (y densidad): <a href="https://rubenfcasal.github.io/npsp/reference/binning.html"><code>binning</code></a>.</p></li>
+<li><p>Variograma: <a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html"><code>svar.bin</code></a></p></li>
 </ul>
 <p>Normalmente se emplearan dos rejillas, una de baja resolución para
 acelerar los cálculos durante el proceso de modelado (selección de la
@@ -272,7 +292,7 @@ obtener los resultados finales.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.02    0.00    0.02 </code></pre>
+   0.00    0.00    0.01 </code></pre>
 </div>
 <div class="section level3">
 <h3 id="interpolación">Interpolación<a class="anchor" aria-label="anchor" href="#interpolaci%C3%B3n"></a>
@@ -281,8 +301,8 @@ obtener los resultados finales.</p>
 binning lineal). Métodos:</p>
 <ul>
 <li>
-<a href="https://rubenfcasal.github.io/npsp/reference/interp.html" class="external-link"><code>interp</code></a>
-y <a href="https://rubenfcasal.github.io/npsp/reference/interp.html" class="external-link"><code>predict</code></a>
+<a href="https://rubenfcasal.github.io/npsp/reference/interp.html"><code>interp</code></a>
+y <a href="https://rubenfcasal.github.io/npsp/reference/interp.html"><code>predict</code></a>
 </li>
 </ul>
 </div>
@@ -294,7 +314,7 @@ y <a href="https://rubenfcasal.github.io/npsp/reference/interp.html" class="exte
 particular de regresión (se suavizan los pesos binning reescalados):</p>
 <ul>
 <li>
-<a href="https://rubenfcasal.github.io/npsp/reference/np.den.html" class="external-link"><code>np.den</code></a>.</li>
+<a href="https://rubenfcasal.github.io/npsp/reference/np.den.html"><code>np.den</code></a>.</li>
 </ul>
 <p>Por defecto emplea el estimador lineal local (establecer
 <code>degree = 0</code> para Nadaraya-Watson).</p>
@@ -332,7 +352,7 @@ las posiciones alejadas de los datos.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.37    0.03    0.42 </code></pre>
+   0.07    0.00    0.47 </code></pre>
 </div>
 <div class="section level2">
 <h2 id="estimación-de-la-tendencia">Estimación de la tendencia<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-de-la-tendencia"></a>
@@ -340,64 +360,86 @@ las posiciones alejadas de los datos.</p>
 <div class="section level3">
 <h3 id="regresión-polinómica-local">Regresión polinómica local<a class="anchor" aria-label="anchor" href="#regresi%C3%B3n-polin%C3%B3mica-local"></a>
 </h3>
-<p>En el caso univariante, para cada <span class="math inline">\(x_{0}\)</span> se ajusta un polinomio: <span class="math display">\[\beta_{0}+\beta_{1}\left(x - x_{0}\right) +
-\cdots
-+ \beta_{p}\left( x-x_{0}\right)^{p}\]</span> por mínimos cuadrados
-ponderados, con pesos <span class="math inline">\(w_{i} =
-\frac{1}{h}K\left(\frac{x-x_{0}}{h}\right)\)</span>.</p>
+<p>En el caso univariante, para cada
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>0</mn></msub><annotation encoding="application/x-tex">x_{0}</annotation></semantics></math>
+se ajusta un polinomio:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>⋯</mi><mo>+</mo><msub><mi>β</mi><mi>p</mi></msub><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>p</mi></msup></mrow><annotation encoding="application/x-tex">\beta_{0}+\beta_{1}\left(x - x_{0}\right) + \cdots 
++ \beta_{p}\left( x-x_{0}\right)^{p}</annotation></semantics></math> por
+mínimos cuadrados ponderados, con pesos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>=</mo><mfrac><mn>1</mn><mi>h</mi></mfrac><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mn>0</mn></msub></mrow><mi>h</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w_{i} = \frac{1}{h}K\left(\frac{x-x_{0}}{h}\right)</annotation></semantics></math>.</p>
 <ul>
-<li><p>La estimación en <span class="math inline">\(x_{0}\)</span> es
-<span class="math inline">\(\hat{\mu}_{h}(x_{0})=\hat{\beta}_{0}\)</span>.</p></li>
-<li><p>Adicionalmente: <span class="math inline">\(\widehat{\mu_{h}^{r)}}(x_{0}) =
-r!\hat{\beta}_{r}\)</span>.</p></li>
+<li><p>La estimación en
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>0</mn></msub><annotation encoding="application/x-tex">x_{0}</annotation></semantics></math>
+es
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\mu}_{h}(x_{0})=\hat{\beta}_{0}</annotation></semantics></math>.</p></li>
+<li><p>Adicionalmente:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><msubsup><mi>μ</mi><mi>h</mi><mrow><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>r</mi><mi>!</mi><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">\widehat{\mu_{h}^{r)}}(x_{0}) = r!\hat{\beta}_{r}</annotation></semantics></math>.</p></li>
 </ul>
 <p>Habitualmente se considera:</p>
 <ul>
-<li><p><span class="math inline">\(p=0\)</span>: Estimador
-Nadaraya-Watson.</p></li>
-<li><p><span class="math inline">\(p=1\)</span>: Estimador lineal
-local.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">p=0</annotation></semantics></math>:
+Estimador Nadaraya-Watson.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">p=1</annotation></semantics></math>:
+Estimador lineal local.</p></li>
 </ul>
 <p>El caso multivariante es análogo. La estimación lineal local
-multivariante <span class="math inline">\(\hat{\mu}_{\mathbf{H}}(\mathbf{x})=\hat{\beta}_{0}\)</span>
-se obtiene al minimizar: <span class="math display">\[\min_{\beta_{0},\boldsymbol{\beta}_{1}}\sum_{i=1}^{n}
+multivariante
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\mu}_{\mathbf{H}}(\mathbf{x})=\hat{\beta}_{0}</annotation></semantics></math>
+se obtiene al minimizar:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>min</mo><mrow><msub><mi>β</mi><mn>0</mn></msub><mo>,</mo><msub><mi>𝛃</mi><mn>1</mn></msub></mrow></munder><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mi>β</mi><mn>0</mn></msub><mo>−</mo><msubsup><mi>𝛃</mi><mn>1</mn><mi>t</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><msub><mi>K</mi><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\min_{\beta_{0},\boldsymbol{\beta}_{1}}\sum_{i=1}^{n}
 \left( Y(\mathbf{x}_{i})-\beta_{0}-{\boldsymbol{\beta}}_{1}^{t}
 (\mathbf{x}_{i}-\mathbf{x})\right)^{2}
-K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),\]</span> donde:</p>
+K_{\mathbf{H}}(\mathbf{x}_{i}-\mathbf{x}),</annotation></semantics></math>
+donde:</p>
 <ul>
-<li><p><span class="math inline">\(\mathbf{H}\)</span> es la matriz de
-ventanas <span class="math inline">\(d\times d\)</span> (simétrica no
-singular).</p></li>
-<li><p><span class="math inline">\(K_{\mathbf{H}}(\mathbf{u})=\left\vert
-\mathbf{H}\right\vert ^{-1}K(\mathbf{H}^{-1}\mathbf{u})\)</span> y <span class="math inline">\(K\)</span> núcleo multivariante.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐇</mi><annotation encoding="application/x-tex">\mathbf{H}</annotation></semantics></math>
+es la matriz de ventanas
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>×</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">d\times d</annotation></semantics></math>
+(simétrica no singular).</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">|</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>K</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>𝐇</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathbf{H}}(\mathbf{u})=\left\vert \mathbf{H}\right\vert
+^{-1}K(\mathbf{H}^{-1}\mathbf{u})</annotation></semantics></math> y
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+núcleo multivariante.</p></li>
 </ul>
-<p>Explícitamente: <span class="math display">\[\hat{\mu}_{\mathbf{H}}(\mathbf{x}) =
-\mathbf{e}_{1}^{t} \left(
-\mathbf{X}_{\mathbf{x}}^{t} {\mathbf{W}}_{\mathbf{x}}
-\mathbf{X}_{\mathbf{x}} \right)^{-1} \mathbf{X}_{\mathbf{x}}^{t}
-{\mathbf{W}}_{\mathbf{x}}\mathbf{Y} \equiv
-{s}_{\mathbf{x}}^{t}\mathbf{Y},\]</span> donde <span class="math inline">\(\mathbf{e}_{1} = \left( 1, \cdots,
-0\right)^{t}\)</span>, <span class="math inline">\(\mathbf{X}_{\mathbf{x}}\)</span> es la matriz con
-<span class="math inline">\((1,(\mathbf{x}_{i}-\mathbf{x})^{t})\)</span>
-en fila <span class="math inline">\(i\)</span>, y <span class="math inline">\(\mathbf{W}_{\mathbf{x}} = \mathtt{diag} \left(
+<p>Explícitamente:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msubsup><mi>𝐞</mi><mn>1</mn><mi>t</mi></msubsup><msup><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>𝐗</mi><mi>𝐱</mi><mi>t</mi></msubsup><msub><mi>𝐖</mi><mi>𝐱</mi></msub><msub><mi>𝐗</mi><mi>𝐱</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><msubsup><mi>𝐗</mi><mi>𝐱</mi><mi>t</mi></msubsup><msub><mi>𝐖</mi><mi>𝐱</mi></msub><mi>𝐘</mi><mo>≡</mo><msubsup><mi>s</mi><mi>𝐱</mi><mi>t</mi></msubsup><mi>𝐘</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mu}_{\mathbf{H}}(\mathbf{x}) = \mathbf{e}_{1}^{t} \left(
+\mathbf{X}_{\mathbf{x}}^{t} {\mathbf{W}}_{\mathbf{x}} 
+\mathbf{X}_{\mathbf{x}} \right)^{-1} \mathbf{X}_{\mathbf{x}}^{t} 
+{\mathbf{W}}_{\mathbf{x}}\mathbf{Y} \equiv {s}_{\mathbf{x}}^{t}\mathbf{Y},</annotation></semantics></math>
+donde
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐞</mi><mn>1</mn></msub><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><mi>⋯</mi><mo>,</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{e}_{1} = \left( 1, \cdots, 0\right)^{t}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐗</mi><mi>𝐱</mi></msub><annotation encoding="application/x-tex">\mathbf{X}_{\mathbf{x}}</annotation></semantics></math>
+es la matriz con
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>,</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1,(\mathbf{x}_{i}-\mathbf{x})^{t})</annotation></semantics></math>
+en fila
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>,
+y
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐖</mi><mi>𝐱</mi></msub><mo>=</mo><mrow><mi>𝚍</mi><mi>𝚒</mi><mi>𝚊</mi><mi>𝚐</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>K</mi><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mn>1</mn></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>K</mi><mi>𝐇</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>n</mi></msub><mo>−</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{W}_{\mathbf{x}} = \mathtt{diag} \left(
 K_{\mathbf{H}}(\mathbf{x}_{1} - \mathbf{x}), ...,
-K_{\mathbf{H}}(\mathbf{x}_{n}-\mathbf{x}) \right)\)</span> es la matriz
-de pesos.</p>
-<p>Se puede pensar que se obtiene aplicando un suavizado lineal a <span class="math inline">\((\mathbf{x}_i, Y(\mathbf{x}_i))\)</span>: <span class="math display">\[\hat{\boldsymbol{\mu}} = \mathbf{SY},\]</span>
-siendo <span class="math inline">\(\mathbf{S}\)</span> la matriz de
-suavizado con <span class="math inline">\(\mathbf{s}_{\mathbf{x}_{i}}^{t}\)</span> en la
-fila <span class="math inline">\(i\)</span>.</p>
+K_{\mathbf{H}}(\mathbf{x}_{n}-\mathbf{x}) \right)</annotation></semantics></math>
+es la matriz de pesos.</p>
+<p>Se puede pensar que se obtiene aplicando un suavizado lineal a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>,</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\mathbf{x}_i, Y(\mathbf{x}_i))</annotation></semantics></math>:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>𝛍</mi><mo accent="true">̂</mo></mover><mo>=</mo><mrow><mi>𝐒</mi><mi>𝐘</mi></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\boldsymbol{\mu}} = \mathbf{SY},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐒</mi><annotation encoding="application/x-tex">\mathbf{S}</annotation></semantics></math>
+la matriz de suavizado con
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>𝐬</mi><msub><mi>𝐱</mi><mi>i</mi></msub><mi>t</mi></msubsup><annotation encoding="application/x-tex">\mathbf{s}_{\mathbf{x}_{i}}^{t}</annotation></semantics></math>
+en la fila
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</p>
 </div>
 <div class="section level3">
 <h3 id="implementación-en-el-paquete-npsp">Implementación en el paquete <code>npsp</code><a class="anchor" aria-label="anchor" href="#implementaci%C3%B3n-en-el-paquete-npsp"></a>
 </h3>
 <p>La estimación polinómica local está implementada en la función
-genérica <a href="https://rubenfcasal.github.io/npsp/reference/locpol.html" class="external-link"><code>locpol</code></a>:</p>
+genérica <a href="https://rubenfcasal.github.io/npsp/reference/locpol.html"><code>locpol</code></a>:</p>
 <ul>
 <li><p>Emplea una matriz de ventanas completa y un núcleo triweight para
 el cálculo de los pesos.</p></li>
-<li><p>Permite cálcular eficientemente la matriz de suavizado <span class="math inline">\(\mathbf{S}\)</span> (de utilidad en la estimación
-de la dependencia, en la selección de la ventana, …).</p></li>
+<li><p>Permite cálcular eficientemente la matriz de suavizado
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐒</mi><annotation encoding="application/x-tex">\mathbf{S}</annotation></semantics></math>
+(de utilidad en la estimación de la dependencia, en la selección de la
+ventana, …).</p></li>
 <li><p>Código <em>optimizado</em> para minimizar el tiempo de
 computación y los requerimientos de memoria (especialmente para
 validación cruzada, estimación del variograma, …). Los cálculos se
@@ -420,17 +462,21 @@ matrices de rango deficiente).</p></li>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.21    0.02    0.24 </code></pre>
+    0.0     0.0     0.2 </code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="estimación-del-variograma">Estimación del variograma<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-del-variograma"></a>
 </h2>
 <p>Al igual que en la geoestadística paramétrica tradicional, el
-modelado de la dependencia se realiza a partir de los residuos: <span class="math display">\[e(\mathbf{x}_{i})=Y(\mathbf{x}_{i})-\hat{\mu}(\mathbf{x}_{i}).\]</span>
+modelado de la dependencia se realiza a partir de los residuos:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">e(\mathbf{x}_{i})=Y(\mathbf{x}_{i})-\hat{\mu}(\mathbf{x}_{i}).</annotation></semantics></math>
 Si la media se supone cte. (proceso estacionario) se trabaja
-directamente con las observaciones (se sustituiría <span class="math inline">\(e(\mathbf{x}_{i})\)</span> por <span class="math inline">\(Y(\mathbf{x}_{i})\)</span> en las
-expresiones).</p>
+directamente con las observaciones (se sustituiría
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">e(\mathbf{x}_{i})</annotation></semantics></math>
+por
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">Y(\mathbf{x}_{i})</annotation></semantics></math>
+en las expresiones).</p>
 <p>La estimación se realiza en dos pasos, en primer lugar se obtiene una
 estimación piloto del variograma y posteriormente se ajusta un modelo
 válido.</p>
@@ -438,29 +484,34 @@ válido.</p>
 <h3 id="estimación-piloto-del-variograma">Estimación piloto del variograma<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-piloto-del-variograma"></a>
 </h3>
 <p>En los métodos tradicionales se trata como un caso particular de
-regresión: <span class="math display">\[\gamma\left(  \mathbf{x}_{i}-\mathbf{x}_{j}\right)  =\frac{1}{2}E\left(
-\varepsilon(\mathbf{x}_{i})-\varepsilon(\mathbf{x}_{j})\right)^{2}\]</span>
-con <span class="math inline">\(N=\frac{n(n-1)}{2}\)</span>
-observaciones: <span class="math display">\[{\left(\mathbf{x}_{i}-\mathbf{x}_{j},
-(e(\mathbf{x}_{i})-e(\mathbf{x}_{j}))^2 / 2 \right)},\]</span> asumiendo
-que la variabilidad de los residuos es (similar a) la de los
+regresión:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>E</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\gamma\left(  \mathbf{x}_{i}-\mathbf{x}_{j}\right)  =\frac{1}{2}E\left(
+\varepsilon(\mathbf{x}_{i})-\varepsilon(\mathbf{x}_{j})\right)^{2}</annotation></semantics></math>
+con
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mfrac><mrow><mi>n</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">N=\frac{n(n-1)}{2}</annotation></semantics></math>
+observaciones:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo>,</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">{\left(\mathbf{x}_{i}-\mathbf{x}_{j},
+(e(\mathbf{x}_{i})-e(\mathbf{x}_{j}))^2 / 2 \right)},</annotation></semantics></math>
+asumiendo que la variabilidad de los residuos es (similar a) la de los
 errores.</p>
-<p>La estimación polinómico local <span class="math inline">\(\hat{\gamma}_{\mathbf{G}}(\mathbf{u}) =
-\hat{\beta}_{0}\)</span> se obtendría minimizando: <span class="math display">\[\begin{aligned}
+<p>La estimación polinómico local
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>γ</mi><mo accent="true">̂</mo></mover><mi>𝐆</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\hat{\gamma}_{\mathbf{G}}(\mathbf{u}) = \hat{\beta}_{0}</annotation></semantics></math>
+se obtendría minimizando:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtable><mtr><mtd columnalign="right" style="text-align: right"><munder><mo>min</mo><mrow><msub><mi>β</mi><mn>0</mn></msub><mo>,</mo><msub><mi>𝛃</mi><mn>1</mn></msub><mo>,</mo><mi>⋯</mi></mrow></munder><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>−</mo><msub><mi>β</mi><mn>0</mn></msub><mo>−</mo><msubsup><mi>𝛃</mi><mn>1</mn><mi>t</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo>−</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>⋯</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>×</mo></mtd><mtd columnalign="left" style="text-align: left"></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>K</mi><mi>𝐆</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo>−</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"></mtd></mtr></mtable><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{aligned}
 \min_{\beta_{0}, \boldsymbol{\beta}_{1}, \cdots}
-\sum_{i=1}^{n}\left( \frac{1}{2} \left(
-e(\mathbf{x}_{i})-e(\mathbf{x}_{j})
-\right)^{2} - \beta_{0} - {\boldsymbol{\beta}}_{1}^{t} (\mathbf{x}_{i} -
+\sum_{i=1}^{n}\left( \frac{1}{2} \left( e(\mathbf{x}_{i})-e(\mathbf{x}_{j})
+\right)^{2} - \beta_{0} - {\boldsymbol{\beta}}_{1}^{t} (\mathbf{x}_{i} - 
 \mathbf{x}_{j} - \mathbf{u}) - \cdots\right)  ^{2}\times &amp; \\
 K_{\mathbf{G}}(\mathbf{x}_{i}-\mathbf{x}_{j}-\mathbf{u})  &amp;
-\end{aligned},\]</span> siendo <span class="math inline">\(\mathbf{G}\)</span> la correspondiente matriz de
-ventanas.</p>
+\end{aligned},</annotation></semantics></math> siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐆</mi><annotation encoding="application/x-tex">\mathbf{G}</annotation></semantics></math>
+la correspondiente matriz de ventanas.</p>
 <p>Actualmente en el paquete <code>npsp</code> solo está implementado el
 caso isotrópico:</p>
 <ul>
-<li><p><a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html" class="external-link"><code>svar.bin</code></a>:
+<li><p><a href="https://rubenfcasal.github.io/npsp/reference/svar.bin.html"><code>svar.bin</code></a>:
 estimador empírico con binning lineal.</p></li>
-<li><p><a href="https://rubenfcasal.github.io/npsp/reference/np.svar.html" class="external-link"><code>np.svar</code></a>:
+<li><p><a href="https://rubenfcasal.github.io/npsp/reference/np.svar.html"><code>np.svar</code></a>:
 estimador polinómico local.</p></li>
 </ul>
 <p>Estas funciones son adecuadas para procesos estacionarios y se
@@ -475,35 +526,43 @@ residual (sesgado) calculando previamente los residuos.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.22    0.00    0.22 </code></pre>
+   0.01    0.00    0.21 </code></pre>
 </div>
 <div class="section level3">
 <h3 id="estimación-piloto-del-variograma-con-corrección-de-sesgo">Estimación piloto del variograma con corrección de sesgo<a class="anchor" aria-label="anchor" href="#estimaci%C3%B3n-piloto-del-variograma-con-correcci%C3%B3n-de-sesgo"></a>
 </h3>
-<p>El uso directo de los residuos <span class="math inline">\(\boldsymbol{\hat{\varepsilon}} = \mathbf{Y} -
-\hat{\boldsymbol{\mu}} = (\mathbf{I - S})\mathbf{Y}\)</span> introduce
-un sesgo en la estimación del variograma, ya que su variabilidad es
-distinta de la de los errores: <span class="math display">\[Var(\boldsymbol{\hat{\varepsilon}}) =
+<p>El uso directo de los residuos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>𝛆</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>𝐘</mi><mo>−</mo><mover><mi>𝛍</mi><mo accent="true">̂</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi>𝐈</mi><mo mathvariant="bold">−</mo><mi>𝐒</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>𝐘</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{\hat{\varepsilon}} =
+\mathbf{Y} - \hat{\boldsymbol{\mu}} = (\mathbf{I - S})\mathbf{Y}</annotation></semantics></math>
+introduce un sesgo en la estimación del variograma, ya que su
+variabilidad es distinta de la de los errores:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>𝛆</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>𝚺</mi><mover><mi>ε</mi><mo accent="true">̂</mo></mover></msub><mo>=</mo><mi>𝚺</mi><mo>+</mo><mi>𝐁</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">Var(\boldsymbol{\hat{\varepsilon}}) = 
 {\boldsymbol{\Sigma}}_{\hat{\varepsilon}}
-= \boldsymbol{\Sigma} + \mathbf{B},\]</span> siendo <span class="math inline">\(\mathbf{B} = \mathbf{S} \boldsymbol{\Sigma}
-\mathbf{S}^{t} - \boldsymbol{\Sigma} \mathbf{S}^{t} - \mathbf{S}
-\boldsymbol{\Sigma}\)</span> la matriz de sesgos.</p>
-<p>En términos del variograma: <span class="math display">\[Var\left(\hat{\varepsilon}(\mathbf{x}_i)
+= \boldsymbol{\Sigma} + \mathbf{B},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐁</mi><mo>=</mo><mi>𝐒</mi><mi>𝚺</mi><msup><mi>𝐒</mi><mi>t</mi></msup><mo>−</mo><mi>𝚺</mi><msup><mi>𝐒</mi><mi>t</mi></msup><mo>−</mo><mi>𝐒</mi><mi>𝚺</mi></mrow><annotation encoding="application/x-tex">\mathbf{B} = \mathbf{S} \boldsymbol{\Sigma} \mathbf{S}^{t}
+- \boldsymbol{\Sigma} \mathbf{S}^{t} - \mathbf{S} \boldsymbol{\Sigma}</annotation></semantics></math>
+la matriz de sesgos.</p>
+<p>En términos del variograma:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mi>a</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>V</mi><mi>a</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>ε</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>b</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub><mo>+</mo><msub><mi>b</mi><mrow><mi>j</mi><mi>j</mi></mrow></msub><mo>−</mo><mn>2</mn><msub><mi>b</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">Var\left(\hat{\varepsilon}(\mathbf{x}_i) 
 - \hat{\varepsilon}(\mathbf{x}_j) \right) =
 Var\left(\varepsilon(\mathbf{x}_i) - \varepsilon(\mathbf{x}_j) \right)
-+ b_{ii} + b_{jj} - 2 b_{ij}.\]</span> Este sesgo es normalmente
-negativo y mayor en saltos grandes (ver p.e. Cressie, 1993, sección
-3.4.3). En Fernandez-Casal y Francisco-Fernandez (2013) se propone un
-método iterativo para su corrección. La función
++ b_{ii} + b_{jj} - 2 b_{ij}.</annotation></semantics></math> Este sesgo
+es normalmente negativo y mayor en saltos grandes (ver p.e. Cressie,
+1993, sección 3.4.3). En Fernandez-Casal y Francisco-Fernandez (2013) se
+propone un método iterativo para su corrección. La función
 <code>np.svariso.corr</code> implementa un algoritmo similar (totalmente
 no paramétrico). Comenzando con el estimador lineal local residual
-anterior, en cada iteración <span class="math inline">\(k\)</span> se
-actualizan las diferencias <span class="math inline">\((\hat{\varepsilon}(\mathbf{x}_i)-
-\hat{\varepsilon}(\mathbf{x}_j))^2\)</span> reemplazándolas por: <span class="math display">\[(\hat{\varepsilon}(\mathbf{x}_i)-
-\hat{\varepsilon}(\mathbf{x}_j))^2
-- \hat{b}_{ii}^{(k-1)} - \hat{b}_{jj}^{(k-1)} + 2
-\hat{b}_{ij}^{(k-1)},\]</span> siendo <span class="math inline">\(\hat{\mathbf{B}}^{(k-1)}\)</span> la aproximación
-del sesgo obtenida en la iteración anterior.</p>
+anterior, en cada iteración
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+se actualizan las diferencias
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><annotation encoding="application/x-tex">(\hat{\varepsilon}(\mathbf{x}_i)- \hat{\varepsilon}(\mathbf{x}_j))^2</annotation></semantics></math>
+reemplazándolas por:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>−</mo><msubsup><mover><mi>b</mi><mo accent="true">̂</mo></mover><mrow><mi>i</mi><mi>i</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>−</mo><msubsup><mover><mi>b</mi><mo accent="true">̂</mo></mover><mrow><mi>j</mi><mi>j</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>+</mo><mn>2</mn><msubsup><mover><mi>b</mi><mo accent="true">̂</mo></mover><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msubsup><mo>,</mo></mrow><annotation encoding="application/x-tex">(\hat{\varepsilon}(\mathbf{x}_i)- \hat{\varepsilon}(\mathbf{x}_j))^2 
+- \hat{b}_{ii}^{(k-1)} - \hat{b}_{jj}^{(k-1)} + 2 \hat{b}_{ij}^{(k-1)},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi>𝐁</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\hat{\mathbf{B}}^{(k-1)}</annotation></semantics></math>
+la aproximación del sesgo obtenida en la iteración anterior.</p>
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">esvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/np.svar.html">np.svariso.corr</a></span><span class="op">(</span><span class="va">lp</span>, nlags <span class="op">=</span> <span class="fl">50</span>, h <span class="op">=</span> <span class="fl">50</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -518,7 +577,7 @@ Iteration  7 :  0.04358588 </code></pre>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.26    0.02    0.28 </code></pre>
+   0.02    0.00    0.28 </code></pre>
 </div>
 <div class="section level3">
 <h3 id="ajuste-de-un-modelo-no-paramétrico">Ajuste de un modelo no paramétrico<a class="anchor" aria-label="anchor" href="#ajuste-de-un-modelo-no-param%C3%A9trico"></a>
@@ -527,34 +586,39 @@ Iteration  7 :  0.04358588 </code></pre>
 (condicionalmente semidefinidos negativos) y no pueden ser usados en
 predicción espacial (kriging). Para resolver este problema se ajusta un
 modelo válido.</p>
-<p>La función <a href="https://rubenfcasal.github.io/npsp/reference/fitsvar.sb.iso.html" class="external-link"><code>fitsvar.sb.iso</code></a>
+<p>La función <a href="https://rubenfcasal.github.io/npsp/reference/fitsvar.sb.iso.html"><code>fitsvar.sb.iso</code></a>
 permite ajustar un modelo no paramétrico de Shapiro-Botha. En el caso
-isotrópico son de la forma: <span class="math display">\[\gamma(\left\Vert \mathbf{u} \right\Vert ) =
-\nu_{0} -
-    \sum\limits_{k=1}^{K}\kappa_{d}(x_{k}\left\Vert
-\mathbf{u}\right\Vert )
-    z_{k},\]</span> siendo:</p>
+isotrópico son de la forma:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">‖</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">‖</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>ν</mi><mn>0</mn></msub><mo>−</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><msub><mi>κ</mi><mi>d</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">‖</mo><mi>𝐮</mi><mo stretchy="true" form="postfix">‖</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>z</mi><mi>k</mi></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\gamma(\left\Vert \mathbf{u} \right\Vert ) = \nu_{0} - 
+    \sum\limits_{k=1}^{K}\kappa_{d}(x_{k}\left\Vert \mathbf{u}\right\Vert )
+    z_{k},</annotation></semantics></math> siendo:</p>
 <ul>
-<li><p><span class="math inline">\(\kappa_{d}(x) = \left(
-\tfrac{2}{x}\right)^{{\frac{d{-2}}{2}}} \Gamma\left( \tfrac{d}{2}\right)
-J_{{\frac{d{-2}}{2}}}(x)\)</span>, donde <span class="math inline">\(J_p\)</span> es la función de Bessel de orden
-<span class="math inline">\(p\)</span>.</p></li>
-<li><p><span class="math inline">\(x_{k}\)</span> nodos de
-discretización (siguiendo la recomendación de Gorsich y Genton, 2004, se
-establecen reescalando los ceros de las funciones de Bessel (ver <a href="https://rubenfcasal.github.io/npsp/reference/disc.sb.html" class="external-link"><code>disc.sb</code></a>).).</p></li>
-<li><p><span class="math inline">\(\left( z_{1}, ..., z_{K}, \nu_{0}
-\right)^{t}\)</span> parámetros, verificando: <span class="math display">\[z_{k} \geq0 \text{ y }
-c_{0} =  \nu_{0}-\sum\nolimits_{k=1}^{K}z_{k}\geq0.\]</span></p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>d</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac displaystyle="false"><mn>2</mn><mi>x</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mrow><mi>d</mi><mrow><mi>−</mi><mn>2</mn></mrow></mrow><mn>2</mn></mfrac></msup><mi>Γ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac displaystyle="false"><mi>d</mi><mn>2</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>J</mi><mfrac><mrow><mi>d</mi><mrow><mi>−</mi><mn>2</mn></mrow></mrow><mn>2</mn></mfrac></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\kappa_{d}(x) = \left( \tfrac{2}{x}\right)^{{\frac{d{-2}}{2}}}
+\Gamma\left(  \tfrac{d}{2}\right)  J_{{\frac{d{-2}}{2}}}(x)</annotation></semantics></math>,
+donde
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>J</mi><mi>p</mi></msub><annotation encoding="application/x-tex">J_p</annotation></semantics></math>
+es la función de Bessel de orden
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>.</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>k</mi></msub><annotation encoding="application/x-tex">x_{k}</annotation></semantics></math>
+nodos de discretización (siguiendo la recomendación de Gorsich y Genton,
+2004, se establecen reescalando los ceros de las funciones de Bessel
+(ver <a href="https://rubenfcasal.github.io/npsp/reference/disc.sb.html"><code>disc.sb</code></a>).).</p></li>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mn>1</mn></msub><mo>,</mo><mi>.</mi><mi>.</mi><mi>.</mi><mo>,</mo><msub><mi>z</mi><mi>K</mi></msub><mo>,</mo><msub><mi>ν</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></msup><annotation encoding="application/x-tex">\left( z_{1}, ..., z_{K}, \nu_{0} \right)^{t}</annotation></semantics></math>
+parámetros, verificando:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>k</mi></msub><mo>≥</mo><mn>0</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> y </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>c</mi><mn>0</mn></msub><mo>=</mo><msub><mi>ν</mi><mn>0</mn></msub><mo>−</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></msubsup><msub><mi>z</mi><mi>k</mi></msub><mo>≥</mo><mn>0</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">z_{k} \geq0 \text{ y } 
+c_{0} =  \nu_{0}-\sum\nolimits_{k=1}^{K}z_{k}\geq0.</annotation></semantics></math></p></li>
 </ul>
 <p>El ajuste por WLS a un conjunto de estimaciones piloto se puede
 realizar fácilmente mediante programación cuadrática (modificación de la
 función <code>solve.QP</code> del paquete <code>quadprog</code> para
 obtener la solución de problemas no estrictamente convexos).</p>
 <p>Estos modelos son muy flexibles por lo que es habitual considerar una
-dimensión <span class="math inline">\(d\)</span> mayor que la de los
-datos para obtener ajustes más suaves (empleando el parámetro
-<code>dk</code>). En el límite obtendríamos <span class="math inline">\(\kappa_{\infty}(x)\equiv e^{-x^{2}}\)</span>, que
-se correspondería con un modelo válido en cualquier dimensión (se
+dimensión
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+mayor que la de los datos para obtener ajustes más suaves (empleando el
+parámetro <code>dk</code>). En el límite obtendríamos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>κ</mi><mi>∞</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≡</mo><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></msup></mrow><annotation encoding="application/x-tex">\kappa_{\infty}(x)\equiv e^{-x^{2}}</annotation></semantics></math>,
+que se correspondería con un modelo válido en cualquier dimensión (se
 selecciona estableciendo<code>dk = 0</code>).</p>
 <p>Ejemplo:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -567,7 +631,7 @@ selecciona estableciendo<code>dk = 0</code>).</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.19    0.03    0.22 </code></pre>
+    0.0     0.0     0.2 </code></pre>
 <p>Estos modelos son extensibles al caso anisotrópico (Fernandez-Casal
 <em>et al</em>., 2003), adecuado para procesos espacio-temporales.</p>
 </div>
@@ -575,7 +639,7 @@ selecciona estableciendo<code>dk = 0</code>).</p>
 <div class="section level2">
 <h2 id="selección-de-las-ventanas">Selección de las ventanas<a class="anchor" aria-label="anchor" href="#selecci%C3%B3n-de-las-ventanas"></a>
 </h2>
-<p>La función genérica <a href="https://rubenfcasal.github.io/npsp/reference/h.cv.html" class="external-link"><code>h.cv</code></a>
+<p>La función genérica <a href="https://rubenfcasal.github.io/npsp/reference/h.cv.html"><code>h.cv</code></a>
 permite seleccionar la ventana de una estimación polinómico local (de la
 tendencia, densidad o variograma) usando criterios de validación cruzada
 (CV), validación cruzada generalizada (GCV) o MASE (estándar y
@@ -587,36 +651,47 @@ modificados).</p>
 independientes se tiende a infrasuavizar la estimación (e.g. Opsomer et
 al, 2001):</p>
 <ul>
-<li><p>Validación cruzada tradicional (LOOCV): <span class="math display">\[CV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
-\left( Y(\mathbf{x}_{i}) - \hat{\mu}_{-i}(\mathbf{x}_{i})
-\right)^{2},\]</span> siendo <span class="math inline">\(\hat{\mu}_{-i}(\mathbf{x}_{i})\)</span> la
-estimación obtenida eliminando el dato <span class="math inline">\(i\)</span>-ésimo.</p></li>
-<li><p>Validación cruzada generalizada (Craven y Wahba, 1978): <span class="math display">\[GCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
+<li><p>Validación cruzada tradicional (LOOCV):
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mi>i</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">CV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
+\left( Y(\mathbf{x}_{i}) - \hat{\mu}_{-i}(\mathbf{x}_{i}) \right)^{2},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mi>i</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{\mu}_{-i}(\mathbf{x}_{i})</annotation></semantics></math>
+la estimación obtenida eliminando el dato
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-ésimo.</p></li>
+<li><p>Validación cruzada generalizada (Craven y Wahba, 1978):
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mn>1</mn><mo>−</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>t</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐒</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">GCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
 \left(  \frac{Y(\mathbf{x}_{i}) -\hat{\mu}(\mathbf{x}_{i})}
-{1-\frac{1}{n}tr\left( \mathbf{S}\right) }\right)^{2}.\]</span></p></li>
+{1-\frac{1}{n}tr\left( \mathbf{S}\right) }\right)^{2}.</annotation></semantics></math></p></li>
 </ul>
 <p>Por ello se han propuesto distintos criterios alternativos para el
 caso de datos dependientes:</p>
 <ul>
-<li><p>Validación cruzada modificada (Chu and Marron, 1991): <span class="math display">\[MCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  Y(\mathbf{x}_{i})-\hat
-{\mu}_{-N(i)}(\mathbf{x}_{i})\right)^{2},\]</span> siendo <span class="math inline">\(\hat{\mu}_{-i}(\mathbf{x}_{i})\)</span> la
-estimación obtenida eliminando los datos en un vecindario <span class="math inline">\(N(i)\)</span> de <span class="math inline">\(\mathbf{x}_{i}\)</span>.</p></li>
+<li><p>Validación cruzada modificada (Chu and Marron, 1991):
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">MCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}\left(  Y(\mathbf{x}_{i})-\hat
+{\mu}_{-N(i)}(\mathbf{x}_{i})\right)^{2},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mi>i</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{\mu}_{-i}(\mathbf{x}_{i})</annotation></semantics></math>
+la estimación obtenida eliminando los datos en un vecindario
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">N(i)</annotation></semantics></math>
+de
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐱</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mathbf{x}_{i}</annotation></semantics></math>.</p></li>
 <li><p>Validación cruzada generalizada con corrección de sesgo para
-dependencia (Francisco-Fernandez and Opsomer, 2005): <span class="math display">\[CGCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n}
-\left(  
+dependencia (Francisco-Fernandez and Opsomer, 2005):
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>G</mi><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mn>1</mn><mo>−</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>t</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐒</mi><mover><mi>𝐑</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">CGCV(\mathbf{H})=\frac{1}{n}\sum_{i=1}^{n} \left(  
 \frac{Y(\mathbf{x}_{i}) -\hat{\mu}(\mathbf{x}_{i})} {1 -
-\frac{1}{n}tr\left( \mathbf{S} \hat{\mathbf{R}} \right)
-}\right)^{2},\]</span> siendo <span class="math inline">\(\hat{\mathbf{R}}\)</span> una estimación de la
-matriz de correlaciones.</p></li>
+\frac{1}{n}tr\left( \mathbf{S} \hat{\mathbf{R}} \right) }\right)^{2},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>𝐑</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{R}}</annotation></semantics></math>
+una estimación de la matriz de correlaciones.</p></li>
 </ul>
-<p>Adicionalmente, reescribiendo el criterio MCV de la forma: <span class="math display">\[MCV(\mathbf{H}) = \frac{1}{n}  \left(
-\mathbf{Y}-\mathbf{S}_{-N} \mathbf{Y}\right) ^{t} \left(
-\mathbf{Y}-\mathbf{S}_{-N} \mathbf{Y} \right),\]</span> donde <span class="math inline">\(N = \left\lbrace N(1),\ldots, N(n)
-\right\rbrace\)</span>, puede verse que: <span class="math display">\[\mathrm{E}\left( MCV(\mathbf{H})\right) \simeq
-MASE(\mathbf{H}) +
-\sigma^{2} -
-\frac{2}{n}tr\left(\mathbf{S}_{-N}\boldsymbol{\Sigma}\right),\]</span>
-siendo: <span class="math display">\[MASE(\mathbf{H})=
+<p>Adicionalmente, reescribiendo el criterio MCV de la forma:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐘</mi><mo>−</mo><msub><mi>𝐒</mi><mrow><mi>−</mi><mi>N</mi></mrow></msub><mi>𝐘</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>t</mi></msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐘</mi><mo>−</mo><msub><mi>𝐒</mi><mrow><mi>−</mi><mi>N</mi></mrow></msub><mi>𝐘</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">MCV(\mathbf{H}) = \frac{1}{n}  \left( \mathbf{Y}-\mathbf{S}_{-N} \mathbf{Y}\right) ^{t} \left( \mathbf{Y}-\mathbf{S}_{-N} \mathbf{Y} \right),</annotation></semantics></math>
+donde
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">}</mo></mrow></mrow><annotation encoding="application/x-tex">N = \left\lbrace  N(1),\ldots, N(n) \right\rbrace</annotation></semantics></math>,
+puede verse que:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>≃</mo><mi>M</mi><mi>A</mi><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>−</mo><mfrac><mn>2</mn><mi>n</mi></mfrac><mi>t</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐒</mi><mrow><mi>−</mi><mi>N</mi></mrow></msub><mi>𝚺</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathrm{E}\left( MCV(\mathbf{H})\right) \simeq MASE(\mathbf{H}) +
+\sigma^{2} - \frac{2}{n}tr\left(\mathbf{S}_{-N}\boldsymbol{\Sigma}\right),</annotation></semantics></math>
+siendo: <span class="math display">$$MASE(\mathbf{H})=
 \frac{1}{n}\mathbb{E}\left( \left(
 \mathbf{SY}-\boldsymbol{\mu}\right)^{t} \left(
 \mathbf{SY}-\boldsymbol{\mu}\right) \right) = \\
@@ -624,20 +699,22 @@ siendo: <span class="math display">\[MASE(\mathbf{H})=
 \frac{1}{n}\left(\mathbf{S}\boldsymbol{\mu}-\boldsymbol{\mu}\right)^{t}
 \left( \mathbf{S}\boldsymbol{\mu}-\boldsymbol{\mu}\right) +
 \frac{1}{n}tr\left( \mathbf{S}\boldsymbol{\Sigma
-}\mathbf{S}^{t}\right).\]</span></p>
+}\mathbf{S}^{t}\right).$$</span></p>
 <ul>
 <li><p>Validación cruzada modificada corregida (Fernández-Casal et al,
-Preprint): <span class="math display">\[CMCV(\mathbf{H}) =
-\frac{1}{n}\sum_{i=1}^{n} \left(
-Y(\mathbf{x}_{i}) - \hat{\mu}_{-N(i)}{(\mathbf{x_i)}} \right)^{2} +
-\frac{2}{n}tr\left( \mathbf{S}_{-N}
-\hat{\boldsymbol{\Sigma}}\right).\]</span> <span class="math inline">\(CCV\)</span> sería un caso particular tomando
-<span class="math inline">\(N = N_1 = \left\lbrace \{\mathbf{x}_{1}\},
-\ldots, \{\mathbf{x}_{n}\}\right\rbrace\)</span>.</p></li>
-<li><p>Ventana por bootstrap suavizado: El criterio <span class="math inline">\(MASE(\mathbf{H})\)</span> puede ser empleado
-cuando se conocen la media y varianzas teóricas (p.e. en simulación),
-pero si se sustituyen por estimaciones, obtendríamos la ventana óptima
-MASE de la correspondiente distribución bootstrap.</p></li>
+Preprint):
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>M</mi><mi>C</mi><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>Y</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><msub><mover><mi>μ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mrow><mo stretchy="false" form="prefix">(</mo><mrow><msub><mi>𝐱</mi><mi>𝐢</mi></msub><mo stretchy="false" form="postfix" mathvariant="bold">)</mo></mrow></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mfrac><mn>2</mn><mi>n</mi></mfrac><mi>t</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐒</mi><mrow><mi>−</mi><mi>N</mi></mrow></msub><mover><mi>𝚺</mi><mo accent="true">̂</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">CMCV(\mathbf{H}) = \frac{1}{n}\sum_{i=1}^{n} \left( 
+Y(\mathbf{x}_{i}) - \hat{\mu}_{-N(i)}{(\mathbf{x_i)}} \right)^{2} + 
+\frac{2}{n}tr\left( \mathbf{S}_{-N} \hat{\boldsymbol{\Sigma}}\right).</annotation></semantics></math><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>C</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">CCV</annotation></semantics></math>
+sería un caso particular tomando
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><msub><mi>N</mi><mn>1</mn></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>𝐱</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mi>…</mi><mo>,</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>𝐱</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">}</mo></mrow></mrow><annotation encoding="application/x-tex">N = N_1 = \left\lbrace
+\{\mathbf{x}_{1}\}, \ldots, \{\mathbf{x}_{n}\}\right\rbrace</annotation></semantics></math>.</p></li>
+<li><p>Ventana por bootstrap suavizado: El criterio
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>A</mi><mi>S</mi><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐇</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">MASE(\mathbf{H})</annotation></semantics></math>
+puede ser empleado cuando se conocen la media y varianzas teóricas (p.e.
+en simulación), pero si se sustituyen por estimaciones, obtendríamos la
+ventana óptima MASE de la correspondiente distribución
+bootstrap.</p></li>
 </ul>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#   Example:</span></span>
@@ -671,7 +748,7 @@ $objective
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.84    0.22    1.06 </code></pre>
+   0.15    0.03    1.28 </code></pre>
 <p>Hay que tener cuidado con los algoritmos de optimización automáticos.
 Por defecto se emplea el método “L-BFGS-B” de la función
 <code>optim</code>. Como se trata de una minimización no lineal
@@ -694,23 +771,25 @@ iterativamente. Se tratará más adelante en la sección “<a href="Estimaci%C3
 </h3>
 <p>La ventana para la estimación del variograma puede seleccionarse por
 ejemplo minimizando el correspondiente error cuadrático de validación
-cruzada: <span class="math display">\[\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^{n}
+cruzada:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>i</mi><mo>+</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>−</mo><mn>2</mn><msub><mover><mi>γ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">‖</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">‖</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^{n}
 \left( \left( \hat{\varepsilon}(\mathbf{x}_{i})
 - \hat{\varepsilon}(\mathbf{x}_{j})\right)^{2}
 - 2\hat{\gamma}_{-(i,j)}\left( \left\Vert \mathbf{x}_{i}
-- \mathbf{x}_{j}\right\Vert \right) \right) ^{2},\]</span> siendo <span class="math inline">\(\hat{\gamma}_{-(i,j)}(\cdot )\)</span> la
-estimación obtenida descartando <span class="math inline">\(\left(
-\hat{\varepsilon}(\mathbf{x}_{i}) -
-\hat{\varepsilon}(\mathbf{x}_{j})\right) ^{2}\)</span>. Sin embargo,
-para tener un mejor ajuste cerca del origen, suele ser preferible
-emplear el error cuadrático relativo de validación cruzada: <span class="math display">\[\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^{n}\left(
-\frac{\left( \hat{
-\varepsilon}(\mathbf{x}_{i})-\hat{\varepsilon}(\mathbf{x}_{j})\right)
-^{2}
+- \mathbf{x}_{j}\right\Vert \right) \right) ^{2},</annotation></semantics></math>
+siendo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>γ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\hat{\gamma}_{-(i,j)}(\cdot )</annotation></semantics></math>
+la estimación obtenida descartando
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><annotation encoding="application/x-tex">\left( \hat{\varepsilon}(\mathbf{x}_{i})
+- \hat{\varepsilon}(\mathbf{x}_{j})\right) ^{2}</annotation></semantics></math>.
+Sin embargo, para tener un mejor ajuste cerca del origen, suele ser
+preferible emplear el error cuadrático relativo de validación cruzada:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>i</mi><mo>+</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>ε</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mrow><mn>2</mn><msub><mover><mi>γ</mi><mo accent="true">̂</mo></mover><mrow><mi>−</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">‖</mo><msub><mi>𝐱</mi><mi>i</mi></msub><mo>−</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">‖</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum\limits_{i=1}^{n-1}\sum\limits_{j=i+1}^{n}\left( \frac{\left( \hat{
+\varepsilon}(\mathbf{x}_{i})-\hat{\varepsilon}(\mathbf{x}_{j})\right) ^{2}
 }{2\hat{\gamma}_{-(i,j)}\left( \left\Vert \mathbf{x}_{i}-\mathbf{x}
-_{j}\right\Vert \right) }-1\right) ^{2}.\]</span> Adicionalmente, si hay
-datos atípicos, sería recomendable emplear un error absoluto en lugar de
-cuadrático.</p>
+_{j}\right\Vert \right) }-1\right) ^{2}.</annotation></semantics></math>
+Adicionalmente, si hay datos atípicos, sería recomendable emplear un
+error absoluto en lugar de cuadrático.</p>
 <p>Ninguno de estos criterios tiene en cuenta la dependencia entre las
 semivarianzas, por lo que las ventanas seleccionadas tenderán a
 infrasuavizar (especialmente en saltos grandes). Si se emplea un
@@ -735,19 +814,35 @@ este problema circular se puede emplear un algoritmo iterativo (similar
 al método de estimación paramétrica tradicional propuesto por Neuman y
 Jacobson, 1984):</p>
 <ol style="list-style-type: decimal">
-<li><p>Seleccionar una ventana inicial <span class="math inline">\(\mathbf{H}^{(0)}\)</span> para <span class="math inline">\(\hat{\mu}\)</span> (usando por ejemplo <span class="math inline">\(MCV\)</span>).</p></li>
-<li><p>Para <span class="math inline">\(k\geq 1\)</span>, usando la
-ventana <span class="math inline">\(\mathbf{H}^{(k-1)}\)</span> calcular
-<span class="math inline">\(\hat{\boldsymbol{\mu}} =
-\mathbf{S}\mathbf{Y}\)</span> y los correspondientes residuos <span class="math inline">\(\hat{\boldsymbol{\varepsilon}}\)</span>.</p></li>
+<li><p>Seleccionar una ventana inicial
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝐇</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{H}^{(0)}</annotation></semantics></math>
+para
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>μ</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\mu}</annotation></semantics></math>
+(usando por ejemplo
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>C</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">MCV</annotation></semantics></math>).</p></li>
+<li><p>Para
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k\geq 1</annotation></semantics></math>,
+usando la ventana
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝐇</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{H}^{(k-1)}</annotation></semantics></math>
+calcular
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>𝛍</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>𝐒</mi><mi>𝐘</mi></mrow><annotation encoding="application/x-tex">\hat{\boldsymbol{\mu}} = \mathbf{S}\mathbf{Y}</annotation></semantics></math>
+y los correspondientes residuos
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>𝛆</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\boldsymbol{\varepsilon}}</annotation></semantics></math>.</p></li>
 <li><p>Empleando el algoritmo para la corrección de sesgo, obtener una
-estimación piloto <span class="math inline">\(\tilde{\gamma}(\cdot)\)</span>, y ajustar un
-modelo S-B.</p></li>
-<li><p>Construir <span class="math inline">\(\hat{\Sigma}^{(k)}\)</span>
-y seleccionar una nueva ventana <span class="math inline">\(\mathbf{H}^{(k)}\)</span> (empleando <span class="math inline">\(CMCV\)</span> o <span class="math inline">\(CGCV\)</span>).</p></li>
+estimación piloto
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>γ</mi><mo accent="true">̃</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>⋅</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tilde{\gamma}(\cdot)</annotation></semantics></math>,
+y ajustar un modelo S-B.</p></li>
+<li><p>Construir
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi>Σ</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\hat{\Sigma}^{(k)}</annotation></semantics></math>
+y seleccionar una nueva ventana
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>𝐇</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{H}^{(k)}</annotation></semantics></math>
+(empleando
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>M</mi><mi>C</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">CMCV</annotation></semantics></math>
+o
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>G</mi><mi>C</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">CGCV</annotation></semantics></math>).</p></li>
 <li><p>Repetir los pasos 2 al 4 hasta obtener convergencia.</p></li>
 </ol>
-<p>Este algoritmo está implementado en la función <a href="https://rubenfcasal.github.io/npsp/reference/np.fitgeo.html" class="external-link">np.fitgeo</a>
+<p>Este algoritmo está implementado en la función <a href="https://rubenfcasal.github.io/npsp/reference/np.fitgeo.html">np.fitgeo</a>
 y normalmente dos iteraciones (el valor por defecto) son suficientes.
 Por ejemplo, se podría hacer un modelado automático ejecutando:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
@@ -755,13 +850,13 @@ Por ejemplo, se podría hacer un modelado automático ejecutando:</p>
 <span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.75    0.28    1.08 </code></pre>
+   0.24    0.06    1.08 </code></pre>
 <p>El parámetro <code>iter</code> controla el número máximo de
 iteraciones del algoritmo completo. Estableciendo <code>iter = 0</code>
 se emplea el variograma residual:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">geom0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/np.fitgeo.html">np.fitgeo</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, iter <span class="op">=</span> <span class="fl">0</span>, h.start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>La rutina devuelve el modelo no paramétrico ajustado, un objeto <a href="https://rubenfcasal.github.io/npsp/reference/np.geo.html" class="external-link">np.geo</a>
+<p>La rutina devuelve el modelo no paramétrico ajustado, un objeto <a href="https://rubenfcasal.github.io/npsp/reference/np.geo.html">np.geo</a>
 que contiene las estimaciones de la tendencia y del variograma. Al
 representarlo gráficamente:</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
@@ -793,7 +888,7 @@ variograma residual.</p>
 <span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span>total <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   2.74    0.11    2.84 </code></pre>
+   0.58    0.05    2.53 </code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, omd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.9</span>, <span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">scale.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">krig.grid0</span><span class="op">$</span><span class="va">trend</span>, <span class="va">krig.grid</span><span class="op">$</span><span class="va">trend</span>, finite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -838,10 +933,10 @@ diferencias entre los resultados obtenidos con distintos modelos.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/cpu.time.html">cpu.time</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Time of last operation: 
    user  system elapsed 
-   0.72    0.03    0.75 
+   0.23    0.00    0.56 
 Total time:
    user  system elapsed 
-   6.32    0.74    7.13 </code></pre>
+   1.30    0.14    6.82 </code></pre>
 <div class="section level3">
 <h3 id="futuras-implementaciones">Futuras implementaciones<a class="anchor" aria-label="anchor" href="#futuras-implementaciones"></a>
 </h3>
@@ -899,9 +994,7 @@ Chapman and Hall, London.</p></li>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -914,16 +1007,16 @@ Chapman and Hall, London.</p></li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

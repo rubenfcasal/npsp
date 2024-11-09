@@ -110,6 +110,15 @@ Wand M.P. (1994) Fast Computation of Multivariate Kernel Estimators.
 
 Wand M.P. and Jones M.C. (1995) \emph{Kernel Smoothing}. Chapman and Hall, London.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://rubenfcasal.github.io/npsp/}
+  \item \url{https://github.com/rubenfcasal/npsp/}
+  \item Report bugs at \url{https://github.com/rubenfcasal/npsp/issues/}
+}
+
+}
 \author{
 Ruben Fernandez-Casal (Dep. Mathematics, University of A Coruña, Spain).
 Please send comments, error reports or suggestions to \email{rubenfcasal@gmail.com}.

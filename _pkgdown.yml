@@ -1,4 +1,9 @@
-url: http://rubenfcasal.github.io/npsp
+url: https://rubenfcasal.github.io/npsp/
+
+# template:
+#   bootstrap: 5
+#   bootswatch: cerulean
+#   math-rendering: mathjax
 
 template:
   params:
